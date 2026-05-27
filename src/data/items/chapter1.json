@@ -100,5 +100,29 @@
     "name": "醉汉证词",
     "description": "醉汉张三亲历的证词：逃跑者腰间别着黑色牌子，入夜后曾与掌柜有过接触。",
     "isClue": true
+  },
+  {
+    "id": "alley_rubbing",
+    "name": "巷中拓印",
+    "description": "用薄纸拓下后巷墙角刻记得到的印迹。纹路繁复，三横一竖，中间是个变形的鸟形轮廓，像某种帮派暗号。",
+    "isClue": true
+  },
+  {
+    "id": "dafei_inner_token",
+    "name": "大飞帮内部令牌",
+    "description": "飞爷亲手交给你的铜质腰牌，背面刻着「飞」字暗记。持此令牌，可在大飞帮势力范围内通行无阻——至少飞爷是这么说的。",
+    "isClue": false
+  },
+  {
+    "id": "extortion_note",
+    "name": "勒索纸条",
+    "description": "一张折叠的粗纸，上书「名单交出来，货还你」，字迹粗犷，力透纸背，右下角印着一枚浪形印章。",
+    "isClue": true
+  },
+  {
+    "id": "merchant_manifest",
+    "name": "药商货单",
+    "description": "周药商的货物清单，正面是寻常药材名录，背面墨迹隐约——细看之下，是一份人名抄录，其中两个名字与天机阁人员名录重合。",
+    "isClue": true
   }
 ]
