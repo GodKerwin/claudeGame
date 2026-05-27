@@ -352,5 +352,93 @@
         "grants": {}
       }
     ]
+  },
+  {
+    "id": "evt_alley_marks",
+    "title": "查看墙上刻记",
+    "description": "青砖墙的转角处，有一组浅浅的刻痕，像是被人刻意做下的记号。寻常人走过，多半视而不见。",
+    "requires": null,
+    "actions": [
+      {
+        "id": "examine_marks_wise",
+        "label": "仔细辨认刻记（需智慧≥6）",
+        "requires": {
+          "wisdom": 6,
+          "flags_absent": ["alley_marks_found"]
+        },
+        "result": "你蹲下细看：三横一竖，中间是个变形的鸟形轮廓。帮派暗记——你在江湖上见过类似的标记方式，这不是大飞帮的风格，出自另一股势力之手。你用随身的薄纸将印迹仔细拓了下来。",
+        "grants": {
+          "flags": ["alley_marks_found", "langpeng_discovered"],
+          "items": ["alley_rubbing"]
+        }
+      },
+      {
+        "id": "examine_marks_basic",
+        "label": "查看墙上刻记",
+        "requires": {
+          "flags_absent": ["alley_marks_found"]
+        },
+        "result": "墙上有一组奇怪的刻痕，像是某种记号。你看不出来历，但样式陌生，不像是寻常记路用的，倒像是刻意留给懂行人看的。你用薄纸把它拓了下来，或许找人能看出名堂。",
+        "grants": {
+          "flags": ["alley_marks_found"],
+          "items": ["alley_rubbing"]
+        }
+      },
+      {
+        "id": "marks_done",
+        "label": "再看一眼刻记",
+        "requires": {
+          "flags": ["alley_marks_found"]
+        },
+        "result": "那几道刻痕依旧刻在墙上，拓印已经在你手里了，再多看也看不出新东西。",
+        "grants": null
+      }
+    ]
+  },
+  {
+    "id": "evt_cargo_remnants",
+    "title": "检查残余货物",
+    "description": "周药商货箱的残骸散落在巷角，盖板被撬开，里头的药材翻乱不堪。夹层似乎还有些东西没被劫走。",
+    "requires": {
+      "flags": ["merchant_zhou_talked"]
+    },
+    "actions": [
+      {
+        "id": "search_wise",
+        "label": "仔细搜查货箱夹层（需智慧≥7）",
+        "requires": {
+          "wisdom": 7,
+          "flags": ["merchant_zhou_talked"],
+          "flags_absent": ["manifest_found"]
+        },
+        "result": "你系统地检查每一层隔板，在最底层的暗格里找到一张叠起的货单。翻到背面——墨迹未干，是一份人名抄录，字体潦草却清晰可辨。其中两个名字，你在天机阁人员名录上见过。浪鹏帮在追同一批人。",
+        "grants": {
+          "flags": ["manifest_found", "manifest_decoded"],
+          "items": ["merchant_manifest"]
+        }
+      },
+      {
+        "id": "search_basic",
+        "label": "翻找货箱残余",
+        "requires": {
+          "flags": ["merchant_zhou_talked"],
+          "flags_absent": ["manifest_found"]
+        },
+        "result": "货箱里大多被翻空了，你在最底层的暗格里摸到一张折叠的货单。正面是药材名录，看起来普普通通——但纸张略厚，似乎背面还藏着什么，一时又看不分明。",
+        "grants": {
+          "flags": ["manifest_found"],
+          "items": ["merchant_manifest"]
+        }
+      },
+      {
+        "id": "manifest_obtained",
+        "label": "货单已取得",
+        "requires": {
+          "flags": ["manifest_found"]
+        },
+        "result": "货箱已经搜查过了，货单已在你手中。",
+        "grants": null
+      }
+    ]
   }
 ]
