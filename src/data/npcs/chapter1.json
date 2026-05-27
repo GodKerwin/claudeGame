@@ -24,6 +24,18 @@
         "grants": { "flags": ["innkeeper_tianji_secret"] }
       },
       {
+        "id": "manifest_inquiry",
+        "condition": {
+          "flags": ["innkeeper_met"],
+          "has": ["merchant_manifest"],
+          "flags_absent": ["merchant_clue_confirmed"]
+        },
+        "text": "你将货单递给李福，他接过来，只扫了一眼背面的字迹，手微微一顿。\n\n「这些名字……」他将货单还给你，语气恢复平静，「客官，这些名字你最好忘掉。这客栈里发生的事已经够复杂了，不必再往深处探。」\n\n他没有多说。但那一瞬间的停顿，说明了一切。",
+        "grants": {
+          "flags": ["merchant_clue_confirmed", "langpeng_active"]
+        }
+      },
+      {
         "id": "after_trusted",
         "condition": { "flags": ["innkeeper_trusted"] },
         "text": "地窖里有些异样，我本想不管的，只是昨夜听到声响……客官请自便。"
@@ -107,6 +119,28 @@
         "grants": { "flags": ["white_stranger_trust"], "items": ["forest_fragment"], "clues": ["forest_fragment"] }
       },
       {
+        "id": "manifest_inquiry",
+        "condition": {
+          "has": ["merchant_manifest"],
+          "flags_absent": ["merchant_clue_confirmed"]
+        },
+        "text": "白衣人接过货单，在背面人名上停留片刻，轻声开口：\n\n「浪鹏帮和大飞帮，都在追同一样东西。而那样东西，就在这客栈里待过。」\n\n他将货单还给你，目光深沉，「你现在夹在两帮之间。选边站，是最愚蠢的做法。」",
+        "grants": {
+          "flags": ["merchant_clue_confirmed", "langpeng_active"]
+        }
+      },
+      {
+        "id": "langpeng_boss_hint",
+        "condition": {
+          "flags": ["merchant_clue_confirmed", "white_stranger_trust"],
+          "flags_absent": ["langpeng_boss_hinted"]
+        },
+        "text": "「浪鹏帮的帮主，江湖上人称『浪王』，从不露面，只派手下行事。」白衣人停顿了一下，「连我，也从未见过他的真面目。」",
+        "grants": {
+          "flags": ["langpeng_boss_hinted"]
+        }
+      },
+      {
         "id": "wuxue_gift",
         "condition": { "flags": ["white_stranger_trust"], "agility": 7, "flags_absent": ["learned_wuhen_bu"] },
         "text": "你的步法颇有几分灵性。这套《无痕步》，适合你。",
@@ -161,6 +195,19 @@
           "items": ["wuxue_gui_bu_lianhuan"],
           "clues": ["dafei_secret_intel"],
           "quests": ["quest_dafei_gang"]
+        }
+      },
+      {
+        "id": "alley_intel",
+        "condition": {
+          "flags": ["dafei_joined", "langpeng_discovered"],
+          "has": ["alley_rubbing"],
+          "flags_absent": ["fei_ye_trust_deepened"]
+        },
+        "text": "你将拓印递给飞爷，他接过细看，眼神瞬间沉了下去。\n\n「浪鹏帮的人……他们追到这里来了。」他将拓印还给你，声音压低了几分，「三年前我们截了他们一条漕运线，从那以后没消停过。你明白这意味着什么——他们不只是来找我，他们也在追那份名单。」\n\n他从腰间解下一块铜质腰牌递来：「拿着。这东西以后用得上。」",
+        "grants": {
+          "flags": ["fei_ye_trust_deepened"],
+          "items": ["dafei_inner_token"]
         }
       },
       {
