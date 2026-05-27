@@ -40,7 +40,7 @@
         "name": "城郊树林",
         "description": "天色将暮，林间树影婆娑，偶有鸦啼。你循着大堂地面上的模糊脚印一路追来，树林深处忽有人影一闪而过。枯树旁，一名白衣人背对着你站立，衣袂随风轻扬；树林边缘的空地上，一个须发皆白的老头正摆摊卖符纸。",
         "interactables": ["npc_white_stranger", "npc_paper_seller", "evt_forest_tracks"],
-        "exits": ["lobby"],
+        "exits": ["lobby", "back_alley"],
         "requires": { "flags": ["found_escape_clue"] }
       },
       {
@@ -52,6 +52,14 @@
         "requires": {
           "flags": ["clue_blood_letter_found", "clue_arsenic_found", "cellar_fragment_obtained"]
         }
+      },
+      {
+        "id": "back_alley",
+        "name": "城郊后巷",
+        "description": "客栈背后延伸出去的一条窄巷，青砖墙壁上留着各色痕迹。白日里少有人走动，只有偶尔路过的乞丐和来往的货商。转角处，一段墙壁上的刻痕引人注目。",
+        "interactables": ["npc_old_beggar", "npc_merchant_zhou", "evt_alley_marks", "evt_cargo_remnants"],
+        "exits": ["forest"],
+        "requires": { "flags": ["found_escape_clue"] }
       }
     ]
   }
