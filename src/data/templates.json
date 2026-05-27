@@ -1,0 +1,42 @@
+[
+  {
+    "id": "youxia",
+    "name": "游侠",
+    "description": "行走江湖的剑客，以力破局，快意恩仇。",
+    "flavor": "「路见不平，拔刀相助。」",
+    "stats": { "strength": 8, "agility": 7, "wisdom": 5, "constitution": 4 },
+    "talent": "天生神力"
+  },
+  {
+    "id": "moushi",
+    "name": "谋士",
+    "description": "运筹帷幄的智者，以谋破局，料事如神。",
+    "flavor": "「千军易得，一将难求。」",
+    "stats": { "strength": 3, "agility": 5, "wisdom": 10, "constitution": 6 },
+    "talent": "过目不忘"
+  },
+  {
+    "id": "cike",
+    "name": "刺客",
+    "description": "暗行于影的刀客，以快破局，神出鬼没。",
+    "flavor": "「最快的刀，是对手看不见的刀。」",
+    "stats": { "strength": 5, "agility": 10, "wisdom": 5, "constitution": 4 },
+    "talent": "江湖老千"
+  },
+  {
+    "id": "yaoshi",
+    "name": "药师",
+    "description": "精通本草的行医者，以毒破局，悬壶济世。",
+    "flavor": "「世间没有无用之毒，只有无用之人。」",
+    "stats": { "strength": 4, "agility": 5, "wisdom": 6, "constitution": 9 },
+    "talent": "毒体"
+  },
+  {
+    "id": "quanneng",
+    "name": "全能客",
+    "description": "阅历丰富的江湖过客，各有所长，随机应变。",
+    "flavor": "「江湖路远，处处皆学问。」",
+    "stats": { "strength": 6, "agility": 6, "wisdom": 6, "constitution": 6 },
+    "talent": "察言观色"
+  }
+]
