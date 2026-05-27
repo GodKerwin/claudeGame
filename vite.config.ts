@@ -1,13 +1,19 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import type { InlineConfig } from 'vitest/node';
+
+interface VitestConfig {
+  test?: InlineConfig;
+}
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // @ts-expect-error vitest adds 'test' to config at runtime
-  test: {
-    globals: true,
-    environment: 'jsdom',
-    setupFiles: './src/test-setup.ts',
-  },
+  ...(({
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './src/test-setup.ts',
+    },
+  }) as VitestConfig),
 });
