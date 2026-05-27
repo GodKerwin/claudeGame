@@ -139,6 +139,7 @@ export default function CharacterCreate() {
           <div className="border border-gold/10 p-4">
             <p className="text-gold/60 text-xs mb-2 tracking-widest">【天赋】{talent.name}</p>
             <p className="text-ink/70 text-sm">{talent.description}</p>
+            <p className="text-ink/40 text-xs mt-1">{talent.effect}</p>
           </div>
         )}
 

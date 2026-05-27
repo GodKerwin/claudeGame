@@ -93,6 +93,7 @@ export interface Talent {
   id: string;
   name: string;
   description: string;
+  effect: string;
 }
 
 export interface CharacterTemplate {
