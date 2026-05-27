@@ -1,1 +1,356 @@
-[]
+[
+  {
+    "id": "evt_body_examine",
+    "title": "检查尸体",
+    "description": "宋怀义侧卧在床榻旁，面色青紫，双拳紧握。床头有翻乱的痕迹，枕头下的角落隐约可见一块暗色的东西。",
+    "requires": null,
+    "actions": [
+      {
+        "id": "examine_wounds",
+        "label": "查看伤口",
+        "requires": null,
+        "result": "颈部有明显的勒痕，但伤口边缘发青，更像是先被毒物击昏，再被人勒毙。死前曾拼命挣扎过。",
+        "grants": { "flags": ["body_examined", "wound_examined"] }
+      },
+      {
+        "id": "find_under_pillow",
+        "label": "翻找枕下",
+        "requires": { "flags_absent": ["blood_letter_found"] },
+        "result": "枕头下藏着一块染血的令牌，正面刻着\"天机\"二字，背面用血书写着\"东——三\"，笔画颤抖，是死者最后留下的。",
+        "grants": { "flags": ["blood_letter_found", "clue_blood_letter_found"], "items": ["blood_letter"], "clues": ["blood_letter"] }
+      },
+      {
+        "id": "check_hands",
+        "label": "察看死者双手",
+        "requires": { "wisdom": 6 },
+        "result": "死者右手指甲缝中夹着一小撮黑色布料纤维，材质特殊，不是寻常布匹。左手腕上有一道细小的针刺痕迹，入针极准。",
+        "grants": { "flags": ["cloth_fiber_found"], "clues": ["cloth_fiber_clue"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_room_search",
+    "title": "搜查房间",
+    "description": "二〇二号房已被翻乱，行囊被人搜检过。地板上有几处异样的灰尘痕迹，窗户虚掩着。",
+    "requires": null,
+    "actions": [
+      {
+        "id": "search_luggage",
+        "label": "检查行囊",
+        "requires": { "flags_absent": ["room_searched"] },
+        "result": "行囊里的物件被翻得乱七八糟，但仍残留一份半写完的信件，收信人名字被撕去了，只余\"……务必在三日内将《残卷》第五页带至……\"，笔迹工整。",
+        "grants": { "flags": ["room_searched"], "clues": ["partial_letter"], "items": ["partial_letter"] }
+      },
+      {
+        "id": "find_floor_mark",
+        "label": "查看地板痕迹",
+        "requires": { "agility": 5 },
+        "result": "灰尘中有两种不同的脚印：一种大而沉，是宋怀义本人的；另一种细窄，像是女子的绣鞋，或身法极轻的刺客所穿。",
+        "grants": { "clues": ["footprint_clue"] }
+      },
+      {
+        "id": "check_window",
+        "label": "查看窗户",
+        "requires": null,
+        "result": "窗扇外侧有抓痕，从窗台向下延伸，凶手可能是从外墙攀入，也可能是事后从此处离开。",
+        "grants": { "flags": ["window_checked"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_window_look",
+    "title": "从窗口远望",
+    "description": "二〇三号房的窗口正对着客栈后院，隐约可以看到一些痕迹。",
+    "requires": null,
+    "actions": [
+      {
+        "id": "look_outside",
+        "label": "探身望向院子",
+        "requires": null,
+        "result": "后院黄土地上有一串乱步，向东延伸，没入树林方向。脚印新鲜，应是昨夜留下。",
+        "grants": { "flags": ["seen_tracks_from_window"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_notice_board",
+    "title": "查看公告板",
+    "description": "公告板上贴着七八张告示，大多是寻人启事和商铺广告，但最右下角有一张笔墨尚新的\"失物招领\"，内容措辞有些奇怪。",
+    "requires": null,
+    "actions": [
+      {
+        "id": "read_notice",
+        "label": "浏览所有告示",
+        "requires": { "flags_absent": ["dafei_notice_found"] },
+        "result": "大部分告示无特殊之处，那张失物招领写道：招领黑铁刀一把，失主速认领。落款为一首短诗：「大道无形生育天地，风吹万物自在飘荡，起舞江湖笑傲苍穹，兮有知音共话沧桑，云卷云舒随心所欲，飞鸟归林各得其所，扬名立万只在今时。」",
+        "grants": { "flags": ["notice_read"] }
+      },
+      {
+        "id": "decode_acrostic",
+        "label": "细读诗文寻找规律",
+        "requires": { "wisdom": 6, "flags": ["notice_read"] },
+        "result": "你逐字审视，忽然发现——每行首字连读：大、风、起、兮、云、飞、扬。「大飞」二字呼之欲出，这是某个组织留下的暗号。你在地板角落找到一块铜牌，想必就是那把\"黑铁刀\"对应的真正\"失物\"。",
+        "grants": { "flags": ["dafei_notice_found", "dafei_acrostic_decoded"], "items": ["broken_copper_badge"] }
+      },
+      {
+        "id": "decode_acrostic_talent",
+        "label": "扫一眼，脑中已有印象",
+        "requires": { "talent": "过目不忘" },
+        "result": "告示上的字句在你脑中过了一遍，每行首字的规律跃然而出——大、风、起、兮、云、飞、扬。藏头诗，某个组织的接头暗号。你在地板角落找到了一块被踢到缝隙里的铜牌。",
+        "grants": { "flags": ["dafei_notice_found", "dafei_acrostic_decoded"], "items": ["broken_copper_badge"] }
+      },
+      {
+        "id": "read_again",
+        "label": "再看一遍告示",
+        "requires": { "flags": ["notice_read"], "flags_absent": ["dafei_notice_found"] },
+        "result": "告示内容如前，你总觉得那首诗有些蹊跷，却一时想不透。也许需要更仔细地推敲……",
+        "grants": {}
+      }
+    ]
+  },
+  {
+    "id": "evt_arsenic_trace",
+    "title": "检查砒霜痕迹",
+    "description": "白色粉末散落在灶台旁，药罐倒扣在地，附近没有其他药材。",
+    "requires": { "flags": ["innkeeper_talked"] },
+    "actions": [
+      {
+        "id": "smell_powder",
+        "label": "闻一闻白色粉末",
+        "requires": { "flags_absent": ["arsenic_identified"] },
+        "result": "淡淡的大蒜气味，这是砒霜无误。分量不少，足以毒杀一个成年人。有人刻意将它掺入了某样食物或饮品。",
+        "grants": { "flags": ["arsenic_identified", "clue_arsenic_found"], "items": ["arsenic_evidence"], "clues": ["arsenic_evidence"] }
+      },
+      {
+        "id": "constitution_test",
+        "label": "以指沾取微量尝味",
+        "requires": { "constitution": 7, "flags_absent": ["arsenic_identified"] },
+        "result": "你以内力护体，以指尖沾了极少量置于舌尖——苦涩之中带着灼烧感，确是砒霜，且纯度极高，非一般市售之物。此乃专业人士手中的物事。",
+        "grants": { "flags": ["arsenic_identified", "arsenic_highgrade", "clue_arsenic_found"], "items": ["arsenic_evidence"], "clues": ["arsenic_evidence"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_secret_tunnel",
+    "title": "寻找密道",
+    "description": "后厨角落的柴垛后面，墙壁有些异常，或许藏着什么。",
+    "requires": { "flags": ["innkeeper_talked"] },
+    "actions": [
+      {
+        "id": "move_woodpile",
+        "label": "搬开柴垛察看",
+        "requires": { "strength": 5, "flags_absent": ["secret_tunnel_found"] },
+        "result": "柴垛后面是一扇低矮的木门，上面落着灰尘，但门缝旁有新鲜的土迹——最近有人用过。门后是一条向下延伸的暗道，通向何处不得而知。",
+        "grants": { "flags": ["secret_tunnel_found"], "items": ["secret_tunnel_map"], "clues": ["secret_tunnel_map"] }
+      },
+      {
+        "id": "detect_tunnel",
+        "label": "叩击墙面聆听",
+        "requires": { "wisdom": 6, "flags_absent": ["tunnel_location_detected"] },
+        "result": "你沿着墙壁叩击，柴垛后方发出沉闷的空响——后面是空的，密道就在此处。不过要移开柴垛，还需一番力气。",
+        "grants": { "flags": ["tunnel_location_detected"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_cellar_mechanism",
+    "title": "密室机关",
+    "description": "石墙上的细缝透着寒气，近看之下，缝隙旁嵌着一个铜制圆环，环上刻着八卦纹路。酒坛后面还隐着一扇木门，角落里有一扇侧窗，以及一股浓烈的奇异气味从墙缝渗出。",
+    "requires": { "flags": ["innkeeper_trusted"] },
+    "actions": [
+      {
+        "id": "decode_mechanism",
+        "label": "推算铜环机关纹路",
+        "requires": { "wisdom": 8, "flags_absent": ["secret_room_opened"] },
+        "result": "你细观铜环上的八卦排列，推算出对应的卦序，依次拨动——咔哒、咔哒、咔哒——石门缓缓内移，一间密室出现在眼前。室内尘封已久，正中一张石台上摆着一只锦盒。",
+        "grants": { "flags": ["secret_room_opened", "cellar_entered_wisdom"] }
+      },
+      {
+        "id": "break_door",
+        "label": "运气撞开木门",
+        "requires": { "strength": 9, "flags_absent": ["secret_room_opened"] },
+        "result": "你沉气凝神，双掌贴上木门运起内力，轰然一震——木门应声而裂，尘灰四散，动静不小。密室就在门后。你进去了，但外面应该有人听到了声音。",
+        "grants": { "flags": ["secret_room_opened", "made_noise", "cellar_entered_strength"] }
+      },
+      {
+        "id": "climb_window",
+        "label": "翻越侧窗潜入",
+        "requires": { "agility": 7, "flags_absent": ["secret_room_opened"] },
+        "result": "你借力墙壁，身法轻灵地从侧窗鱼跃而入，悄无声息地落进密室，连灰尘都没带起多少。室内安静如故。",
+        "grants": { "flags": ["secret_room_opened", "entered_silently", "cellar_entered_agility"] }
+      },
+      {
+        "id": "through_poison",
+        "label": "屏息穿越毒烟（需毒体）",
+        "requires": { "constitution": 8, "talent": "毒体", "flags_absent": ["secret_room_opened"] },
+        "result": "你察觉到角落飘来一丝微弱的气味——寻常人怕是早已昏倒。你从容屏息，踏过毒烟区域，绕至密室的另一道暗门，推门而入。毒雾对你，不过清风拂面。",
+        "grants": { "flags": ["secret_room_opened", "immune_shown", "cellar_entered_poison"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_cellar_fragment",
+    "title": "密室内的锦盒",
+    "description": "石台上的锦盒看起来已有些年月，盒盖上刻着\"天机\"两字。",
+    "requires": { "flags": ["secret_room_opened"] },
+    "actions": [
+      {
+        "id": "open_box",
+        "label": "打开锦盒",
+        "requires": { "flags_absent": ["cellar_fragment_obtained"] },
+        "result": "锦盒内铺着半朽的绸缎，中间放着一片卷轴碎片，纸质古旧，上书密密麻麻的小字，其中一行清晰可辨：「天机阁第五代传人，藏残卷于……」后面的字已模糊难辨。这是《天机残卷》的一部分。",
+        "grants": { "flags": ["cellar_fragment_obtained"], "items": ["cellar_fragment"], "clues": ["cellar_fragment"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_wine_jars",
+    "title": "检查酒坛",
+    "description": "角落堆放的酒坛有十数只，大多封口完好，但最里面一只倒扣着，底部有些不自然。",
+    "requires": null,
+    "actions": [
+      {
+        "id": "check_overturned_jar",
+        "label": "翻看倒扣的酒坛",
+        "requires": { "flags_absent": ["wine_jar_checked"] },
+        "result": "酒坛底部用蜡封着一块薄薄的铁片，上面刻着几行密文，你认不出是什么暗语，但显然有人故意藏在这里。",
+        "grants": { "flags": ["wine_jar_checked"], "clues": ["wine_jar_iron_plate"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_forest_tracks",
+    "title": "追踪脚印",
+    "description": "林间泥土松软，逃跑者留下了明显的足迹，向树林深处延伸。",
+    "requires": { "flags": ["found_escape_clue"] },
+    "actions": [
+      {
+        "id": "follow_tracks",
+        "label": "循迹追踪",
+        "requires": { "agility": 5, "flags_absent": ["tracks_followed"] },
+        "result": "你快步追踪脚印，沿途发现一块被丢弃的布条——黑色，与死者手指间发现的纤维材质一致。足迹最终消失在一块大石后方。凶手从此处换了鞋，改变了行进方向。",
+        "grants": { "flags": ["tracks_followed"], "clues": ["abandoned_cloth"] }
+      },
+      {
+        "id": "examine_surroundings",
+        "label": "观察周围迹象",
+        "requires": { "wisdom": 6, "flags_absent": ["forest_clue_found"] },
+        "result": "脚印旁边的草丛有被人拨开的痕迹，树皮上有一道新鲜的刀痕，像是有人故意留下的记号，指向树林的东北方向。",
+        "grants": { "flags": ["forest_clue_found"], "clues": ["forest_direction_mark"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_copper_badge_examine",
+    "title": "细看铜牌",
+    "description": "这枚残破的铜牌背面有极细小的刻字，在光线下隐约可见，但太小了，几乎看不清。",
+    "requires": { "has": ["broken_copper_badge"] },
+    "actions": [
+      {
+        "id": "read_with_magnifier",
+        "label": "用放大镜辨读",
+        "requires": { "has": ["magnifying_glass"], "flags_absent": ["dafei_password_known"] },
+        "result": "放大镜下，背面的微刻清晰可辨——「云散见青天」五字，应是某种暗语。",
+        "grants": { "flags": ["dafei_password_known"] }
+      },
+      {
+        "id": "read_hold_breath",
+        "label": "屏气凝神，极力辨读",
+        "requires": { "constitution": 5, "flags_absent": ["dafei_password_known"] },
+        "result": "你凝神静气，运起内功稳住双手，在阳光下微微转动铜牌——「云散见青天」，五个细如发丝的字慢慢呈现。",
+        "grants": { "flags": ["dafei_password_known"] }
+      },
+      {
+        "id": "read_talent",
+        "label": "借助天赋专注辨读",
+        "requires": { "talent": "过目不忘", "flags_absent": ["dafei_password_known"] },
+        "result": "你定睛扫过铜牌背面，视线所及之处纤毫毕现——「云散见青天」，就是这五个字。",
+        "grants": { "flags": ["dafei_password_known"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_tianji_records",
+    "title": "天机阁档案",
+    "description": "正堂角落有一口半开的木箱，里面整齐地叠放着卷轴和册子，大多字迹已经模糊，但仍有部分可以辨读。",
+    "requires": { "flags_absent": ["tianji_records_found"] },
+    "actions": [
+      {
+        "id": "read_records",
+        "label": "翻阅档案",
+        "requires": null,
+        "result": "你翻出一本薄册，扉页上写着\"天机阁长安分支——人员名录（机密）\"。宋怀义的名字赫然在列，旁边注有\"线人·叛\"二字，以及一个日期——十年前。有人在追杀叛徒。",
+        "grants": { "flags": ["tianji_records_found"], "items": ["tianji_roster"], "clues": ["tianji_roster"] }
+      },
+      {
+        "id": "deep_search",
+        "label": "仔细深挖箱底",
+        "requires": { "wisdom": 7 },
+        "result": "你在最底层发现一封密信，信封用特殊的蜡封口，上面印着飞鸟图案。信中写道：「残卷已取，人已除，望速来接应。」落款只有一个字：「鸢」。",
+        "grants": { "flags": ["kite_identity_clue"], "items": ["kite_letter"], "clues": ["kite_letter"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_final_confrontation",
+    "title": "终章：真相",
+    "description": "你已集齐线索，真相的轮廓已经清晰。就在此时，废弃宅院正堂的后门忽然被推开……",
+    "requires": {
+      "flags": ["tianji_records_found", "clue_blood_letter_found", "clue_arsenic_found"]
+    },
+    "actions": [
+      {
+        "id": "truth_ending",
+        "label": "「我知道是谁干的了。」（真相路线）",
+        "requires": { "flags": ["kite_identity_clue", "cloth_fiber_found", "tianji_records_found"] },
+        "result": "你将所有线索串连：宋怀义是天机阁的叛徒线人，十年前他带走了一份名单；幕后主使「鸢」派人先以毒物击昏他，再假扮意外勒毙；凶手在后厨留下砒霜是个失误——原本打算毒杀后制造溺水假象，却被厨娘目击而仓皇更改计划。\n\n正堂中走出的人，你认识——正是掌柜李福的账房先生。他面色煞白，手中握着一把短刀……\n\n第一章·终。",
+        "grants": { "flags": ["chapter1_truth_ending"] }
+      },
+      {
+        "id": "force_ending",
+        "label": "「管他真相，先擒人！」（莽夫路线）",
+        "requires": { "strength": 8 },
+        "result": "你看见后门闪入的人影，凭着力气追上，将其按倒在地。那人是个年轻的伙计，满身颤抖，招认是受人指使，却说不出幕后主使是谁——真正的幕后人趁乱逃脱了。\n\n你抓了个跑腿的，而真正的谋划者，仍隐于暗处。\n\n第一章·终。",
+        "grants": { "flags": ["chapter1_force_ending"] }
+      },
+      {
+        "id": "hermit_ending",
+        "label": "「白衣人说的没错……」（隐士路线）",
+        "requires": { "flags": ["white_stranger_trust", "learned_wuhen_bu"] },
+        "result": "你想起白衣人临别时的话：「真相不总是用来揭露的，有时，它是你活命的筹码。」\n\n你没有正面迎击，而是悄无声息地退出了宅院，带着你已知道的一切。有些东西，比真相更重要——活着，继续追查。\n\n第一章·终。",
+        "grants": { "flags": ["chapter1_hermit_ending"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_dry_well",
+    "title": "枯井",
+    "description": "院子东侧的枯井约有两丈深，井壁上刻满了形似太极的符文。井底有一道铁门，门上嵌着五个铜轮，每轮刻有零到九的数字。门旁的石壁上刻着：\"金木水火土，各归其位，方得开启。\"",
+    "requires": { "flags": ["dafei_address_obtained"] },
+    "actions": [
+      {
+        "id": "enter_well",
+        "label": "下到井底",
+        "requires": { "agility": 5, "flags_absent": ["dafei_well_entered"] },
+        "result": "你借助井壁上的凹槽手脚并用下到井底，身前是那道嵌着五个铜轮的铁门，数字轮转动自如。",
+        "grants": { "flags": ["dafei_well_entered"] }
+      },
+      {
+        "id": "solve_lock",
+        "label": "拨动铜轮开锁",
+        "requires": {
+          "flags": ["dafei_well_entered", "clue_blood_letter_found", "clue_arsenic_found", "cellar_fragment_obtained"]
+        },
+        "result": "你回想起三处线索中隐藏的数字：血字令牌上写着「东——三步」；砒霜证据查验时分量是「二钱」；密室碎片上标注的是「第五代」。\n\n三、二、五。你依次拨动铜轮：三——二——五。\n\n咔哒一声，铁门应声而开，一道昏黄的烛光从门后透出。门内，那个普通得记不住面孔的中年人正坐在矮凳上，嘴角带笑望向你。",
+        "grants": { "flags": ["dafei_lock_solved"] }
+      },
+      {
+        "id": "guess_lock",
+        "label": "随机尝试数字组合",
+        "requires": { "flags": ["dafei_well_entered"], "flags_absent": ["dafei_lock_solved"] },
+        "result": "你随机拨动了几次，铜轮纹丝不动，发出刺耳的摩擦声。看来需要找到正确的数字线索才行。",
+        "grants": {}
+      }
+    ]
+  }
+]

@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "id": "chapter1",
+    "name": "长安城·往事客栈",
+    "rooms": [
+      {
+        "id": "room_203",
+        "name": "二楼客房（二〇三号）",
+        "description": "你从沉睡中惊醒，窗外天光微亮。隔壁传来急促的敲门声与压低的哭声。你推开房门，走廊尽头，客栈伙计跌跌撞撞地奔来——隔壁二〇二号房的商人宋怀义，死了。他那房间的门半开着，一股血腥气顺着走廊飘来。",
+        "interactables": ["evt_body_examine", "evt_room_search", "evt_window_look"],
+        "exits": ["lobby"],
+        "requires": null
+      },
+      {
+        "id": "lobby",
+        "name": "客栈大堂",
+        "description": "油灯昏黄，几桌食客低声议论，人人面露惶恐。掌柜李福站在柜台后，神色不安，额角渗着细汗。公告板上贴着几张新旧告示，其中一张的墨迹看起来比其他新。",
+        "interactables": ["npc_innkeeper_li_fu", "npc_drunk_zhang_san", "evt_notice_board"],
+        "exits": ["room_203", "kitchen", "cellar", "forest"],
+        "requires": null
+      },
+      {
+        "id": "kitchen",
+        "name": "后厨",
+        "description": "灶火未熄，锅中不知煮着何物，香气与血腥混在一处。厨娘王氏坐在角落，双手捂脸，肩膀微微颤抖。灶台旁的木架上，一只药罐倒扣在地上，白色粉末撒了一地。密道的入口或许就藏在某处。",
+        "interactables": ["npc_cook_wang", "evt_arsenic_trace", "evt_secret_tunnel"],
+        "exits": ["lobby"],
+        "requires": { "flags": ["innkeeper_talked"] }
+      },
+      {
+        "id": "cellar",
+        "name": "地窖",
+        "description": "青石台阶向下延伸，空气阴冷潮湿，带着陈年酒气。角落堆着十数只酒坛，最里头的石墙上有一道隐约可见的细缝，寒气从中渗出。这道缝隙后面，一定藏着什么。",
+        "interactables": ["evt_cellar_mechanism", "evt_cellar_fragment", "evt_wine_jars"],
+        "exits": ["lobby"],
+        "requires": { "flags": ["innkeeper_trusted"] }
+      },
+      {
+        "id": "forest",
+        "name": "城郊树林",
+        "description": "天色将暮，林间树影婆娑，偶有鸦啼。你循着大堂地面上的模糊脚印一路追来，树林深处忽有人影一闪而过。枯树旁，一名白衣人背对着你站立，衣袂随风轻扬；树林边缘的空地上，一个须发皆白的老头正摆摊卖符纸。",
+        "interactables": ["npc_white_stranger", "npc_paper_seller", "evt_forest_tracks"],
+        "exits": ["lobby"],
+        "requires": { "flags": ["found_escape_clue"] }
+      },
+      {
+        "id": "old_mansion",
+        "name": "废弃宅院",
+        "description": "朱漆大门半开，院内荒草及膝，青砖缝隙间生满苔藓。正堂横梁上悬着一块匾额，\"天机阁\"三字在尘埃下若隐若现，笔力遒劲，想来曾是何等气象。院子东侧，一口干枯的古井静静矗立，井壁上刻满了看不懂的符文。",
+        "interactables": ["evt_tianji_records", "evt_final_confrontation", "evt_dry_well"],
+        "exits": ["lobby"],
+        "requires": {
+          "flags": ["clue_blood_letter_found", "clue_arsenic_found", "cellar_fragment_obtained"]
+        }
+      }
+    ]
+  }
+]

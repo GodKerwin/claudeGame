@@ -1,1 +1,104 @@
-[]
+[
+  {
+    "id": "blood_letter",
+    "name": "染血令牌",
+    "description": "一块铜质令牌，正面刻\"天机\"二字，背面用血书写着\"东——三\"。死者的最后留言，数字\"三\"清晰可辨。",
+    "isClue": true
+  },
+  {
+    "id": "arsenic_evidence",
+    "name": "砒霜证据",
+    "description": "用纸包裹的少量白色粉末，取自后厨现场。纯度极高，分量约二钱，非寻常市售药材。数字\"二\"暗藏其中。",
+    "isClue": true
+  },
+  {
+    "id": "cellar_fragment",
+    "name": "密室残卷碎片",
+    "description": "古旧的卷轴碎片，上书\"天机阁第五代传人……\"，后续文字模糊难辨。数字\"五\"赫然可见。这是《天机残卷》的一部分。",
+    "isClue": true
+  },
+  {
+    "id": "forest_fragment",
+    "name": "树林残卷碎片",
+    "description": "白衣人赠予的卷轴碎片，与密室碎片似乎可以拼合。上面的文字记载着天机阁某处秘密据点的位置。",
+    "isClue": true
+  },
+  {
+    "id": "broken_copper_badge",
+    "name": "残破铜牌",
+    "description": "一块缺了一角的铜质牌子，正面是飞鸟图案，背面有极细小的刻字——需要放大镜或屏气凝神才能辨读。",
+    "isClue": false
+  },
+  {
+    "id": "partial_letter",
+    "name": "半截密信",
+    "description": "收信人名字被撕去，仅余\"……务必在三日内将《残卷》第五页带至……\"字样，笔迹工整，出自受过良好教育之人。",
+    "isClue": true
+  },
+  {
+    "id": "secret_tunnel_map",
+    "name": "密道地图",
+    "description": "一张简略的手绘地图，标注了客栈后厨通往城外枯井的密道走向。废弃宅院东侧有一个圈标记。",
+    "isClue": true
+  },
+  {
+    "id": "dafei_address_note",
+    "name": "枯井地址",
+    "description": "卖符老人给的纸条，上书\"城外废弃宅院，东侧枯井底。敲三下、两下、五下。\"接头暗语已在其中。",
+    "isClue": false
+  },
+  {
+    "id": "tianji_roster",
+    "name": "天机阁人员名录",
+    "description": "一本薄册，记录着天机阁长安分支的成员名单。宋怀义的名字旁注有\"线人·叛\"及十年前的日期。",
+    "isClue": true
+  },
+  {
+    "id": "kite_letter",
+    "name": "鸢字密信",
+    "description": "用蜡封口的密信，落款\"鸢\"，内容为\"残卷已取，人已除，望速来接应。\"幕后主使的身份线索。",
+    "isClue": true
+  },
+  {
+    "id": "wuxue_wuhen_bu",
+    "name": "《无痕步》残本",
+    "description": "白衣人赠予的轻功心法，修炼后步法如风，无声无息。持有后敏捷类行动获得加成。",
+    "isClue": false
+  },
+  {
+    "id": "wuxue_gui_bu_lianhuan",
+    "name": "《鬼步连环》秘籍",
+    "description": "大飞帮专属武学，步法诡异多变，令人难以捉摸。效果等同敏捷+2。飞爷亲授，帮派专属。",
+    "isClue": false
+  },
+  {
+    "id": "dafei_secret_intel",
+    "name": "大飞帮情报",
+    "description": "飞爷所提供的内部消息：宋怀义并非普通商人，而是天机阁的叛变线人。衙门档案室中有一份十年前的旧卷宗可为佐证。",
+    "isClue": true
+  },
+  {
+    "id": "magnifying_glass",
+    "name": "铜制放大镜",
+    "description": "可放大细小文字，用于辨读铜牌背面的微刻——铜牌上刻有大飞帮接头暗语。",
+    "isClue": false
+  },
+  {
+    "id": "tavern_wine",
+    "name": "一碗好酒",
+    "description": "从柜台要来的一碗上好高粱，用来打通关系，软化醉汉的嘴。",
+    "isClue": false
+  },
+  {
+    "id": "cloth_fiber_clue",
+    "name": "黑色布料纤维",
+    "description": "从死者手指甲缝中取下的黑色布料纤维，材质特殊。与后来在树林中发现的废弃布条材质吻合。",
+    "isClue": true
+  },
+  {
+    "id": "drunk_testimony",
+    "name": "醉汉证词",
+    "description": "醉汉张三亲历的证词：逃跑者腰间别着黑色牌子，入夜后曾与掌柜有过接触。",
+    "isClue": true
+  }
+]

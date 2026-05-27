@@ -1,1 +1,179 @@
-[]
+[
+  {
+    "id": "npc_innkeeper_li_fu",
+    "name": "掌柜李福",
+    "description": "五旬上下，腰围颇丰，惯于低眉顺眼地打招呼，今日却像丢了魂儿。",
+    "dialogues": [
+      {
+        "id": "first_meeting",
+        "condition": { "flags_absent": ["innkeeper_met"] },
+        "text": "客官，小店……小店出了大事！昨夜不知何人，竟在本店行凶。衙门已报了，只是还没来人。您若有心，能否帮忙瞧瞧？",
+        "grants": { "flags": ["innkeeper_met", "innkeeper_talked"] }
+      },
+      {
+        "id": "trust_low",
+        "condition": { "flags": ["body_examined"], "flags_absent": ["innkeeper_trusted"] },
+        "text": "客官，您真的在帮忙查案？那……后厨您可以去看看，厨娘王氏昨夜也听到了动静。",
+        "grants": { "flags": ["innkeeper_trusted"] }
+      },
+      {
+        "id": "hidden_tianji",
+        "condition": { "wisdom": 9, "talent": "察言观色", "flags": ["innkeeper_met"] },
+        "text": "……您是怎么看出来的？这块玉佩，是当年天机阁的人托付于我保管的。我与那些人，有旧日恩情。",
+        "hidden": true,
+        "grants": { "flags": ["innkeeper_tianji_secret"] }
+      },
+      {
+        "id": "after_trusted",
+        "condition": { "flags": ["innkeeper_trusted"] },
+        "text": "地窖里有些异样，我本想不管的，只是昨夜听到声响……客官请自便。"
+      },
+      {
+        "id": "normal_chat",
+        "condition": { "flags": ["innkeeper_met"] },
+        "text": "客官，实不相瞒，昨夜小店后厨也有些异动，不过……那是内部之事，还请见谅。"
+      }
+    ]
+  },
+  {
+    "id": "npc_drunk_zhang_san",
+    "name": "醉汉张三",
+    "description": "桌角趴着一个衣衫褴褛的汉子，面前三个空酒碗，鼾声若雷，却又在你靠近时睁开一只眼。",
+    "dialogues": [
+      {
+        "id": "first_greet",
+        "condition": { "flags_absent": ["drunk_talked"] },
+        "text": "嗝——什么事？昨夜？昨夜三更……我，我是睡了，可睡前……二楼有人急着下楼，差点撞了我！脚步很急，像是逃命……",
+        "grants": { "flags": ["drunk_talked", "found_escape_clue"] }
+      },
+      {
+        "id": "more_details",
+        "condition": { "flags": ["drunk_talked"] },
+        "text": "那人……往外跑了，往东边，树林那头去了。你要是追，趁早，脚印还在呢……"
+      },
+      {
+        "id": "bribed_details",
+        "condition": { "flags": ["drunk_talked"], "has": ["tavern_wine"] },
+        "text": "你拿酒换消息……好！那人腰间别着一块黑色牌子，入夜后我还看见他和掌柜说过话。",
+        "grants": { "flags": ["drunk_extra_clue"], "clues": ["drunk_testimony"] }
+      }
+    ]
+  },
+  {
+    "id": "npc_cook_wang",
+    "name": "厨娘王氏",
+    "description": "四十出头，眼角红肿，手指还在微微颤抖，见有人进来，急忙站起身。",
+    "dialogues": [
+      {
+        "id": "first_meet",
+        "condition": { "flags_absent": ["cook_talked"] },
+        "text": "……您是来查案的？我……昨夜我亲眼见到了！二更天，有个黑衣人从后门溜进来，在厨房里翻找了半天。我躲在柴房，不敢出声……他在灶台那边动了什么。",
+        "grants": { "flags": ["cook_talked"] }
+      },
+      {
+        "id": "arsenic_question",
+        "condition": { "flags": ["cook_talked"], "flags_absent": ["cook_arsenic_asked"] },
+        "text": "那堆白粉？那是……砒霜。我也不知怎来的，昨晚还不在的！那黑衣人大概留下的。",
+        "grants": { "flags": ["cook_arsenic_asked"] }
+      },
+      {
+        "id": "tunnel_clue",
+        "condition": { "wisdom": 6, "flags": ["cook_arsenic_asked"] },
+        "text": "您问后门密道？……确实有一条，通向城外的枯井那边。那是当年建客栈时就有的，一般人不知道。",
+        "grants": { "flags": ["tunnel_location_known"] }
+      },
+      {
+        "id": "after_asked",
+        "condition": { "flags": ["cook_talked"] },
+        "text": "我什么都说了……请保护好我，那黑衣人看起来很危险。"
+      }
+    ]
+  },
+  {
+    "id": "npc_white_stranger",
+    "name": "白衣人",
+    "description": "面容清癯，双眸深邃，腰间无刀无剑，却有一种令人无法轻视的气度。白衣无尘，仿佛连树林的泥土都不愿沾染。",
+    "dialogues": [
+      {
+        "id": "first_encounter",
+        "condition": { "flags_absent": ["white_stranger_met"] },
+        "text": "……你循着那人的脚印追来的？那人已经走了。你倒是比我预计的来得快。我在这里等了你一个时辰。",
+        "grants": { "flags": ["white_stranger_met"] }
+      },
+      {
+        "id": "trust_test_justice",
+        "condition": { "flags": ["white_stranger_met"], "flags_absent": ["white_stranger_trust", "white_stranger_refused"] },
+        "text": "我有一件东西想给你，但我需要先知道——你查这案子，究竟是为了什么？\n\n「为了找到真相，让死者安息。」",
+        "grants": { "flags": ["white_stranger_trust"], "items": ["forest_fragment"], "clues": ["forest_fragment"] }
+      },
+      {
+        "id": "wuxue_gift",
+        "condition": { "flags": ["white_stranger_trust"], "agility": 7, "flags_absent": ["learned_wuhen_bu"] },
+        "text": "你的步法颇有几分灵性。这套《无痕步》，适合你。",
+        "grants": { "items": ["wuxue_wuhen_bu"], "flags": ["learned_wuhen_bu"] }
+      },
+      {
+        "id": "after_trust",
+        "condition": { "flags": ["white_stranger_trust"] },
+        "text": "废弃宅院的正堂里，有一份被刻意掩盖的档案。那便是你需要的最后一块拼图。"
+      }
+    ]
+  },
+  {
+    "id": "npc_paper_seller",
+    "name": "卖符老人",
+    "description": "须发皆白，眼神浑浊，摊上摆满了各色黄纸符文，不时抬头扫视来往行人，样子比眼神透露的更为机警。",
+    "dialogues": [
+      {
+        "id": "normal_greeting",
+        "condition": { "flags_absent": ["dafei_notice_found"] },
+        "text": "买符不？辟邪镇宅，童叟无欺。"
+      },
+      {
+        "id": "badge_no_password",
+        "condition": { "flags": ["dafei_notice_found"], "has": ["broken_copper_badge"], "flags_absent": ["dafei_password_known", "dafei_contact_made"] },
+        "text": "老头眯眼盯着你腰间，忽然压低声音：「铜牌……你是认识的人？说出来听听。」\n\n（你还不知道暗语——也许铜牌背面有线索？）"
+      },
+      {
+        "id": "badge_with_password",
+        "condition": { "flags": ["dafei_notice_found", "dafei_password_known"], "has": ["broken_copper_badge"], "flags_absent": ["dafei_contact_made"] },
+        "text": "老头眯眼盯着你腰间，忽然压低声音：「铜牌……你是认识的人？说出来听听。」\n\n你低声答道：「云散见青天。」\n\n老人脸上绽出一丝笑意，从符纸下摸出一张折叠的纸条递来：「后面的人在等你。城外废弃宅院，东侧枯井底。敲三下、两下、五下。」",
+        "grants": { "flags": ["dafei_contact_made", "dafei_address_obtained"], "items": ["dafei_address_note"] }
+      },
+      {
+        "id": "after_contact",
+        "condition": { "flags": ["dafei_contact_made"] },
+        "text": "老人只管低头摆弄符纸，再也不看你一眼。"
+      }
+    ]
+  },
+  {
+    "id": "npc_fei_ye",
+    "name": "飞爷",
+    "description": "四十出头，面容普通得记不住，嘴角始终挂着一丝似笑非笑。若在街上遇到，你绝不会多看他一眼——这正是他最厉害的地方。",
+    "dialogues": [
+      {
+        "id": "first_appear",
+        "condition": { "flags": ["dafei_lock_solved"], "flags_absent": ["dafei_joined", "dafei_refused"] },
+        "text": "好眼力，好手劲。能破这道锁的，在长安城不超过五个人。\n\n你是哪位前辈的门下？……不说也罢。大飞帮最缺这样的人。入帮？我飞爷担保，绝不叫你吃亏。",
+        "grants": {
+          "flags": ["dafei_joined"],
+          "items": ["wuxue_gui_bu_lianhuan"],
+          "clues": ["dafei_secret_intel"],
+          "quests": ["quest_dafei_gang"]
+        }
+      },
+      {
+        "id": "gang_intel",
+        "condition": { "flags": ["dafei_joined"], "flags_absent": ["dafei_mission_assigned"] },
+        "text": "那个叫宋怀义的死者，不是普通商人。十年前，他在天机阁做线人，后来叛变，带走了一份关键名单。有人为此等了他十年。衙门档案室里有份旧卷宗，你去拿来，咱们再细说。",
+        "grants": { "flags": ["dafei_mission_assigned"] }
+      },
+      {
+        "id": "after_mission",
+        "condition": { "flags": ["dafei_mission_assigned"] },
+        "text": "快去衙门档案室。记住，别惊动任何人。"
+      }
+    ]
+  }
+]
