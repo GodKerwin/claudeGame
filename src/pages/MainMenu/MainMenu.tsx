@@ -22,10 +22,12 @@ export default function MainMenu() {
     player.setPlayer(data.player);
     scene.loadState({
       currentRoomId: data.currentRoomId,
-      flags: data.flags,
-      clues: data.clues,
-      questLog: data.questLog,
-      storyText: data.storyText,
+      flags: data.flags ?? [],
+      clues: data.clues ?? [],
+      questLog: data.questLog ?? [],
+      storyText: [],
+      seenDialogues: data.seenDialogues ?? [],
+      visitedRooms: data.visitedRooms ?? [data.currentRoomId],
     });
     loadItems(data.inventory);
     setSlots(loadAllSlots());

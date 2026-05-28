@@ -34,6 +34,8 @@ export function useAutoSave() {
       flags: scene.flags,
       questLog: scene.questLog,
       storyText: scene.storyText,
+      seenDialogues: scene.seenDialogues,
+      visitedRooms: scene.visitedRooms,
     };
     const saved = saveToSlot(0, data, '自动存档');
     updateSlot(saved);

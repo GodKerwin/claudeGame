@@ -118,6 +118,8 @@ export interface SaveData {
   flags: string[];
   questLog: string[];
   storyText: string[];
+  seenDialogues: string[];
+  visitedRooms: string[];
 }
 
 export interface SaveSlot {

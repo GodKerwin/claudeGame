@@ -79,9 +79,11 @@ export default function Game() {
         if (!npc) continue;
         const dialogues = getAvailableDialogues(npc, ctx);
         if (dialogues.length > 0) {
+          const dialogueKey = `${interactableId}:${dialogues[0].id}`;
+          const seen = scene.seenDialogues.includes(dialogueKey);
           actions.push({
             id: `${interactableId}:talk`,
-            label: `与${npc.name}交谈`,
+            label: seen ? `与${npc.name}交谈（已对话）` : `与${npc.name}交谈`,
             available: true,
             completed: false,
             hint: '',
@@ -120,6 +122,7 @@ export default function Game() {
       if (dialogues.length === 0) return;
       const d = dialogues[0];
       scene.addStoryText(`【${npc.name}】${d.text}`);
+      scene.markDialogueSeen(`${entityId}:${d.id}`);
       if (d.grants) {
         d.grants.flags?.forEach((f) => scene.addFlag(f));
         d.grants.clues?.forEach((c) => scene.addClue(c));

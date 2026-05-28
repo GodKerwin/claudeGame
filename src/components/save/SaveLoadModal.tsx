@@ -34,6 +34,8 @@ export function SaveLoadModal({ mode, onClose }: Props) {
       flags: scene.flags,
       questLog: scene.questLog,
       storyText: scene.storyText,
+      seenDialogues: scene.seenDialogues,
+      visitedRooms: scene.visitedRooms,
     };
     const saved = saveToSlot(slotId, data);
     updateSlot(saved);
@@ -46,10 +48,12 @@ export function SaveLoadModal({ mode, onClose }: Props) {
     player.setPlayer(data.player);
     scene.loadState({
       currentRoomId: data.currentRoomId,
-      flags: data.flags,
-      clues: data.clues,
-      questLog: data.questLog,
-      storyText: data.storyText,
+      flags: data.flags ?? [],
+      clues: data.clues ?? [],
+      questLog: data.questLog ?? [],
+      storyText: [],
+      seenDialogues: data.seenDialogues ?? [],
+      visitedRooms: data.visitedRooms ?? [data.currentRoomId],
     });
     loadItems(data.inventory);
     setSlots(loadAllSlots());

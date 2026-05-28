@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function LeftPanel({ onNavigate }: Props) {
-  const { currentRoomId, flags } = useSceneStore();
+  const { currentRoomId, flags, visitedRooms } = useSceneStore();
   const player = usePlayerStore();
   const { items } = useInventoryStore();
 
@@ -29,6 +29,11 @@ export function LeftPanel({ onNavigate }: Props) {
     flags,
   };
   const exits = room ? getAvailableExits(room, ctx, ALL_ROOMS) : [];
+
+  const visitedRoomNames = visitedRooms
+    .map((id) => getRoom(id))
+    .filter(Boolean)
+    .filter((r) => r!.id !== currentRoomId);
 
   return (
     <div className="flex flex-col h-full p-3 gap-4 text-sm">
@@ -52,12 +57,18 @@ export function LeftPanel({ onNavigate }: Props) {
         </div>
       </div>
 
-      <div className="mt-auto">
-        <p className="text-gold/40 text-xs tracking-widest">【小地图】</p>
-        <div className="mt-1 h-16 border border-gold/10 flex items-center justify-center text-ink/20 text-xs">
-          长安城
+      {visitedRoomNames.length > 0 && (
+        <div>
+          <p className="text-gold/40 text-xs mb-1 tracking-widest">【已探索】</p>
+          <ul className="space-y-0.5">
+            {visitedRoomNames.map((r) => r && (
+              <li key={r.id} className="text-xs text-ink/40 py-0.5 px-2">
+                · {r.name}
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
+      )}
     </div>
   );
 }
