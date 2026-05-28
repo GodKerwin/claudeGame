@@ -61,7 +61,7 @@ export default function CharacterCreate() {
   return (
     <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center justify-center p-8">
       <h1 className="text-gold text-3xl mb-2 tracking-widest">天机残卷</h1>
-      <p className="text-ink/50 text-sm mb-10 tracking-widest">创建角色</p>
+      <p className="text-ink/50 text-sm mb-10 tracking-widest">立身江湖，从此起</p>
 
       <div className="w-full max-w-3xl space-y-8">
         <div className="flex gap-4 items-center">
@@ -70,13 +70,13 @@ export default function CharacterCreate() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             maxLength={12}
-            placeholder="请输入名号…"
+            placeholder="江湖人称你什么…"
             className="flex-1 bg-transparent border-b border-gold/30 focus:border-gold outline-none py-1 text-ink placeholder:text-ink/20 text-sm"
           />
         </div>
 
         <div>
-          <p className="text-gold/60 text-xs mb-3 tracking-widest">【选择模板】</p>
+          <p className="text-gold/60 text-xs mb-3 tracking-widest">【选一身份】</p>
           <div className="grid grid-cols-5 gap-2">
             {TEMPLATES.map((t) => (
               <button
@@ -103,7 +103,7 @@ export default function CharacterCreate() {
 
         <div>
           <p className="text-gold/60 text-xs mb-3 tracking-widest">
-            【属性微调】已用：
+            【调运资质】已用：
             <span className={totalAdjust >= ADJUST_LIMIT ? 'text-blood' : 'text-gold'}>
               {totalAdjust}
             </span>/{ADJUST_LIMIT}（单项 ±2）
@@ -137,7 +137,7 @@ export default function CharacterCreate() {
 
         {talent && (
           <div className="border border-gold/10 p-4">
-            <p className="text-gold/60 text-xs mb-2 tracking-widest">【天赋】{talent.name}</p>
+            <p className="text-gold/60 text-xs mb-2 tracking-widest">【秉性天赋】{talent.name}</p>
             <p className="text-ink/70 text-sm">{talent.description}</p>
             <p className="text-ink/40 text-xs mt-1">{talent.effect}</p>
           </div>
