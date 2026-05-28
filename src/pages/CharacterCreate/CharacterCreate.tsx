@@ -53,7 +53,7 @@ export default function CharacterCreate() {
       ...finalStats,
       talent: selectedTemplate.talent,
     });
-    navigate('/game');
+    navigate('/prologue');
   };
 
   const talent = TALENTS.find((t) => t.id === selectedTemplate.talent);
