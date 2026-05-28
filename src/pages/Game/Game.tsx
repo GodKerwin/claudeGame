@@ -14,9 +14,17 @@ import { useInventoryStore } from '../../store/inventoryStore';
 import { getRoom, getEvent, getNPC } from '../../data/loader';
 import { getActionResults } from '../../engine/eventEngine';
 import { getAvailableDialogues } from '../../engine/storyEngine';
+import { evaluate } from '../../engine/conditionEvaluator';
 import type { EvalContext } from '../../engine/conditionEvaluator';
+import type { DialogueChoice } from '../../types/game';
 
 type ModalType = 'save' | 'load' | 'settings' | null;
+
+interface PendingChoices {
+  npcId: string;
+  npcName: string;
+  choices: DialogueChoice[];
+}
 
 export default function Game() {
   const navigate = useNavigate();
@@ -24,6 +32,7 @@ export default function Game() {
   const scene = useSceneStore();
   const { items, addItem, removeItem } = useInventoryStore();
   const [modal, setModal] = useState<ModalType>(null);
+  const [pendingChoices, setPendingChoices] = useState<PendingChoices | null>(null);
   const processingRef = useRef(false);
 
   useAutoSave();
@@ -58,6 +67,17 @@ export default function Game() {
   };
 
   const buildActions = () => {
+    // 有待选对话时，只显示选项按钮
+    if (pendingChoices) {
+      return pendingChoices.choices.map((c) => ({
+        id: `choice:${c.id}`,
+        label: `「${c.label}」`,
+        available: true,
+        completed: false,
+        hint: '',
+      }));
+    }
+
     const actions: Array<{ id: string; label: string; available: boolean; completed: boolean; hint: string }> = [];
 
     for (const interactableId of room.interactables) {
@@ -98,6 +118,25 @@ export default function Game() {
     if (processingRef.current) return;
     processingRef.current = true;
     setTimeout(() => { processingRef.current = false; }, 300);
+
+    // 处理对话选项
+    if (actionId.startsWith('choice:')) {
+      if (!pendingChoices) return;
+      const choiceId = actionId.slice('choice:'.length);
+      const choice = pendingChoices.choices.find((c) => c.id === choiceId);
+      if (!choice) return;
+      scene.addStoryText(`【${pendingChoices.npcName}】${choice.response}`);
+      if (choice.grants) {
+        choice.grants.flags?.forEach((f) => scene.addFlag(f));
+        choice.grants.clues?.forEach((c) => scene.addClue(c));
+        choice.grants.items?.forEach((i) => addItem(i));
+        choice.grants.remove_items?.forEach((i) => removeItem(i));
+        choice.grants.quests?.forEach((q) => scene.addQuest(q));
+      }
+      setPendingChoices(null);
+      return;
+    }
+
     const colonIdx = actionId.indexOf(':');
     const entityId = actionId.slice(0, colonIdx);
     const subId = actionId.slice(colonIdx + 1);
@@ -129,10 +168,20 @@ export default function Game() {
         d.grants.items?.forEach((i) => addItem(i));
         d.grants.quests?.forEach((q) => scene.addQuest(q));
       }
+      // 处理分支选项
+      if (d.choices && d.choices.length > 0) {
+        const availableChoices = d.choices.filter(
+          (c) => !c.condition || evaluate(c.condition, ctx)
+        );
+        if (availableChoices.length > 0) {
+          setPendingChoices({ npcId: entityId, npcName: npc.name, choices: availableChoices });
+        }
+      }
     }
   };
 
   const handleNavigate = (roomId: string) => {
+    setPendingChoices(null);
     scene.setRoom(roomId);
   };
 
@@ -157,6 +206,7 @@ export default function Game() {
             storyTexts={scene.storyText}
             actions={actions}
             onAction={handleAction}
+            pendingChoices={!!pendingChoices}
           />
         }
         right={<RightPanel />}

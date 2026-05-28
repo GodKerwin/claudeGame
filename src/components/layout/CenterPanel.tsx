@@ -16,9 +16,10 @@ interface Props {
   storyTexts: string[];
   actions: ActionItem[];
   onAction: (actionId: string) => void;
+  pendingChoices?: boolean;
 }
 
-export function CenterPanel({ roomName, roomDescription, storyTexts, actions, onAction }: Props) {
+export function CenterPanel({ roomName, roomDescription, storyTexts, actions, onAction, pendingChoices = false }: Props) {
   return (
     <div className="flex flex-col h-full">
       <div className="px-5 py-3 border-b border-gold/10">
@@ -35,7 +36,9 @@ export function CenterPanel({ roomName, roomDescription, storyTexts, actions, on
       </div>
 
       <div className="border-t border-gold/10 px-5 py-3">
-        <p className="text-gold/40 text-xs mb-2 tracking-widest">── 操作 ──</p>
+        <p className="text-gold/40 text-xs mb-2 tracking-widest">
+          {pendingChoices ? '── 如何回应 ──' : '── 操作 ──'}
+        </p>
         <div className="grid grid-cols-2 gap-2">
           {actions.map((a) => (
             <ActionButton
