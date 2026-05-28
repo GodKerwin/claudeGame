@@ -7,21 +7,21 @@
     "actions": [
       {
         "id": "examine_wounds",
-        "label": "查看伤口",
+        "label": "俯身细察伤处",
         "requires": null,
         "result": "颈部有明显的勒痕，但伤口边缘发青，更像是先被毒物击昏，再被人勒毙。死前曾拼命挣扎过。",
         "grants": { "flags": ["body_examined", "wound_examined"] }
       },
       {
         "id": "find_under_pillow",
-        "label": "翻找枕下",
+        "label": "掀枕搜寻",
         "requires": { "flags_absent": ["blood_letter_found"] },
         "result": "枕头下藏着一块染血的令牌，正面刻着\"天机\"二字，背面用血书写着\"东——三\"，笔画颤抖，是死者最后留下的。",
         "grants": { "flags": ["blood_letter_found", "clue_blood_letter_found"], "items": ["blood_letter"], "clues": ["blood_letter"] }
       },
       {
         "id": "check_hands",
-        "label": "察看死者双手",
+        "label": "翻查死者双手",
         "requires": { "wisdom": 6 },
         "result": "死者右手指甲缝中夹着一小撮黑色布料纤维，材质特殊，不是寻常布匹。左手腕上有一道细小的针刺痕迹，入针极准。",
         "grants": { "flags": ["cloth_fiber_found"], "clues": ["cloth_fiber_clue"] }
@@ -36,21 +36,21 @@
     "actions": [
       {
         "id": "search_luggage",
-        "label": "检查行囊",
+        "label": "翻检死者行囊",
         "requires": { "flags_absent": ["room_searched"] },
         "result": "行囊里的物件被翻得乱七八糟，但仍残留一份半写完的信件，收信人名字被撕去了，只余\"……务必在三日内将《残卷》第五页带至……\"，笔迹工整。",
         "grants": { "flags": ["room_searched"], "clues": ["partial_letter"], "items": ["partial_letter"] }
       },
       {
         "id": "find_floor_mark",
-        "label": "查看地板痕迹",
+        "label": "俯身察看地板",
         "requires": { "agility": 5 },
         "result": "灰尘中有两种不同的脚印：一种大而沉，是宋怀义本人的；另一种细窄，像是女子的绣鞋，或身法极轻的刺客所穿。",
         "grants": { "clues": ["footprint_clue"] }
       },
       {
         "id": "check_window",
-        "label": "查看窗户",
+        "label": "推窗察看",
         "requires": null,
         "result": "窗扇外侧有抓痕，从窗台向下延伸，凶手可能是从外墙攀入，也可能是事后从此处离开。",
         "grants": { "flags": ["window_checked"] }
@@ -137,14 +137,14 @@
     "actions": [
       {
         "id": "smell_powder",
-        "label": "闻一闻白色粉末",
+        "label": "凑近嗅辨粉末",
         "requires": { "flags_absent": ["arsenic_identified"] },
         "result": "淡淡的大蒜气味，这是砒霜无误。分量不少，足以毒杀一个成年人。有人刻意将它掺入了某样食物或饮品。",
         "grants": { "flags": ["arsenic_identified", "clue_arsenic_found"], "items": ["arsenic_evidence"], "clues": ["arsenic_evidence"] }
       },
       {
         "id": "constitution_test",
-        "label": "以指沾取微量尝味",
+        "label": "以指拈取微量尝之",
         "requires": { "constitution": 7, "flags_absent": ["arsenic_identified"] },
         "result": "你以内力护体，以指尖沾了极少量置于舌尖——苦涩之中带着灼烧感，确是砒霜，且纯度极高，非一般市售之物。此乃专业人士手中的物事。",
         "grants": { "flags": ["arsenic_identified", "arsenic_highgrade", "clue_arsenic_found"], "items": ["arsenic_evidence"], "clues": ["arsenic_evidence"] }
@@ -159,14 +159,14 @@
     "actions": [
       {
         "id": "move_woodpile",
-        "label": "搬开柴垛察看",
+        "label": "搬开柴垛，细察其后",
         "requires": { "strength": 5, "flags_absent": ["secret_tunnel_found"] },
         "result": "柴垛后面是一扇低矮的木门，上面落着灰尘，但门缝旁有新鲜的土迹——最近有人用过。门后是一条向下延伸的暗道，通向何处不得而知。",
         "grants": { "flags": ["secret_tunnel_found"], "items": ["secret_tunnel_map"], "clues": ["secret_tunnel_map"] }
       },
       {
         "id": "detect_tunnel",
-        "label": "叩击墙面聆听",
+        "label": "以指叩墙，侧耳听声",
         "requires": { "wisdom": 6, "flags_absent": ["tunnel_location_detected"] },
         "result": "你沿着墙壁叩击，柴垛后方发出沉闷的空响——后面是空的，密道就在此处。不过要移开柴垛，还需一番力气。",
         "grants": { "flags": ["tunnel_location_detected"] }
@@ -181,28 +181,28 @@
     "actions": [
       {
         "id": "decode_mechanism",
-        "label": "推算铜环机关纹路",
+        "label": "推演铜环纹路机理",
         "requires": { "wisdom": 8, "flags_absent": ["secret_room_opened"] },
         "result": "你细观铜环上的八卦排列，推算出对应的卦序，依次拨动——咔哒、咔哒、咔哒——石门缓缓内移，一间密室出现在眼前。室内尘封已久，正中一张石台上摆着一只锦盒。",
         "grants": { "flags": ["secret_room_opened", "cellar_entered_wisdom"] }
       },
       {
         "id": "break_door",
-        "label": "运气撞开木门",
+        "label": "运力硬撞木门",
         "requires": { "strength": 9, "flags_absent": ["secret_room_opened"] },
         "result": "你沉气凝神，双掌贴上木门运起内力，轰然一震——木门应声而裂，尘灰四散，动静不小。密室就在门后。你进去了，但外面应该有人听到了声音。",
         "grants": { "flags": ["secret_room_opened", "made_noise", "cellar_entered_strength"] }
       },
       {
         "id": "climb_window",
-        "label": "翻越侧窗潜入",
+        "label": "翻越侧窗，悄然入内",
         "requires": { "agility": 6, "flags_absent": ["secret_room_opened"] },
         "result": "你借力墙壁，身法轻灵地从侧窗鱼跃而入，悄无声息地落进密室，连灰尘都没带起多少。室内安静如故。",
         "grants": { "flags": ["secret_room_opened", "entered_silently", "cellar_entered_agility"] }
       },
       {
         "id": "through_poison",
-        "label": "屏息穿越毒烟（需毒体）",
+        "label": "屏息疾穿毒烟（需毒体）",
         "requires": { "constitution": 8, "talent": "毒体", "flags_absent": ["secret_room_opened"] },
         "result": "你察觉到角落飘来一丝微弱的气味——寻常人怕是早已昏倒。你从容屏息，踏过毒烟区域，绕至密室的另一道暗门，推门而入。毒雾对你，不过清风拂面。",
         "grants": { "flags": ["secret_room_opened", "immune_shown", "cellar_entered_poison"] }
@@ -217,7 +217,7 @@
     "actions": [
       {
         "id": "open_box",
-        "label": "打开锦盒",
+        "label": "启开锦盒",
         "requires": { "flags_absent": ["cellar_fragment_obtained"] },
         "result": "锦盒内铺着半朽的绸缎，中间放着一片卷轴碎片，纸质古旧，上书密密麻麻的小字，其中一行清晰可辨：「天机阁第五代传人，藏残卷于……」后面的字已模糊难辨。这是《天机残卷》的一部分。",
         "grants": { "flags": ["cellar_fragment_obtained"], "items": ["cellar_fragment"], "clues": ["cellar_fragment"] }
@@ -232,7 +232,7 @@
     "actions": [
       {
         "id": "check_overturned_jar",
-        "label": "翻看倒扣的酒坛",
+        "label": "翻检倒扣酒坛",
         "requires": { "flags_absent": ["wine_jar_checked"] },
         "result": "酒坛底部用蜡封着一块薄薄的铁片，上面刻着几行密文，你认不出是什么暗语，但显然有人故意藏在这里。",
         "grants": { "flags": ["wine_jar_checked"], "clues": ["wine_jar_iron_plate"] }
@@ -247,14 +247,14 @@
     "actions": [
       {
         "id": "follow_tracks",
-        "label": "循迹追踪",
+        "label": "顺迹追踪而去",
         "requires": { "agility": 5, "flags_absent": ["tracks_followed"] },
         "result": "你快步追踪脚印，沿途发现一块被丢弃的布条——黑色，与死者手指间发现的纤维材质一致。足迹最终消失在一块大石后方。凶手从此处换了鞋，改变了行进方向。",
         "grants": { "flags": ["tracks_followed"], "clues": ["abandoned_cloth"] }
       },
       {
         "id": "examine_surroundings",
-        "label": "观察周围迹象",
+        "label": "驻足察看四周迹象",
         "requires": { "wisdom": 6, "flags_absent": ["forest_clue_found"] },
         "result": "脚印旁边的草丛有被人拨开的痕迹，树皮上有一道新鲜的刀痕，像是有人故意留下的记号，指向树林的东北方向。",
         "grants": { "flags": ["forest_clue_found"], "clues": ["forest_direction_mark"] }
@@ -269,21 +269,21 @@
     "actions": [
       {
         "id": "read_with_magnifier",
-        "label": "用放大镜辨读",
+        "label": "持镜细辨徽记",
         "requires": { "has": ["magnifying_glass"], "flags_absent": ["dafei_password_known"] },
         "result": "放大镜下，背面的微刻清晰可辨——「云散见青天」五字，应是某种暗语。",
         "grants": { "flags": ["dafei_password_known"] }
       },
       {
         "id": "read_hold_breath",
-        "label": "屏气凝神，极力辨读",
+        "label": "屏气凝神，竭力辨读",
         "requires": { "constitution": 5, "flags_absent": ["dafei_password_known"] },
         "result": "你凝神静气，运起内功稳住双手，在阳光下微微转动铜牌——「云散见青天」，五个细如发丝的字慢慢呈现。",
         "grants": { "flags": ["dafei_password_known"] }
       },
       {
         "id": "read_talent",
-        "label": "借助天赋专注辨读",
+        "label": "借天赋之力专注辨读",
         "requires": { "talent": "过目不忘", "flags_absent": ["dafei_password_known"] },
         "result": "你定睛扫过铜牌背面，视线所及之处纤毫毕现——「云散见青天」，就是这五个字。",
         "grants": { "flags": ["dafei_password_known"] }
@@ -298,14 +298,14 @@
     "actions": [
       {
         "id": "read_records",
-        "label": "翻阅档案",
+        "label": "翻阅旧年档录",
         "requires": null,
         "result": "你翻出一本薄册，扉页上写着\"天机阁长安分支——人员名录（机密）\"。宋怀义的名字赫然在列，旁边注有\"线人·叛\"二字，以及一个日期——十年前。有人在追杀叛徒。",
         "grants": { "flags": ["tianji_records_found"], "items": ["tianji_roster"], "clues": ["tianji_roster"] }
       },
       {
         "id": "deep_search",
-        "label": "仔细深挖箱底",
+        "label": "深挖箱底，细细翻查",
         "requires": { "wisdom": 7 },
         "result": "你在最底层发现一封密信，信封用特殊的蜡封口，上面印着飞鸟图案。信中写道：「残卷已取，人已除，望速来接应。」落款只有一个字：「鸢」。",
         "grants": { "flags": ["kite_identity_clue"], "items": ["kite_letter"], "clues": ["kite_letter"] }
@@ -351,14 +351,14 @@
     "actions": [
       {
         "id": "enter_well",
-        "label": "下到井底",
+        "label": "顺绳下至井底",
         "requires": { "agility": 5, "flags_absent": ["dafei_well_entered"] },
         "result": "你借助井壁上的凹槽手脚并用下到井底，身前是那道嵌着五个铜轮的铁门，数字轮转动自如。",
         "grants": { "flags": ["dafei_well_entered"] }
       },
       {
         "id": "solve_lock",
-        "label": "拨动铜轮开锁",
+        "label": "拨弄铜轮解锁",
         "requires": {
           "flags": ["dafei_well_entered", "clue_blood_letter_found", "clue_arsenic_found", "cellar_fragment_obtained"]
         },
@@ -367,7 +367,7 @@
       },
       {
         "id": "guess_lock",
-        "label": "随机尝试数字组合",
+        "label": "凭感逐一试拨",
         "requires": { "flags": ["dafei_well_entered"], "flags_absent": ["dafei_lock_solved"] },
         "result": "你随机拨动了几次，铜轮纹丝不动，发出刺耳的摩擦声。看来需要找到正确的数字线索才行。",
         "grants": {}
@@ -382,7 +382,7 @@
     "actions": [
       {
         "id": "examine_marks_wise",
-        "label": "深入研究刻痕（需智慧≥6）",
+        "label": "凝神推敲刻痕寓意（需智慧≥6）",
         "requires": {
           "wisdom": 6,
           "flags_absent": ["alley_marks_found"]
@@ -395,7 +395,7 @@
       },
       {
         "id": "examine_marks_basic",
-        "label": "粗略打量墙上刻痕",
+        "label": "扫眼看了看墙上刻痕",
         "requires": {
           "flags_absent": ["alley_marks_found"]
         },
@@ -407,7 +407,7 @@
       },
       {
         "id": "marks_done",
-        "label": "这刻痕你已记录在册",
+        "label": "此处刻痕已录入心",
         "requires": {
           "flags": ["alley_marks_found"]
         },
@@ -426,7 +426,7 @@
     "actions": [
       {
         "id": "search_wise",
-        "label": "仔细搜查货箱夹层（需智慧≥7）",
+        "label": "细察货箱内壁夹层（需智慧≥7）",
         "requires": {
           "wisdom": 7,
           "flags": ["merchant_zhou_talked"],
@@ -440,7 +440,7 @@
       },
       {
         "id": "search_basic",
-        "label": "翻找货箱残余",
+        "label": "翻检货箱残件",
         "requires": {
           "flags": ["merchant_zhou_talked"],
           "flags_absent": ["manifest_found"]
@@ -453,7 +453,7 @@
       },
       {
         "id": "manifest_obtained",
-        "label": "货单已取得",
+        "label": "货单在握，不必再翻",
         "requires": {
           "flags": ["manifest_found"]
         },
@@ -470,21 +470,21 @@
     "actions": [
       {
         "id": "survey_overall",
-        "label": "环顾整体现场",
+        "label": "纵目环观，察看全局",
         "requires": { "flags_absent": ["scene_202_surveyed"] },
         "result": "你在房间中缓缓踱步。地板中央和床头各有一团血迹，相距三步。死者不是在床上被害的——他先倒在地上，后来被人移到了床上。床头柜上摆着半杯已凉的茶，茶面有一层薄薄的油膜，像是有什么东西溶在里面。门缝处的地板上有一道细微划痕，和几粒细铁屑。",
         "grants": { "flags": ["scene_202_surveyed"], "items": ["blood_pattern_sketch"], "clues": ["blood_pattern_sketch"] }
       },
       {
         "id": "analyze_blood",
-        "label": "推断死亡经过（需智慧≥6）",
+        "label": "推演死亡经过（需智慧≥6）",
         "requires": { "wisdom": 6, "flags": ["scene_202_surveyed"], "flags_absent": ["murder_sequence_deduced"] },
         "result": "你蹲下细观两处血迹的形状：地板处的血迹呈圆形扩散，说明宋怀义当时仰躺已失去挣扎能力——毒发后倒地。床头的血迹却是侧溅，说明他被移至床上后，凶手又补了一道致命伤。\n\n顺序清晰：毒茶致昏→倒地→搜身取物→移尸上床→勒毙。凶手极有耐心，且熟悉下毒的时机。",
         "grants": { "flags": ["murder_sequence_deduced"] }
       },
       {
         "id": "check_tea",
-        "label": "检查床头茶杯",
+        "label": "细察案旁茶盅",
         "requires": { "flags": ["scene_202_surveyed"], "flags_absent": ["tea_checked"] },
         "result": "你凑近茶杯细嗅，有一股极淡的苦味混在茶香中，与后厨发现的砒霜相对应。毒并非从外部施加，而是被人提前溶在了茶里。宋怀义喝下毒茶，以为只是睡意袭来，却再也没有醒来。\n\n凶手提前进入了这个房间。",
         "grants": { "flags": ["tea_checked", "poison_tea_confirmed"] }
@@ -499,21 +499,21 @@
     "actions": [
       {
         "id": "check_door_lock",
-        "label": "仔细检查门锁",
+        "label": "俯身细察门闩锁扣",
         "requires": { "flags_absent": ["door_lock_checked"] },
         "result": "门锁是普通的簧片锁，从外面无法拨开。但锁内侧有几道细铁丝留下的划痕，金属新亮，显然是近期才留下的。\n\n有人用细铁丝从门缝探入，在房间内侧拨动了门闩——他们进门时手里有工具，进退皆从容。",
         "grants": { "flags": ["door_lock_checked"], "items": ["door_lock_scraping"], "clues": ["door_lock_scraping"] }
       },
       {
         "id": "check_window_exit",
-        "label": "探身检查窗台外侧",
+        "label": "探身察看窗台外壁",
         "requires": { "agility": 4, "flags_absent": ["window_exit_checked"] },
         "result": "你探身从窗口向外看，窗台外侧的青砖上缠着一截残留的布条，布面有绳索摩擦留下的焦痕。\n\n凶手从这里用绳索降至地面逃走。进来走门，出去走窗——他在事后才把自己藏入黑暗中。",
         "grants": { "flags": ["window_exit_checked"], "items": ["rope_burn_cloth"], "clues": ["rope_burn_cloth"] }
       },
       {
         "id": "reconstruct_entry",
-        "label": "综合推断凶手出入路线",
+        "label": "综合推演凶手出入之路",
         "requires": { "wisdom": 7, "flags": ["door_lock_checked", "window_exit_checked"], "flags_absent": ["entry_route_deduced"] },
         "result": "你将所有细节串联：\n\n凶手提前潜入此房（趁宋怀义外出时），在茶水中下毒，然后锁好门离开。待宋怀义回房饮茶毒发，凶手再次以工具拨门入内，确认昏迷后搜身取物、移尸补刀，最后以绳索从窗口降逃。\n\n这是一次精心策划的行动，而非临时起意。",
         "grants": { "flags": ["entry_route_deduced"] }
@@ -528,21 +528,21 @@
     "actions": [
       {
         "id": "open_chest",
-        "label": "打开行旅箱",
+        "label": "开启行旅箱笼",
         "requires": { "flags_absent": ["chest_202_opened"] },
         "result": "箱内装着绸缎、茶砖等寻常货物，已经被翻动过，凌乱堆着。凶手显然在这里搜过，但搜得有些粗心——箱底的木板颜色比周围稍深，纹理也略有不同。",
         "grants": { "flags": ["chest_202_opened"] }
       },
       {
         "id": "find_false_bottom",
-        "label": "撬开假底夹层",
+        "label": "撬开箱底夹层",
         "requires": { "flags": ["chest_202_opened"], "flags_absent": ["false_bottom_found"] },
         "result": "你用指甲沿缝隙一扣，木板应声而起。夹层里薄薄地放着两件东西：一本账本，和一枚拇指大小的玉牌。\n\n这是凶手没有找到的东西——也许是时间紧迫，也许根本不知道有这层夹层。",
         "grants": { "flags": ["false_bottom_found"], "items": ["account_book", "tianji_jade_token"], "clues": ["account_book", "tianji_jade_token"] }
       },
       {
         "id": "decode_account_book",
-        "label": "解读账本末页隐码（需智慧≥6）",
+        "label": "破译账本末页隐码（需智慧≥6）",
         "requires": { "wisdom": 6, "flags": ["false_bottom_found"], "flags_absent": ["account_decoded"] },
         "result": "你翻到最后三页，每页末尾的数字以朱砂略重：第一页末是「东」，第二页末是「市」，第三页末是「回春堂」。\n\n东市·回春堂——一家药铺。宋怀义在出事前，正打算与那里的人接头。那里，可能还有人在等他。",
         "grants": { "flags": ["account_decoded"] }
