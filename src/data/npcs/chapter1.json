@@ -11,6 +11,29 @@
         "grants": { "flags": ["innkeeper_met", "innkeeper_talked"] }
       },
       {
+        "id": "innkeeper_interrogation",
+        "condition": { "flags": ["innkeeper_met"], "flags_absent": ["innkeeper_talked"] },
+        "text": "李福掸了掸柜台上的灰尘，神情比初见时镇定了一些，但眼底的慌乱还是藏不住：「官人有何想问的，小人知无不言。」",
+        "choices": [
+          {
+            "id": "ask_victim_background",
+            "label": "宋怀义常来此地？",
+            "response": "李福顿了顿：「来过几次，是跑布匹生意的。」他的手指在柜台上轻轻叩了一下，「上次来是半月前，这次……比往常提前了。说是有桩急事要在长安办。」他没有说那桩急事是什么。"
+          },
+          {
+            "id": "ask_last_night",
+            "label": "昨夜你在何处？",
+            "response": "「小人守夜，在前台坐到亥时。」他的眼神飘向柜台下方——那里有一口小抽屉。「听见动静时，还以为是哪位客人夜里起夜……后来伙计来喊，才知道……」他住了口，抹了把额头。"
+          },
+          {
+            "id": "ask_suspicious_person",
+            "label": "近日可有可疑之人出入？",
+            "response": "李福沉默了一息，压低声音：「有个人……昨日下午在大堂坐了许久，点了壶茶，什么都没喝，就一直看着楼梯口。我当时以为是在等人，现在想来……」他摇了摇头，「穿的是普通蓝衫，腰里挂着一串铜铃，我印象很深。」",
+            "grants": { "flags": ["innkeeper_talked", "blue_shirt_seen_by_innkeeper"] }
+          }
+        ]
+      },
+      {
         "id": "trust_low",
         "condition": { "flags": ["body_examined"], "flags_absent": ["innkeeper_trusted"] },
         "text": "客官，您真的在帮忙查案？那……后厨您可以去看看，厨娘王氏昨夜也听到了动静。",
@@ -36,6 +59,31 @@
         }
       },
       {
+        "id": "innkeeper_trusted_secret",
+        "condition": { "flags": ["innkeeper_trusted"], "flags_absent": ["innkeeper_secret_told"] },
+        "text": "李福把「暂停营业」的木牌挂到门口，回身时，神情已经变了——不再是掌柜的油滑，而是某种久藏心底的沉重：「有些事，我已经藏了十年。也许……是该有人知道了。」",
+        "choices": [
+          {
+            "id": "ask_tianji",
+            "label": "你与天机阁是什么关系？",
+            "response": "「我是驿。」他说。「专门负责消息的中转，就像客栈里最普通的一块砖，但每块砖都有它的位置。十年前阁里出了事，上面的人说：原地潜伏，等待。我就等了十年。」他苦笑，「等来的，是宋怀义的死。」",
+            "grants": { "flags": ["li_fu_tianji_confirmed"] }
+          },
+          {
+            "id": "ask_jade_token",
+            "label": "你那枚玉佩是什么来历？",
+            "response": "李福从怀里掏出一枚玉牌——与你在宋怀义夹层里找到的如出一辙，但这枚背面刻的是「驿」字。「宋怀义临死前托人带给我一句话：'告诉驿，东市回春堂，三日之内。'」\n\n他把玉牌放到桌上，推向你：「我不能去。但你可以。」",
+            "grants": { "flags": ["innkeeper_secret_told", "huichuntang_clue_given"], "items": ["innkeeper_jade"] }
+          },
+          {
+            "id": "ask_kite",
+            "label": "你知道「鸢」是谁吗？",
+            "response": "李福的手猛地一顿。「你在哪里见过这个字？」他盯着你，眼神里第一次出现了真正的恐惧，不是因为案子，而是因为这个名字。\n\n「鸢……是阁里最后一支行动组的代号。他们做的是没有名字的事。如果鸢出现了，说明有人动用了最后的手段。」他闭了闭眼，「宋怀义死得不冤，但是……不该是现在。」",
+            "grants": { "flags": ["kite_group_known"] }
+          }
+        ]
+      },
+      {
         "id": "after_trusted",
         "condition": { "flags": ["innkeeper_trusted"] },
         "text": "地窖里有些异样，我本想不管的，只是昨夜听到声响……客官请自便。"
@@ -57,6 +105,29 @@
         "condition": { "flags_absent": ["drunk_talked"] },
         "text": "嗝——什么事？昨夜？昨夜三更……我，我是睡了，可睡前……二楼有人急着下楼，差点撞了我！脚步很急，像是逃命……",
         "grants": { "flags": ["drunk_talked", "found_escape_clue"] }
+      },
+      {
+        "id": "zhang_san_detail_question",
+        "condition": { "flags": ["drunk_talked"], "flags_absent": ["zhang_san_details_asked"] },
+        "text": "张三眯着眼，酒劲上来了，话匣子反而打开了：「你还想问什么，尽管说，爷今儿个都告诉你！」",
+        "choices": [
+          {
+            "id": "ask_appearance",
+            "label": "那人长什么样子？",
+            "response": "「身形……挺细的，走路没声儿，像猫。」张三比划了一下，「衣服是黑的，脸……没看清。但腰间有个东西，黑色的，圆圆的，像块令牌。走路带风……」他打了个嗝，「比老子跑得快多了。」"
+          },
+          {
+            "id": "ask_direction",
+            "label": "那人往哪个方向走的？",
+            "response": "「往后厨那边转，然后……就没了。」张三皱眉，「我当时还奇怪，后厨那条路是死路，哪儿也去不了，但那人进去就没出来……」他摸了摸脑袋，「难道后头还有什么门？」",
+            "grants": { "flags": ["zhang_san_details_asked", "tunnel_hinted_by_zhang"] }
+          },
+          {
+            "id": "ask_timing",
+            "label": "大约是什么时辰？",
+            "response": "「二更……二更多一点儿？」张三掰着手指，「我记得我的酒刚喝了一半，你知道我一壶酒喝完要多久……大概就是那个时候。那人走得急，差点撞上我，」他摸了摸鼻子，「连道歉都没有，哼。」"
+          }
+        ]
       },
       {
         "id": "more_details",
@@ -93,6 +164,30 @@
         "condition": { "wisdom": 6, "flags": ["cook_arsenic_asked"] },
         "text": "您问后门密道？……确实有一条，通向城外的枯井那边。那是当年建客栈时就有的，一般人不知道。",
         "grants": { "flags": ["tunnel_location_known"] }
+      },
+      {
+        "id": "cook_wang_detail_question",
+        "condition": { "flags": ["cook_talked"], "flags_absent": ["cook_details_asked"] },
+        "text": "王氏擦了擦眼角，握紧了围裙：「你问吧，我都说……昨晚那事儿，憋了一夜了。」",
+        "choices": [
+          {
+            "id": "ask_person_look",
+            "label": "那人是男是女？",
+            "response": "「身形……像是女子。」王氏声音很低，「腰细，走路没声儿。我当时就奇怪，哪有这么晚还在厨房转的？但我没敢出声……」她顿了顿，「她没有看见我。我躲在灶台后面，大气不敢出。」"
+          },
+          {
+            "id": "ask_what_doing",
+            "label": "那人在后厨做了什么？",
+            "response": "「先是在药柜那里翻了一遍——把我的砒霜翻出来了，只取了一点点，剩下的撒了一地。然后……」王氏深吸一口气，「她对着那条细缝说了句话。我只听清了一个字：找到了。」\n\n「然后她就从那条缝里……进去了。」",
+            "grants": { "flags": ["cook_details_asked", "tunnel_confirmed_by_cook"] }
+          },
+          {
+            "id": "ask_warned",
+            "label": "你为何不当时喊人？",
+            "response": "王氏抬起头，眼神里有一丝不一样的东西：「因为……前一天晚上，有人来找过我。说让我这两天别多事，好好待着，会有好处。」\n\n「我没收那人的钱，但我害怕了。」她低下头，「我对不住宋掌柜。」",
+            "grants": { "flags": ["cook_warned_confirmed"] }
+          }
+        ]
       },
       {
         "id": "after_asked",

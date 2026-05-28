@@ -129,5 +129,6 @@
   { "id": "door_lock_scraping", "name": "门锁撬痕拓印", "description": "门锁内侧有细铁丝留下的新鲜划痕。凶手不是从窗户进来的，而是用工具从门缝探入拨动了门闩——他们事先准备好了，进门极为从容。", "isClue": true },
   { "id": "account_book", "name": "宋怀义的账本", "description": "一本普通商贾账本，记录着布匹茶叶进出。最后三页末尾的数字以朱砂略重，连起来是一个地名：东市·回春堂。", "isClue": true },
   { "id": "tianji_jade_token", "name": "天机玉令", "description": "指甲盖大小的玉牌，藏在账本夹层中。正面刻「天机」二字，背面是一只展翅飞鸟，与血信令牌正面图案如出一辙。这不是寻常商人会携带的东西。", "isClue": true },
-  { "id": "rope_burn_cloth", "name": "窗台绳痕布条", "description": "窗台外侧青砖上缠着一截残留布条，布面有绳索摩擦留下的焦黑痕迹。凶手从二楼以绳索降至地面——进来走门，出去走窗，对客栈布局极为熟悉。", "isClue": true }
+  { "id": "rope_burn_cloth", "name": "窗台绳痕布条", "description": "窗台外侧青砖上缠着一截残留布条，布面有绳索摩擦留下的焦黑痕迹。凶手从二楼以绳索降至地面——进来走门，出去走窗，对客栈布局极为熟悉。", "isClue": true },
+  { "id": "innkeeper_jade", "name": "驿字玉牌", "description": "李福交给你的玉牌，背面刻着「驿」字——与宋怀义账本夹层中的天机玉令出自同一批次。这是天机阁成员的身份凭证。", "isClue": true }
 ]
