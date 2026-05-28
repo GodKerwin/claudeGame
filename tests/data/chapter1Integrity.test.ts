@@ -148,4 +148,66 @@ describe('chapter1 data integrity', () => {
     expect(wise.grants.flags).toContain('manifest_decoded');
     expect(wise.grants.items).toContain('merchant_manifest');
   });
+
+  it('room_202 exists with correct interactables', () => {
+    const room = MAPS[0].rooms.find((r) => r.id === 'room_202');
+    expect(room, 'room_202 missing').toBeDefined();
+    if (!room) return;
+    expect(room.interactables).toContain('evt_crime_scene_202');
+    expect(room.interactables).toContain('evt_locked_room_mystery');
+    expect(room.interactables).toContain('evt_victim_hidden_items');
+  });
+
+  it('room_203 exits include room_202', () => {
+    const room = MAPS[0].rooms.find((r) => r.id === 'room_203');
+    expect(room, 'room_203 missing').toBeDefined();
+    if (!room) return;
+    expect(room.exits).toContain('room_202');
+  });
+
+  it('new crime scene events exist with actions', () => {
+    const eventIds = ['evt_crime_scene_202', 'evt_locked_room_mystery', 'evt_victim_hidden_items'];
+    for (const id of eventIds) {
+      const event = EVENTS.find((e) => e.id === id);
+      expect(event, `missing event: ${id}`).toBeDefined();
+      expect(event?.actions.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('new crime scene items exist and are clues', () => {
+    const itemIds = ['blood_pattern_sketch', 'door_lock_scraping', 'account_book', 'tianji_jade_token', 'rope_burn_cloth'];
+    for (const id of itemIds) {
+      expect(allItemIds.has(id), `missing item: ${id}`).toBe(true);
+      const item = ITEMS.find((i) => i.id === id);
+      expect(item?.isClue, `item ${id} should be a clue`).toBe(true);
+    }
+  });
+
+  it('key NPCs have dialogues with choices', () => {
+    const npcIds = ['npc_innkeeper_li_fu', 'npc_white_stranger', 'npc_fei_ye'];
+    for (const id of npcIds) {
+      const npc = NPCS.find((n) => n.id === id);
+      expect(npc, `missing npc: ${id}`).toBeDefined();
+      if (!npc) continue;
+      const hasChoices = npc.dialogues.some((d) => d.choices && d.choices.length > 0);
+      expect(hasChoices, `${id} has no dialogues with choices`).toBe(true);
+    }
+  });
+
+  it('dialogue choice grants only reference existing items', () => {
+    for (const npc of NPCS) {
+      for (const dialogue of npc.dialogues) {
+        if (!dialogue.choices) continue;
+        for (const choice of dialogue.choices) {
+          if (!choice.grants?.items) continue;
+          for (const itemId of choice.grants.items) {
+            expect(
+              allItemIds.has(itemId),
+              `npc ${npc.id} dialogue ${dialogue.id} choice ${choice.id} grants unknown item: ${itemId}`
+            ).toBe(true);
+          }
+        }
+      }
+    }
+  });
 });
