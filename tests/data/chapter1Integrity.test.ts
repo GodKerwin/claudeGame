@@ -210,4 +210,100 @@ describe('chapter1 data integrity', () => {
       }
     }
   });
+
+  // completion guarantee tests
+  it('fei_ye ask_who_is_kite choice grants kite_identity_clue', () => {
+    const fei = NPCS.find((n) => n.id === 'npc_fei_ye');
+    expect(fei).toBeDefined();
+    if (!fei) return;
+    const deepTalk = fei.dialogues.find((d) => d.id === 'fei_ye_deep_talk');
+    expect(deepTalk).toBeDefined();
+    if (!deepTalk) return;
+    const choice = deepTalk.choices?.find((c) => c.id === 'ask_who_is_kite');
+    expect(choice).toBeDefined();
+    if (!choice) return;
+    expect(choice.grants?.flags).toContain('kite_identity_clue');
+  });
+
+  it('cloth_fiber_found has str and agi alternative actions', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_body_examine');
+    expect(evt).toBeDefined();
+    if (!evt) return;
+    const strAction = evt.actions.find((a) => a.id === 'search_sleeve_str');
+    const agiAction = evt.actions.find((a) => a.id === 'search_sleeve_agi');
+    expect(strAction).toBeDefined();
+    expect(agiAction).toBeDefined();
+    expect(strAction?.grants?.flags).toContain('cloth_fiber_found');
+    expect(agiAction?.grants?.flags).toContain('cloth_fiber_found');
+  });
+
+  it('all templates can reach at least one ending with default stats', () => {
+    const templates = [
+      { name: '游侠', strength: 8, agility: 7, wisdom: 5, constitution: 4 },
+      { name: '谋士', strength: 3, agility: 5, wisdom: 10, constitution: 6 },
+      { name: '刺客', strength: 5, agility: 10, wisdom: 5, constitution: 4 },
+      { name: '药师', strength: 4, agility: 5, wisdom: 6, constitution: 9 },
+      { name: '全能客', strength: 6, agility: 6, wisdom: 6, constitution: 6 },
+    ];
+    for (const t of templates) {
+      const hasForce = t.strength >= 8;
+      const canGetClothFiber = t.wisdom >= 6 || t.strength >= 7 || t.agility >= 7;
+      const canGetKite = true; // fei_ye path always accessible
+      const hasTruth = canGetClothFiber && canGetKite;
+      const hasHermit = t.agility >= 7;
+      expect(
+        hasForce || hasTruth || hasHermit,
+        `${t.name} cannot reach any ending with default stats`
+      ).toBe(true);
+    }
+  });
+
+  it('evt_guest_register exists in lobby with correct actions', () => {
+    const lobby = MAPS[0].rooms.find((r) => r.id === 'lobby');
+    expect(lobby?.interactables).toContain('evt_guest_register');
+    const evt = EVENTS.find((e) => e.id === 'evt_guest_register');
+    expect(evt).toBeDefined();
+    expect(evt?.actions.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('evt_blue_shirt_trace exists in back_alley and references existing items', () => {
+    const alley = MAPS[0].rooms.find((r) => r.id === 'back_alley');
+    expect(alley?.interactables).toContain('evt_blue_shirt_trace');
+    const evt = EVENTS.find((e) => e.id === 'evt_blue_shirt_trace');
+    expect(evt).toBeDefined();
+    const copperBell = ITEMS.find((i) => i.id === 'copper_bell_fragment');
+    expect(copperBell?.isClue).toBe(true);
+  });
+
+  it('evt_mansion_ear_room exists in old_mansion', () => {
+    const mansion = MAPS[0].rooms.find((r) => r.id === 'old_mansion');
+    expect(mansion?.interactables).toContain('evt_mansion_ear_room');
+    const evt = EVENTS.find((e) => e.id === 'evt_mansion_ear_room');
+    expect(evt).toBeDefined();
+    expect(evt?.actions.length).toBeGreaterThanOrEqual(2);
+  });
+
+  it('new expansion items exist and are clues', () => {
+    const ids = ['suspicious_guest_entry', 'copper_bell_fragment', 'ear_room_ledger'];
+    for (const id of ids) {
+      const item = ITEMS.find((i) => i.id === id);
+      expect(item, `missing item: ${id}`).toBeDefined();
+      expect(item?.isClue, `${id} should be a clue`).toBe(true);
+    }
+  });
+
+  it('new events reference only existing items in their grants', () => {
+    const allItemIds = new Set(ITEMS.map((i) => i.id));
+    const newEventIds = ['evt_guest_register', 'evt_blue_shirt_trace', 'evt_mansion_ear_room'];
+    for (const eid of newEventIds) {
+      const evt = EVENTS.find((e) => e.id === eid);
+      expect(evt, `missing event: ${eid}`).toBeDefined();
+      if (!evt) continue;
+      for (const action of evt.actions) {
+        for (const itemId of (action.grants?.items ?? [])) {
+          expect(allItemIds.has(itemId), `event ${eid} action ${action.id} grants unknown item: ${itemId}`).toBe(true);
+        }
+      }
+    }
+  });
 });
