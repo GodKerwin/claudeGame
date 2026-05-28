@@ -55,7 +55,7 @@
         "id": "old_mansion",
         "name": "废弃宅院",
         "description": "朱漆大门半开，院内荒草及膝，青砖缝隙间生满苔藓。正堂横梁上悬着一块匾额，\"天机阁\"三字在尘埃下若隐若现，笔力遒劲，想来曾是何等气象。院子东侧，一口干枯的古井静静矗立，井壁上刻满了看不懂的符文。",
-        "interactables": ["evt_tianji_records", "evt_final_confrontation", "evt_dry_well"],
+        "interactables": ["evt_tianji_records", "evt_mansion_ear_room", "evt_final_confrontation", "evt_dry_well"],
         "exits": ["lobby"],
         "requires": {
           "flags": ["clue_blood_letter_found", "clue_arsenic_found", "cellar_fragment_obtained"]

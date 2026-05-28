@@ -389,6 +389,39 @@
     ]
   },
   {
+    "id": "evt_mansion_ear_room",
+    "title": "发现隐秘耳室",
+    "description": "正堂东侧的墙面比其他地方厚了整整一掌，细看之下，墙角有一条几乎不可见的竖缝。",
+    "requires": { "flags": ["tianji_records_found"] },
+    "actions": [
+      {
+        "id": "find_hidden_room",
+        "label": "沿墙缝寻找机括",
+        "requires": { "flags_absent": ["ear_room_found"] },
+        "result": "你沿着竖缝向下摸索，在离地三尺处找到一块松动的青砖。轻轻一推，一道窄门无声地向内转开。里面是一间容不下三人并立的耳室，空气阴沉，但干燥异常——有人精心维护过这里的防潮。\n\n木格上整整齐齐地摆着十数本薄册，每本封面只有一个字或一个代号。",
+        "grants": { "flags": ["ear_room_found"] }
+      },
+      {
+        "id": "read_ear_room_files",
+        "label": "翻阅耳室档录",
+        "requires": { "flags": ["ear_room_found"], "flags_absent": ["ear_room_read"] },
+        "result": "大多数薄册记录的是人名与地点，密密麻麻，显然是某种情报系统的原始记录。你抽出最后一本——封面是一个「鸢」字。\n\n里面的记录只有最后半页尚存，其余的全被撕去了。留下的半页记着三个日期，以及一行字：「行动完成，归档，待命。」",
+        "grants": {
+          "flags": ["ear_room_read"],
+          "items": ["ear_room_ledger"],
+          "clues": ["ear_room_ledger"]
+        }
+      },
+      {
+        "id": "analyze_torn_pages",
+        "label": "推断被撕去的内容（需智慧≥8）",
+        "requires": { "wisdom": 8, "flags": ["ear_room_read"], "flags_absent": ["torn_pages_analyzed"] },
+        "result": "你翻看留下的半页，注意到纸张撕断处有轻微的墨水渗透痕迹——说明被撕去的那部分记录更长，内容更具体。结合纸张的磨损程度，被撕去的页面很新，撕除时间不超过一个月。\n\n有人最近来过这里，专门清除了鸢的行动细节。那个人知道这里，知道档案在哪，并且在这个档案对他们形成威胁之前将它销毁。",
+        "grants": { "flags": ["torn_pages_analyzed", "kite_identity_confirmed"] }
+      }
+    ]
+  },
+  {
     "id": "evt_alley_marks",
     "title": "查看墙上刻记",
     "description": "青砖墙的转角处，有一组浅浅的刻痕，像是被人刻意做下的记号。寻常人走过，多半视而不见。",
