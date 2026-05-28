@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GameLayout } from '../../components/layout/GameLayout';
 import { LeftPanel } from '../../components/layout/LeftPanel';
@@ -22,6 +22,7 @@ export default function Game() {
   const scene = useSceneStore();
   const { items, addItem, removeItem } = useInventoryStore();
   const [modal, setModal] = useState<ModalType>(null);
+  const processingRef = useRef(false);
 
   useAutoSave();
 
@@ -54,7 +55,7 @@ export default function Game() {
   };
 
   const buildActions = () => {
-    const actions: Array<{ id: string; label: string; available: boolean; hint: string }> = [];
+    const actions: Array<{ id: string; label: string; available: boolean; completed: boolean; hint: string }> = [];
 
     for (const interactableId of room.interactables) {
       if (interactableId.startsWith('evt_')) {
@@ -66,6 +67,7 @@ export default function Game() {
             id: `${interactableId}:${r.action.id}`,
             label: r.action.label,
             available: r.available,
+            completed: r.completed,
             hint: r.hint,
           });
         }
@@ -78,6 +80,7 @@ export default function Game() {
             id: `${interactableId}:talk`,
             label: `与${npc.name}交谈`,
             available: true,
+            completed: false,
             hint: '',
           });
         }
@@ -87,6 +90,9 @@ export default function Game() {
   };
 
   const handleAction = (actionId: string) => {
+    if (processingRef.current) return;
+    processingRef.current = true;
+    setTimeout(() => { processingRef.current = false; }, 300);
     const colonIdx = actionId.indexOf(':');
     const entityId = actionId.slice(0, colonIdx);
     const subId = actionId.slice(colonIdx + 1);

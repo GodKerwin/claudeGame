@@ -5,6 +5,7 @@ import type { EvalContext } from './conditionEvaluator';
 export interface ActionResult {
   action: EventAction;
   available: boolean;
+  completed: boolean;
   hint: string;
 }
 
@@ -12,8 +13,17 @@ export function getActionResults(event: GameEvent, ctx: EvalContext): ActionResu
   return event.actions.map((action) => ({
     action,
     available: evaluate(action.requires, ctx),
+    completed: isCompleted(action, ctx),
     hint: getMissingConditionLabel(action.requires, ctx),
   }));
+}
+
+function isCompleted(action: EventAction, ctx: EvalContext): boolean {
+  if (!action.requires?.flags_absent?.length) return false;
+  if (evaluate(action.requires, ctx)) return false;
+  const { flags_absent: _fa, ...rest } = action.requires;
+  const hasOtherConditions = Object.keys(rest).length > 0;
+  return hasOtherConditions ? evaluate(rest as Condition, ctx) : true;
 }
 
 export function canExecuteAction(action: EventAction, ctx: EvalContext): boolean {

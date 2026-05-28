@@ -175,7 +175,7 @@
       {
         "id": "climb_window",
         "label": "翻越侧窗潜入",
-        "requires": { "agility": 7, "flags_absent": ["secret_room_opened"] },
+        "requires": { "agility": 6, "flags_absent": ["secret_room_opened"] },
         "result": "你借力墙壁，身法轻灵地从侧窗鱼跃而入，悄无声息地落进密室，连灰尘都没带起多少。室内安静如故。",
         "grants": { "flags": ["secret_room_opened", "entered_silently", "cellar_entered_agility"] }
       },
@@ -361,7 +361,7 @@
     "actions": [
       {
         "id": "examine_marks_wise",
-        "label": "仔细辨认刻记（需智慧≥6）",
+        "label": "深入研究刻痕（需智慧≥6）",
         "requires": {
           "wisdom": 6,
           "flags_absent": ["alley_marks_found"]
@@ -374,7 +374,7 @@
       },
       {
         "id": "examine_marks_basic",
-        "label": "查看墙上刻记",
+        "label": "粗略打量墙上刻痕",
         "requires": {
           "flags_absent": ["alley_marks_found"]
         },
@@ -386,7 +386,7 @@
       },
       {
         "id": "marks_done",
-        "label": "再看一眼刻记",
+        "label": "这刻痕你已记录在册",
         "requires": {
           "flags": ["alley_marks_found"]
         },

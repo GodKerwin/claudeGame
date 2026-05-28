@@ -5,6 +5,7 @@ interface ActionItem {
   id: string;
   label: string;
   available: boolean;
+  completed: boolean;
   hint: string;
   variant?: 'default' | 'danger' | 'special';
 }
@@ -42,6 +43,7 @@ export function CenterPanel({ roomName, roomDescription, storyTexts, actions, on
               label={a.label}
               onClick={() => onAction(a.id)}
               disabled={!a.available}
+              completed={a.completed}
               hint={a.hint}
               variant={a.variant}
             />
