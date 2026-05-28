@@ -65,7 +65,7 @@
         "id": "back_alley",
         "name": "城郊后巷",
         "description": "客栈背后延伸出去的一条窄巷，青砖墙壁上留着各色痕迹。白日里少有人走动，只有偶尔路过的乞丐和来往的货商。转角处，一段墙壁上的刻痕引人注目。",
-        "interactables": ["npc_old_beggar", "npc_merchant_zhou", "evt_alley_marks", "evt_cargo_remnants"],
+        "interactables": ["npc_old_beggar", "npc_merchant_zhou", "evt_alley_marks", "evt_cargo_remnants", "evt_blue_shirt_trace"],
         "exits": ["forest"],
         "requires": { "flags": ["found_escape_clue"] }
       }

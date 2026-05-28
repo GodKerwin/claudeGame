@@ -595,5 +595,41 @@
         "grants": { "flags": ["account_decoded"] }
       }
     ]
+  },
+  {
+    "id": "evt_blue_shirt_trace",
+    "title": "追查蓝衫人踪迹",
+    "description": "如果那个在大堂久坐的蓝衫人真的与案子有关，他在这条后巷里或许留下了什么。",
+    "requires": { "flags": ["blue_shirt_registered"] },
+    "actions": [
+      {
+        "id": "search_alley_corner",
+        "label": "搜寻巷道角落",
+        "requires": { "flags_absent": ["alley_corner_searched"] },
+        "result": "你沿着后巷慢慢走，在墙根的一处砖缝里发现了半截铜铃——铃口被人用剪刀齐齐剪断，显然是刻意丢弃的。铃面刻着细密的波浪纹，中间嵌着一个「浪」字。浪鹏帮的帮徽。\n\n那个「周文远」，是浪鹏帮的人。",
+        "grants": {
+          "flags": ["alley_corner_searched", "blue_shirt_traced", "langpeng_spy_identified"],
+          "items": ["copper_bell_fragment"],
+          "clues": ["copper_bell_fragment"]
+        }
+      },
+      {
+        "id": "trace_departure_route",
+        "label": "推断离开路线",
+        "requires": { "flags": ["blue_shirt_traced"], "flags_absent": ["spy_route_deduced"] },
+        "result": "你看了看那处砖缝的位置——正对着后巷与正街的交叉口。丢弃的时机应该是他快速离开时，铜铃碰到什么发出声响，怕被人认出帮徽，索性剪断扔了。\n\n他走的是正街方向，不是翻墙。这个人进出客栈用的是最光明正大的方式——因为他本来就没打算动手，他只是在盯梢。",
+        "grants": { "flags": ["spy_route_deduced"] }
+      },
+      {
+        "id": "connect_langpeng_thread",
+        "label": "串联浪鹏帮的目的",
+        "requires": {
+          "flags": ["blue_shirt_traced", "langpeng_discovered"],
+          "flags_absent": ["langpeng_spy_connected"]
+        },
+        "result": "浪鹏帮在案发前就已经有人盯着宋怀义了。他们不是事后追查的——他们知道宋怀义会来长安，知道他这次来的目的。\n\n但他们没有动手。那个「周文远」在宋怀义死后天亮前就撤了，没有留下，也没有取走任何东西。\n\n他们想要的，显然不是宋怀义的命。",
+        "grants": { "flags": ["langpeng_spy_connected"] }
+      }
+    ]
   }
 ]
