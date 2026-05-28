@@ -25,6 +25,20 @@
         "requires": { "wisdom": 6 },
         "result": "死者右手指甲缝中夹着一小撮黑色布料纤维，材质特殊，不是寻常布匹。左手腕上有一道细小的针刺痕迹，入针极准。",
         "grants": { "flags": ["cloth_fiber_found"], "clues": ["cloth_fiber_clue"] }
+      },
+      {
+        "id": "search_sleeve_str",
+        "label": "强行掰开死者紧握的手（需力量≥7）",
+        "requires": { "strength": 7, "flags_absent": ["cloth_fiber_found"] },
+        "result": "你用力掰开死者紧握的右拳。手心里攥着一小撮黑色布料纤维，死者临终时死死抓住了凶手的衣物。这种材质，不是寻常布匹。",
+        "grants": { "flags": ["cloth_fiber_found"], "clues": ["cloth_fiber_clue"] }
+      },
+      {
+        "id": "search_sleeve_agi",
+        "label": "以指轻探死者袖口（需敏捷≥7）",
+        "requires": { "agility": 7, "flags_absent": ["cloth_fiber_found"] },
+        "result": "你以极轻的手法翻检死者的袖口——指甲缝里夹着一小撮黑色布料纤维，若非手法极准，极易遗漏。这种材质特殊，不像是寻常布匹。",
+        "grants": { "flags": ["cloth_fiber_found"], "clues": ["cloth_fiber_clue"] }
       }
     ]
   },
