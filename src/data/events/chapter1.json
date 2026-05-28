@@ -100,6 +100,20 @@
         "grants": { "flags": ["dafei_notice_found", "dafei_acrostic_decoded"], "items": ["broken_copper_badge"] }
       },
       {
+        "id": "recognize_gang_code",
+        "label": "识别告示中的帮派暗记（江湖老千）",
+        "requires": {
+          "talent": "江湖老千",
+          "flags": ["notice_read"],
+          "flags_absent": ["dafei_notice_found"]
+        },
+        "result": "你在江湖上混迹多年，对各路暗语烂熟于心。那首诗的藏头一眼便识破——大、风、起、兮、云、飞、扬，「大飞」二字。不仅如此，你还注意到招领启事的纸张质地和字体，这是某个中等规模帮派惯用的文书格式。你顺手在告示背后摸到一枚铜牌。",
+        "grants": {
+          "flags": ["dafei_notice_found", "dafei_acrostic_decoded", "gang_culture_known"],
+          "items": ["broken_copper_badge"]
+        }
+      },
+      {
         "id": "read_again",
         "label": "再看一遍告示",
         "requires": { "flags": ["notice_read"], "flags_absent": ["dafei_notice_found"] },
