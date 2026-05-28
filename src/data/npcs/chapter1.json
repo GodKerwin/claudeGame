@@ -202,6 +202,54 @@
     "description": "面容清癯，双眸深邃，腰间无刀无剑，却有一种令人无法轻视的气度。白衣无尘，仿佛连树林的泥土都不愿沾染。",
     "dialogues": [
       {
+        "id": "white_stranger_deep_talk",
+        "condition": { "flags": ["stranger_questioned", "clue_blood_letter_found", "tianji_records_found"], "flags_absent": ["white_stranger_trust"] },
+        "text": "白衣人看了看你手中握着的线索，点了点头，像是在确认什么：「你比我预想的走得更远。」他指了指旁边一块平整的石头，「坐下。这一次，我多说一些。」",
+        "choices": [
+          {
+            "id": "ask_song_real_identity",
+            "label": "宋怀义背叛了天机阁？",
+            "response": "「这要看你怎么定义背叛。」白衣人的声音里有某种复杂的情绪，「他带走了一份名册，那是真的。但他为什么带走，带去哪里，要给谁……」他停顿，「没有人知道他真正的打算。十年里，我一直在想这个问题。」"
+          },
+          {
+            "id": "ask_scroll_purpose",
+            "label": "残卷里到底藏着什么？",
+            "response": "「你手里的那些碎片，只是皮毛。」他直视你，「残卷记录的是一张网，一张覆盖大唐边疆与朝堂的情报网络。这张网还活着，只是没有人在操持它。」\n\n「一旦有人能把所有碎片拼齐，就能重新掌控这张网。」他顿了顿，「所以，有人不能让它被拼齐。」",
+            "grants": { "flags": ["scroll_true_purpose_known"] }
+          },
+          {
+            "id": "ask_for_guidance",
+            "label": "你觉得我该怎么做？",
+            "response": "白衣人长时间地看着你，像是在下某个决定。\n\n「东市，回春堂。」他说，「那里有人在等一个已经死了的人。去见他，说：归鸟问津。」\n\n「至于之后……」他站起身，衣袂随风而起，「这条路，你自己选。我能做的，已经做完了。」",
+            "grants": { "flags": ["white_stranger_trust", "huichuntang_password_known"] }
+          }
+        ]
+      },
+      {
+        "id": "white_stranger_first_questions",
+        "condition": { "flags": ["stranger_met"], "flags_absent": ["white_stranger_trust", "stranger_questioned"] },
+        "text": "白衣人看着你，目光沉静，像是在等你说什么。他开口：「你已经查到了一些东西。想问，就问吧。」",
+        "choices": [
+          {
+            "id": "ask_identity",
+            "label": "你究竟是什么人？",
+            "response": "「一个知道太多的人。」他说得很平静，「知道太多，有时候是负担，有时候是武器。你选择用它做什么，才是真正重要的问题。」\n\n他停顿了一下：「我曾经和天机阁有过一段渊源。仅此而已。」"
+          },
+          {
+            "id": "ask_motive",
+            "label": "你为何要帮助我？",
+            "response": "「我没有在帮你。」白衣人微微偏头，「我在帮一件事情走向它该走向的地方。你只是恰好站在这条路上。」\n\n他望向树林深处：「宋怀义死了十年应该死的事，但不该死得这么快。有人急了。急着做事的人，会留下痕迹。」",
+            "grants": { "flags": ["stranger_questioned"] }
+          },
+          {
+            "id": "ask_kite_name",
+            "label": "鸢——你认识这个人吗？",
+            "response": "白衣人沉默了很长时间。\n\n「鸢是一个代号，不是一个人。」他最终说，「就像天机阁里所有的组一样，用飞鸟命名。鸢组做的是最后的事——收尾、抹除、封口。」\n\n「能动用鸢组的人，在整个阁里不超过三个。」他看了你一眼，「现在可能更少了。」",
+            "grants": { "flags": ["kite_role_known"] }
+          }
+        ]
+      },
+      {
         "id": "first_encounter",
         "condition": { "flags_absent": ["white_stranger_met"] },
         "text": "……你循着那人的脚印追来的？那人已经走了。你倒是比我预计的来得快。我在这里等了你一个时辰。",
@@ -304,6 +352,30 @@
           "flags": ["fei_ye_trust_deepened"],
           "items": ["dafei_inner_token"]
         }
+      },
+      {
+        "id": "fei_ye_deep_talk",
+        "condition": { "flags": ["dafei_joined", "dafei_lock_solved"], "flags_absent": ["fei_ye_secret_told"] },
+        "text": "飞爷收起了那副漫不经心的笑容，指了指密室深处的一张椅子：「坐。你已经证明了你不是来捣乱的，那我们就说点真话。」",
+        "choices": [
+          {
+            "id": "ask_real_purpose",
+            "label": "大飞帮建立的真正目的是什么？",
+            "response": "「你以为是经营长安地下市场？」飞爷轻笑，「那只是外壳。」他看了你一眼，「我曾经是天机阁里的一枚棋子。十年前阁子散了，但那张情报网络还活着——只是没有人控着。我建大飞帮，是在等那张网重新有人来认领的那一天。」\n\n「现在，或许那一天快来了。」"
+          },
+          {
+            "id": "ask_about_langpeng",
+            "label": "浪鹏帮追查残卷的目的？",
+            "response": "飞爷手指敲了敲桌面：「浪鹏帮……有意思。他们不像是冲着残卷的情报价值来的。」他微微皱眉，「他们翻的是货单、是名册，找的不是地点，而是一个人的名字。」\n\n「寻仇。」他下了结论，「浪鹏帮是在寻仇，只是我不知道他们要找的是谁。」",
+            "grants": { "flags": ["fei_ye_langpeng_analysis", "fei_ye_secret_told"] }
+          },
+          {
+            "id": "ask_who_is_kite",
+            "label": "你知道鸢是谁吗？",
+            "response": "飞爷沉默了一拍，然后笑了——不是寻常那种算计的笑，而是某种更复杂的表情。\n\n「鸢……」他摩挲着桌边，「当年阁里，鸢组只有一个执行人。一个女人。我见过她一次，那时她还很年轻。」\n\n他抬眼看你：「如果她还活着，如果还是她在动手……那说明这件事，比我们所有人想象的都要复杂。」",
+            "grants": { "flags": ["fei_ye_kite_hint"] }
+          }
+        ]
       },
       {
         "id": "gang_intel",
