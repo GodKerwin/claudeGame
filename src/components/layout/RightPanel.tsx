@@ -5,20 +5,20 @@ import { useSceneStore } from '../../store/sceneStore';
 import { getItem, TALENTS } from '../../data/loader';
 
 const STAT_DESCRIPTIONS: Record<string, string> = {
-  strength: '力量\n影响体力检定、破门、格斗等动作',
-  agility: '敏捷\n影响潜行、翻越、追踪等动作',
-  wisdom: '智慧\n影响推理、识别暗语、解读线索等动作',
-  constitution: '根骨\n影响耐毒、抗压、长途行进等动作',
+  strength: '力量\n筋骨强健，以力破局。破门、格斗、强行撬锁等动作皆仰仗于此。',
+  agility: '敏捷\n身法飘逸，如燕轻盈。潜行、翻越、追踪踪迹等动作皆仰仗于此。',
+  wisdom: '智慧\n心思缜密，料事如神。推理、识破暗语、解读线索等动作皆仰仗于此。',
+  constitution: '根骨\n体魄坚韧，百折不挠。耐毒、抗压、长途奔袭等动作皆仰仗于此。',
 };
 
 const QUEST_HINTS: Record<string, { name: string; hint: string }> = {
   quest_main_murder: {
     name: '调查客栈命案',
-    hint: '尝试检查二〇二号房与大堂，\n与掌柜李福交谈可能获得更多线索。\n收集足够的证据后前往废弃宅院。',
+    hint: '案发房间与大堂皆有蹊跷可查，\n掌柜李福藏着些话，不妨多问几句。\n线索足够时，可前往城郊废弃宅院。',
   },
   quest_dafei_gang: {
     name: '大飞帮隐藏线索',
-    hint: '注意大堂的公告板，\n某些告示可能暗藏玄机。\n试着与饮酒的客人搭话。',
+    hint: '大堂公告板上的告示不只是告示，\n与醉酒客人攀谈，或许有意外收获。\n深夜的客栈，比白日更藏得住秘密。',
   },
 };
 
@@ -32,7 +32,7 @@ export function RightPanel() {
   return (
     <div className="flex flex-col h-full p-3 gap-4 text-sm overflow-y-auto">
       <div>
-        <p className="text-gold/60 text-xs mb-2 tracking-widest">【角色属性】</p>
+        <p className="text-gold/60 text-xs mb-2 tracking-widest">【身家底细】</p>
         <div className="space-y-1.5">
           {(['strength', 'agility', 'wisdom', 'constitution'] as const).map((stat) => (
             <Tooltip key={stat} content={STAT_DESCRIPTIONS[stat]} position="left">
@@ -53,9 +53,9 @@ export function RightPanel() {
       </div>
 
       <div>
-        <p className="text-gold/60 text-xs mb-2 tracking-widest">【线索记录】</p>
+        <p className="text-gold/60 text-xs mb-2 tracking-widest">【线索存档】</p>
         {clueItems.length === 0 ? (
-          <p className="text-ink/30 text-xs">尚无线索</p>
+          <p className="text-ink/30 text-xs">线索尚无，慢慢查来</p>
         ) : (
           <ul className="space-y-1">
             {clueItems.map((item) => item && (
@@ -71,7 +71,7 @@ export function RightPanel() {
       </div>
 
       <div>
-        <p className="text-gold/60 text-xs mb-2 tracking-widest">【当前任务】</p>
+        <p className="text-gold/60 text-xs mb-2 tracking-widest">【未竟之事】</p>
         <ul className="space-y-2">
           {questLog.map((qid) => {
             const q = QUEST_HINTS[qid];
