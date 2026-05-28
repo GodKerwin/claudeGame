@@ -5,7 +5,9 @@ import { LeftPanel } from '../../components/layout/LeftPanel';
 import { CenterPanel } from '../../components/layout/CenterPanel';
 import { RightPanel } from '../../components/layout/RightPanel';
 import { SaveLoadModal } from '../../components/save/SaveLoadModal';
+import { SettingsModal } from '../../components/settings/SettingsModal';
 import { useAutoSave } from '../../hooks/useAutoSave';
+import { useSettings } from '../../hooks/useSettings';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
@@ -14,7 +16,7 @@ import { getActionResults } from '../../engine/eventEngine';
 import { getAvailableDialogues } from '../../engine/storyEngine';
 import type { EvalContext } from '../../engine/conditionEvaluator';
 
-type ModalType = 'save' | 'load' | null;
+type ModalType = 'save' | 'load' | 'settings' | null;
 
 export default function Game() {
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ export default function Game() {
   const processingRef = useRef(false);
 
   useAutoSave();
+  useSettings();
 
   if (!player.name) {
     navigate('/');
@@ -135,11 +138,11 @@ export default function Game() {
   return (
     <>
       <button
-        onClick={() => setModal('save')}
-        className="fixed top-2 right-52 z-20 text-xs text-gold/20 hover:text-gold/60 px-2 py-1 cursor-pointer"
-        title="存档（✦）"
+        onClick={() => setModal('settings')}
+        className="fixed top-2 right-4 z-20 text-base text-gold/20 hover:text-gold/60 px-2 py-1 cursor-pointer"
+        title="设置"
       >
-        ✦
+        ⚙
       </button>
 
       <GameLayout
@@ -156,7 +159,14 @@ export default function Game() {
         right={<RightPanel />}
       />
 
-      {modal && (
+      {modal === 'settings' && (
+        <SettingsModal
+          onClose={() => setModal(null)}
+          onSave={() => setModal('save')}
+          onLoad={() => setModal('load')}
+        />
+      )}
+      {(modal === 'save' || modal === 'load') && (
         <SaveLoadModal mode={modal} onClose={() => setModal(null)} />
       )}
     </>
