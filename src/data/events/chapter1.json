@@ -477,6 +477,39 @@
     ]
   },
   {
+    "id": "evt_guest_register",
+    "title": "翻查住客册",
+    "description": "柜台旁靠墙放着一本厚厚的住客登记册，封面油腻，翻动时会散出一股陈旧的墨香。",
+    "requires": null,
+    "actions": [
+      {
+        "id": "browse_register",
+        "label": "随手翻看住客册",
+        "requires": { "flags_absent": ["guest_register_checked"] },
+        "result": "几十个名字，大多是往来商旅。你随手翻了翻，大部分是寻常客商的名字，但最近两页似乎比其他页磨损更多——有人翻看过不止一次。",
+        "grants": { "flags": ["guest_register_checked"] }
+      },
+      {
+        "id": "find_blue_shirt_entry",
+        "label": "仔细比对近日登记",
+        "requires": { "flags": ["guest_register_checked"], "flags_absent": ["blue_shirt_registered"] },
+        "result": "你把案发前后三日的登记记录逐条对比。一个名叫「周文远」的客人在宋怀义入住后两个时辰登记，来路写的是「扬州布商」，但押金却是长安本地铜钱，成色是近年新铸的——不像是刚刚进京的外地人。他在宋怀义死亡当日清晨五更便已退房，连早饭都没用。",
+        "grants": {
+          "flags": ["blue_shirt_registered"],
+          "items": ["suspicious_guest_entry"],
+          "clues": ["suspicious_guest_entry"]
+        }
+      },
+      {
+        "id": "check_register_handwriting",
+        "label": "辨认登记字迹",
+        "requires": { "flags": ["blue_shirt_registered"], "flags_absent": ["register_handwriting_noted"] },
+        "result": "「周文远」的登记字迹工整到反常——字间距完全一致，笔画收尾处有训练痕迹。这不是一个普通布商会有的书写习惯，更像是受过专门训练的人刻意为之，确保字迹找不到特征。",
+        "grants": { "flags": ["register_handwriting_noted"] }
+      }
+    ]
+  },
+  {
     "id": "evt_crime_scene_202",
     "title": "勘察案发现场",
     "description": "这间房间藏着比走廊所见更多的细节。",
