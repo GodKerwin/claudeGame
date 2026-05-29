@@ -16,6 +16,12 @@ const CHAPTER2_ENDINGS: Record<string, string> = {
   chapter2_join_ending: '你踏入了那张网。是猎人，还是猎物，此刻还说不清。',
 };
 
+const CHAPTER3_ENDINGS: Record<string, string> = {
+  chapter3_truth_ending: '天机创立卷公诸于众，廷尉府的旧案重见天日。名单上的人，终于可以不再躲藏。飞爷被带走了。这张网，由你来收。',
+  chapter3_standoff_ending: '飞爷走了，名单还在他手里。你手里，是半段真相。另一半，在某个你看不见的地方等着你。',
+  chapter3_join_ending: '你烧了追查令，他告诉了你名单的下落。两个人，一张网，对抗同一个还没有名字的敌人。这局棋，还没有下完。',
+};
+
 export default function ChapterEnd() {
   const navigate = useNavigate();
   const scene = useSceneStore();
@@ -23,18 +29,26 @@ export default function ChapterEnd() {
   const [visibleCount, setVisibleCount] = useState(0);
   const [showButton, setShowButton] = useState(false);
 
+  const isChapter3 = scene.flags.includes('chapter3_started');
   const isChapter2 = scene.flags.includes('chapter2_started');
-  const endingFlag = isChapter2
+
+  const endingFlag = isChapter3
+    ? Object.keys(CHAPTER3_ENDINGS).find((f) => scene.flags.includes(f))
+    : isChapter2
     ? Object.keys(CHAPTER2_ENDINGS).find((f) => scene.flags.includes(f))
     : Object.keys(CHAPTER1_ENDINGS).find((f) => scene.flags.includes(f));
 
   const endingText = endingFlag
-    ? (isChapter2 ? CHAPTER2_ENDINGS[endingFlag] : CHAPTER1_ENDINGS[endingFlag])
+    ? isChapter3
+      ? CHAPTER3_ENDINGS[endingFlag]
+      : isChapter2
+      ? CHAPTER2_ENDINGS[endingFlag]
+      : CHAPTER1_ENDINGS[endingFlag]
     : '';
 
-  const chapterTitle = isChapter2 ? '第二章·完' : '第一章·完';
+  const chapterTitle = isChapter3 ? '第三章·完' : isChapter2 ? '第二章·完' : '第一章·完';
 
-  const clueItems = isChapter2
+  const clueItems = isChapter3 || isChapter2
     ? []
     : items.flatMap((id) => { const item = getItem(id); return item?.isClue ? [item] : []; });
 
@@ -59,8 +73,15 @@ export default function ChapterEnd() {
   }, [visibleCount, lines.length]);
 
   const handleContinue = () => {
-    if (isChapter2) {
+    if (isChapter3) {
       navigate('/');
+    } else if (isChapter2) {
+      scene.addFlag('chapter3_started');
+      const startRoom = scene.flags.includes('chapter2_join_ending')
+        ? 'tianji_safehouse'
+        : 'dayan_pagoda';
+      scene.setRoom(startRoom);
+      navigate('/game');
     } else {
       scene.addFlag('chapter2_started');
       scene.setRoom('east_market_entrance');
@@ -68,7 +89,7 @@ export default function ChapterEnd() {
     }
   };
 
-  const buttonLabel = isChapter2 ? '回到主菜单' : '踏入第二章';
+  const buttonLabel = isChapter3 ? '回到主菜单' : isChapter2 ? '踏入第三章' : '踏入第二章';
 
   return (
     <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center justify-center p-12">

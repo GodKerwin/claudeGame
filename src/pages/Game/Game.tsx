@@ -28,6 +28,7 @@ interface PendingChoices {
 
 const CHAPTER1_ENDINGS = ['chapter1_truth_ending', 'chapter1_force_ending', 'chapter1_hermit_ending'];
 const CHAPTER2_ENDINGS = ['chapter2_arrest_ending', 'chapter2_release_ending', 'chapter2_join_ending'];
+const CHAPTER3_ENDINGS = ['chapter3_truth_ending', 'chapter3_standoff_ending', 'chapter3_join_ending'];
 
 export default function Game() {
   const navigate = useNavigate();
@@ -42,8 +43,9 @@ export default function Game() {
   useSettings();
 
   useEffect(() => {
+    const inChapter3 = scene.flags.includes('chapter3_started');
     const inChapter2 = scene.flags.includes('chapter2_started');
-    const endings = inChapter2 ? CHAPTER2_ENDINGS : CHAPTER1_ENDINGS;
+    const endings = inChapter3 ? CHAPTER3_ENDINGS : inChapter2 ? CHAPTER2_ENDINGS : CHAPTER1_ENDINGS;
     if (endings.some((f) => scene.flags.includes(f))) {
       navigate('/chapter-end');
     }
