@@ -41,6 +41,7 @@ export function GameLayout({ left, center, right }: Props) {
           <AnimatePresence mode="wait">
             <motion.div
               key={mobilePanel}
+              role="tabpanel"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -51,12 +52,14 @@ export function GameLayout({ left, center, right }: Props) {
             </motion.div>
           </AnimatePresence>
         </div>
-        <div className="flex border-t border-gold/20 bg-paper shrink-0 pb-3">
+        <div role="tablist" className="flex border-t border-gold/20 bg-paper shrink-0 pb-3">
           {MOBILE_TABS.map(({ key, label }) => (
             <button
               key={key}
+              role="tab"
+              aria-selected={mobilePanel === key}
               onClick={() => setMobilePanel(key)}
-              className={`flex-1 py-3 text-xs tracking-widest transition-colors cursor-pointer ${
+              className={`flex-1 py-4 text-xs tracking-widest transition-colors cursor-pointer ${
                 mobilePanel === key
                   ? 'text-gold border-t-2 border-gold -mt-px'
                   : 'text-ink/40 hover:text-ink/60'
