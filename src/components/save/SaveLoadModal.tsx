@@ -51,7 +51,7 @@ export function SaveLoadModal({ mode, onClose }: Props) {
       flags: data.flags ?? [],
       clues: data.clues ?? [],
       questLog: data.questLog ?? [],
-      storyText: [],
+      storyText: (data.storyText ?? []).slice(-20),
       seenDialogues: data.seenDialogues ?? [],
       visitedRooms: data.visitedRooms ?? [data.currentRoomId],
     });

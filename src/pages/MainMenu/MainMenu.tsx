@@ -4,6 +4,7 @@ import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
 import { useSaveStore } from '../../store/saveStore';
 import { loadFromSlot, loadAllSlots } from '../../engine/saveEngine';
+import { getSeenEndings } from '../../engine/endingRecord';
 
 export default function MainMenu() {
   const navigate = useNavigate();
@@ -16,6 +17,15 @@ export default function MainMenu() {
   const autoSave = slots.find((s) => s.id === 0);
   const hasContinue = !!autoSave?.data;
 
+  const hasAnyEnding = getSeenEndings().length > 0;
+
+  const saveFlags: string[] = autoSave?.data?.flags ?? [];
+  const saveSubtitle = saveFlags.includes('chapter3_started')
+    ? '第三章·鸢归何处'
+    : saveFlags.includes('chapter2_started')
+    ? '第二章·东市风云'
+    : '第一章·长安往事';
+
   const handleContinue = () => {
     const data = loadFromSlot(0);
     if (!data) return;
@@ -25,7 +35,7 @@ export default function MainMenu() {
       flags: data.flags ?? [],
       clues: data.clues ?? [],
       questLog: data.questLog ?? [],
-      storyText: [],
+      storyText: (data.storyText ?? []).slice(-20),
       seenDialogues: data.seenDialogues ?? [],
       visitedRooms: data.visitedRooms ?? [data.currentRoomId],
     });
@@ -38,7 +48,7 @@ export default function MainMenu() {
     <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center justify-center">
       <div className="text-center space-y-2 mb-16">
         <h1 className="text-gold text-5xl tracking-[0.3em]">天机残卷</h1>
-        <p className="text-ink/30 text-sm tracking-widest">第一章·长安往事</p>
+        <p className="text-ink/30 text-sm tracking-widest">{hasContinue ? saveSubtitle : '第一章·长安往事'}</p>
       </div>
 
       <div className="flex flex-col gap-4 w-64">
@@ -60,10 +70,19 @@ export default function MainMenu() {
             </span>
           </button>
         )}
+
+        {hasAnyEnding && (
+          <button
+            onClick={() => navigate('/endings')}
+            className="py-2 text-ink/30 hover:text-ink/50 tracking-widest transition-all text-xs cursor-pointer"
+          >
+            结局图鉴
+          </button>
+        )}
       </div>
 
       <p className="absolute bottom-6 text-ink/15 text-xs tracking-widest">
-        天机残卷 · Chapter I · MVP
+        天机残卷 · 三章完结
       </p>
     </div>
   );
