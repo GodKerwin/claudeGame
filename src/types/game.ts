@@ -25,6 +25,10 @@ export interface ActionGrant {
   items?: string[];
   remove_items?: string[];
   quests?: string[];
+  strength?: number;
+  agility?: number;
+  wisdom?: number;
+  constitution?: number;
 }
 
 export interface EventAction {
