@@ -1,1 +1,319 @@
-[]
+[
+  {
+    "id": "evt_market_notice",
+    "title": "东市告示墙",
+    "description": "一面贴满告示的坊墙。最显眼的是一张新贴的通缉令，墨迹未干，围观者指指点点。",
+    "actions": [
+      {
+        "id": "read_notice",
+        "label": "细看告示内容",
+        "requires": null,
+        "result": "通缉令上的画像模糊，但描述清晰：白衣、高颧骨、左手旧伤。你将这些特征默记于心。赏银五十两，捉拿归案。",
+        "grants": { "flags": ["market_entry"], "items": ["reward_notice"] }
+      },
+      {
+        "id": "examine_carefully",
+        "label": "仔细辨认画像特征",
+        "requires": { "wisdom": 6 },
+        "result": "你仔细辨认告示上的描述，忽然想起往事客栈那个白衣人——左手确实有一道旧伤疤，不深，却显眼。画像画的，正是他。",
+        "grants": { "flags": ["market_entry", "li_mao_description_known"], "items": ["reward_notice"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_merchant_gossip",
+    "title": "茶摊消息",
+    "description": "茶摊旁几个商贩聚在一起，压低声音说着什么。提到「昨夜平康坊有动静」。",
+    "actions": [
+      {
+        "id": "listen_gossip",
+        "label": "凑近旁听",
+        "requires": null,
+        "result": "断断续续听到几句：「昨夜平康坊院子里出进了好几个人……」「不知道是哪路帮派……」「跟那个白衣爷有关系吧……」",
+        "grants": { "flags": ["east_market_rumor"] }
+      },
+      {
+        "id": "buy_information",
+        "label": "出钱打听详情",
+        "requires": { "wisdom": 7 },
+        "result": "你摸出几枚铜钱，茶摊掌柜会意，凑近低声道：「那帮人昨夜急着撤，说是平康坊西头有人盯着……浪鹏帮的，这几日在城里走动频繁。」",
+        "grants": { "flags": ["east_market_rumor", "langpeng_sighting"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_medicine_shelf",
+    "title": "药架检查",
+    "description": "回春堂的药架整整齐齐，各色草药按性状分类。有几格药格里的药材新旧混杂，像是近日有人动过。",
+    "actions": [
+      {
+        "id": "browse_shelf",
+        "label": "随手翻看",
+        "requires": null,
+        "result": "药架上的品类繁多，你认出几味常见草药，其余的不甚了解。架子背后有个小抽屉，用铜锁锁着。",
+        "grants": { "flags": ["medicine_browsed"] }
+      },
+      {
+        "id": "compare_poison",
+        "label": "以账本记录比对药架",
+        "requires": { "has": ["account_book"] },
+        "result": "你翻出账本上的记载，与药架上的药材逐一比对。其中一格放着混合砒霜与他物的特殊配方——账本中记载的正是此毒，与宋怀义的死因吻合。",
+        "grants": { "flags": ["poison_matched"], "items": ["poison_residue_sample"] }
+      },
+      {
+        "id": "deep_analysis",
+        "label": "凭医理推断毒药来源",
+        "requires": { "wisdom": 8 },
+        "result": "你以精深的医理辨析药架中的可疑药材，很快锁定其中一格：砒霜与曼陀罗花合制，能令人先昏迷再窒息，恰与宋怀义的死状相符。",
+        "grants": { "flags": ["poison_matched", "poison_source_known"], "items": ["poison_residue_sample"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_prescription_book",
+    "title": "方剂簿",
+    "description": "柜台下压着一本破旧的方剂簿，封面磨损，内页有多处涂改。",
+    "actions": [
+      {
+        "id": "flip_through",
+        "label": "随手翻阅",
+        "requires": null,
+        "result": "方剂簿上密密麻麻写着各类药方，笔迹潦草。你翻了几页，看不出什么特别之处。",
+        "grants": { "flags": ["prescription_seen"] }
+      },
+      {
+        "id": "recognize_handwriting",
+        "label": "辨认笔迹来源",
+        "requires": { "wisdom": 7 },
+        "result": "你仔细辨认方剂簿上的笔迹，发现部分方子是后来补写的，字迹与你在慈恩寺见过的无迹和尚写字时的运笔习惯如出一辙。",
+        "grants": { "items": ["wujue_prescription"] }
+      },
+      {
+        "id": "recognize_handwriting_met",
+        "label": "对照已知笔迹辨认",
+        "requires": { "flags": ["wujue_met"] },
+        "result": "你仔细辨认方剂簿上某几页的笔迹，认出正是无迹和尚的手迹。这位和尚在此铺子留下了痕迹，而且是关于配毒的方子。",
+        "grants": { "items": ["wujue_prescription"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_appraise_token",
+    "title": "鉴定天机令牌",
+    "description": "古玩铺掌柜见到你手中的天机玉令，目光一凝，随即若无其事地移开。",
+    "requires": { "has": ["tianji_jade_token"] },
+    "actions": [
+      {
+        "id": "casual_appraisal",
+        "label": "随口询问此令价值",
+        "requires": null,
+        "result": "掌柜不动声色地看了一眼，道：「寻常玉牌，值不了几个钱。」你见他眼神躲闪，知道他在撒谎。",
+        "grants": { "flags": ["token_appraised"] }
+      },
+      {
+        "id": "expert_appraisal",
+        "label": "说出令牌来历逼其表态",
+        "requires": { "wisdom": 7 },
+        "result": "你将令牌的纹饰特征一一道来，掌柜的脸色变了变，终于道：「你既知此物来历……」他从柜台下取出一册账本，翻到某一页，指给你看。",
+        "grants": { "flags": ["tianji_seal_read"], "items": ["buyer_transaction_record"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_buyer_ledger",
+    "title": "交易账本",
+    "description": "古玩铺深处的暗格里压着一册账本，纸页微微泛黄，字迹极小。",
+    "actions": [
+      {
+        "id": "skim_ledger",
+        "label": "草草翻阅",
+        "requires": null,
+        "result": "账本上密密麻麻记着交易记录，品类繁杂。你粗粗一扫，发现几笔异常大额的交易，日期是近半月内。",
+        "grants": { "flags": ["ledger_seen"] }
+      },
+      {
+        "id": "trace_entries",
+        "label": "逐条追溯来源",
+        "requires": { "wisdom": 6 },
+        "result": "你逐条核查账目，理出一条线索：数件「古玉」辗转易手，最终流向一个仅以「李」字记录的买家。交易时间恰在宋怀义死前数日。",
+        "grants": { "flags": ["ledger_seen"], "items": ["buyer_transaction_record"] }
+      },
+      {
+        "id": "trace_entries_agi",
+        "label": "悄悄拓印关键页",
+        "requires": { "agility": 7 },
+        "result": "趁掌柜不备，你迅速将几页关键账目拓下。记录显示，天机令牌曾在此铺三度易手，最后一次的买家写的是「委托人，李，长安城」。",
+        "grants": { "flags": ["ledger_seen"], "items": ["buyer_transaction_record"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_monk_cell",
+    "title": "僧房搜查",
+    "description": "僧房不大，一张草席，一只书箱，别无他物。然而草席下的地板有轻微隆起，书箱背面隐约有划痕。",
+    "actions": [
+      {
+        "id": "search_cell",
+        "label": "粗略搜查",
+        "requires": null,
+        "result": "你翻了翻书箱，只有几卷经文和一块磨光的砚台。地板下的隆起是一块松动的砖，撬开只有一个空洞。",
+        "grants": { "flags": ["cell_searched"] }
+      },
+      {
+        "id": "find_hidden_compartment",
+        "label": "细查书箱隔板",
+        "requires": { "agility": 7 },
+        "result": "你拆开书箱底板，发现一层夹层，内藏一卷密封的卷轴。卷轴上的内容令你屏住了呼吸——那是一份天机阁成员的身份记录，署名处写着：无迹，俗名韩朔，天机阁风字组。",
+        "grants": { "items": ["monk_identity_scroll"] }
+      },
+      {
+        "id": "find_hidden_compartment_wis",
+        "label": "以医理推断夹层位置",
+        "requires": { "wisdom": 8 },
+        "result": "药材存放处必有防潮夹层——你凭这个逻辑，很快在书箱的第三格背板找到了机关。内藏一卷密封的卷轴，载明无迹和尚真实身份。",
+        "grants": { "items": ["monk_identity_scroll"] }
+      },
+      {
+        "id": "force_open",
+        "label": "硬撬书箱底板",
+        "requires": { "strength": 8 },
+        "result": "你用力撬开书箱底板，木头嘎吱一声裂开，露出一层夹层。内藏一卷密封卷轴，记载着无迹和尚的真实身份与天机阁旧案始末。",
+        "grants": { "items": ["monk_identity_scroll"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_temple_mural",
+    "title": "偏院壁画",
+    "description": "偏院墙上有一幅褪色的壁画，绘的是飞天图案，线条繁复，层层叠叠。画面边缘有几处修补的痕迹，修补的灰泥颜色与原墙不符。",
+    "actions": [
+      {
+        "id": "observe_mural",
+        "label": "观赏壁画",
+        "requires": null,
+        "result": "壁画笔法粗劣，并非名家手迹。修补处的灰泥新旧不一，像是近年才补的。你总觉得其中有什么不对劲，却说不清。",
+        "grants": { "flags": ["mural_seen"] }
+      },
+      {
+        "id": "decode_pattern",
+        "label": "辨析壁画暗语",
+        "requires": { "wisdom": 7 },
+        "result": "你仔细比对壁画中飞天的姿态——共九种，每种对应天机阁联络系统中的一个方位暗号。你剥开一处修补的灰泥，后面藏着一册薄薄的小册子，正是天机阁的内部暗号记录。",
+        "grants": { "flags": ["mural_seen", "tianji_signal_known"], "items": ["tianji_signal_record"] }
+      },
+      {
+        "id": "decode_pattern_tianji",
+        "label": "凭天机线索解读壁画",
+        "requires": { "flags": ["wujue_tianji_revealed"] },
+        "result": "无迹已告知你天机阁的暗语体系。你对照壁画，很快找到藏于修补处的暗号册，取出后装入怀中。",
+        "grants": { "flags": ["mural_seen", "tianji_signal_known"], "items": ["tianji_signal_record"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_hideout_search",
+    "title": "据点搜查",
+    "description": "院落内散落着几只草绳和一些包裹残余，像是仓皇撤离后留下的。正堂的桌上还有半杯凉茶，地上有被拖拽过的痕迹。",
+    "actions": [
+      {
+        "id": "quick_search",
+        "label": "快速扫视",
+        "requires": null,
+        "result": "你粗粗扫了一圈，发现这里确实是个临时据点，但大部分有用的东西已被带走。地上有几片撕碎的纸屑，拼不出完整内容。",
+        "grants": { "flags": ["hideout_entered"] }
+      },
+      {
+        "id": "thorough_search",
+        "label": "搜查暗格隐匿处",
+        "requires": { "agility": 7 },
+        "result": "你轻手轻脚地排查各处，在墙根的砖缝里摸出一个油纸包，内有一纸折叠整齐的调令——李邈的笔迹，命浪鹏帮监视往事客栈、截取宋怀义的密件。",
+        "grants": { "flags": ["hideout_entered"], "items": ["langpeng_dispatch_order"] }
+      },
+      {
+        "id": "break_through",
+        "label": "破门强搜",
+        "requires": { "strength": 8 },
+        "result": "你踹开内室的门，吓退几名残留的浪鹏帮小喽啰。众人仓皇逃散，你在混乱中翻出一个木匣——内有李邈亲笔调令，命令浪鹏帮在往事客栈布置眼线。",
+        "grants": { "flags": ["hideout_entered"], "items": ["langpeng_dispatch_order"] }
+      },
+      {
+        "id": "decode_records",
+        "label": "辨析残留文书",
+        "requires": { "wisdom": 8 },
+        "result": "你把地上的纸屑一片片拼合，凭着过人的辨析能力，将残缺文字填补完整——是一份调令，李邈手书，命浪鹏帮监视往事客栈，伺机取走宋怀义的随身密件。",
+        "grants": { "flags": ["hideout_entered"], "items": ["langpeng_dispatch_order"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_captive_note",
+    "title": "被俘信函",
+    "description": "正堂角落里，一个被捆绑过的人已经逃走，地上留下捆绳和一封没来得及带走的信函。",
+    "actions": [
+      {
+        "id": "read_note",
+        "label": "捡起信函阅读",
+        "requires": null,
+        "result": "信函字迹潦草，像是急就而成。内容是浪鹏帮探子向上头汇报：「鸢已入局，名单不可落入旁人之手，李爷有令，跟紧那人的脚步。」这「李爷」，便是李邈。",
+        "grants": { "flags": ["langpeng_trail"], "items": ["captive_letter"] }
+      },
+      {
+        "id": "analyze_seal",
+        "label": "辨析信函封印笔迹",
+        "requires": { "wisdom": 7 },
+        "result": "你不仅读了信的内容，更仔细辨认封印上的字迹。那笔「李」字与你之前见过的李邈手书如出一辙——这是他亲自下令的铁证。",
+        "grants": { "flags": ["langpeng_trail", "li_mao_handwriting_known"], "items": ["captive_letter"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_teahouse_ambush",
+    "title": "茶馆戒备",
+    "description": "皇城茶馆的门半开着，内里灯火朦胧。你在门口停顿片刻，感觉有什么眼神扫过你的背脊。",
+    "actions": [
+      {
+        "id": "enter_carefully",
+        "label": "推门而入",
+        "requires": null,
+        "result": "你推开茶馆的门，伙计侧目，茶客们的交谈声低了一瞬。最里间的雅座有人端坐，白衣，背对着门，正是你要找的人。",
+        "grants": { "flags": ["entered_teahouse"] }
+      },
+      {
+        "id": "scout_first",
+        "label": "先行查探四周",
+        "requires": { "agility": 7 },
+        "result": "你绕到茶馆侧面，发现后巷站着两个便衣武人，刀柄露出半截。正门旁的茶客神情警觉，不像真正的茶客。你暗记位置，从容推门而入。",
+        "grants": { "flags": ["entered_teahouse", "ambush_detected"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_li_mao_encounter",
+    "title": "终局·李邈",
+    "description": "他转过身来，正是往事客栈那个白衣人。李邈。他看着你，神色平静，像是等了你很久。「坐。」他说，「该说的，我们慢慢说。」",
+    "requires": { "flags": ["entered_teahouse"] },
+    "actions": [
+      {
+        "id": "arrest_ending",
+        "label": "「证据确凿，你走不了。」（出示铁证）",
+        "requires": { "has": ["poison_residue_sample", "monk_identity_scroll", "langpeng_dispatch_order"] },
+        "result": "你将三件证物逐一推到桌上。\n\n毒药残样——证明宋怀义的死与回春堂有关。僧籍密卷——证明无迹和尚是天机阁旧部，受人指使。浪鹏调令——上面写着李邈的名字，写着对宋怀义的监视令。\n\n李邈盯着那三件东西，沉默了很久，最后轻轻笑了笑：「你比我预料的聪明。」\n\n门外脚步声响起。你提前联络的衙门捕快踹开了门。\n\n李邈站起来，整了整衣袍，没有逃跑，只是看了你最后一眼：「天机阁不会因为我一个人倒下的。」\n\n他被带走了。长安的风吹过茶馆，带来一丝说不清道不明的凉意。宋怀义的案子，算是有了一个答案。但那个叫「鸢」的人，还在某个你看不见的地方，等待着下一步棋。",
+        "grants": { "flags": ["chapter2_arrest_ending"] }
+      },
+      {
+        "id": "release_ending",
+        "label": "「说清楚你知道的，然后滚。」（逼问情报）",
+        "requires": { "flags": ["langpeng_trail"] },
+        "result": "你没有足够的证据将他拿下，但你手里有的，已经足够让他坐下来好好谈一谈。\n\n李邈没有否认浪鹏帮的事。他只是说：「你想要什么？」\n\n你要的是真相。他给了你一部分——宋怀义确实是天机阁的叛逃者，名单上的人命悬一线，而「鸢」只是一个代号，真正的主使另有其人。\n\n作为交换，他从容离开了茶馆。你坐在原地，看着他的背影消失在长安的街道里。\n\n手里多了一枚皇城茶馆的入场牌，和一句话：「若想知道鸢是谁，去找东市回春堂的账目，再去问大雁塔下的无名碑。」",
+        "grants": { "flags": ["chapter2_release_ending"], "items": ["teahouse_token"] }
+      },
+      {
+        "id": "join_ending",
+        "label": "「天机阁……说来听听。」（考虑招募）",
+        "requires": { "flags": ["tianji_recruit_offered"], "agility": 8 },
+        "result": "你靠在椅背上，神情懒散，语气漫不经心。\n\n李邈看了你片刻，似乎在衡量什么。然后他开口，将天机阁的真实面目徐徐道来——那不是一个帮派，而是一张网，覆盖长安城三十七处要津，每一处都有人在守。\n\n「宋怀义带走的名单，是这张网上的每一个节点。」他说，「若名单落入错误的人手里，整张网都会被摧毁。」\n\n「而你，」他顿了顿，「有能力帮我找回它。」\n\n你没有立刻答应，但你没有离开。窗外，长安城的灯火一盏一盏亮起来，像一张正在收紧的网。",
+        "grants": { "flags": ["chapter2_join_ending"] }
+      }
+    ]
+  }
+]

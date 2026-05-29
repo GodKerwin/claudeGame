@@ -1,1 +1,74 @@
-[]
+[
+  {
+    "id": "npc_wujue",
+    "name": "无迹和尚",
+    "description": "身着灰色僧袍，神情沉静，手中转着一串佛珠。眼神深邃，仿佛见过太多世事。",
+    "dialogues": [
+      {
+        "id": "first_encounter",
+        "condition": { "flags_absent": ["wujue_met"] },
+        "text": "无迹和尚抬眼看你，目光清澈：「施主看起来在追寻什么。若有心参禅，贫僧愿为指点。」",
+        "grants": { "flags": ["wujue_met"] }
+      },
+      {
+        "id": "after_met",
+        "condition": { "flags": ["wujue_met"] },
+        "text": "和尚继续转动手中的佛珠，嘴里念诵着听不分明的经文。"
+      }
+    ]
+  },
+  {
+    "id": "npc_buyer_contact",
+    "name": "古玩铺掌柜",
+    "description": "面白无须的中年人，眼神灵活而谨慎。面前摆着一只天青色瓷瓶，底部刻有隐约的纹饰。",
+    "dialogues": [
+      {
+        "id": "first_appraisal",
+        "condition": { "flags_absent": ["antique_dealer_met"] },
+        "text": "掌柜见你进来，微微一笑：「欢迎光临。看起来是位识货的人。」",
+        "grants": { "flags": ["antique_dealer_met"] }
+      },
+      {
+        "id": "after_met",
+        "condition": { "flags": ["antique_dealer_met"] },
+        "text": "掌柜继续整理柜台上的古玩，不动声色。"
+      }
+    ]
+  },
+  {
+    "id": "npc_langpeng_scout",
+    "name": "浪鹏帮探子",
+    "description": "一个神情警觉的男子，腰间别着一把刀，眼神在四处游移，像是在监视什么。",
+    "dialogues": [
+      {
+        "id": "suspicious_observer",
+        "condition": { "flags_absent": ["langpeng_scout_noticed"] },
+        "text": "那人注意到你的目光，眼神冷了下来，但什么都没说，只是转身消失在据点的黑暗里。",
+        "grants": { "flags": ["langpeng_scout_noticed"] }
+      },
+      {
+        "id": "after_noticed",
+        "condition": { "flags": ["langpeng_scout_noticed"] },
+        "text": "探子已经消失了踪迹。"
+      }
+    ]
+  },
+  {
+    "id": "npc_li_mao",
+    "name": "李邈",
+    "description": "白衣男子，面容冷峻，气质深沉。腰间无刀无剑，却有一种令人无法轻视的气度。左手腕上有一道旧伤的疤痕。",
+    "dialogues": [
+      {
+        "id": "first_encounter_teahouse",
+        "condition": { "flags": ["entered_teahouse"], "flags_absent": ["li_mao_encountered"] },
+        "text": "他转过身来，正面看着你。白衣无尘，目光深邃。「坐。」他说，「该说的，我们慢慢说。」",
+        "grants": { "flags": ["li_mao_encountered"] }
+      },
+      {
+        "id": "after_encounter",
+        "condition": { "flags": ["li_mao_encountered"] },
+        "text": "李邈静坐在雅间里，手指在茶盏上轻轻敲着，眼神深不可测。"
+      }
+    ]
+  }
+]
