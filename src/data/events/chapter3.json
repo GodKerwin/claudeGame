@@ -1,1 +1,215 @@
-[]
+[
+  {
+    "id": "evt_nameless_stele",
+    "title": "无名碑",
+    "description": "大雁塔下，一块不起眼的石碑立在老柏树后。苔痕掩去了大半，但如果凑近，能看出碑文不是寻常经文。",
+    "actions": [
+      {
+        "id": "observe_stele",
+        "label": "拂去碑上苔痕细看",
+        "requires": null,
+        "result": "碑上刻的字密密麻麻，笔迹古朴，读来像是一篇誓言：「护名单，卫名单上之人，不问来路，不计生死。立于天机元年，鸢字组。」鸢字组……你默记这个名字。",
+        "grants": { "flags": ["stele_seen"] }
+      },
+      {
+        "id": "decode_tianji",
+        "label": "辨析碑文隐语",
+        "requires": { "wisdom": 6 },
+        "result": "你结合在慈恩寺学到的天机暗语体系，逐字推敲碑文。碑文不只是誓言，还嵌着创立者的名字——以天机阁暗语藏头：飞，单名。碑后夹缝里藏着一卷封蜡的密卷，取出来，正是天机阁立阁时的原始档案。",
+        "grants": { "flags": ["stele_decoded"], "items": ["tianji_founding_scroll"] }
+      },
+      {
+        "id": "decode_tianji_signal",
+        "label": "以天机暗号册比对碑文",
+        "requires": { "flags": ["tianji_signal_known"] },
+        "result": "天机阁内部联络暗语，你已烂熟于心。碑文隐语在你眼中一目了然：创立者署名「飞」，碑后夹缝藏有蜡封密卷。取出，正是天机阁的立阁原档。",
+        "grants": { "flags": ["stele_decoded"], "items": ["tianji_founding_scroll"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_pagoda_shadow",
+    "title": "塔影踪迹",
+    "description": "塔下人迹稀少，但地上有新鲜的脚印——来了又走，像是有人在等，等不到人才离开的。",
+    "actions": [
+      {
+        "id": "look_around",
+        "label": "环顾四周",
+        "requires": null,
+        "result": "你扫了一圈，发现一块矮石上压着一封信。封口没有印章，只写了「阅后自明」。里面是一张字条：「若来此处，说明你已知晓大半。曲江亭，明日日落前。——飞」",
+        "grants": { "flags": ["qujiang_location_known"], "items": ["qujiang_invitation"] }
+      },
+      {
+        "id": "track_footprints",
+        "label": "追踪脚印来源",
+        "requires": { "agility": 7 },
+        "result": "脚印从西边来，在石碑前停顿，又朝曲江方向离去。步距均匀，不慌不忙，是一个走了很多年江湖的人留下的。",
+        "grants": { "flags": ["fei_ye_sighted"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_mission_orders",
+    "title": "任务令",
+    "description": "安宅内的桌上压着一封火漆密函，封口的印记是天机阁的标记。",
+    "actions": [
+      {
+        "id": "read_orders",
+        "label": "拆开阅读",
+        "requires": null,
+        "result": "任务令措辞简短：追回「旧主」带走的名单，必要时清除旧主。随函附有一张画像——画上的人，四十出头，面容平凡，嘴角挂着一丝你熟悉的笑。是飞爷。",
+        "grants": { "flags": ["tianji_mission_started"], "items": ["target_profile"] }
+      },
+      {
+        "id": "study_target",
+        "label": "仔细核对画像细节",
+        "requires": { "wisdom": 7 },
+        "result": "你逐一核对任务令上的特征描述：左手旧疤，习惯站于人群之后，说话从不先开口。每一条，你都在大飞帮见过。这个「旧主」，就是飞爷。",
+        "grants": { "flags": ["fei_ye_suspect"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_safehouse_wall",
+    "title": "安宅暗壁",
+    "description": "安宅内墙上挂着一幅长安城堪舆图，密密麻麻标了数十个点位，旁边的架上摆着一排卷轴。",
+    "requires": { "flags": ["tianji_mission_started"] },
+    "actions": [
+      {
+        "id": "examine_wall",
+        "label": "细看标注点位",
+        "requires": null,
+        "result": "标注的点位涵盖长安各坊，每个点背后都有一个代号。你认出几个——往事客栈、回春堂、慈恩寺，全在其中。这张网，布了很多年。",
+        "grants": { "flags": ["tianji_network_seen"] }
+      },
+      {
+        "id": "find_archive",
+        "label": "逐卷查阅卷轴架",
+        "requires": { "wisdom": 8 },
+        "result": "你从卷轴架最底层抽出一卷封了蜡的旧档，拆开，是天机阁最初立阁的密档。创立者自署「鸢」，末页附有真名——飞字组，飞，单名。",
+        "grants": { "items": ["tianji_founding_scroll"] }
+      },
+      {
+        "id": "find_archive_agi",
+        "label": "翻找架后暗格机关",
+        "requires": { "agility": 7 },
+        "result": "你摸遍架子背面，找到一处暗格的弹簧机关，拨开，里面存着一卷密档——天机阁立阁时的原始记录，创立者的真名藏于其中。",
+        "grants": { "items": ["tianji_founding_scroll"] }
+      },
+      {
+        "id": "earn_trust",
+        "label": "展示对天机阁内部的了解",
+        "requires": { "agility": 8 },
+        "result": "你将自己掌握的天机阁暗号、联络方式一一道出。安宅暗处的监视者慢慢放松戒备，在一张纸上写下一行字：「你比预想的更深入。他在等你。」",
+        "grants": { "flags": ["tianji_trust_gained"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_abandoned_room",
+    "title": "废弃内室",
+    "description": "推开旧居正门，内室空旷，一张旧桌，几把椅子，桌上落着薄灰。但灰下面，有什么东西被压着。",
+    "actions": [
+      {
+        "id": "search_room",
+        "label": "翻检桌上物件",
+        "requires": null,
+        "result": "桌上压着一封没有封口的信，信纸泛黄，字迹工整——「飞：你所护之人，已有人知晓。此信到时，你大约也已料到后续。劝你趁早交出名单，否则……」信就此截断。落款处只有一个印章：廷尉府。",
+        "grants": { "flags": ["manor_entered"], "items": ["deeper_threat_evidence"] }
+      },
+      {
+        "id": "find_hidden_access",
+        "label": "沿墙拍打寻找暗格",
+        "requires": { "agility": 7 },
+        "result": "你沿着墙角拍打，找到一处空心隔板。撬开，里面是一条窄缝。里面只剩一张纸条：「文件已转移，见面时我告诉你在哪里。」",
+        "grants": { "flags": ["manor_study_found"] }
+      },
+      {
+        "id": "find_hidden_access_str",
+        "label": "撬开墙内嵌锁盒",
+        "requires": { "strength": 8 },
+        "result": "你盯上一块略显突兀的砖，用力一拍，弹出一个铁盒。铁盒空了，夹层里有张纸条：「已转移，见面时给你。」",
+        "grants": { "flags": ["manor_study_found"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_portrait_wall",
+    "title": "旧画像壁",
+    "description": "内室东墙挂着几幅褪色的画像，画的是不同年龄的同一个人。画像下没有名字，只有一行小字：「鸢，历年记录。」",
+    "requires": { "flags": ["manor_entered"] },
+    "actions": [
+      {
+        "id": "examine_portraits",
+        "label": "细看画像",
+        "requires": null,
+        "result": "你盯着最新的那幅画像——四十出头，面容普通，嘴角挂着一丝若有若无的笑。你在某个地方见过这个人，见过很多次。那是飞爷。画像下的台子上放着一本薄薄的册子，夹着几页泛黄的纸——正是宋怀义名单的残页，上面有一个名字：飞，代号鸢。",
+        "grants": { "flags": ["feiyes_manor_searched"], "items": ["name_list_fragment"] }
+      },
+      {
+        "id": "match_markings",
+        "label": "与无名碑记录比对",
+        "requires": { "flags": ["stele_decoded"] },
+        "result": "你将无名碑上「鸢字组，飞」的记录与画像对照——年龄、面容吻合。鸢就是飞爷，确凿无疑。",
+        "grants": { "flags": ["fei_ye_identity_confirmed"] }
+      },
+      {
+        "id": "match_markings_suspect",
+        "label": "对照追查令画像",
+        "requires": { "flags": ["fei_ye_suspect"] },
+        "result": "你取出任务令上的追查画像，与墙上的画像并排一看——是同一个人。追查令上的「旧主」，就是飞爷，就是鸢。",
+        "grants": { "flags": ["fei_ye_identity_confirmed"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_pavilion_approach",
+    "title": "曲江亭外",
+    "description": "曲江池水面平静，亭子里有个白衫背影，一动不动地看着水面。",
+    "actions": [
+      {
+        "id": "enter_directly",
+        "label": "直接走进亭子",
+        "requires": null,
+        "result": "你踩着碎石路走过去，脚步声没有掩盖。他没有回头，开口：「来了，坐。」",
+        "grants": { "flags": ["entered_pavilion"] }
+      },
+      {
+        "id": "scout_first",
+        "label": "先绕亭一圈察看",
+        "requires": { "agility": 7 },
+        "result": "你绕着亭子走了一圈，确认四周没有埋伏，只有他一个人。他选了一处没有遮蔽的开阔地，像是刻意如此——让你看清楚他没有逃路，也没有援手。",
+        "grants": { "flags": ["entered_pavilion", "exit_route_planned"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_fei_ye_confrontation",
+    "title": "终局·飞爷",
+    "description": "他转过身，还是那张你在往事客栈见过的普通脸。飞爷，天机阁的创立者，代号鸢。",
+    "requires": { "flags": ["entered_pavilion"] },
+    "actions": [
+      {
+        "id": "expose_truth",
+        "label": "「证据在此，你逃不了了。」",
+        "requires": { "has": ["tianji_founding_scroll"], "flags": ["deeper_threat_revealed"] },
+        "result": "你将天机创立卷推到桌上，又说出飞爷那番关于廷尉府的话。\n\n「创立卷加上你自己承认的——名单、廷尉府、天机阁的真正敌人，这些足够让官府拿你，也足够保护名单上的人。」\n\n飞爷看着那卷东西，沉默了很久，最后站起来，从怀里取出一个装订整齐的册子：「你比我以为的更能走到最后。——这是完整的名单，和廷尉府往来的证据。你知道该怎么用。」\n\n长安城的钟声响起，送走了这一天最后的光。",
+        "grants": { "flags": ["chapter3_truth_ending"] }
+      },
+      {
+        "id": "demand_answers",
+        "label": "「说清楚，然后我们谈。」",
+        "requires": { "flags": ["fei_ye_identity_confirmed"] },
+        "result": "你坐下，没有立刻出手。\n\n飞爷把一切说了——天机阁的起源，名单的意义，廷尉府追杀那批人的旧案，以及宋怀义出走的真正原因。\n\n你没有足够的物证，他也知道。两个人在曲江亭坐到夜深，最后他站起来：「名单，我不会给你。但我告诉你，它安全。」\n\n他走了。你手里是半段真相，另一半还在他身上。",
+        "grants": { "flags": ["chapter3_standoff_ending"] }
+      },
+      {
+        "id": "join_forces",
+        "label": "「追查令，我烧了。你打算怎么做？」",
+        "requires": { "flags": ["chapter2_join_ending", "tianji_trust_gained"] },
+        "result": "你从怀里取出任务令，在茶碗旁的烛火上点燃，看它烧完。\n\n飞爷盯着那一小簇火焰，停了很久才开口：「你不是来执行任务的。」\n\n「不是。」\n\n他从袖中取出一张折叠的纸，推过来：「名单现在藏在这里。廷尉府的人很快就会找过来。你若愿意，我们一起守住它，等新的机会。」\n\n窗外，曲江池的水在月光里静静流淌。这局棋，还没有下完。",
+        "grants": { "flags": ["chapter3_join_ending"] }
+      }
+    ]
+  }
+]

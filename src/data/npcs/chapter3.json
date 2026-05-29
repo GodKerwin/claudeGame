@@ -1,1 +1,27 @@
-[]
+[
+  {
+    "id": "npc_tianji_contact",
+    "name": "天机联络人",
+    "description": "面容模糊，坐在堪舆图前，听到动静才缓缓转过身。声音平静，不带任何感情色彩，像是训练出来的。",
+    "dialogues": [
+      {
+        "id": "first_contact",
+        "condition": { "flags_absent": ["tianji_mission_started"] },
+        "text": "「你来了。任务令在桌上，看完就知道该做什么。」他的目光在你身上停了一下，「你比上一个来的人更早。」",
+        "grants": { "flags": [] }
+      },
+      {
+        "id": "mission_briefing",
+        "condition": { "flags": ["tianji_mission_started"], "flags_absent": ["tianji_trust_gained"] },
+        "text": "「目标的行踪你已掌握，剩下的靠你自己判断。天机阁不需要知道过程，只需要结果。」他顿了顿，「但如果你想活着回来，建议你搞清楚旧主为什么带走了名单——而不仅仅是把它追回来。」",
+        "grants": { "flags": [] }
+      },
+      {
+        "id": "trust_gained",
+        "condition": { "flags": ["tianji_trust_gained"] },
+        "text": "「你掌握的比我预想的更多。」他第一次抬起头，正视你，「他在等你。你自己判断要不要去。」",
+        "grants": { "flags": [] }
+      }
+    ]
+  }
+]

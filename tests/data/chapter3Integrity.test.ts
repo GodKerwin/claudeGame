@@ -61,3 +61,75 @@ describe('chapter3 map and item integrity', () => {
     }
   });
 });
+
+describe('chapter3 event integrity', () => {
+  const allEventIds = new Set(EVENTS.map((e) => e.id));
+  const allItemIds = new Set(ITEMS.map((i) => i.id));
+  const allNpcIds = new Set(NPCS.map((n) => n.id));
+  const ch3Map = MAPS.find((m) => m.id === 'chapter3');
+
+  it('all 8 chapter3 events exist', () => {
+    const expected = [
+      'evt_nameless_stele', 'evt_pagoda_shadow',
+      'evt_mission_orders', 'evt_safehouse_wall',
+      'evt_abandoned_room', 'evt_portrait_wall',
+      'evt_pavilion_approach', 'evt_fei_ye_confrontation',
+    ];
+    for (const id of expected) {
+      expect(allEventIds.has(id), `missing event: ${id}`).toBe(true);
+    }
+  });
+
+  it('all chapter3 room interactables reference valid events or npcs', () => {
+    if (!ch3Map) return;
+    for (const room of ch3Map.rooms) {
+      for (const ia of room.interactables) {
+        if (ia.startsWith('evt_'))
+          expect(allEventIds.has(ia), `room ${room.id}: missing event ${ia}`).toBe(true);
+        if (ia.startsWith('npc_'))
+          expect(allNpcIds.has(ia), `room ${room.id}: missing npc ${ia}`).toBe(true);
+      }
+    }
+  });
+
+  it('evt_fei_ye_confrontation has 3 ending actions', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_fei_ye_confrontation');
+    expect(evt).toBeDefined();
+    expect(evt?.actions.find((a) => a.id === 'expose_truth')).toBeDefined();
+    expect(evt?.actions.find((a) => a.id === 'demand_answers')).toBeDefined();
+    expect(evt?.actions.find((a) => a.id === 'join_forces')).toBeDefined();
+  });
+
+  it('chapter3 ending actions grant correct flags', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_fei_ye_confrontation');
+    expect(evt?.actions.find((a) => a.id === 'expose_truth')?.grants?.flags).toContain('chapter3_truth_ending');
+    expect(evt?.actions.find((a) => a.id === 'demand_answers')?.grants?.flags).toContain('chapter3_standoff_ending');
+    expect(evt?.actions.find((a) => a.id === 'join_forces')?.grants?.flags).toContain('chapter3_join_ending');
+  });
+
+  it('demand_answers requires only fei_ye_identity_confirmed (completion guarantee)', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_fei_ye_confrontation');
+    const action = evt?.actions.find((a) => a.id === 'demand_answers');
+    expect(action?.requires?.flags).toContain('fei_ye_identity_confirmed');
+    expect(action?.requires?.has).toBeUndefined();
+    expect(action?.requires?.strength).toBeUndefined();
+    expect(action?.requires?.agility).toBeUndefined();
+    expect(action?.requires?.wisdom).toBeUndefined();
+  });
+
+  it('all chapter3 event action grants reference valid items', () => {
+    const ch3EventIds = [
+      'evt_nameless_stele', 'evt_pagoda_shadow', 'evt_mission_orders', 'evt_safehouse_wall',
+      'evt_abandoned_room', 'evt_portrait_wall', 'evt_pavilion_approach', 'evt_fei_ye_confrontation',
+    ];
+    for (const eid of ch3EventIds) {
+      const evt = EVENTS.find((e) => e.id === eid);
+      if (!evt) continue;
+      for (const action of evt.actions) {
+        for (const itemId of (action.grants?.items ?? [])) {
+          expect(allItemIds.has(itemId), `event ${eid} action ${action.id} grants unknown item: ${itemId}`).toBe(true);
+        }
+      }
+    }
+  });
+});
