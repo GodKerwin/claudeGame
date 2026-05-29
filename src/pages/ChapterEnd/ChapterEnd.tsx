@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
@@ -36,14 +36,18 @@ export default function ChapterEnd() {
 
   const clueItems = isChapter2
     ? []
-    : items.filter((id) => getItem(id)?.isClue).map((id) => getItem(id)!);
+    : items.flatMap((id) => { const item = getItem(id); return item?.isClue ? [item] : []; });
 
-  const lines = [
-    chapterTitle,
-    endingText,
-    ...(clueItems.length > 0 ? ['【你所掌握的线索】'] : []),
-    ...clueItems.map((item) => `· ${item.name}`),
-  ].filter(Boolean);
+  const lines = useMemo(
+    () =>
+      [
+        chapterTitle,
+        endingText,
+        ...(clueItems.length > 0 ? ['【你所掌握的线索】'] : []),
+        ...clueItems.map((item) => `· ${item.name}`),
+      ].filter(Boolean),
+    [chapterTitle, endingText, clueItems]
+  );
 
   useEffect(() => {
     if (visibleCount < lines.length) {

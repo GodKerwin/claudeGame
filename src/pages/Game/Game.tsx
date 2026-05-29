@@ -49,8 +49,13 @@ export default function Game() {
     }
   }, [scene.flags, navigate]);
 
+  useEffect(() => {
+    if (!player.name) {
+      navigate('/');
+    }
+  }, [player.name, navigate]);
+
   if (!player.name) {
-    navigate('/');
     return null;
   }
 
