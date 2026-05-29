@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import { cn } from '../../utils/cn';
 
 interface Props {
@@ -12,8 +13,15 @@ interface Props {
 
 export function ActionButton({ label, onClick, disabled = false, completed = false, hint, variant = 'default', className }: Props) {
   const isDisabled = disabled || completed;
+  const ref = useRef<HTMLDivElement>(null);
+  const [hoverRect, setHoverRect] = useState<DOMRect | null>(null);
   return (
-    <div className="relative group">
+    <div
+      ref={ref}
+      className="relative group"
+      onMouseEnter={() => { if (ref.current) setHoverRect(ref.current.getBoundingClientRect()); }}
+      onMouseLeave={() => setHoverRect(null)}
+    >
       <button
         onClick={onClick}
         disabled={isDisabled}
@@ -29,8 +37,11 @@ export function ActionButton({ label, onClick, disabled = false, completed = fal
       >
         {completed ? <span className="text-gold/30">✓ {label}</span> : label}
       </button>
-      {!completed && disabled && hint && (
-        <div className="absolute bottom-full left-0 mb-1 px-2 py-1 text-xs bg-paper border border-gold/20 text-ink/60 whitespace-nowrap z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+      {!completed && disabled && hint && hoverRect && (
+        <div
+          className="fixed z-50 px-2 py-1 text-xs bg-paper border border-gold/20 text-ink/60 whitespace-nowrap pointer-events-none shadow-sm"
+          style={{ bottom: window.innerHeight - hoverRect.top + 4, left: hoverRect.left }}
+        >
           {hint}
         </div>
       )}
