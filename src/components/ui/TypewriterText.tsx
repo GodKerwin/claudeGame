@@ -1,5 +1,4 @@
-import { motion } from 'framer-motion';
-import { useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 interface Props {
   text: string;
@@ -7,21 +6,18 @@ interface Props {
   speed?: number;
 }
 
-export function TypewriterText({ text, className = '', speed = 0.03 }: Props) {
-  const chars = useMemo(() => text.split(''), [text]);
+export function TypewriterText({ text, className = '', speed = 30 }: Props) {
+  const [count, setCount] = useState(0);
 
-  return (
-    <span className={className}>
-      {chars.map((char, i) => (
-        <motion.span
-          key={i}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: i * speed, duration: 0 }}
-        >
-          {char}
-        </motion.span>
-      ))}
-    </span>
-  );
+  useEffect(() => {
+    setCount(0);
+  }, [text]);
+
+  useEffect(() => {
+    if (count >= text.length) return;
+    const t = setTimeout(() => setCount((c) => c + 1), speed);
+    return () => clearTimeout(t);
+  }, [count, text.length, speed]);
+
+  return <span className={className}>{text.slice(0, count)}</span>;
 }

@@ -17,8 +17,15 @@ export default function Prologue() {
   const navigate = useNavigate();
   const [visibleCount, setVisibleCount] = useState(0);
   const [showButton, setShowButton] = useState(false);
+  const [skipped, setSkipped] = useState(false);
+  const [showSkip, setShowSkip] = useState(false);
 
   useEffect(() => {
+    if (skipped) {
+      setVisibleCount(PROLOGUE_LINES.length);
+      setShowButton(true);
+      return;
+    }
     if (visibleCount < PROLOGUE_LINES.length) {
       const t = setTimeout(() => setVisibleCount((c) => c + 1), visibleCount === 0 ? 300 : LINE_DURATION);
       return () => clearTimeout(t);
@@ -26,10 +33,29 @@ export default function Prologue() {
       const t = setTimeout(() => setShowButton(true), 800);
       return () => clearTimeout(t);
     }
-  }, [visibleCount]);
+  }, [visibleCount, skipped]);
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowSkip(true), 1500);
+    return () => clearTimeout(t);
+  }, []);
+
+  const handleSkip = () => {
+    setSkipped(true);
+    setVisibleCount(PROLOGUE_LINES.length);
+    setShowButton(true);
+  };
 
   return (
     <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center justify-center p-12">
+      {showSkip && !showButton && (
+        <button
+          onClick={handleSkip}
+          className="fixed top-4 right-6 text-xs text-ink/20 hover:text-ink/40 cursor-pointer tracking-widest"
+        >
+          跳过
+        </button>
+      )}
       <div className="max-w-xl w-full space-y-5">
         {PROLOGUE_LINES.map((line, i) => (
           <p
