@@ -166,10 +166,10 @@ export default function Game() {
         choice.grants.items?.forEach((i) => addItem(i));
         choice.grants.remove_items?.forEach((i) => removeItem(i));
         choice.grants.quests?.forEach((q) => scene.addQuest(q));
-        if (choice.grants.strength) player.incrementStat('strength', choice.grants.strength);
-        if (choice.grants.agility) player.incrementStat('agility', choice.grants.agility);
-        if (choice.grants.wisdom) player.incrementStat('wisdom', choice.grants.wisdom);
-        if (choice.grants.constitution) player.incrementStat('constitution', choice.grants.constitution);
+        if (choice.grants.strength != null) player.incrementStat('strength', choice.grants.strength);
+        if (choice.grants.agility != null) player.incrementStat('agility', choice.grants.agility);
+        if (choice.grants.wisdom != null) player.incrementStat('wisdom', choice.grants.wisdom);
+        if (choice.grants.constitution != null) player.incrementStat('constitution', choice.grants.constitution);
       }
       setPendingChoices(null);
       return;
@@ -191,10 +191,10 @@ export default function Game() {
         action.grants.items?.forEach((i) => addItem(i));
         action.grants.remove_items?.forEach((i) => removeItem(i));
         action.grants.quests?.forEach((q) => scene.addQuest(q));
-        if (action.grants.strength) player.incrementStat('strength', action.grants.strength);
-        if (action.grants.agility) player.incrementStat('agility', action.grants.agility);
-        if (action.grants.wisdom) player.incrementStat('wisdom', action.grants.wisdom);
-        if (action.grants.constitution) player.incrementStat('constitution', action.grants.constitution);
+        if (action.grants.strength != null) player.incrementStat('strength', action.grants.strength);
+        if (action.grants.agility != null) player.incrementStat('agility', action.grants.agility);
+        if (action.grants.wisdom != null) player.incrementStat('wisdom', action.grants.wisdom);
+        if (action.grants.constitution != null) player.incrementStat('constitution', action.grants.constitution);
       }
     } else if (entityId.startsWith('npc_')) {
       const npc = getNPC(entityId);
@@ -214,10 +214,10 @@ export default function Game() {
         d.grants.clues?.forEach((c) => scene.addClue(c));
         d.grants.items?.forEach((i) => addItem(i));
         d.grants.quests?.forEach((q) => scene.addQuest(q));
-        if (d.grants.strength) player.incrementStat('strength', d.grants.strength);
-        if (d.grants.agility) player.incrementStat('agility', d.grants.agility);
-        if (d.grants.wisdom) player.incrementStat('wisdom', d.grants.wisdom);
-        if (d.grants.constitution) player.incrementStat('constitution', d.grants.constitution);
+        if (d.grants.strength != null) player.incrementStat('strength', d.grants.strength);
+        if (d.grants.agility != null) player.incrementStat('agility', d.grants.agility);
+        if (d.grants.wisdom != null) player.incrementStat('wisdom', d.grants.wisdom);
+        if (d.grants.constitution != null) player.incrementStat('constitution', d.grants.constitution);
       }
       // 处理分支选项
       if (d.choices && d.choices.length > 0) {
