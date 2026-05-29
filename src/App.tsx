@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainMenu from './pages/MainMenu/MainMenu';
 import CharacterCreate from './pages/CharacterCreate/CharacterCreate';
 import Prologue from './pages/Prologue/Prologue';
@@ -9,7 +9,7 @@ import Credits from './pages/Credits/Credits';
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<MainMenu />} />
         <Route path="/create" element={<CharacterCreate />} />
@@ -20,6 +20,6 @@ export default function App() {
         <Route path="/credits" element={<Credits />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }

@@ -9,6 +9,7 @@ interface VitestConfig {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/claudeGame/',
   ...(({
     test: {
       globals: true,
