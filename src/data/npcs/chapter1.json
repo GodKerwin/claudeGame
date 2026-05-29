@@ -379,14 +379,38 @@
       },
       {
         "id": "gang_intel",
-        "condition": { "flags": ["dafei_joined"], "flags_absent": ["dafei_mission_assigned"] },
+        "condition": { "flags": ["dafei_joined"], "flags_absent": ["dafei_mission_assigned", "chapter3_started"] },
         "text": "那个叫宋怀义的死者，不是普通商人。十年前，他在天机阁做线人，后来叛变，带走了一份关键名单。有人为此等了他十年。衙门档案室里有份旧卷宗，你去拿来，咱们再细说。",
         "grants": { "flags": ["dafei_mission_assigned"] }
       },
       {
         "id": "after_mission",
-        "condition": { "flags": ["dafei_mission_assigned"] },
+        "condition": { "flags": ["dafei_mission_assigned"], "flags_absent": ["chapter3_started"] },
         "text": "快去衙门档案室。记住，别惊动任何人。"
+      },
+      {
+        "id": "pavilion_opening",
+        "condition": { "flags": ["chapter3_started", "entered_pavilion"] },
+        "text": "坐。等你好久了。……不用问我怎么知道你来，我建了这张网，网里有什么动静，我比你清楚。",
+        "grants": {}
+      },
+      {
+        "id": "identity_admitted",
+        "condition": { "flags": ["chapter3_started", "fei_ye_identity_confirmed"] },
+        "text": "鸢，对，是我。二十年前给自己起的代号，现在要拿来跟你解释了。……你想听实话，还是想先拿住我？",
+        "grants": { "flags": ["fei_ye_admitted"] }
+      },
+      {
+        "id": "list_confrontation",
+        "condition": { "flags": ["chapter3_started"], "has": ["tianji_founding_scroll"] },
+        "text": "你找到那卷档案了。……好，那我直说：名单上那些人，是当年廷尉府旧案的证人，被人追了二十年。我建天机阁，就是为了藏他们。宋怀义带走名单，是因为他不信任我了。名单，现在在我这里。",
+        "grants": { "flags": ["deeper_threat_revealed"] }
+      },
+      {
+        "id": "undercover_bond",
+        "condition": { "flags": ["chapter3_started", "chapter2_join_ending", "tianji_trust_gained"] },
+        "text": "你把追查令烧了。……我看见了。那就是你的回答。不用再说什么，我知道你的选择。名单藏在——你把手给我，我写在你掌心里。",
+        "grants": { "flags": ["final_choice_unlocked"] }
       }
     ]
   },

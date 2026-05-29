@@ -133,3 +133,83 @@ describe('chapter3 event integrity', () => {
     }
   });
 });
+
+describe('chapter3 npc integrity', () => {
+  const allItemIds = new Set(ITEMS.map((i) => i.id));
+
+  it('npc_tianji_contact exists with all 3 dialogues', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_tianji_contact');
+    expect(npc, 'npc_tianji_contact missing').toBeDefined();
+    expect(npc?.dialogues.some((d) => d.id === 'mission_briefing')).toBe(true);
+    expect(npc?.dialogues.some((d) => d.id === 'target_details')).toBe(true);
+    expect(npc?.dialogues.some((d) => d.id === 'insider_warning')).toBe(true);
+  });
+
+  it('npc_tianji_contact.insider_warning grants fei_ye_identity_confirmed', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_tianji_contact');
+    const d = npc?.dialogues.find((d) => d.id === 'insider_warning');
+    expect(d?.grants?.flags).toContain('fei_ye_identity_confirmed');
+  });
+
+  it('npc_wujue has chapter3 dialogues: stele_reading and final_testimony', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_wujue');
+    expect(npc, 'npc_wujue missing').toBeDefined();
+    expect(npc?.dialogues.some((d) => d.id === 'stele_reading')).toBe(true);
+    expect(npc?.dialogues.some((d) => d.id === 'final_testimony')).toBe(true);
+  });
+
+  it('npc_wujue.stele_reading grants stele_decoded and tianji_founding_scroll', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_wujue');
+    const d = npc?.dialogues.find((d) => d.id === 'stele_reading');
+    expect(d?.grants?.flags).toContain('stele_decoded');
+    expect(d?.grants?.items).toContain('tianji_founding_scroll');
+  });
+
+  it('npc_wujue.final_testimony grants fei_ye_identity_confirmed', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_wujue');
+    const d = npc?.dialogues.find((d) => d.id === 'final_testimony');
+    expect(d?.grants?.flags).toContain('fei_ye_identity_confirmed');
+  });
+
+  it('npc_fei_ye has chapter3 dialogues', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_fei_ye');
+    expect(npc, 'npc_fei_ye missing').toBeDefined();
+    expect(npc?.dialogues.some((d) => d.id === 'pavilion_opening')).toBe(true);
+    expect(npc?.dialogues.some((d) => d.id === 'identity_admitted')).toBe(true);
+    expect(npc?.dialogues.some((d) => d.id === 'list_confrontation')).toBe(true);
+    expect(npc?.dialogues.some((d) => d.id === 'undercover_bond')).toBe(true);
+  });
+
+  it('npc_fei_ye.list_confrontation grants deeper_threat_revealed', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_fei_ye');
+    const d = npc?.dialogues.find((d) => d.id === 'list_confrontation');
+    expect(d?.grants?.flags).toContain('deeper_threat_revealed');
+  });
+
+  it('all chapter3 npc dialogue grants reference valid items', () => {
+    const ch3DialogueIds = [
+      'stele_reading', 'fei_ye_origin', 'fei_ye_origin_wise', 'final_testimony',
+      'pavilion_opening', 'identity_admitted', 'list_confrontation', 'undercover_bond',
+      'mission_briefing', 'target_details', 'insider_warning',
+    ];
+    for (const npc of NPCS) {
+      for (const d of npc.dialogues.filter((d) => ch3DialogueIds.includes(d.id))) {
+        for (const itemId of (d.grants?.items ?? [])) {
+          expect(
+            allItemIds.has(itemId),
+            `npc ${npc.id} dialogue ${d.id} grants unknown item: ${itemId}`
+          ).toBe(true);
+        }
+      }
+    }
+  });
+
+  it('completion guarantee: npc_wujue.final_testimony has no stat condition', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_wujue');
+    const d = npc?.dialogues.find((d) => d.id === 'final_testimony');
+    expect(d).toBeDefined();
+    expect((d?.condition as Record<string, unknown>)?.strength).toBeUndefined();
+    expect((d?.condition as Record<string, unknown>)?.agility).toBeUndefined();
+    expect((d?.condition as Record<string, unknown>)?.wisdom).toBeUndefined();
+  });
+});

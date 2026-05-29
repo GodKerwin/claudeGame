@@ -21,6 +21,18 @@
         "condition": { "flags": ["tianji_trust_gained"] },
         "text": "「你掌握的比我预想的更多。」他第一次抬起头，正视你，「他在等你。你自己判断要不要去。」",
         "grants": { "flags": [] }
+      },
+      {
+        "id": "target_details",
+        "condition": { "flags": ["tianji_mission_started"] },
+        "text": "「目标的真名叫飞，代号鸢。二十年前他建了天机阁，后来隐匿民间，化名飞爷，在长安经营大飞帮。」他将一份卷宗推过来，「照片和特征都在里面，不要搞错人。」",
+        "grants": { "flags": ["tianji_target_identified"] }
+      },
+      {
+        "id": "insider_warning",
+        "condition": { "flags": ["tianji_target_identified"] },
+        "text": "「还有一件事。」他停顿了很长时间，「我们内部有人认为，鸢当年隐匿是为了保护名单上的人，而不是为了叛逃。如果这是真的……你自己决定怎么做。」他把另一份文件压在桌下，「他在曲江亭，这已经确认了。」",
+        "grants": { "flags": ["fei_ye_identity_confirmed"] }
       }
     ]
   }

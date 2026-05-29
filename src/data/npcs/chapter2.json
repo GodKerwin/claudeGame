@@ -6,7 +6,7 @@
     "dialogues": [
       {
         "id": "first_meet",
-        "condition": null,
+        "condition": { "flags_absent": ["chapter3_started"] },
         "text": "你从何处而来？……往事客栈。那地方出了人命，听说了。施主若无事，贫僧还有药要捡。",
         "grants": { "flags": ["wujue_met"] }
       },
@@ -33,6 +33,30 @@
         "condition": { "has": ["monk_identity_scroll"] },
         "text": "你找到了那卷东西。……贫僧知道你想说什么。韩朔，天机阁风字组。那是二十年前的事了。贫僧早已不是那个人，但有些事，终究是躲不掉的。",
         "grants": { "flags": ["wujue_tianji_revealed"] }
+      },
+      {
+        "id": "stele_reading",
+        "condition": { "flags": ["chapter3_started"] },
+        "text": "那块碑，贫僧守了二十年了。上头刻的是天机阁立阁时的誓言，和立誓者的名字。他叫飞，代号鸢，是天机阁的创始之人。",
+        "grants": { "flags": ["stele_decoded"], "items": ["tianji_founding_scroll"] }
+      },
+      {
+        "id": "fei_ye_origin",
+        "condition": { "flags": ["chapter3_started", "wujue_tianji_revealed"] },
+        "text": "飞爷……他给贫僧改了法名，说名字是囚笼。他自己，也用了代号二十年。建天机阁，是为了护那份名单，护名单上被廷尉府追杀的人。宋怀义也在其中。",
+        "grants": { "flags": ["fei_ye_tianji_origin_known"] }
+      },
+      {
+        "id": "fei_ye_origin_wise",
+        "condition": { "flags": ["chapter3_started"], "wisdom": 7 },
+        "text": "你问飞爷的来历？……贫僧见过他最初建阁时的样子，那时他年轻些，眼里还有火气。他建天机阁，是为了一群被廷尉府追杀的人——名单上的那些人，每一个都是他答应过要护的。",
+        "grants": { "flags": ["fei_ye_tianji_origin_known"] }
+      },
+      {
+        "id": "final_testimony",
+        "condition": { "flags": ["chapter3_started", "feiyes_manor_searched"] },
+        "text": "你在旧居里找到那些东西了。……贫僧只再说一句：他没有走，因为他在等一个他信得过的人来找他。你来了，就说明你已经知道该怎么做了。去曲江亭吧，他在那里。",
+        "grants": { "flags": ["fei_ye_identity_confirmed"] }
       }
     ]
   },
