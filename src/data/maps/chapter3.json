@@ -1,0 +1,40 @@
+[
+  {
+    "id": "chapter3",
+    "name": "第三章·鸢归何处",
+    "rooms": [
+      {
+        "id": "dayan_pagoda",
+        "name": "大雁塔下",
+        "description": "大雁塔的钟声刚刚散去，塔下的慈恩寺偏院少有行人。老柏树后藏着一块不起眼的石碑，苔痕掩去了大半，但如果凑近，能看出碑文不是寻常经文。灰袍僧人端坐在矮凳上，像是在等什么人。",
+        "interactables": ["evt_nameless_stele", "evt_pagoda_shadow", "npc_wujue"],
+        "exits": ["feiyes_manor"],
+        "requires": null
+      },
+      {
+        "id": "tianji_safehouse",
+        "name": "天机安宅",
+        "description": "长安城一条不显眼的巷子深处，门面是寻常茶水铺。推开后门，里面却是另一番光景——墙上挂着长安城的堪舆图，密密麻麻标注着数十个点位。一个面容模糊的人坐在图前，听到你进来，缓缓转过身。",
+        "interactables": ["evt_mission_orders", "evt_safehouse_wall", "npc_tianji_contact"],
+        "exits": ["feiyes_manor"],
+        "requires": { "flags": ["chapter2_join_ending"] }
+      },
+      {
+        "id": "feiyes_manor",
+        "name": "飞爷故居",
+        "description": "院落年久失修，砖缝间长着枯草。正门虽关，却未上锁。屋内陈设简朴，灰尘积了薄薄一层，但有些东西被人动过——桌上的茶杯，书架上的空格，像是有人不久前来过，又刻意抹去了痕迹。",
+        "interactables": ["evt_abandoned_room", "evt_portrait_wall", "npc_wujue"],
+        "exits": ["dayan_pagoda", "tianji_safehouse", "qujiang_pavilion"],
+        "requires": null
+      },
+      {
+        "id": "qujiang_pavilion",
+        "name": "曲江亭",
+        "description": "曲江池水面映着落日余晖，亭子里有个人背对着你，看着水面，一动不动。你认出了那件洗旧了的白衫，那个四十出头、在街上绝对不会多看一眼的普通男人。飞爷。他开口，没有回头：「坐，等你好久了。」",
+        "interactables": ["evt_pavilion_approach", "evt_fei_ye_confrontation", "npc_fei_ye"],
+        "exits": ["feiyes_manor"],
+        "requires": { "flags": ["fei_ye_identity_confirmed"] }
+      }
+    ]
+  }
+]
