@@ -209,6 +209,20 @@
         "requires": { "flags": ["chapter2_join_ending", "tianji_trust_gained"] },
         "result": "你从怀里取出任务令，在茶碗旁的烛火上点燃，看它烧完。\n\n飞爷盯着那一小簇火焰，停了很久才开口：「你不是来执行任务的。」\n\n「不是。」\n\n他从袖中取出一张折叠的纸，推过来：「名单现在藏在这里。廷尉府的人很快就会找过来。你若愿意，我们一起守住它，等新的机会。」\n\n窗外，曲江池的水在月光里静静流淌。这局棋，还没有下完。",
         "grants": { "flags": ["chapter3_join_ending"] }
+      },
+      {
+        "id": "use_teahouse_token",
+        "label": "「出示茶馆入场牌」（以李邈名义谈判）",
+        "requires": { "has": ["teahouse_token"], "flags": ["fei_ye_identity_confirmed"] },
+        "result": "你从怀中取出那枚茶馆入场牌，放到桌上，没有多说。\n\n飞爷的目光落在牌上，停了很久。「李邈……他把你送来的？」他的声音轻了一些，不再是刚才那种戒备的平静，而是多了一分说不清楚的东西——像是意外，又像是某种迟来的释然。\n\n「你不像廷尉府的人。」他把牌推回来，「坐下，我们好好谈。」",
+        "grants": { "flags": ["negotiation_opened"] }
+      },
+      {
+        "id": "reveal_dafei_intel",
+        "label": "「大飞帮的秘密档案……你认识字迹吗？」",
+        "requires": { "has": ["dafei_secret_intel"], "flags": ["fei_ye_identity_confirmed"] },
+        "result": "飞爷接过那份文书，扫了一眼，脸色细微地变了：「这是……内部调度令。」他沉默片刻，「你从哪里得到的？」\n\n不需要回答。他已经明白了。档案上的笔迹，和他书案上的手书，出自同一人。",
+        "grants": { "flags": ["deeper_threat_revealed"] }
       }
     ]
   }

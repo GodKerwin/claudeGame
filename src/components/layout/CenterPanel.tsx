@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { TypewriterText } from '../ui/TypewriterText';
 import { ActionButton } from '../ui/ActionButton';
 
@@ -25,10 +25,22 @@ interface Props {
 
 export function CenterPanel({ roomName, roomDescription, storyTexts, actions, onAction, pendingChoices = false, hint, onToggleHint, showHint }: Props) {
   const storyEndRef = useRef<HTMLDivElement>(null);
+  const actionsRef = useRef<HTMLDivElement>(null);
+  const [hasOverflow, setHasOverflow] = useState(false);
 
   useEffect(() => {
     storyEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [storyTexts]);
+
+  useEffect(() => {
+    const el = actionsRef.current;
+    if (!el) return;
+    const check = () => setHasOverflow(el.scrollHeight > el.clientHeight);
+    check();
+    const ro = new ResizeObserver(check);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [actions]);
 
   return (
     <div className="flex flex-col h-full">
@@ -69,20 +81,25 @@ export function CenterPanel({ roomName, roomDescription, storyTexts, actions, on
             {hint}
           </p>
         )}
-        <div className="overflow-y-auto max-h-48">
-          <div className="grid grid-cols-2 gap-2">
-            {actions.map((a) => (
-              <ActionButton
-                key={a.id}
-                label={a.label}
-                onClick={() => onAction(a.id)}
-                disabled={!a.available}
-                completed={a.completed}
-                hint={a.hint}
-                variant={a.variant}
-              />
-            ))}
+        <div className="relative">
+          <div ref={actionsRef} className="overflow-y-auto max-h-48">
+            <div className="grid grid-cols-2 gap-2">
+              {actions.map((a) => (
+                <ActionButton
+                  key={a.id}
+                  label={a.label}
+                  onClick={() => onAction(a.id)}
+                  disabled={!a.available}
+                  completed={a.completed}
+                  hint={a.hint}
+                  variant={a.variant}
+                />
+              ))}
+            </div>
           </div>
+          {hasOverflow && (
+            <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-paper to-transparent pointer-events-none" />
+          )}
         </div>
       </div>
     </div>

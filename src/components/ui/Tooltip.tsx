@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 interface Props {
   content: string;
@@ -8,21 +8,32 @@ interface Props {
 
 export function Tooltip({ content, children, position = 'top' }: Props) {
   const [visible, setVisible] = useState(false);
+  const [anchorRect, setAnchorRect] = useState<DOMRect | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+
+  const handleMouseEnter = () => {
+    if (ref.current) setAnchorRect(ref.current.getBoundingClientRect());
+    setVisible(true);
+  };
+
+  const tooltipStyle = anchorRect
+    ? position === 'left'
+      ? { top: anchorRect.top, left: anchorRect.left - 6, transform: 'translateX(-100%)' }
+      : { top: anchorRect.top - 6, left: anchorRect.left, transform: 'translateY(-100%)' }
+    : {};
 
   return (
     <div
+      ref={ref}
       className="relative inline-block"
-      onMouseEnter={() => setVisible(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={() => setVisible(false)}
     >
       {children}
-      {visible && content && (
+      {visible && content && anchorRect && (
         <div
-          className={`absolute z-50 px-2 py-1.5 text-xs bg-paper border border-gold/30 text-ink/70 whitespace-pre-wrap max-w-48 pointer-events-none shadow-sm ${
-            position === 'top'
-              ? 'bottom-full left-0 mb-1.5'
-              : 'right-full top-0 mr-1.5'
-          }`}
+          className="fixed z-50 px-2 py-1.5 text-xs bg-paper border border-gold/30 text-ink/70 whitespace-pre-wrap max-w-64 pointer-events-none shadow-sm"
+          style={tooltipStyle}
         >
           {content}
         </div>

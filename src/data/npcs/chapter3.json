@@ -1,5 +1,78 @@
 [
   {
+    "id": "npc_wujue",
+    "name": "无迹和尚",
+    "description": "一个约莫五十岁的灰袍僧人，眼神深邃，说话慢条斯理，总像是在权衡每一个字。",
+    "dialogues": [
+      {
+        "id": "first_meet",
+        "condition": { "flags_absent": ["chapter3_started"] },
+        "text": "你从何处而来？……往事客栈。那地方出了人命，听说了。施主若无事，贫僧还有药要捡。",
+        "grants": { "flags": ["wujue_met"] }
+      },
+      {
+        "id": "poison_knowledge",
+        "condition": { "flags": ["wujue_met"] },
+        "text": "砒霜配曼陀罗？这是极罕见的配法，坊间少有人知。贫僧……略知一二。施主为何问这个？",
+        "grants": { "flags": ["poison_source_known"] }
+      },
+      {
+        "id": "token_inquiry",
+        "condition": { "has": ["dafei_inner_token"] },
+        "text": "这枚令……贫僧已多年未见此物。施主从何处得来？大飞帮？……那帮人还在。罢了，施主若有疑问，贫僧可以说几句。",
+        "grants": { "flags": ["wujue_met"] }
+      },
+      {
+        "id": "alley_drug_origin",
+        "condition": { "has": ["alley_rubbing"] },
+        "text": "这拓片……是天机阁的货运标记。贫僧认得。当年风字组押运过不少这样的货。你想知道毒从何来？回春堂，贫僧的药架，第七格，左侧第三瓶。",
+        "grants": { "items": ["wujue_prescription"] }
+      },
+      {
+        "id": "true_identity",
+        "condition": { "has": ["monk_identity_scroll"] },
+        "text": "你找到了那卷东西。……贫僧知道你想说什么。韩朔，天机阁风字组。那是二十年前的事了。贫僧早已不是那个人，但有些事，终究是躲不掉的。",
+        "grants": { "flags": ["wujue_tianji_revealed"] }
+      },
+      {
+        "id": "stele_reading",
+        "condition": { "flags": ["chapter3_started"] },
+        "text": "那块碑，贫僧守了二十年了。上头刻的是天机阁立阁时的誓言，和立誓者的名字。他叫飞，代号鸢，是天机阁的创始之人。",
+        "grants": { "flags": ["stele_decoded", "wujue_spoke_once"], "items": ["tianji_founding_scroll"] }
+      },
+      {
+        "id": "fei_ye_origin",
+        "condition": { "flags": ["chapter3_started", "wujue_tianji_revealed"] },
+        "text": "飞爷……他给贫僧改了法名，说名字是囚笼。他自己，也用了代号二十年。建天机阁，是为了护那份名单，护名单上被廷尉府追杀的人。宋怀义也在其中。",
+        "grants": { "flags": ["fei_ye_tianji_origin_known"] }
+      },
+      {
+        "id": "fei_ye_origin_wise",
+        "condition": { "flags": ["chapter3_started"], "wisdom": 7 },
+        "text": "你问飞爷的来历？……贫僧见过他最初建阁时的样子，那时他年轻些，眼里还有火气。他建天机阁，是为了一群被廷尉府追杀的人——名单上的那些人，每一个都是他答应过要护的。",
+        "grants": { "flags": ["fei_ye_tianji_origin_known"] }
+      },
+      {
+        "id": "wujue_guilt",
+        "condition": { "flags": ["chapter3_started", "wujue_spoke_once"] },
+        "text": "「贫僧知道你想问什么。」他看着脚下的石板，「二十年前，贫僧亲手将那份名单藏入了大雁塔的夹壁。那时以为是保护，后来……」他停顿了很长时间，「后来有人因为那份名单死去，贫僧却没有出声。」\n\n「该说的，贫僧这次都说清楚。」",
+        "grants": { "flags": [] }
+      },
+      {
+        "id": "final_testimony",
+        "condition": { "flags": ["chapter3_started", "feiyes_manor_searched"] },
+        "text": "你在旧居里找到那些东西了。……贫僧只再说一句：他没有走，因为他在等一个他信得过的人来找他。你来了，就说明你已经知道该怎么做了。去曲江亭吧，他在那里。",
+        "grants": { "flags": ["fei_ye_identity_confirmed"] }
+      },
+      {
+        "id": "wujue_resolution",
+        "condition": { "flags": ["chapter3_started", "tianji_founding_scroll"] },
+        "text": "「你知道了真相。」他合掌，「贫僧守了二十年的秘密，终于有人替它开了口。」他的神情不是如释重负，而是一种说不清楚的沉重，「冤孽不会因为说出来就消散，但……至少，有人知道了。」",
+        "grants": { "flags": [] }
+      }
+    ]
+  },
+  {
     "id": "npc_tianji_contact",
     "name": "天机联络人",
     "description": "面容模糊，坐在堪舆图前，听到动静才缓缓转过身。声音平静，不带任何感情色彩，像是训练出来的。",

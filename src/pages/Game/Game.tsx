@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GameLayout } from '../../components/layout/GameLayout';
 import { LeftPanel } from '../../components/layout/LeftPanel';
@@ -15,6 +15,7 @@ import { getRoom, getEvent, getNPC } from '../../data/loader';
 import { getActionResults } from '../../engine/eventEngine';
 import { getAvailableDialogues } from '../../engine/storyEngine';
 import { evaluate } from '../../engine/conditionEvaluator';
+import { getHint } from '../../engine/hintEngine';
 import type { EvalContext } from '../../engine/conditionEvaluator';
 import type { DialogueChoice } from '../../types/game';
 
@@ -37,6 +38,7 @@ export default function Game() {
   const { items, addItem, removeItem } = useInventoryStore();
   const [modal, setModal] = useState<ModalType>(null);
   const [pendingChoices, setPendingChoices] = useState<PendingChoices | null>(null);
+  const [showHint, setShowHint] = useState(false);
   const processingRef = useRef(false);
 
   useAutoSave();
@@ -57,20 +59,9 @@ export default function Game() {
     }
   }, [player.name, navigate]);
 
-  if (!player.name) {
-    return null;
-  }
-
   const room = getRoom(scene.currentRoomId);
-  if (!room) {
-    return (
-      <div className="text-blood p-8 font-serif bg-paper min-h-screen">
-        错误：找不到当前房间 {scene.currentRoomId}
-      </div>
-    );
-  }
 
-  const ctx: EvalContext = {
+  const ctx = useMemo<EvalContext>(() => ({
     player: {
       name: player.name,
       template: player.template,
@@ -82,9 +73,11 @@ export default function Game() {
     },
     inventory: items,
     flags: scene.flags,
-  };
+  }), [player, items, scene.flags]);
 
-  const buildActions = () => {
+  const actions = useMemo(() => {
+    if (!room) return [];
+
     // 有待选对话时，只显示选项按钮
     if (pendingChoices) {
       return pendingChoices.choices.map((c) => ({
@@ -96,7 +89,7 @@ export default function Game() {
       }));
     }
 
-    const actions: Array<{ id: string; label: string; available: boolean; completed: boolean; hint: string }> = [];
+    const result: Array<{ id: string; label: string; available: boolean; completed: boolean; hint: string }> = [];
 
     for (const interactableId of room.interactables) {
       if (interactableId.startsWith('evt_')) {
@@ -104,7 +97,7 @@ export default function Game() {
         if (!event) continue;
         const results = getActionResults(event, ctx);
         for (const r of results) {
-          actions.push({
+          result.push({
             id: `${interactableId}:${r.action.id}`,
             label: r.action.label,
             available: r.available,
@@ -117,22 +110,25 @@ export default function Game() {
         if (!npc) continue;
         const dialogues = getAvailableDialogues(npc, ctx);
         if (dialogues.length > 0) {
-          const dialogueKey = `${interactableId}:${dialogues[0].id}`;
-          const seen = scene.seenDialogues.includes(dialogueKey);
-          actions.push({
+          const nextUnseen = dialogues.find(
+            (d) => !scene.seenDialogues.includes(`${interactableId}:${d.id}`)
+          );
+          result.push({
             id: `${interactableId}:talk`,
-            label: seen ? `与${npc.name}交谈（已对话）` : `与${npc.name}交谈`,
+            label: nextUnseen
+              ? `与${npc.name}交谈`
+              : `与${npc.name}交谈（已对话）`,
             available: true,
-            completed: false,
+            completed: !nextUnseen && dialogues.length > 0,
             hint: '',
           });
         }
       }
     }
-    return actions;
-  };
+    return result;
+  }, [scene.currentRoomId, scene.flags, scene.clues, scene.seenDialogues, pendingChoices, ctx, room]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleAction = (actionId: string) => {
+  const handleAction = useCallback((actionId: string) => {
     if (processingRef.current) return;
     processingRef.current = true;
     setTimeout(() => { processingRef.current = false; }, 300);
@@ -177,7 +173,12 @@ export default function Game() {
       if (!npc) return;
       const dialogues = getAvailableDialogues(npc, ctx);
       if (dialogues.length === 0) return;
-      const d = dialogues[0];
+      const nextUnseen = dialogues.find((d) => !scene.seenDialogues.includes(`${entityId}:${d.id}`));
+      if (!nextUnseen) {
+        scene.addStoryText(`（${npc.name}似乎已无更多可说的了。）`);
+        return;
+      }
+      const d = nextUnseen;
       scene.addStoryText(`【${npc.name}】${d.text}`);
       scene.markDialogueSeen(`${entityId}:${d.id}`);
       if (d.grants) {
@@ -196,23 +197,43 @@ export default function Game() {
         }
       }
     }
-  };
+  }, [pendingChoices, ctx, scene, addItem, removeItem]);
 
-  const handleNavigate = (roomId: string) => {
+  const handleNavigate = useCallback((roomId: string) => {
     setPendingChoices(null);
     scene.setRoom(roomId);
-  };
+  }, [scene]);
 
-  const actions = buildActions();
+  if (!player.name) {
+    return null;
+  }
+
+  if (!room) {
+    return (
+      <div className="text-blood p-8 font-serif bg-paper min-h-screen">
+        错误：找不到当前房间 {scene.currentRoomId}
+      </div>
+    );
+  }
+
+  const chapter: 1 | 2 | 3 = scene.flags.includes('chapter3_started')
+    ? 3
+    : scene.flags.includes('chapter2_started')
+    ? 2
+    : 1;
+
+  const currentHint = showHint
+    ? getHint({ flags: scene.flags, items, chapter, strength: player.strength, agility: player.agility, wisdom: player.wisdom })
+    : null;
 
   return (
     <>
       <button
         onClick={() => setModal('settings')}
-        className="fixed top-2 right-4 z-20 text-base text-gold/20 hover:text-gold/60 px-2 py-1 cursor-pointer"
+        className="fixed top-2 right-3 z-20 text-sm text-gold/50 hover:text-gold border border-gold/20 hover:border-gold/50 px-2.5 py-1 tracking-widest transition-colors cursor-pointer"
         title="设置"
       >
-        ⚙
+        设置
       </button>
 
       <GameLayout
@@ -225,6 +246,9 @@ export default function Game() {
             actions={actions}
             onAction={handleAction}
             pendingChoices={!!pendingChoices}
+            hint={currentHint}
+            onToggleHint={() => setShowHint((v) => !v)}
+            showHint={showHint}
           />
         }
         right={<RightPanel />}

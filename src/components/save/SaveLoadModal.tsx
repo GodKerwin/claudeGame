@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useSaveStore } from '../../store/saveStore';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
@@ -12,6 +13,14 @@ interface Props {
 
 export function SaveLoadModal({ mode, onClose }: Props) {
   const { slots, setSlots, updateSlot } = useSaveStore();
+  const [statusMsg, setStatusMsg] = useState<string>('');
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [onClose]);
+
   const player = usePlayerStore();
   const scene = useSceneStore();
   const { items, loadItems } = useInventoryStore();
@@ -39,7 +48,8 @@ export function SaveLoadModal({ mode, onClose }: Props) {
     };
     const saved = saveToSlot(slotId, data);
     updateSlot(saved);
-    onClose();
+    setStatusMsg('已保存');
+    setTimeout(() => { setStatusMsg(''); onClose(); }, 1500);
   };
 
   const handleLoad = (slotId: number) => {
@@ -57,7 +67,8 @@ export function SaveLoadModal({ mode, onClose }: Props) {
     });
     loadItems(data.inventory);
     setSlots(loadAllSlots());
-    onClose();
+    setStatusMsg('已读取');
+    setTimeout(() => { setStatusMsg(''); onClose(); }, 1500);
   };
 
   const manualSlots = slots.filter((s) => s.type === 'manual');
@@ -89,6 +100,9 @@ export function SaveLoadModal({ mode, onClose }: Props) {
             </button>
           ))}
         </div>
+        {statusMsg && (
+          <p className="text-center text-gold text-sm tracking-widest">{statusMsg}</p>
+        )}
         <button
           onClick={onClose}
           className="w-full py-2 border border-ink/20 text-ink/40 hover:text-ink text-sm cursor-pointer"

@@ -20,6 +20,14 @@ const QUEST_HINTS: Record<string, { name: string; hint: string }> = {
     name: '大飞帮隐藏线索',
     hint: '大堂公告板上的告示不只是告示，\n与醉酒客人攀谈，或许有意外收获。\n深夜的客栈，比白日更藏得住秘密。',
   },
+  quest_li_mao_case: {
+    name: '追查李邈',
+    hint: '东市各处藏有关键证据，\n毒物、身份证明、调令文书缺一不可。\n三件在手，方可面对李邈。',
+  },
+  quest_find_kite: {
+    name: '追寻「鸢」的身份',
+    hint: '大雁塔的无名碑藏有天机阁的秘密，\n飞爷故居的画像壁或许有意外发现。\n无迹和尚知道最后的真相。',
+  },
 };
 
 export function RightPanel() {
@@ -43,7 +51,7 @@ export function RightPanel() {
           ))}
         </div>
         {player.talent && talentInfo && (
-          <Tooltip content={`${talentInfo.description}\n\n${talentInfo.effect}`} position="left">
+          <Tooltip content={`${talentInfo.name}\n${talentInfo.description}\n${talentInfo.effect}`} position="left">
             <p className="mt-2 text-xs text-gold/50 cursor-help">
               天赋：<span className="text-gold">{player.talent}</span>
               <span className="text-ink/30 ml-1">(?)</span>

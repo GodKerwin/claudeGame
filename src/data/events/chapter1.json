@@ -140,6 +140,13 @@
         "requires": { "flags": ["notice_read"], "flags_absent": ["dafei_notice_found"] },
         "result": "告示内容如前，你总觉得那首诗有些蹊跷，却一时想不透。也许需要更仔细地推敲……",
         "grants": {}
+      },
+      {
+        "id": "gang_code_insight",
+        "label": "「凭帮中暗号联络大飞帮」",
+        "requires": { "flags": ["gang_culture_known"] },
+        "result": "你在公告板角落悄悄留下一行字，用的正是大飞帮惯用的帮中暗语格式——几个看似随意的词句，只有懂行的人才能读出其中的意思。你在末尾以特定句式标注了联络地点和时辰。帮中兄弟若经过此处，自会看懂这条消息。",
+        "grants": { "flags": ["dafei_contact_made"] }
       }
     ]
   },

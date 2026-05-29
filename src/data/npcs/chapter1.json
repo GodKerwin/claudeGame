@@ -285,8 +285,8 @@
       },
       {
         "id": "wuxue_gift",
-        "condition": { "flags": ["white_stranger_trust"], "agility": 7, "flags_absent": ["learned_wuhen_bu"] },
-        "text": "你的步法颇有几分灵性。这套《无痕步》，适合你。",
+        "condition": { "flags": ["white_stranger_trust"], "flags_absent": ["learned_wuhen_bu"] },
+        "text": "你查案的方式让我想起一个故人。这套《无痕步》，不拘武学根底，你若肯学，我便教你。",
         "grants": { "items": ["wuxue_wuhen_bu"], "flags": ["learned_wuhen_bu"] }
       },
       {
@@ -321,6 +321,16 @@
         "id": "after_contact",
         "condition": { "flags": ["dafei_contact_made"] },
         "text": "老人只管低头摆弄符纸，再也不看你一眼。"
+      },
+      {
+        "id": "seller_past_hint",
+        "condition": { "flags": ["dafei_notice_found"] },
+        "text": "「老头儿年轻时也走过江湖。现在嘛，」他低头摆弄符纸，「卖卖符，过过日子。」他顿了顿，「帮里的事，你莫要多问。能给你指路，已经是老头儿的本分了。」"
+      },
+      {
+        "id": "seller_warning",
+        "condition": { "flags": ["dafei_address_obtained"] },
+        "text": "「你去了那废宅，回来了，」老人没有抬头，「好。记住——你从这里知道的一切，你自己知道就好。说出去，不只是你的事。」"
       }
     ]
   },
@@ -437,6 +447,13 @@
           "flags": ["beggar_told_langpeng"]
         },
         "text": "「那蓝衫人，我再没见过。」老人眯眼靠在墙上，「浪鹏帮的人来去无踪，你若是招惹了他们，趁早离开这城。」"
+      },
+      {
+        "id": "beggar_past",
+        "condition": {
+          "flags": ["beggar_told_langpeng"]
+        },
+        "text": "「蓝衫汉子……」老人将酒碗翻过来，「二十年前，浪鹏帮收过我做眼线。」他停了片刻，「那年出了条人命，我就散了。有些事，旁观着看清楚，比参与进去要好。」"
       },
       {
         "id": "beg_for_wine",

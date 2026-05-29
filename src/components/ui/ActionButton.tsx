@@ -26,7 +26,7 @@ export function ActionButton({ label, onClick, disabled = false, completed = fal
         onClick={onClick}
         disabled={isDisabled}
         className={cn(
-          'w-full text-left px-3 py-2 text-sm border transition-all duration-150 focus:outline-none',
+          'w-full text-left px-3 py-2 text-sm border transition-all duration-150 focus:outline-none focus-visible:ring-1 focus-visible:ring-gold/50',
           variant === 'default' && !isDisabled && 'border-gold/40 text-ink hover:border-gold hover:text-gold hover:shadow-[0_0_8px_rgba(201,168,76,0.3)] cursor-pointer',
           variant === 'danger' && !isDisabled && 'border-blood/40 text-blood/80 hover:border-blood hover:text-blood cursor-pointer',
           variant === 'special' && !isDisabled && 'border-gold/60 text-gold hover:border-gold hover:shadow-[0_0_12px_rgba(201,168,76,0.5)] cursor-pointer',

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSettings } from '../../hooks/useSettings';
 
 interface Props {
@@ -9,9 +10,17 @@ interface Props {
 export function SettingsModal({ onClose, onSave, onLoad }: Props) {
   const { fontSize, increaseFontSize, decreaseFontSize, resetFontSize, MIN_SIZE, MAX_SIZE } = useSettings();
 
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [onClose]);
+
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50" onClick={onClose}>
       <div
+        role="dialog"
+        aria-label="设置"
         className="bg-paper border border-gold/30 p-6 w-80 font-serif"
         onClick={(e) => e.stopPropagation()}
       >

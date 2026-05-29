@@ -87,6 +87,17 @@
         "condition": { "wisdom": 7 },
         "text": "你知道浪鹏帮最近的动向……你也知道平康坊的事……你到底是什么人？……罢了，跟你说也无妨。是李邈，长安城里那位「李爷」，雇了我们帮他盯梢，监视往事客栈。那个宋怀义，他们早就盯上了。",
         "grants": { "flags": ["langpeng_trail"] }
+      },
+      {
+        "id": "trust_opened",
+        "condition": { "flags": ["hideout_trust_gained"] },
+        "text": "你既然知道暗语，想知道什么直接问吧。李爷的调令是真的，我们只是跑腿的——他叫盯就盯，叫撤就撤。里头的事，我们从不多问。",
+        "grants": { "flags": ["langpeng_trail"] }
+      },
+      {
+        "id": "scout_personal",
+        "condition": { "flags": ["langpeng_trail"] },
+        "text": "「跟帮里的人干活，不是谁都乐意的。」他低头，「但总得吃饭。」"
       }
     ]
   },
@@ -119,6 +130,11 @@
     "name": "李邈",
     "description": "一个约莫四十岁的白衣男人，气质清冷，举止从容。你在往事客栈见过他，那时他叫自己「白衣人」。",
     "dialogues": [
+      {
+        "id": "li_mao_ch1_memory",
+        "condition": { "flags": ["chapter1_truth_ending", "entered_teahouse"] },
+        "text": "「你在客栈住过，」李邈看着你，像是在核对什么，「林子里那次——你跟上来了，还没被发现。」他顿了顿，「我以为你只是个过路人。」\n\n「看来我低估了你。」"
+      },
       {
         "id": "first_meet",
         "condition": { "flags": ["entered_teahouse"] },

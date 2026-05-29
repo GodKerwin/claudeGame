@@ -1,6 +1,7 @@
 import type { GameEvent, EventAction, Condition } from '../types/game';
 import { evaluate } from './conditionEvaluator';
 import type { EvalContext } from './conditionEvaluator';
+import { getItem } from '../data/loader';
 
 export interface ActionResult {
   action: EventAction;
@@ -44,9 +45,10 @@ export function getMissingConditionLabel(condition: Condition | null | undefined
   if (condition.talent !== undefined && ctx.player.talent !== condition.talent)
     hints.push(`需要天赋「${condition.talent}」`);
   if (condition.has) {
-    for (const itemId of condition.has) {
-      if (!ctx.inventory.includes(itemId)) hints.push(`缺少物品`);
-    }
+    const missingNames = condition.has
+      .filter((itemId) => !ctx.inventory.includes(itemId))
+      .map((itemId) => getItem(itemId)?.name ?? itemId);
+    if (missingNames.length > 0) hints.push(`缺少：${missingNames.join('、')}`);
   }
   if (condition.flags) {
     for (const flag of condition.flags) {

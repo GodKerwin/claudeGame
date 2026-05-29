@@ -17,7 +17,7 @@
         "description": "长安城一条不显眼的巷子深处，门面是寻常茶水铺。推开后门，里面却是另一番光景——墙上挂着长安城的堪舆图，密密麻麻标注着数十个点位。一个面容模糊的人坐在图前，听到你进来，缓缓转过身。",
         "interactables": ["evt_mission_orders", "evt_safehouse_wall", "npc_tianji_contact"],
         "exits": ["feiyes_manor"],
-        "requires": { "flags": ["chapter2_join_ending"] }
+        "requires": null
       },
       {
         "id": "feiyes_manor",

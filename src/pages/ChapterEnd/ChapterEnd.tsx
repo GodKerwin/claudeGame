@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
 import { getItem } from '../../data/loader';
+import { addSeenEnding } from '../../engine/endingRecord';
 
 const CHAPTER1_ENDINGS: Record<string, string> = {
   chapter1_truth_ending: '你以智慧解开了这道局，真相已在掌中。但棋局远未终止。',
@@ -62,6 +63,10 @@ export default function ChapterEnd() {
       ].filter(Boolean),
     [chapterTitle, endingText, clueItems]
   );
+
+  useEffect(() => {
+    if (endingFlag) addSeenEnding(endingFlag);
+  }, [endingFlag]);
 
   useEffect(() => {
     if (visibleCount < lines.length) {

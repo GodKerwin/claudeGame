@@ -46,7 +46,10 @@ export const useSceneStore = create<SceneState>((set) => ({
   addQuest: (questId) =>
     set((s) => ({ questLog: s.questLog.includes(questId) ? s.questLog : [...s.questLog, questId] })),
   addStoryText: (text) =>
-    set((s) => ({ storyText: [...s.storyText, text] })),
+    set((s) => {
+      const next = [...s.storyText, text];
+      return { storyText: next.length > 50 ? next.slice(-50) : next };
+    }),
   clearStoryText: () => set({ storyText: [] }),
   markDialogueSeen: (key) =>
     set((s) => ({

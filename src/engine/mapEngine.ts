@@ -8,6 +8,12 @@ export function getAvailableExits(room: Room, ctx: EvalContext, allRooms: Room[]
     .filter((r): r is Room => r !== undefined && evaluate(r.requires, ctx));
 }
 
+export function getLockedExits(room: Room, ctx: EvalContext, allRooms: Room[]): Room[] {
+  return room.exits
+    .map((id) => allRooms.find((r) => r.id === id))
+    .filter((r): r is Room => r !== undefined && r.requires !== null && r.requires !== undefined && !evaluate(r.requires, ctx));
+}
+
 export function getRoomInteractables(room: Room): string[] {
   return room.interactables;
 }

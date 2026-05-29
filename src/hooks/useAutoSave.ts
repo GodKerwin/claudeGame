@@ -39,5 +39,5 @@ export function useAutoSave() {
     };
     const saved = saveToSlot(0, data, '自动存档');
     updateSlot(saved);
-  }, [scene.currentRoomId, scene.flags.length, scene.clues.length]);
+  }, [scene.currentRoomId, scene.flags, scene.clues, scene.questLog]);
 }

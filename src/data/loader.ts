@@ -24,9 +24,16 @@ export const TEMPLATES: CharacterTemplate[] = templatesRaw as CharacterTemplate[
 
 export const ALL_ROOMS: Room[] = MAPS.flatMap((m) => m.rooms);
 
-export const getRoom = (id: string): Room | undefined => ALL_ROOMS.find((r) => r.id === id);
-export const getEvent = (id: string): GameEvent | undefined => EVENTS.find((e) => e.id === id);
-export const getNPC = (id: string): NPC | undefined => NPCS.find((n) => n.id === id);
-export const getItem = (id: string): Item | undefined => ITEMS.find((i) => i.id === id);
-export const getTalent = (id: string): Talent | undefined => TALENTS.find((t) => t.id === id);
-export const getTemplate = (id: string): CharacterTemplate | undefined => TEMPLATES.find((t) => t.id === id);
+const roomMap = new Map(ALL_ROOMS.map((r) => [r.id, r]));
+const eventMap = new Map(EVENTS.map((e) => [e.id, e]));
+const npcMap = new Map(NPCS.map((n) => [n.id, n]));
+const itemMap = new Map(ITEMS.map((i) => [i.id, i]));
+const talentMap = new Map(TALENTS.map((t) => [t.id, t]));
+const templateMap = new Map(TEMPLATES.map((t) => [t.id, t]));
+
+export const getRoom = (id: string): Room | undefined => roomMap.get(id);
+export const getEvent = (id: string): GameEvent | undefined => eventMap.get(id);
+export const getNPC = (id: string): NPC | undefined => npcMap.get(id);
+export const getItem = (id: string): Item | undefined => itemMap.get(id);
+export const getTalent = (id: string): Talent | undefined => talentMap.get(id);
+export const getTemplate = (id: string): CharacterTemplate | undefined => templateMap.get(id);

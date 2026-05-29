@@ -32,9 +32,9 @@ describe('chapter3 map and item integrity', () => {
     expect(room?.requires?.flags).toContain('fei_ye_identity_confirmed');
   });
 
-  it('tianji_safehouse requires chapter2_join_ending flag', () => {
+  it('tianji_safehouse is accessible to all paths (requires is null)', () => {
     const room = ch3Map?.rooms.find((r) => r.id === 'tianji_safehouse');
-    expect(room?.requires?.flags).toContain('chapter2_join_ending');
+    expect(room?.requires).toBeNull();
   });
 
   it('all 5 chapter3 items exist', () => {
