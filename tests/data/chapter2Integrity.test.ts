@@ -144,3 +144,76 @@ describe('chapter2 event integrity', () => {
     }
   });
 });
+
+describe('chapter2 npc integrity', () => {
+  const allNpcIds = new Set(NPCS.map((n) => n.id));
+  const allItemIds = new Set(ITEMS.map((i) => i.id));
+
+  it('all 4 chapter2 npcs exist', () => {
+    const expected = ['npc_wujue', 'npc_langpeng_scout', 'npc_buyer_contact', 'npc_li_mao'];
+    for (const id of expected) {
+      expect(allNpcIds.has(id), `missing npc: ${id}`).toBe(true);
+    }
+  });
+
+  it('npc_langpeng_scout has 3 stat-gated dialogues all granting langpeng_trail', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_langpeng_scout');
+    expect(npc).toBeDefined();
+    const intimidate = npc?.dialogues.find((d) => d.id === 'intimidate');
+    const tail = npc?.dialogues.find((d) => d.id === 'tail');
+    const probe = npc?.dialogues.find((d) => d.id === 'probe');
+    expect(intimidate?.grants?.flags).toContain('langpeng_trail');
+    expect(tail?.grants?.flags).toContain('langpeng_trail');
+    expect(probe?.grants?.flags).toContain('langpeng_trail');
+  });
+
+  it('npc_li_mao has recruitment_offer dialogue granting tianji_recruit_offered', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_li_mao');
+    expect(npc).toBeDefined();
+    const d = npc?.dialogues.find((d) => d.id === 'recruitment_offer');
+    expect(d).toBeDefined();
+    expect(d?.grants?.flags).toContain('tianji_recruit_offered');
+  });
+
+  it('npc_wujue has true_identity dialogue granting wujue_tianji_revealed', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_wujue');
+    expect(npc).toBeDefined();
+    const d = npc?.dialogues.find((d) => d.id === 'true_identity');
+    expect(d).toBeDefined();
+    expect(d?.grants?.flags).toContain('wujue_tianji_revealed');
+  });
+
+  it('all chapter2 npc dialogue grants reference valid items', () => {
+    const ch2NpcIds = ['npc_wujue', 'npc_langpeng_scout', 'npc_buyer_contact', 'npc_li_mao'];
+    for (const npcId of ch2NpcIds) {
+      const npc = NPCS.find((n) => n.id === npcId);
+      if (!npc) continue;
+      for (const d of npc.dialogues) {
+        for (const itemId of (d.grants?.items ?? [])) {
+          expect(allItemIds.has(itemId), `npc ${npcId} dialogue ${d.id} grants unknown item: ${itemId}`).toBe(true);
+        }
+        if (!d.choices) continue;
+        for (const c of d.choices) {
+          for (const itemId of (c.grants?.items ?? [])) {
+            expect(allItemIds.has(itemId), `npc ${npcId} dialogue ${d.id} choice ${c.id} grants unknown item: ${itemId}`).toBe(true);
+          }
+        }
+      }
+    }
+  });
+
+  it('completion guarantee: all templates reach at least chapter2_release_ending via langpeng_trail', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_captive_note');
+    const readNote = evt?.actions.find((a) => a.id === 'read_note');
+    expect(readNote?.requires).toBeNull();
+    expect(readNote?.grants?.flags).toContain('langpeng_trail');
+
+    const teahouse = MAPS.find((m) => m.id === 'chapter2')
+      ?.rooms.find((r) => r.id === 'imperial_teahouse');
+    expect(teahouse?.requires?.flags).toContain('langpeng_trail');
+
+    const release = EVENTS.find((e) => e.id === 'evt_li_mao_encounter')
+      ?.actions.find((a) => a.id === 'release_ending');
+    expect(release?.requires?.flags).toContain('langpeng_trail');
+  });
+});

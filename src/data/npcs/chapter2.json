@@ -2,72 +2,121 @@
   {
     "id": "npc_wujue",
     "name": "无迹和尚",
-    "description": "身着灰色僧袍，神情沉静，手中转着一串佛珠。眼神深邃，仿佛见过太多世事。",
+    "description": "一个约莫五十岁的灰袍僧人，眼神深邃，说话慢条斯理，总像是在权衡每一个字。",
     "dialogues": [
       {
-        "id": "first_encounter",
-        "condition": { "flags_absent": ["wujue_met"] },
-        "text": "无迹和尚抬眼看你，目光清澈：「施主看起来在追寻什么。若有心参禅，贫僧愿为指点。」",
+        "id": "first_meet",
+        "condition": null,
+        "text": "你从何处而来？……往事客栈。那地方出了人命，听说了。施主若无事，贫僧还有药要捡。",
         "grants": { "flags": ["wujue_met"] }
       },
       {
-        "id": "after_met",
+        "id": "poison_knowledge",
         "condition": { "flags": ["wujue_met"] },
-        "text": "和尚继续转动手中的佛珠，嘴里念诵着听不分明的经文。"
-      }
-    ]
-  },
-  {
-    "id": "npc_buyer_contact",
-    "name": "古玩铺掌柜",
-    "description": "面白无须的中年人，眼神灵活而谨慎。面前摆着一只天青色瓷瓶，底部刻有隐约的纹饰。",
-    "dialogues": [
-      {
-        "id": "first_appraisal",
-        "condition": { "flags_absent": ["antique_dealer_met"] },
-        "text": "掌柜见你进来，微微一笑：「欢迎光临。看起来是位识货的人。」",
-        "grants": { "flags": ["antique_dealer_met"] }
+        "text": "砒霜配曼陀罗？这是极罕见的配法，坊间少有人知。贫僧……略知一二。施主为何问这个？",
+        "grants": { "flags": ["poison_source_known"] }
       },
       {
-        "id": "after_met",
-        "condition": { "flags": ["antique_dealer_met"] },
-        "text": "掌柜继续整理柜台上的古玩，不动声色。"
+        "id": "token_inquiry",
+        "condition": { "has": ["dafei_inner_token"] },
+        "text": "这枚令……贫僧已多年未见此物。施主从何处得来？大飞帮？……那帮人还在。罢了，施主若有疑问，贫僧可以说几句。",
+        "grants": { "flags": ["wujue_met"] }
+      },
+      {
+        "id": "alley_drug_origin",
+        "condition": { "has": ["alley_rubbing"] },
+        "text": "这拓片……是天机阁的货运标记。贫僧认得。当年风字组押运过不少这样的货。你想知道毒从何来？回春堂，贫僧的药架，第七格，左侧第三瓶。",
+        "grants": { "items": ["wujue_prescription"] }
+      },
+      {
+        "id": "true_identity",
+        "condition": { "has": ["monk_identity_scroll"] },
+        "text": "你找到了那卷东西。……贫僧知道你想说什么。韩朔，天机阁风字组。那是二十年前的事了。贫僧早已不是那个人，但有些事，终究是躲不掉的。",
+        "grants": { "flags": ["wujue_tianji_revealed"] }
       }
     ]
   },
   {
     "id": "npc_langpeng_scout",
     "name": "浪鹏帮探子",
-    "description": "一个神情警觉的男子，腰间别着一把刀，眼神在四处游移，像是在监视什么。",
+    "description": "一个神情警惕的年轻人，手边放着一柄短刀，见你进来就往后退了一步。",
     "dialogues": [
       {
-        "id": "suspicious_observer",
-        "condition": { "flags_absent": ["langpeng_scout_noticed"] },
-        "text": "那人注意到你的目光，眼神冷了下来，但什么都没说，只是转身消失在据点的黑暗里。",
-        "grants": { "flags": ["langpeng_scout_noticed"] }
+        "id": "first_meet",
+        "condition": null,
+        "text": "你是谁？这里不欢迎生人。有什么事快说，说完就走。"
       },
       {
-        "id": "after_noticed",
-        "condition": { "flags": ["langpeng_scout_noticed"] },
-        "text": "探子已经消失了踪迹。"
+        "id": "intimidate",
+        "condition": { "strength": 8 },
+        "text": "你……你想干什么！行行好，别动手……我说，我都说！李爷确实让我们盯那个客栈，盯一个叫宋怀义的商人。我们只是盯着，没有动手，真的没有动手！",
+        "grants": { "flags": ["langpeng_trail"] }
+      },
+      {
+        "id": "tail",
+        "condition": { "agility": 8 },
+        "text": "你……你一直跟着我？从据点到这里？……好，好吧。说就说。李爷下令，要我们跟紧那个宋怀义，他一旦取出藏起来的东西，立刻上报。我们只是跑腿的，真正知道内情的，是李爷自己。",
+        "grants": { "flags": ["langpeng_trail"] }
+      },
+      {
+        "id": "probe",
+        "condition": { "wisdom": 7 },
+        "text": "你知道浪鹏帮最近的动向……你也知道平康坊的事……你到底是什么人？……罢了，跟你说也无妨。是李邈，长安城里那位「李爷」，雇了我们帮他盯梢，监视往事客栈。那个宋怀义，他们早就盯上了。",
+        "grants": { "flags": ["langpeng_trail"] }
+      }
+    ]
+  },
+  {
+    "id": "npc_buyer_contact",
+    "name": "古玩掌柜",
+    "description": "一个面白无须的中年人，笑容可掬，但眼神总是飘忽，像在打量每一个进门的客人。",
+    "dialogues": [
+      {
+        "id": "first_meet",
+        "condition": null,
+        "text": "客官请进，随便看，随便看。本店古玩字画，一应俱全，价钱公道，童叟无欺。"
+      },
+      {
+        "id": "token_inquiry",
+        "condition": { "has": ["tianji_jade_token"] },
+        "text": "这块玉……在下见过几次，但每次见到它，后面都跟着麻烦。您既然知道这块玉的来历，在下不妨直说——这是天机阁的信物。在下只是个中间人，买家委托在下收集此类物品，从不问原因。",
+        "grants": { "flags": ["tianji_seal_read"], "items": ["buyer_transaction_record"] }
+      },
+      {
+        "id": "hidden_client",
+        "condition": { "flags": ["tianji_seal_read"], "wisdom": 8 },
+        "text": "委托人是谁？……在下只见过一次，白衣，高颧骨，左手有旧伤。留下的字条上只写了一个字：李。再多的，在下真的不知道了。",
+        "grants": { "flags": ["buyer_identity_hinted"] }
       }
     ]
   },
   {
     "id": "npc_li_mao",
     "name": "李邈",
-    "description": "白衣男子，面容冷峻，气质深沉。腰间无刀无剑，却有一种令人无法轻视的气度。左手腕上有一道旧伤的疤痕。",
+    "description": "一个约莫四十岁的白衣男人，气质清冷，举止从容。你在往事客栈见过他，那时他叫自己「白衣人」。",
     "dialogues": [
       {
-        "id": "first_encounter_teahouse",
-        "condition": { "flags": ["entered_teahouse"], "flags_absent": ["li_mao_encountered"] },
-        "text": "他转过身来，正面看着你。白衣无尘，目光深邃。「坐。」他说，「该说的，我们慢慢说。」",
-        "grants": { "flags": ["li_mao_encountered"] }
+        "id": "first_meet",
+        "condition": { "flags": ["entered_teahouse"] },
+        "text": "你终于来了。我在这里等了两天。……坐，先喝杯茶。有些话，站着不好说。"
       },
       {
-        "id": "after_encounter",
-        "condition": { "flags": ["li_mao_encountered"] },
-        "text": "李邈静坐在雅间里，手指在茶盏上轻轻敲着，眼神深不可测。"
+        "id": "tianji_accusation",
+        "condition": { "has": ["kite_identity_clue"] },
+        "text": "「鸢」……你知道这个字？那你已经比我想象的走得更远了。好，我不否认。我是天机阁的人。但宋怀义的死，不全是我的安排。",
+        "grants": { "flags": ["li_mao_exposed"] }
+      },
+      {
+        "id": "langpeng_evidence",
+        "condition": { "has": ["langpeng_dispatch_order"] },
+        "text": "这是我的手书，我认。浪鹏帮是我雇的，任务是盯梢和截件，不是杀人。宋怀义死的那一夜，我的人还在客栈外守着，根本没有机会进去。杀他的，另有其人。",
+        "grants": { "flags": ["li_mao_cornered"] }
+      },
+      {
+        "id": "recruitment_offer",
+        "condition": { "flags": ["li_mao_exposed"] },
+        "text": "你这样的人，在江湖上白白耗着可惜了。天机阁需要像你这样的人——能查案，能走暗路，还能在危局中活下来。……你考虑一下。",
+        "grants": { "flags": ["tianji_recruit_offered"] }
       }
     ]
   }
