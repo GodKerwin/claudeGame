@@ -1,0 +1,54 @@
+[
+  {
+    "id": "chapter2",
+    "name": "第二章·暗渡陈仓",
+    "rooms": [
+      {
+        "id": "east_market_entrance",
+        "name": "东市入口",
+        "description": "晨雾未散，东市外的长街已经嘈杂起来。货车辚辚，叫卖声此起彼伏，却有一种与往常不同的紧张气息在人群中流淌。官府的悬赏令贴在坊墙上，白纸黑字，触目惊心。",
+        "interactables": ["evt_market_notice", "evt_merchant_gossip"],
+        "exits": ["huichuntang", "antique_shop", "cien_temple"]
+      },
+      {
+        "id": "huichuntang",
+        "name": "回春堂药铺",
+        "description": "药香弥漫的铺子，架上摆满了各色草药。老板娘在柜台后低头捣药，不多言语。一个身着灰色僧袍的和尚盘坐在角落，神情沉静，手中转着一串佛珠。",
+        "interactables": ["evt_medicine_shelf", "evt_prescription_book", "npc_wujue"],
+        "exits": ["east_market_entrance", "cien_temple"]
+      },
+      {
+        "id": "antique_shop",
+        "name": "西市古玩铺",
+        "description": "铺子不大，却摆满了奇珍异玩。掌柜是个面白无须的中年人，眼神灵活，见你进来，微微一笑，不动声色地打量着你。柜台角落摆着一只天青色瓷瓶，底部刻有隐约的纹饰。",
+        "interactables": ["evt_appraise_token", "evt_buyer_ledger", "npc_buyer_contact"],
+        "exits": ["east_market_entrance"]
+      },
+      {
+        "id": "cien_temple",
+        "name": "慈恩寺偏院",
+        "description": "大雁塔的影子落在偏院的青砖上，几株老柏遮住了大半天光。院中少有香客，只有鸟鸣和偶尔传来的诵经声。一间僧房的门虚掩着，隐约飘出草药气息。",
+        "interactables": ["evt_monk_cell", "evt_temple_mural", "npc_wujue"],
+        "exits": ["east_market_entrance", "pingkang_hideout"]
+      },
+      {
+        "id": "pingkang_hideout",
+        "name": "平康坊据点",
+        "description": "平康坊深处一栋不起眼的院落，白日里大门紧闭，偶有人影出入，神情警惕。墙角的青苔上有一行新踩的脚印，还未干透。院内隐约可闻压低的交谈声。",
+        "interactables": ["evt_hideout_search", "evt_captive_note", "npc_langpeng_scout"],
+        "exits": ["cien_temple", "imperial_teahouse"],
+        "requires": null
+      },
+      {
+        "id": "imperial_teahouse",
+        "name": "皇城茶馆",
+        "description": "皇城外一家看似普通的茶馆，雅间深处灯火昏黄。茶香中隐有肃杀气。那个你一直在追寻的白色身影，正端坐在最里间，等着你。",
+        "interactables": ["evt_teahouse_ambush", "evt_li_mao_encounter", "npc_li_mao"],
+        "exits": ["pingkang_hideout"],
+        "requires": {
+          "flags": ["langpeng_trail"]
+        }
+      }
+    ]
+  }
+]

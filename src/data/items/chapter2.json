@@ -1,0 +1,62 @@
+[
+  {
+    "id": "poison_residue_sample",
+    "name": "毒药残样",
+    "description": "从回春堂药架比对所得，与宋怀义尸身所中之毒吻合——一种以砒霜为基、掺以他物的特殊配方。",
+    "isClue": true
+  },
+  {
+    "id": "wujue_prescription",
+    "name": "无迹方笺",
+    "description": "无迹和尚亲笔所写，记有一味特殊的配毒之法，笔迹与回春堂药架上的标签吻合。",
+    "isClue": true
+  },
+  {
+    "id": "monk_identity_scroll",
+    "name": "僧籍密卷",
+    "description": "藏于僧房隔板之后，载明无迹和尚真实身份：天机阁旧部，风字组成员，法名之前名叫韩朔。",
+    "isClue": true
+  },
+  {
+    "id": "langpeng_dispatch_order",
+    "name": "浪鹏调令",
+    "description": "一纸手书，以李邈笔迹写就，命令浪鹏帮在往事客栈外布置眼线，伺机取走宋怀义携带的名单。",
+    "isClue": true
+  },
+  {
+    "id": "buyer_transaction_record",
+    "name": "买家往来账",
+    "description": "古玩铺的暗账，记录天机令牌数次易手的轨迹，最终流向一个没有名字的「委托人」。",
+    "isClue": true
+  },
+  {
+    "id": "tianji_signal_record",
+    "name": "天机暗号册",
+    "description": "壁画后的夹层中取出，记有天机阁内部一套联络暗语，部分页面已被撕去，留下的恰好够拼出一个字：鸢。",
+    "isClue": true
+  },
+  {
+    "id": "captive_letter",
+    "name": "被俘信函",
+    "description": "平康坊据点搜出的密信，证明浪鹏帮在李邈授意下行事，并提及「鸢已入局，名单不可落入旁人之手」。",
+    "isClue": true
+  },
+  {
+    "id": "second_killer_evidence",
+    "name": "第二凶手证据",
+    "description": "综合毒药来源、浪鹏调令与天机暗号，证据指向宋怀义案中那只真正动手的幕后黑手——并非顾凌霜一人所为。",
+    "isClue": true
+  },
+  {
+    "id": "reward_notice",
+    "name": "东市悬赏令",
+    "description": "官府张贴的通缉令，含模糊的画像和五十两赏银，所描述的特征——白衣、高颧骨、左手有旧伤——隐约与白衣人相符。",
+    "isClue": false
+  },
+  {
+    "id": "teahouse_token",
+    "name": "皇城茶馆入场牌",
+    "description": "一枚素色木牌，背面刻有隐约的天机纹，是进入茶馆内室的凭证。",
+    "isClue": false
+  }
+]
