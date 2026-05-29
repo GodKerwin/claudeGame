@@ -9,6 +9,7 @@ interface ActionItem {
   completed: boolean;
   hint: string;
   variant?: 'default' | 'danger' | 'special';
+  group?: 'npc' | 'event' | 'choice';
 }
 
 interface Props {
@@ -83,19 +84,64 @@ export function CenterPanel({ roomName, roomDescription, storyTexts, actions, on
         )}
         <div className="relative">
           <div ref={actionsRef} className="overflow-y-auto max-h-48">
-            <div className="grid grid-cols-2 gap-2">
-              {actions.map((a) => (
-                <ActionButton
-                  key={a.id}
-                  label={a.label}
-                  onClick={() => onAction(a.id)}
-                  disabled={!a.available}
-                  completed={a.completed}
-                  hint={a.hint}
-                  variant={a.variant}
-                />
-              ))}
-            </div>
+            {(() => {
+              const hasNpc = actions.some((a) => a.group === 'npc');
+              const hasEvent = actions.some((a) => a.group === 'event');
+              const useGrouped = !pendingChoices && hasNpc && hasEvent && actions.length > 4;
+
+              if (useGrouped) {
+                const npcActions = actions.filter((a) => a.group === 'npc');
+                const eventActions = actions.filter((a) => a.group === 'event');
+                return (
+                  <>
+                    <p className="text-gold/30 text-xs tracking-widest mb-1 mt-2">── 交谈 ──</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {npcActions.map((a) => (
+                        <ActionButton
+                          key={a.id}
+                          label={a.label}
+                          onClick={() => onAction(a.id)}
+                          disabled={!a.available}
+                          completed={a.completed}
+                          hint={a.hint}
+                          variant={a.variant}
+                        />
+                      ))}
+                    </div>
+                    <p className="text-gold/30 text-xs tracking-widest mb-1 mt-2">── 探查 ──</p>
+                    <div className="grid grid-cols-2 gap-2">
+                      {eventActions.map((a) => (
+                        <ActionButton
+                          key={a.id}
+                          label={a.label}
+                          onClick={() => onAction(a.id)}
+                          disabled={!a.available}
+                          completed={a.completed}
+                          hint={a.hint}
+                          variant={a.variant}
+                        />
+                      ))}
+                    </div>
+                  </>
+                );
+              }
+
+              return (
+                <div className="grid grid-cols-2 gap-2">
+                  {actions.map((a) => (
+                    <ActionButton
+                      key={a.id}
+                      label={a.label}
+                      onClick={() => onAction(a.id)}
+                      disabled={!a.available}
+                      completed={a.completed}
+                      hint={a.hint}
+                      variant={a.variant}
+                    />
+                  ))}
+                </div>
+              );
+            })()}
           </div>
           {hasOverflow && (
             <div className="absolute bottom-0 left-0 right-0 h-6 bg-gradient-to-t from-paper to-transparent pointer-events-none" />

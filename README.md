@@ -1,73 +1,71 @@
-# React + TypeScript + Vite
+# 天机残卷
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 大唐开元二十三年，秋。长安城，往事客栈。你不过是一个过路人，却被命运钉在了这里。
 
-Currently, two official plugins are available:
+一款以大唐长安为背景的文字推理解谜游戏，三章完结。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 游戏简介
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+商人宋怀义死于密室，门扃窗闭，无迹可循。衙门远水难救近火，而真相不会自己开口。
 
-## Expanding the ESLint configuration
+玩家将扮演一位过路人，在往事客栈、东市坊间与大雁塔下，抽丝剥茧，追查背后牵连长安城三十七处要津的庞大秘密。
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **三章主线**：往事客栈 · 东市风云 · 鸢归何处
+- **九种结局**：不同选择通往不同命运，结局图鉴记录每一次尝试
+- **五套角色**：游侠、谋士、刺客、药师、全能客，各有所长
+- **属性与天赋**：察言观色、过目不忘、江湖老千等天赋影响可用选项
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 玩法说明
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| 界面区域 | 功能 |
+|----------|------|
+| 左侧面板 | 当前可前往的地点（灰色为受限） |
+| 中央区域 | 场景描述与可交互选项 |
+| 右侧面板 | 角色属性、任务日志、物品线索 |
+| 提示按钮 | 遇到困难时获取下一步指引 |
+| Esc 键 | 打开设置（存档/读档/字号） |
+
+---
+
+## 本地运行
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+测试：
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npx vitest run
 ```
+
+构建：
+
+```bash
+npm run build
+```
+
+---
+
+## 技术栈
+
+- React 18 + TypeScript + Vite
+- TailwindCSS v3
+- Zustand v4（状态管理）
+- React Router v6
+- Vitest（测试，105 用例）
+
+---
+
+## 制作
+
+**风雪久**
+
+---
+
+*天机残卷 · 三章完结*

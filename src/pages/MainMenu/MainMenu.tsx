@@ -79,6 +79,13 @@ export default function MainMenu() {
             结局图鉴
           </button>
         )}
+
+        <button
+          onClick={() => navigate('/credits')}
+          className="py-2 text-ink/30 hover:text-ink/50 tracking-widest transition-all text-xs cursor-pointer"
+        >
+          关于
+        </button>
       </div>
 
       <p className="absolute bottom-6 text-ink/15 text-xs tracking-widest">

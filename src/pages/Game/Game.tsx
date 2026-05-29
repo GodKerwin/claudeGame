@@ -39,10 +39,21 @@ export default function Game() {
   const [modal, setModal] = useState<ModalType>(null);
   const [pendingChoices, setPendingChoices] = useState<PendingChoices | null>(null);
   const [showHint, setShowHint] = useState(false);
+  const [showFirstRun, setShowFirstRun] = useState<boolean>(
+    !localStorage.getItem('tianji-firstrun-seen')
+  );
   const processingRef = useRef(false);
 
   useAutoSave();
   useSettings();
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && modal === null) setModal('settings');
+    };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [modal]);
 
   useEffect(() => {
     const inChapter3 = scene.flags.includes('chapter3_started');
@@ -86,10 +97,11 @@ export default function Game() {
         available: true,
         completed: false,
         hint: '',
+        group: 'choice' as const,
       }));
     }
 
-    const result: Array<{ id: string; label: string; available: boolean; completed: boolean; hint: string }> = [];
+    const result: Array<{ id: string; label: string; available: boolean; completed: boolean; hint: string; group?: 'npc' | 'event' | 'choice' }> = [];
 
     for (const interactableId of room.interactables) {
       if (interactableId.startsWith('evt_')) {
@@ -103,6 +115,7 @@ export default function Game() {
             available: r.available,
             completed: r.completed,
             hint: r.hint,
+            group: 'event' as const,
           });
         }
       } else if (interactableId.startsWith('npc_')) {
@@ -121,6 +134,7 @@ export default function Game() {
             available: true,
             completed: !nextUnseen && dialogues.length > 0,
             hint: '',
+            group: 'npc' as const,
           });
         }
       }
@@ -263,6 +277,33 @@ export default function Game() {
       )}
       {(modal === 'save' || modal === 'load') && (
         <SaveLoadModal mode={modal} onClose={() => setModal(null)} />
+      )}
+
+      {showFirstRun && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-paper/80 backdrop-blur-sm">
+          <div className="font-serif bg-paper/90 border border-gold/30 max-w-sm w-full mx-4 p-8 space-y-4 text-ink">
+            <h2 className="text-gold text-lg tracking-widest text-center">初次踏入江湖</h2>
+            <div className="border-t border-gold/20" />
+            <ul className="space-y-2 text-sm tracking-wide text-ink/70">
+              <li>· 左侧面板：可前往的地点</li>
+              <li>· 中央区域：当前场景，点击下方选项推进</li>
+              <li>· 右侧面板：人物信息与任务线索</li>
+              <li>· 「提示」按钮：遇到困难时点击获得指引</li>
+            </ul>
+            <div className="border-t border-gold/20" />
+            <div className="flex justify-center">
+              <button
+                onClick={() => {
+                  localStorage.setItem('tianji-firstrun-seen', '1');
+                  setShowFirstRun(false);
+                }}
+                className="py-2 px-8 border border-gold/40 text-ink hover:border-gold hover:text-gold tracking-widest transition-all cursor-pointer text-sm"
+              >
+                明白了
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
