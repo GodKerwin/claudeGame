@@ -72,6 +72,12 @@ export default function Game() {
 
   const room = getRoom(scene.currentRoomId);
 
+  const chapter: 1 | 2 | 3 = scene.flags.includes('chapter3_started')
+    ? 3
+    : scene.flags.includes('chapter2_started')
+    ? 2
+    : 1;
+
   const ctx = useMemo<EvalContext>(() => ({
     player: {
       name: player.name,
@@ -124,7 +130,7 @@ export default function Game() {
         const dialogues = getAvailableDialogues(npc, ctx);
         if (dialogues.length > 0) {
           const nextUnseen = dialogues.find(
-            (d) => !scene.seenDialogues.includes(`${interactableId}:${d.id}`)
+            (d) => !scene.seenDialogues.includes(`ch${chapter}:${interactableId}:${d.id}`)
           );
           result.push({
             id: `${interactableId}:talk`,
@@ -140,7 +146,7 @@ export default function Game() {
       }
     }
     return result;
-  }, [scene.currentRoomId, scene.flags, scene.clues, scene.seenDialogues, pendingChoices, ctx, room]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [scene.currentRoomId, scene.flags, scene.clues, scene.seenDialogues, pendingChoices, ctx, room, chapter]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleAction = useCallback((actionId: string) => {
     if (processingRef.current) return;
@@ -187,14 +193,14 @@ export default function Game() {
       if (!npc) return;
       const dialogues = getAvailableDialogues(npc, ctx);
       if (dialogues.length === 0) return;
-      const nextUnseen = dialogues.find((d) => !scene.seenDialogues.includes(`${entityId}:${d.id}`));
+      const nextUnseen = dialogues.find((d) => !scene.seenDialogues.includes(`ch${chapter}:${entityId}:${d.id}`));
       if (!nextUnseen) {
         scene.addStoryText(`（${npc.name}似乎已无更多可说的了。）`);
         return;
       }
       const d = nextUnseen;
       scene.addStoryText(`【${npc.name}】${d.text}`);
-      scene.markDialogueSeen(`${entityId}:${d.id}`);
+      scene.markDialogueSeen(`ch${chapter}:${entityId}:${d.id}`);
       if (d.grants) {
         d.grants.flags?.forEach((f) => scene.addFlag(f));
         d.grants.clues?.forEach((c) => scene.addClue(c));
@@ -229,12 +235,6 @@ export default function Game() {
       </div>
     );
   }
-
-  const chapter: 1 | 2 | 3 = scene.flags.includes('chapter3_started')
-    ? 3
-    : scene.flags.includes('chapter2_started')
-    ? 2
-    : 1;
 
   const currentHint = showHint
     ? getHint({ flags: scene.flags, items, chapter, strength: player.strength, agility: player.agility, wisdom: player.wisdom })

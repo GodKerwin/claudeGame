@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { loadAllSlots, saveToSlot, loadFromSlot, initDefaultSlots } from '../../src/engine/saveEngine';
+import { loadAllSlots, saveToSlot, loadFromSlot, initDefaultSlots, migrateSeenDialogues } from '../../src/engine/saveEngine';
 import type { SaveData } from '../../src/types/game';
 
 const mockSaveData: SaveData = {
@@ -68,5 +68,22 @@ describe('saveToSlot / loadFromSlot', () => {
     saveToSlot(1, newData);
     const loaded = loadFromSlot(1);
     expect(loaded?.currentRoomId).toBe('cellar');
+  });
+});
+
+describe('migrateSeenDialogues', () => {
+  it('adds ch1 prefix to keys without chapter prefix', () => {
+    const old = ['npc_wujue:first_meet', 'npc_lifude:greeting'];
+    const migrated = migrateSeenDialogues(old);
+    expect(migrated).toEqual(['ch1:npc_wujue:first_meet', 'ch1:npc_lifude:greeting']);
+  });
+
+  it('leaves already-prefixed keys unchanged', () => {
+    const keys = ['ch2:npc_wujue:stele_reading', 'ch1:npc_lifude:greeting'];
+    expect(migrateSeenDialogues(keys)).toEqual(keys);
+  });
+
+  it('handles empty array', () => {
+    expect(migrateSeenDialogues([])).toEqual([]);
   });
 });

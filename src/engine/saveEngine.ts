@@ -40,7 +40,16 @@ export function saveToSlot(slotId: number, data: SaveData, label?: string): Save
 
 export function loadFromSlot(slotId: number): SaveData | null {
   const slots = loadAllSlots();
-  return slots.find((s) => s.id === slotId)?.data ?? null;
+  const slot = slots.find((s) => s.id === slotId);
+  if (!slot?.data) return null;
+  return {
+    ...slot.data,
+    seenDialogues: migrateSeenDialogues(slot.data.seenDialogues ?? []),
+  };
+}
+
+export function migrateSeenDialogues(keys: string[]): string[] {
+  return keys.map((key) => (/^ch\d:/.test(key) ? key : `ch1:${key}`));
 }
 
 export function deleteSlot(slotId: number): void {
