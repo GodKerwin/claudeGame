@@ -90,7 +90,7 @@ export function RightPanel() {
                   <span className="flex-1">{q?.name ?? qid}</span>
                   {q?.hint && (
                     <Tooltip content={q.hint} position="left">
-                      <span className="text-ink/30 hover:text-gold/50 cursor-help ml-1">?</span>
+                      <span className="font-sans inline-block min-w-[1em] text-center text-ink/30 hover:text-gold/50 cursor-help ml-1">?</span>
                     </Tooltip>
                   )}
                 </div>
