@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GameLayout } from '../../components/layout/GameLayout';
 import { LeftPanel } from '../../components/layout/LeftPanel';
@@ -26,6 +26,9 @@ interface PendingChoices {
   choices: DialogueChoice[];
 }
 
+const CHAPTER1_ENDINGS = ['chapter1_truth_ending', 'chapter1_force_ending', 'chapter1_hermit_ending'];
+const CHAPTER2_ENDINGS = ['chapter2_arrest_ending', 'chapter2_release_ending', 'chapter2_join_ending'];
+
 export default function Game() {
   const navigate = useNavigate();
   const player = usePlayerStore();
@@ -37,6 +40,14 @@ export default function Game() {
 
   useAutoSave();
   useSettings();
+
+  useEffect(() => {
+    const inChapter2 = scene.flags.includes('chapter2_started');
+    const endings = inChapter2 ? CHAPTER2_ENDINGS : CHAPTER1_ENDINGS;
+    if (endings.some((f) => scene.flags.includes(f))) {
+      navigate('/chapter-end');
+    }
+  }, [scene.flags, navigate]);
 
   if (!player.name) {
     navigate('/');
