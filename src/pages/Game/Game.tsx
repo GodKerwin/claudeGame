@@ -11,7 +11,7 @@ import { useSettings } from '../../hooks/useSettings';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
-import { getRoom, getEvent, getNPC } from '../../data/loader';
+import { getRoom, getEvent, getNPC, getTemplate } from '../../data/loader';
 import { getActionResults } from '../../engine/eventEngine';
 import { getAvailableDialogues } from '../../engine/storyEngine';
 import { evaluate } from '../../engine/conditionEvaluator';

@@ -11,7 +11,7 @@ export default {
         blood: '#8b1a1a',
       },
       fontFamily: {
-        serif: ['"Noto Serif SC"', 'serif'],
+        serif: ['"KaiTi"', '"STKaiti"', '"楷体"', '"FangSong"', '"STFangsong"', '"仿宋"', '"SimSun"', '"宋体"', 'serif'],
       },
     },
   },
