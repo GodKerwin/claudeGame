@@ -38,11 +38,16 @@ export function CenterPanel({
   showHint,
 }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const rafRef = useRef<number | null>(null);
   const [activeTab, setActiveTab] = useState<ActiveTab>('npc');
 
   const scrollToBottom = useCallback(() => {
-    const el = scrollContainerRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
+    if (rafRef.current !== null) return;
+    rafRef.current = requestAnimationFrame(() => {
+      const el = scrollContainerRef.current;
+      if (el) el.scrollTop = el.scrollHeight;
+      rafRef.current = null;
+    });
   }, []);
 
   const npcActions = actions.filter((a) => a.group === 'npc');
@@ -129,11 +134,15 @@ export function CenterPanel({
         <p className="text-ink/80 leading-loose text-sm">{roomDescription}</p>
         {storyTexts.map((text, i) => (
           <div key={i} className="border-l-2 border-gold/20 pl-3">
-            <TypewriterText
-              text={text}
-              className="text-ink/90 leading-loose text-sm"
-              onUpdate={i === storyTexts.length - 1 ? scrollToBottom : undefined}
-            />
+            {i === storyTexts.length - 1 ? (
+              <TypewriterText
+                text={text}
+                className="text-ink/90 leading-loose text-sm"
+                onUpdate={scrollToBottom}
+              />
+            ) : (
+              <span className="text-ink/90 leading-loose text-sm">{text}</span>
+            )}
           </div>
         ))}
       </div>

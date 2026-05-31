@@ -7,7 +7,7 @@ interface Props {
   onUpdate?: () => void;
 }
 
-const BATCH = 2; // 每帧渲染字符数，减少 re-render 次数
+const BATCH = 4;
 
 export function TypewriterText({ text, className = '', speed = 30, onUpdate }: Props) {
   const [count, setCount] = useState(0);
