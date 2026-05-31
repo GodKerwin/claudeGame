@@ -352,5 +352,20 @@
         "grants": { "flags": ["ch2_agility_grown", "langpeng_trail"], "agility": 1 }
       }
     ]
+  },
+  {
+    "id": "evt_ch2_blackmarket_intel",
+    "title": "黑市情报",
+    "description": "平康坊据点深处有一处专门流通非正规情报的渠道，认识路子的人才进得去。",
+    "requires": { "talent": "三教九流", "flags": ["langpeng_discovered"] },
+    "actions": [
+      {
+        "id": "buy_langpeng_intel",
+        "label": "向黑市线人换取李邈情报（三教九流）",
+        "requires": { "flags_absent": ["blackmarket_intel_bought"] },
+        "result": "线人摆出一沓字条：宋怀义死后第三日，李邈在皇城茶馆订了一间雅座，预付三日茶资——他在等人。线人又压低声音：「他带着一份调令，盖的是浪鹏帮的私印，不是官府的——这是雇佣关系，不是奉命。」你拿走了那份调令的抄件。",
+        "grants": { "flags": ["blackmarket_intel_bought", "langpeng_trail"], "items": ["langpeng_dispatch_order"] }
+      }
+    ]
   }
 ]

@@ -57,6 +57,18 @@
         "condition": { "flags": ["chapter3_started", "feiyes_manor_searched"] },
         "text": "你在旧居里找到那些东西了。……贫僧只再说一句：他没有走，因为他在等一个他信得过的人来找他。你来了，就说明你已经知道该怎么做了。去曲江亭吧，他在那里。",
         "grants": { "flags": ["fei_ye_identity_confirmed"] }
+      },
+      {
+        "id": "storyteller_rumor",
+        "condition": { "talent": "耳报神", "flags": ["wujue_met"], "flags_absent": ["wujue_storyteller_told"] },
+        "text": "说书人……贫僧在扬州渡口听人讲过《天机残卷》，那故事编得真真假假，只有内里的人才知道哪些是真的。」他合掌，「施主既然走南闯北，该知道坊间对「鸢」的传说——一只不会落地的鸢。那不是民间故事，是天机阁里真实存在的代号。动用那个代号的人，如今就在长安城里。",
+        "grants": { "flags": ["wujue_storyteller_told", "kite_identity_clue"] }
+      },
+      {
+        "id": "medical_healing",
+        "condition": { "talent": "望闻断骨", "flags": ["wujue_met"], "flags_absent": ["wujue_treated"] },
+        "text": "你注意到和尚持珠时右手有轻微不自然——旧伤未愈，腕骨处有陈年损伤。你开口：「右手的伤，是当年的？」\n\n无迹和尚停住了，沉默片刻，缓缓伸出右手。\n\n你为他诊治时，他低声说：「天机阁风字组，二十年前押运一批货，出了事故，伤了骨头。那批货是砒霜，配着曼陀罗的那种——是有人专门调制的毒，不是寻常药材。」",
+        "grants": { "flags": ["wujue_treated", "poison_source_known"], "clues": ["wujue_testimony"] }
       }
     ]
   },
@@ -98,6 +110,12 @@
         "id": "scout_personal",
         "condition": { "flags": ["langpeng_trail"] },
         "text": "「跟帮里的人干活，不是谁都乐意的。」他低头，「但总得吃饭。」"
+      },
+      {
+        "id": "thief_exchange",
+        "condition": { "talent": "三教九流", "flags_absent": ["langpeng_thief_exchange"] },
+        "text": "探子打量了你一眼，眼神里出现了不同的东西。「你……是行里人？」他放低了声音，「行，那就说明白话。我们接的活儿是李爷的，监视宋怀义，截他带的东西。」他顿了顿，「你若有消息跟我换，我告诉你李爷在哪落脚。」",
+        "grants": { "flags": ["langpeng_thief_exchange", "langpeng_trail"] }
       }
     ]
   },

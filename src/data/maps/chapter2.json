@@ -39,7 +39,7 @@
         "id": "pingkang_hideout",
         "name": "平康坊据点",
         "description": "平康坊深处一栋不起眼的院落，白日里大门紧闭，偶有人影出入，神情警惕。墙角的青苔上有一行新踩的脚印，还未干透。院内隐约可闻压低的交谈声。",
-        "interactables": ["evt_hideout_search", "evt_captive_note", "npc_langpeng_scout", "evt_ch2_agility_growth"],
+        "interactables": ["evt_hideout_search", "evt_captive_note", "npc_langpeng_scout", "evt_ch2_agility_growth", "evt_ch2_blackmarket_intel"],
         "exits": ["cien_temple", "imperial_teahouse"],
         "requires": null
       },
