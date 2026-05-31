@@ -112,7 +112,7 @@ export interface CharacterTemplate {
     constitution: number;
   };
   talent: string;
-  intro?: string;
+  prologueLines?: string[];
 }
 
 export interface SaveData {
