@@ -136,8 +136,8 @@ export function CenterPanel({
               {groupActions.map((a) =>
                 a.completed ? (
                   <div key={a.id} className="flex items-center gap-1.5 py-0.5 pl-1 select-none">
-                    <span className="text-gold/30 text-[10px]">✓</span>
-                    <span className="text-ink/20 text-xs tracking-wide italic">已探查</span>
+                    <span className="text-gold/25 text-[10px] shrink-0">✓</span>
+                    <span className="text-ink/25 text-xs line-through decoration-ink/15">{a.label}</span>
                   </div>
                 ) : (
                   <ActionButton
