@@ -41,8 +41,8 @@
       },
       {
         "id": "hidden_tianji",
-        "condition": { "talent": "三寸不烂之舌", "flags": ["innkeeper_met"] },
-        "text": "……您是怎么看出来的？这块玉佩，是当年天机阁的人托付于我保管的。我与那些人，有旧日恩情。",
+        "condition": { "talent": "耳报神", "flags": ["innkeeper_met"] },
+        "text": "……您是说书的？走南闯北见多识广。」他左右看了看，压低声音，「其实，宋怀义来之前三日，就有人专门到店里打听他——问他住哪间房、几时到。我当时没在意，现在想来……那人问完就走了，连茶钱都没付。",
         "hidden": true,
         "grants": { "flags": ["innkeeper_tianji_secret"] }
       },
@@ -139,6 +139,18 @@
         "condition": { "flags": ["drunk_talked"], "has": ["tavern_wine"] },
         "text": "你拿酒换消息……好！那人腰间别着一块黑色牌子，入夜后我还看见他和掌柜说过话。",
         "grants": { "flags": ["drunk_extra_clue"], "clues": ["drunk_testimony"] }
+      },
+      {
+        "id": "storyteller_rumor",
+        "condition": { "talent": "耳报神", "flags_absent": ["drunk_storyteller_talked"] },
+        "text": "嗳——你是说书的？我在扬州听过你讲！」张三猛地抬起头，酒意散了一半，「昨夜的事，我早想找人说！那蓝衫汉子，腰里挂着铜铃，子时三刻从二楼急急下来——往城东树林跑了！脚步虚浮，像是出了什么岔子。你这说书人，不用酒我也愿意告诉你！",
+        "grants": { "flags": ["drunk_storyteller_talked", "drunk_talked", "found_escape_clue", "blue_shirt_seen_by_innkeeper"] }
+      },
+      {
+        "id": "thief_recognition",
+        "condition": { "talent": "三教九流", "flags_absent": ["drunk_thief_talked"] },
+        "text": "张三猛地直起腰，酒意散了一半，压低声音：「你……是行里人？」他扫了眼四周，凑近，「我认出你了。昨夜那个蓝衫的，腰间铜铃是浪鹏帮外围的记号。他们在盯这客栈不是一天了。你要查？去后巷问老乞丐，他以前给浪鹏帮跑过腿。」",
+        "grants": { "flags": ["drunk_thief_talked", "drunk_talked", "found_escape_clue", "langpeng_discovered"] }
       }
     ]
   },
@@ -193,6 +205,12 @@
         "id": "after_asked",
         "condition": { "flags": ["cook_talked"] },
         "text": "我什么都说了……请保护好我，那黑衣人看起来很危险。"
+      },
+      {
+        "id": "medical_treatment",
+        "condition": { "talent": "望闻断骨", "flags": ["cook_talked"], "flags_absent": ["cook_treated"] },
+        "text": "你注意到王氏右手微颤、嘴唇发白——轻度吸入了药粉。你为她把了脉，从药囊取出安神散递过去：「服下，一柱香内缓解。」\n\n王氏接过，眼眶红了：「谢谢您，您是第一个问我怎么了的人。」她小声说，「那人昨夜在灶台里放了什么……我瞧见了——她把砒霜溶进温酒里，搅匀了，拿出去了。是用来毒人的，不是用来撒的。」",
+        "grants": { "flags": ["cook_treated", "cook_poison_wine_revealed"], "clues": ["poison_wine_method"] }
       }
     ]
   },
@@ -472,6 +490,12 @@
         "grants": {
           "flags": ["beggar_first_talked"]
         }
+      },
+      {
+        "id": "thief_underworld_intel",
+        "condition": { "talent": "三教九流", "flags_absent": ["beggar_thief_talked"] },
+        "text": "老人抬眼，目光在你身上某处停了一下，嘴角动了动。\n\n「行里人啊。」他没有废话，「昨夜二更，浪鹏帮的眼线在这条巷里守了整夜。蓝衫、铜铃，是他们外围的记号。雇主是个白衣文人，昨天下午在客栈里喝过茶——气质不像江湖人，倒像是官场上的。」\n\n他闭上眼，「说完了，你自己掂量。」",
+        "grants": { "flags": ["beggar_thief_talked", "beggar_first_talked", "beggar_told_langpeng", "langpeng_discovered"] }
       }
     ]
   },
