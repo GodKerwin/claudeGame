@@ -4,9 +4,12 @@ interface Props {
   text: string;
   className?: string;
   speed?: number;
+  onUpdate?: () => void;
 }
 
-export function TypewriterText({ text, className = '', speed = 30 }: Props) {
+const BATCH = 2; // 每帧渲染字符数，减少 re-render 次数
+
+export function TypewriterText({ text, className = '', speed = 30, onUpdate }: Props) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -15,9 +18,12 @@ export function TypewriterText({ text, className = '', speed = 30 }: Props) {
 
   useEffect(() => {
     if (count >= text.length) return;
-    const t = setTimeout(() => setCount((c) => c + 1), speed);
+    const t = setTimeout(() => {
+      setCount((c) => Math.min(c + BATCH, text.length));
+      onUpdate?.();
+    }, speed);
     return () => clearTimeout(t);
-  }, [count, text.length, speed]);
+  }, [count, text.length, speed, onUpdate]);
 
   return <span className={className}>{text.slice(0, count)}</span>;
 }

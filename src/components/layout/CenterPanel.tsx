@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 import { TypewriterText } from '../ui/TypewriterText';
 import { ActionButton } from '../ui/ActionButton';
 
@@ -37,8 +37,13 @@ export function CenterPanel({
   onToggleHint,
   showHint,
 }: Props) {
-  const storyEndRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState<ActiveTab>('npc');
+
+  const scrollToBottom = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (el) el.scrollTop = el.scrollHeight;
+  }, []);
 
   const npcActions = actions.filter((a) => a.group === 'npc');
   const eventActions = actions.filter((a) => a.group === 'event');
@@ -51,9 +56,10 @@ export function CenterPanel({
   const eventBadge = eventActions.filter((a) => a.available && !a.completed).length;
   const choiceBadge = choiceActions.filter((a) => a.available && !a.completed).length;
 
+  // 新文本加入时立刻滚底
   useEffect(() => {
-    storyEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [storyTexts]);
+    scrollToBottom();
+  }, [storyTexts, scrollToBottom]);
 
   // 换房间时自动选 Tab：有未读 NPC → 交谈，否则 → 探查
   useEffect(() => {
@@ -119,14 +125,17 @@ export function CenterPanel({
       </div>
 
       {/* 故事文本区（可滚动） */}
-      <div className="flex-1 overflow-y-auto px-5 py-4 space-y-3">
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto px-5 py-4 space-y-3 scrollbar-thin">
         <p className="text-ink/80 leading-loose text-sm">{roomDescription}</p>
         {storyTexts.map((text, i) => (
           <div key={i} className="border-l-2 border-gold/20 pl-3">
-            <TypewriterText text={text} className="text-ink/90 leading-loose text-sm" />
+            <TypewriterText
+              text={text}
+              className="text-ink/90 leading-loose text-sm"
+              onUpdate={i === storyTexts.length - 1 ? scrollToBottom : undefined}
+            />
           </div>
         ))}
-        <div ref={storyEndRef} />
       </div>
 
       {/* 操作区（固定底部，无滚动） */}

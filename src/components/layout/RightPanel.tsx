@@ -39,7 +39,7 @@ export function RightPanel() {
   const baseTemplate = getTemplate(player.template);
 
   return (
-    <div className="flex flex-col h-full p-3 gap-4 text-sm overflow-y-auto">
+    <div className="flex flex-col h-full p-3 gap-4 text-sm overflow-y-auto scrollbar-thin">
       <div>
         <p className="text-gold/60 text-xs mb-2 tracking-widest">【身家底细】</p>
         <div className="space-y-1.5">
@@ -90,20 +90,18 @@ export function RightPanel() {
 
       <div>
         <p className="text-gold/60 text-xs mb-2 tracking-widest">【未竟之事】</p>
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {questLog.map((qid) => {
             const q = QUEST_HINTS[qid];
             return (
-              <li key={qid} className="text-xs text-ink/70">
-                <div className="flex items-start gap-1">
-                  <span className="text-gold/50 mt-0.5">◈</span>
-                  <span className="flex-1">{q?.name ?? qid}</span>
-                  {q?.hint && (
-                    <Tooltip content={q.hint} position="left">
-                      <span className="font-sans inline-block min-w-[1em] text-center text-ink/30 hover:text-gold/50 cursor-help ml-1">?</span>
-                    </Tooltip>
-                  )}
+              <li key={qid} className="text-xs">
+                <div className="flex items-start gap-1 mb-0.5">
+                  <span className="text-gold/50 mt-0.5 shrink-0">◈</span>
+                  <span className="text-ink/70">{q?.name ?? qid}</span>
                 </div>
+                {q?.hint && (
+                  <p className="text-ink/35 leading-relaxed pl-3 text-[11px]">{q.hint}</p>
+                )}
               </li>
             );
           })}
