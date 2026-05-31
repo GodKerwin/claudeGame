@@ -22,26 +22,6 @@ export default function CharacterCreate() {
 
   const [name, setName] = useState('');
   const [selectedTemplate, setSelectedTemplate] = useState<CharacterTemplate>(TEMPLATES[0]);
-  const [adjustments, setAdjustments] = useState<Record<StatKey, number>>({
-    strength: 0, agility: 0, wisdom: 0, constitution: 0,
-  });
-
-  const totalAdjust = Object.values(adjustments).reduce((sum, v) => sum + Math.abs(v), 0);
-  const ADJUST_LIMIT = 4;
-
-  const finalStats = (Object.keys(STAT_LABELS) as StatKey[]).reduce((acc, key) => {
-    acc[key] = selectedTemplate.stats[key] + adjustments[key];
-    return acc;
-  }, {} as Record<StatKey, number>);
-
-  const handleAdjust = (stat: StatKey, delta: number) => {
-    const next = adjustments[stat] + delta;
-    const nextTotal = totalAdjust - Math.abs(adjustments[stat]) + Math.abs(next);
-    if (next < -2 || next > 2) return;
-    if (nextTotal > ADJUST_LIMIT) return;
-    if (finalStats[stat] + delta < 1 || finalStats[stat] + delta > 12) return;
-    setAdjustments((prev) => ({ ...prev, [stat]: next }));
-  };
 
   const handleStart = () => {
     if (!name.trim()) return;
@@ -50,7 +30,10 @@ export default function CharacterCreate() {
     setPlayer({
       name: name.trim(),
       template: selectedTemplate.id,
-      ...finalStats,
+      strength: selectedTemplate.stats.strength,
+      agility: selectedTemplate.stats.agility,
+      wisdom: selectedTemplate.stats.wisdom,
+      constitution: selectedTemplate.stats.constitution,
       talent: selectedTemplate.talent,
     });
     navigate('/prologue');
@@ -81,10 +64,7 @@ export default function CharacterCreate() {
             {TEMPLATES.map((t) => (
               <button
                 key={t.id}
-                onClick={() => {
-                  setSelectedTemplate(t);
-                  setAdjustments({ strength: 0, agility: 0, wisdom: 0, constitution: 0 });
-                }}
+                onClick={() => setSelectedTemplate(t)}
                 className={`p-3 border text-sm transition-all cursor-pointer ${
                   selectedTemplate.id === t.id
                     ? 'border-gold text-gold shadow-[0_0_8px_rgba(201,168,76,0.3)]'
@@ -102,37 +82,18 @@ export default function CharacterCreate() {
         </div>
 
         <div>
-          <p className="text-gold/60 text-xs mb-3 tracking-widest">
-            【调运资质】已用：
-            <span className={totalAdjust >= ADJUST_LIMIT ? 'text-blood' : 'text-gold'}>
-              {totalAdjust}
-            </span>/{ADJUST_LIMIT}（单项 ±2）
-          </p>
+          <p className="text-gold/60 text-xs mb-3 tracking-widest">【资质】</p>
           <div className="grid grid-cols-2 gap-3">
             {(Object.keys(STAT_LABELS) as StatKey[]).map((stat) => (
               <div key={stat} className="flex items-center gap-3">
                 <span className="w-10 text-ink/60 text-sm">{STAT_LABELS[stat]}</span>
-                <button
-                  onClick={() => handleAdjust(stat, -1)}
-                  className="w-6 h-6 border border-gold/20 hover:border-gold text-gold text-xs cursor-pointer"
-                >
-                  −
-                </button>
-                <span className="w-8 text-center text-gold font-bold">{finalStats[stat]}</span>
-                <button
-                  onClick={() => handleAdjust(stat, 1)}
-                  className="w-6 h-6 border border-gold/20 hover:border-gold text-gold text-xs cursor-pointer"
-                >
-                  ＋
-                </button>
-                {adjustments[stat] !== 0 && (
-                  <span className={`text-xs ${adjustments[stat] > 0 ? 'text-gold/60' : 'text-blood/60'}`}>
-                    ({adjustments[stat] > 0 ? '+' : ''}{adjustments[stat]})
-                  </span>
-                )}
+                <span className="w-8 text-center text-gold font-bold">
+                  {selectedTemplate.stats[stat]}
+                </span>
               </div>
             ))}
           </div>
+          <p className="mt-2 text-ink/30 text-xs">资质由身份决定，可在江湖历练中提升。</p>
         </div>
 
         {talent && (
