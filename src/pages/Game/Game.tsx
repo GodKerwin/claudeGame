@@ -249,7 +249,7 @@ export default function Game() {
   }
 
   const currentHint = showHint
-    ? getHint({ flags: scene.flags, items, chapter, strength: player.strength, agility: player.agility, wisdom: player.wisdom })
+    ? getHint({ flags: scene.flags, items, chapter, strength: player.strength, agility: player.agility, wisdom: player.wisdom, constitution: player.constitution, talent: player.talent })
     : null;
 
   return (
