@@ -25,33 +25,28 @@ describe('evaluate', () => {
     expect(evaluate({ wisdom: 7 }, baseCtx)).toBe(false);
   });
 
-  it('talent 三寸不烂之舌 reduces wisdom requirement by 2', () => {
-    const ctx = { ...baseCtx, player: { ...baseCtx.player, talent: '三寸不烂之舌' } };
-    expect(evaluate({ wisdom: 8 }, ctx)).toBe(true); // wisdom 6+2=8, passes
+  it('耳报神 does not reduce wisdom threshold', () => {
+    const ctx = { ...baseCtx, player: { ...baseCtx.player, talent: '耳报神' } };
+    expect(evaluate({ wisdom: 7 }, ctx)).toBe(false); // 6 < 7, no bonus
   });
 
-  it('talent 夜行百盗 reduces agility requirement by 2', () => {
-    const ctx = { ...baseCtx, player: { ...baseCtx.player, talent: '夜行百盗' } };
-    expect(evaluate({ agility: 8 }, ctx)).toBe(true); // agility 6+2=8, passes
+  it('望闻断骨 does not reduce constitution threshold', () => {
+    const ctx = { ...baseCtx, player: { ...baseCtx.player, talent: '望闻断骨' } };
+    expect(evaluate({ constitution: 7 }, ctx)).toBe(false); // 6 < 7, no bonus
   });
 
-  it('talent 毒经百草 reduces constitution requirement by 2', () => {
-    const ctx = { ...baseCtx, player: { ...baseCtx.player, talent: '毒经百草' } };
-    expect(evaluate({ constitution: 8 }, ctx)).toBe(true); // constitution 6+2=8, passes
-  });
-
-  it('other talents do not get wisdom bonus', () => {
-    const ctx = { ...baseCtx, player: { ...baseCtx.player, talent: '官威' } };
-    expect(evaluate({ wisdom: 8 }, ctx)).toBe(false);
+  it('三教九流 does not reduce agility threshold', () => {
+    const ctx = { ...baseCtx, player: { ...baseCtx.player, talent: '三教九流' } };
+    expect(evaluate({ agility: 7 }, ctx)).toBe(false); // 6 < 7, no bonus
   });
 
   it('talent check passes when talent matches', () => {
-    const ctx = { ...baseCtx, player: { ...baseCtx.player, talent: '毒体' } };
-    expect(evaluate({ talent: '毒体' }, ctx)).toBe(true);
+    const ctx = { ...baseCtx, player: { ...baseCtx.player, talent: '望闻断骨' } };
+    expect(evaluate({ talent: '望闻断骨' }, ctx)).toBe(true);
   });
 
   it('talent check fails when talent does not match', () => {
-    expect(evaluate({ talent: '毒体' }, baseCtx)).toBe(false);
+    expect(evaluate({ talent: '望闻断骨' }, baseCtx)).toBe(false);
   });
 
   it('passes item check when item in inventory', () => {
@@ -87,13 +82,13 @@ describe('evaluate', () => {
     expect(evaluate({ wisdom: 8, flags: ['innkeeper_trusted'] }, ctx)).toBe(false);
   });
 
-  it('constitution check: 官威 talent has no bonus', () => {
+  it('constitution check: no talent gives bonus', () => {
     const ctx = { ...baseCtx, player: { ...baseCtx.player, constitution: 7, talent: '官威' } };
     expect(evaluate({ constitution: 8 }, ctx)).toBe(false);
   });
 
-  it('毒经百草 talent requires both constitution AND talent', () => {
-    const ctx = { ...baseCtx, player: { ...baseCtx.player, constitution: 8, talent: '毒经百草' } };
-    expect(evaluate({ constitution: 8, talent: '毒经百草' }, ctx)).toBe(true);
+  it('望闻断骨 talent gating works via condition.talent', () => {
+    const ctx = { ...baseCtx, player: { ...baseCtx.player, constitution: 8, talent: '望闻断骨' } };
+    expect(evaluate({ constitution: 8, talent: '望闻断骨' }, ctx)).toBe(true);
   });
 });

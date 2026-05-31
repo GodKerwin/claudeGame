@@ -21,7 +21,7 @@
     "description": "走江湖的艺人，以言破局，消息灵通。",
     "flavor": "「一张嘴，走遍天下路；三寸舌，抵得千军万马。」",
     "stats": { "strength": 3, "agility": 7, "wisdom": 8, "constitution": 4 },
-    "talent": "三寸不烂之舌"
+    "talent": "耳报神"
   },
   {
     "id": "youfangyi",
@@ -29,7 +29,7 @@
     "description": "走方郎中，以医破局，悬壶济世。",
     "flavor": "「救人一命，胜造七级浮屠。」",
     "stats": { "strength": 4, "agility": 5, "wisdom": 6, "constitution": 9 },
-    "talent": "毒经百草"
+    "talent": "望闻断骨"
   },
   {
     "id": "feizei",
@@ -37,6 +37,6 @@
     "description": "夜行的江湖客，以快破局，飞檐走壁。",
     "flavor": "「最好的证据，是别人不知道你已经拿走了。」",
     "stats": { "strength": 7, "agility": 10, "wisdom": 4, "constitution": 4 },
-    "talent": "夜行百盗"
+    "talent": "三教九流"
   }
 ]
