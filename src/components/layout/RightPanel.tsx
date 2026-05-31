@@ -2,7 +2,7 @@ import { StatBar } from '../ui/StatBar';
 import { Tooltip } from '../ui/Tooltip';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
-import { getItem, TALENTS } from '../../data/loader';
+import { getItem, TALENTS, getTemplate } from '../../data/loader';
 
 const STAT_DESCRIPTIONS: Record<string, string> = {
   strength: '力量\n筋骨强健，以力破局。破门、格斗、强行撬锁等动作皆仰仗于此。',
@@ -36,19 +36,29 @@ export function RightPanel() {
 
   const clueItems = clues.map((id) => getItem(id)).filter(Boolean);
   const talentInfo = TALENTS.find((t) => t.id === player.talent);
+  const baseTemplate = getTemplate(player.template);
 
   return (
     <div className="flex flex-col h-full p-3 gap-4 text-sm overflow-y-auto">
       <div>
         <p className="text-gold/60 text-xs mb-2 tracking-widest">【身家底细】</p>
         <div className="space-y-1.5">
-          {(['strength', 'agility', 'wisdom', 'constitution'] as const).map((stat) => (
-            <Tooltip key={stat} content={STAT_DESCRIPTIONS[stat]} position="left">
-              <div className="cursor-help w-full">
-                <StatBar label={stat} value={player[stat]} />
-              </div>
-            </Tooltip>
-          ))}
+          {(['strength', 'agility', 'wisdom', 'constitution'] as const).map((stat) => {
+            const base = baseTemplate?.stats[stat] ?? player[stat];
+            const delta = player[stat] - base;
+            return (
+              <Tooltip key={stat} content={STAT_DESCRIPTIONS[stat]} position="left">
+                <div className="cursor-help w-full flex items-center gap-1">
+                  <div className="flex-1">
+                    <StatBar label={stat} value={player[stat]} />
+                  </div>
+                  {delta > 0 && (
+                    <span className="text-xs text-gold/60 shrink-0">+{delta}</span>
+                  )}
+                </div>
+              </Tooltip>
+            );
+          })}
         </div>
         {player.talent && talentInfo && (
           <Tooltip content={`${talentInfo.name}\n${talentInfo.description}\n${talentInfo.effect}`} position="left">
