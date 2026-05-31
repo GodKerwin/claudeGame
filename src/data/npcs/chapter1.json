@@ -251,7 +251,7 @@
       },
       {
         "id": "white_stranger_first_questions",
-        "condition": { "flags": ["stranger_met"], "flags_absent": ["white_stranger_trust", "stranger_questioned"] },
+        "condition": { "flags": ["white_stranger_met"], "flags_absent": ["white_stranger_trust", "stranger_questioned"] },
         "text": "白衣人看着你，目光沉静，像是在等你说什么。他开口：「你已经查到了一些东西。想问，就问吧。」",
         "choices": [
           {
@@ -369,7 +369,7 @@
         "text": "好眼力，好手劲。能破这道锁的，在长安城不超过五个人。\n\n你是哪位前辈的门下？……不说也罢。大飞帮最缺这样的人。入帮？我飞爷担保，绝不叫你吃亏。",
         "grants": {
           "flags": ["dafei_joined"],
-          "items": ["wuxue_gui_bu_lianhuan"],
+          "items": ["wuxue_gui_bu_lianhuan", "dafei_secret_intel"],
           "clues": ["dafei_secret_intel"],
           "quests": ["quest_dafei_gang"]
         }

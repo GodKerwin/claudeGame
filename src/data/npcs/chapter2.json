@@ -160,7 +160,7 @@
       },
       {
         "id": "tianji_accusation",
-        "condition": { "has": ["kite_identity_clue"] },
+        "condition": { "flags": ["kite_identity_clue"] },
         "text": "「鸢」……你知道这个字？那你已经比我想象的走得更远了。好，我不否认。我是天机阁的人。但宋怀义的死，不全是我的安排。",
         "grants": { "flags": ["li_mao_exposed"] }
       },

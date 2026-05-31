@@ -14,7 +14,7 @@
       {
         "id": "examine_carefully",
         "label": "仔细辨认画像特征",
-        "requires": { "wisdom": 6 },
+        "requires": { "wisdom": 6, "flags_absent": ["market_entry"] },
         "result": "你仔细辨认告示上的描述，忽然想起往事客栈那个白衣人——左手确实有一道旧伤疤，不深，却显眼。画像画的，正是他。",
         "grants": { "flags": ["market_entry", "li_mao_description_known"], "items": ["reward_notice"] }
       }
