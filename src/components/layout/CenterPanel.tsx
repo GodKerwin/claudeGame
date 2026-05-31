@@ -261,8 +261,10 @@ export function CenterPanel({
           </button>
         </div>
 
-        {/* Tab 内容 */}
-        {renderTabContent()}
+        {/* Tab 内容（固定高度，超出滚动） */}
+        <div className="overflow-y-auto scrollbar-thin max-h-48 pb-1">
+          {renderTabContent()}
+        </div>
       </div>
     </div>
   );
