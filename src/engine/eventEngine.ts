@@ -1,5 +1,5 @@
 import type { GameEvent, EventAction, Condition } from '../types/game';
-import { evaluate } from './conditionEvaluator';
+import { evaluate, isActionVisible } from './conditionEvaluator';
 import type { EvalContext } from './conditionEvaluator';
 import { getItem } from '../data/loader';
 
@@ -8,6 +8,7 @@ export interface ActionResult {
   available: boolean;
   completed: boolean;
   hint: string;
+  visible: boolean;
 }
 
 export function getActionResults(event: GameEvent, ctx: EvalContext): ActionResult[] {
@@ -16,6 +17,7 @@ export function getActionResults(event: GameEvent, ctx: EvalContext): ActionResu
     available: evaluate(action.requires, ctx),
     completed: isCompleted(action, ctx),
     hint: getMissingConditionLabel(action.requires, ctx),
+    visible: isActionVisible(action.requires, ctx),
   }));
 }
 

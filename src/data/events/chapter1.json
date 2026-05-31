@@ -15,35 +15,35 @@
       {
         "id": "find_under_pillow",
         "label": "掀枕搜寻",
-        "requires": { "flags_absent": ["blood_letter_found"] },
+        "requires": { "flags": ["body_examined"], "flags_absent": ["blood_letter_found"] },
         "result": "枕头下藏着一块染血的令牌，正面刻着\"天机\"二字，背面用血书写着\"东——三\"，笔画颤抖，是死者最后留下的。",
         "grants": { "flags": ["blood_letter_found", "clue_blood_letter_found"], "items": ["blood_letter"], "clues": ["blood_letter"] }
       },
       {
         "id": "check_hands",
         "label": "翻查死者双手",
-        "requires": { "wisdom": 6 },
+        "requires": { "wisdom": 6, "flags": ["body_examined"] },
         "result": "死者右手指甲缝中夹着一小撮黑色布料纤维，材质特殊，不是寻常布匹。左手腕上有一道细小的针刺痕迹，入针极准。",
         "grants": { "flags": ["cloth_fiber_found"], "clues": ["cloth_fiber_clue"] }
       },
       {
         "id": "search_sleeve_str",
         "label": "强行掰开死者紧握的手（需力量≥7）",
-        "requires": { "strength": 7, "flags_absent": ["cloth_fiber_found"] },
+        "requires": { "strength": 7, "flags": ["body_examined"], "flags_absent": ["cloth_fiber_found"] },
         "result": "你用力掰开死者紧握的右拳。手心里攥着一小撮黑色布料纤维，死者临终时死死抓住了凶手的衣物。这种材质，不是寻常布匹。",
         "grants": { "flags": ["cloth_fiber_found"], "clues": ["cloth_fiber_clue"] }
       },
       {
         "id": "search_sleeve_agi",
         "label": "以指轻探死者袖口（需敏捷≥7）",
-        "requires": { "agility": 7, "flags_absent": ["cloth_fiber_found"] },
+        "requires": { "agility": 7, "flags": ["body_examined"], "flags_absent": ["cloth_fiber_found"] },
         "result": "你以极轻的手法翻检死者的袖口——指甲缝里夹着一小撮黑色布料纤维，若非手法极准，极易遗漏。这种材质特殊，不像是寻常布匹。",
         "grants": { "flags": ["cloth_fiber_found"], "clues": ["cloth_fiber_clue"] }
       },
       {
         "id": "medical_examination",
         "label": "以医者之眼检查（望闻断骨）",
-        "requires": { "talent": "望闻断骨", "flags_absent": ["medical_exam_done"] },
+        "requires": { "talent": "望闻断骨", "flags": ["body_examined"], "flags_absent": ["medical_exam_done"] },
         "result": "你系统检查尸体：颈部勒痕深三分，力道均匀，是惯用绳索的人；左腕内关穴针孔，入针精准，非江湖莽夫所为；面色青紫夹淡黄，是砒霜毒发的典型色相。结论清晰：亥时前后毒茶致昏，再以绳勒毙，行凶者熟悉穴位，手法干净利落。",
         "grants": {
           "flags": ["medical_exam_done", "body_examined", "wound_examined", "cloth_fiber_found", "poison_tea_confirmed", "murder_sequence_deduced"],
@@ -68,14 +68,14 @@
       {
         "id": "find_floor_mark",
         "label": "俯身察看地板",
-        "requires": { "agility": 5 },
+        "requires": { "agility": 5, "flags": ["room_searched"] },
         "result": "灰尘中有两种不同的脚印：一种大而沉，是宋怀义本人的；另一种细窄，像是女子的绣鞋，或身法极轻的刺客所穿。",
         "grants": { "clues": ["footprint_clue"] }
       },
       {
         "id": "check_window",
         "label": "推窗察看",
-        "requires": null,
+        "requires": { "flags": ["room_searched"] },
         "result": "窗扇外侧有抓痕，从窗台向下延伸，凶手可能是从外墙攀入，也可能是事后从此处离开。",
         "grants": { "flags": ["window_checked"] }
       }

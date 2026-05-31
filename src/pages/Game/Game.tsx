@@ -114,8 +114,12 @@ export default function Game() {
       if (interactableId.startsWith('evt_')) {
         const event = getEvent(interactableId);
         if (!event) continue;
+        // 执行事件级前置条件（未满足则整个事件不显示）
+        if (event.requires && !evaluate(event.requires, ctx)) continue;
         const results = getActionResults(event, ctx);
         for (const r of results) {
+          // flag 锁定的 action 完全隐藏，属性/天赋锁定的置灰显示
+          if (!r.visible) continue;
           result.push({
             id: `${interactableId}:${r.action.id}`,
             label: r.action.label,
