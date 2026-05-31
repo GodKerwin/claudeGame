@@ -11,18 +11,19 @@ export function evaluate(condition: Condition | null | undefined, ctx: EvalConte
   const { player, inventory, flags } = ctx;
 
   if (condition.wisdom !== undefined) {
-    const bonus = player.talent === '机关奇才' ? 2 : 0;
+    const bonus = player.talent === '三寸不烂之舌' ? 2 : 0;
     if (player.wisdom + bonus < condition.wisdom) return false;
   }
   if (condition.strength !== undefined) {
-    const bonus = player.talent === '天生神力' ? 2 : 0;
-    if (player.strength + bonus < condition.strength) return false;
+    if (player.strength < condition.strength) return false;
   }
   if (condition.agility !== undefined) {
-    if (player.agility < condition.agility) return false;
+    const bonus = player.talent === '夜行百盗' ? 2 : 0;
+    if (player.agility + bonus < condition.agility) return false;
   }
   if (condition.constitution !== undefined) {
-    if (player.constitution < condition.constitution) return false;
+    const bonus = player.talent === '毒经百草' ? 2 : 0;
+    if (player.constitution + bonus < condition.constitution) return false;
   }
   if (condition.talent !== undefined) {
     if (player.talent !== condition.talent) return false;
