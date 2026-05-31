@@ -39,6 +39,16 @@
         "requires": { "agility": 7, "flags_absent": ["cloth_fiber_found"] },
         "result": "你以极轻的手法翻检死者的袖口——指甲缝里夹着一小撮黑色布料纤维，若非手法极准，极易遗漏。这种材质特殊，不像是寻常布匹。",
         "grants": { "flags": ["cloth_fiber_found"], "clues": ["cloth_fiber_clue"] }
+      },
+      {
+        "id": "medical_examination",
+        "label": "以医者之眼检查（望闻断骨）",
+        "requires": { "talent": "望闻断骨", "flags_absent": ["medical_exam_done"] },
+        "result": "你系统检查尸体：颈部勒痕深三分，力道均匀，是惯用绳索的人；左腕内关穴针孔，入针精准，非江湖莽夫所为；面色青紫夹淡黄，是砒霜毒发的典型色相。结论清晰：亥时前后毒茶致昏，再以绳勒毙，行凶者熟悉穴位，手法干净利落。",
+        "grants": {
+          "flags": ["medical_exam_done", "body_examined", "wound_examined", "cloth_fiber_found", "poison_tea_confirmed", "murder_sequence_deduced"],
+          "clues": ["medical_report"]
+        }
       }
     ]
   },
@@ -124,7 +134,7 @@
         "id": "recognize_gang_code",
         "label": "识别告示中的帮派暗记（说书人）",
         "requires": {
-          "talent": "三寸不烂之舌",
+          "talent": "耳报神",
           "flags": ["notice_read"],
           "flags_absent": ["dafei_notice_found"]
         },
@@ -223,8 +233,8 @@
       },
       {
         "id": "through_poison",
-        "label": "屏息疾穿毒烟（需毒体）",
-        "requires": { "constitution": 8, "talent": "毒经百草", "flags_absent": ["secret_room_opened"] },
+        "label": "屏息疾穿毒烟（需根骨≥8）",
+        "requires": { "constitution": 8, "flags_absent": ["secret_room_opened"] },
         "result": "你察觉到角落飘来一丝微弱的气味——寻常人怕是早已昏倒。你从容屏息，踏过毒烟区域，绕至密室的另一道暗门，推门而入。毒雾对你，不过清风拂面。",
         "grants": { "flags": ["secret_room_opened", "immune_shown", "cellar_entered_poison"] }
       }
