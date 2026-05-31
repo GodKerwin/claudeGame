@@ -47,6 +47,15 @@ export default function Game() {
   useAutoSave();
   useSettings();
 
+  // 首次进入游戏时显示职业专属开场独白（仅当故事文本为空时）
+  useEffect(() => {
+    if (scene.storyText.length === 0 && player.template) {
+      const tpl = getTemplate(player.template);
+      if (tpl?.intro) scene.addStoryText(tpl.intro);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && modal === null) setModal('settings');
