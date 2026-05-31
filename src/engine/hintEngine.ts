@@ -62,15 +62,16 @@ const CHAPTER1_RULES: HintRule[] = [
   },
   {
     when: (ctx) =>
-      ctx.talent === '毒经百草' &&
-      has(ctx, 'body_examined'),
-    hint: '你的医术告诉你，死者身上的症状不像外伤所致。寻找毒物相关线索，从案发房间的角落入手。',
+      ctx.talent === '望闻断骨' &&
+      has(ctx, 'innkeeper_met') &&
+      !has(ctx, 'medical_exam_done'),
+    hint: '你是医者。前往命案房间，使用「以医者之眼检查」一次性得出死因、毒物和时间——比其他人快得多。',
   },
   {
     when: (ctx) =>
-      ctx.talent === '夜行百盗' &&
-      !has(ctx, 'secret_room_opened'),
-    hint: '你注意到客栈有些门上了锁，但锁对你来说不过是摆设。夜间行事，客栈二楼有可疑之处。',
+      ctx.talent === '三教九流' &&
+      !has(ctx, 'langpeng_discovered'),
+    hint: '大堂的醉汉和后巷老乞丐认识你这种人——他们会主动告诉你昨夜发生了什么，不需要你追问。',
   },
   {
     when: (ctx) =>
@@ -128,22 +129,22 @@ const CHAPTER2_RULES: HintRule[] = [
   },
   {
     when: (ctx) =>
-      ctx.talent === '三寸不烂之舌' &&
+      ctx.talent === '耳报神' &&
       !has(ctx, 'langpeng_discovered'),
-    hint: '你在茶馆与说书摊混迹多年，消息灵通。找几个东市的老摊贩闲聊，浪鹏帮的风声自然会来。',
+    hint: '你走南闯北，消息比别人快。东市的摊贩和回春堂的和尚都听说过你，去找他们——不用套话，他们会主动说。',
   },
   {
     when: (ctx) =>
-      ctx.talent === '毒经百草' &&
-      !hasItem(ctx, 'poison_residue_sample'),
-    hint: '你闻到了空气中若有若无的气味——那是某种特殊植物提炼的毒素。追着这气味走，能找到毒物来源。',
+      ctx.talent === '望闻断骨' &&
+      !has(ctx, 'wujue_treated'),
+    hint: '回春堂的无迹和尚右手有旧伤。你可以为他施治——医者仁心换来的，往往是最诚实的话。',
   },
   {
     when: (ctx) =>
-      ctx.talent === '夜行百盗' &&
+      ctx.talent === '三教九流' &&
       has(ctx, 'langpeng_discovered') &&
       !hasItem(ctx, 'langpeng_dispatch_order'),
-    hint: '浪鹏帮的据点你已摸清。夜间潜入，文书就在帮主的内室，锁对你而言不是问题。',
+    hint: '浪鹏帮据点里的探子认出你了。你也可以走黑市渠道——平康坊深处，有人专门倒卖这种情报。',
   },
   {
     when: (ctx) => has(ctx, 'langpeng_trail') && !hasItem(ctx, 'langpeng_dispatch_order'),
@@ -186,15 +187,15 @@ const CHAPTER3_RULES: HintRule[] = [
   },
   {
     when: (ctx) =>
-      ctx.talent === '三寸不烂之舌' &&
+      ctx.talent === '耳报神' &&
       !has(ctx, 'tianji_trust_gained'),
-    hint: '天机安宅的联络人是个谨慎的人。讲一个关于「鸢」的故事给他听——人都爱听故事。',
+    hint: '天机阁有个旧规矩：说书人进门多三成信任。直接报你的身份——联络人会让你进去的。',
   },
   {
     when: (ctx) =>
-      ctx.talent === '夜行百盗' &&
-      !has(ctx, 'feiyes_manor_searched'),
-    hint: '飞爷故居戒备森严，但屋顶对你来说就是平地。夜里翻进去，画像壁就在正厅。',
+      ctx.talent === '三教九流' &&
+      !has(ctx, 'tianji_trust_gained'),
+    hint: '天机安宅的联络人听说过你传递那件物件的旧事。直接说你认识那个飞贼——他会明白的。',
   },
   {
     when: (ctx) =>
