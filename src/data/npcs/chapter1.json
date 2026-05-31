@@ -41,7 +41,7 @@
       },
       {
         "id": "hidden_tianji",
-        "condition": { "wisdom": 7, "talent": "察言观色", "flags": ["innkeeper_met"] },
+        "condition": { "talent": "三寸不烂之舌", "flags": ["innkeeper_met"] },
         "text": "……您是怎么看出来的？这块玉佩，是当年天机阁的人托付于我保管的。我与那些人，有旧日恩情。",
         "hidden": true,
         "grants": { "flags": ["innkeeper_tianji_secret"] }

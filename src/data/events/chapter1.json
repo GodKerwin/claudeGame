@@ -116,15 +116,15 @@
       {
         "id": "decode_acrostic_talent",
         "label": "扫一眼，脑中已有印象",
-        "requires": { "talent": "过目不忘" },
+        "requires": { "talent": "望气观相" },
         "result": "告示上的字句在你脑中过了一遍，每行首字的规律跃然而出——大、风、起、兮、云、飞、扬。藏头诗，某个组织的接头暗号。你在地板角落找到了一块被踢到缝隙里的铜牌。",
         "grants": { "flags": ["dafei_notice_found", "dafei_acrostic_decoded"], "items": ["broken_copper_badge"] }
       },
       {
         "id": "recognize_gang_code",
-        "label": "识别告示中的帮派暗记（江湖老千）",
+        "label": "识别告示中的帮派暗记（说书人）",
         "requires": {
-          "talent": "江湖老千",
+          "talent": "三寸不烂之舌",
           "flags": ["notice_read"],
           "flags_absent": ["dafei_notice_found"]
         },
@@ -224,7 +224,7 @@
       {
         "id": "through_poison",
         "label": "屏息疾穿毒烟（需毒体）",
-        "requires": { "constitution": 8, "talent": "毒体", "flags_absent": ["secret_room_opened"] },
+        "requires": { "constitution": 8, "talent": "毒经百草", "flags_absent": ["secret_room_opened"] },
         "result": "你察觉到角落飘来一丝微弱的气味——寻常人怕是早已昏倒。你从容屏息，踏过毒烟区域，绕至密室的另一道暗门，推门而入。毒雾对你，不过清风拂面。",
         "grants": { "flags": ["secret_room_opened", "immune_shown", "cellar_entered_poison"] }
       }
@@ -305,7 +305,7 @@
       {
         "id": "read_talent",
         "label": "借天赋之力专注辨读",
-        "requires": { "talent": "过目不忘", "flags_absent": ["dafei_password_known"] },
+        "requires": { "talent": "望气观相", "flags_absent": ["dafei_password_known"] },
         "result": "你定睛扫过铜牌背面，视线所及之处纤毫毕现——「云散见青天」，就是这五个字。",
         "grants": { "flags": ["dafei_password_known"] }
       }
@@ -669,6 +669,36 @@
         },
         "result": "浪鹏帮在案发前就已经有人盯着宋怀义了。他们不是事后追查的——他们知道宋怀义会来长安，知道他这次来的目的。\n\n但他们没有动手。那个「周文远」在宋怀义死后天亮前就撤了，没有留下，也没有取走任何东西。\n\n他们想要的，显然不是宋怀义的命。",
         "grants": { "flags": ["langpeng_spy_connected"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_ch1_wisdom_growth",
+    "title": "沉思案情",
+    "description": "将所见所闻在脑中梳理一遍，试图找到那个被忽略的细节。",
+    "requires": { "flags": ["body_examined", "innkeeper_met"] },
+    "actions": [
+      {
+        "id": "deduce_carefully",
+        "label": "反复推敲，终有所得",
+        "requires": { "flags_absent": ["ch1_wisdom_grown"] },
+        "result": "你将案发当晚的每一个细节逐一复盘。死者的坐姿、倒地方向、杯中茶的温度……一个被忽视的矛盾浮出水面。这番推敲让你的心思愈发缜密。【智慧 +1】",
+        "grants": { "flags": ["ch1_wisdom_grown"], "wisdom": 1 }
+      }
+    ]
+  },
+  {
+    "id": "evt_ch1_strength_growth",
+    "title": "以气势压人",
+    "description": "正面与那些试图阻拦你的人周旋，用气势迫使对方退让。",
+    "requires": { "flags": ["innkeeper_met"] },
+    "actions": [
+      {
+        "id": "confront_directly",
+        "label": "寸步不让，以身压之",
+        "requires": { "strength": 5, "flags_absent": ["ch1_strength_grown"] },
+        "result": "你挺直了身子，目光如炬，一字一句掷地有声。对方在你的气场下悄悄退后了半步。这一番周旋，让你愈发懂得如何以身躯作为说话的武器。【力量 +1】",
+        "grants": { "flags": ["ch1_strength_grown"], "strength": 1 }
       }
     ]
   }
