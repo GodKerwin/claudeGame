@@ -69,6 +69,16 @@
         "condition": { "flags": ["chapter3_started", "tianji_founding_scroll"] },
         "text": "「你知道了真相。」他合掌，「贫僧守了二十年的秘密，终于有人替它开了口。」他的神情不是如释重负，而是一种说不清楚的沉重，「冤孽不会因为说出来就消散，但……至少，有人知道了。」",
         "grants": { "flags": [] }
+      },
+      {
+        "id": "healing_final_testimony",
+        "condition": {
+          "talent": "望闻断骨",
+          "flags": ["chapter3_started", "feiyes_manor_searched"],
+          "flags_absent": ["wujue_healed_ch3"]
+        },
+        "text": "你见到和尚时，他面色灰白，呼吸急促——旧伤恶化，肺里有积液的迹象。你为他诊了脉，从药囊取出几味药。\n\n「施主……」和尚握住你的手腕，「贫僧已经不多时了，有一句话要说。」他断断续续，「飞爷当年建天机阁，是为了保护一群人——名单上的人，每一个他都亲口答应过。他没有背叛他们，是宋怀义没等到约定的时间就跑了——」\n\n他闭上眼，「现在你知道了。去找他，让他亲口说完剩下的。」",
+        "grants": { "flags": ["wujue_healed_ch3", "fei_ye_identity_confirmed"] }
       }
     ]
   },
@@ -106,6 +116,18 @@
         "condition": { "flags": ["tianji_target_identified"] },
         "text": "「还有一件事。」他停顿了很长时间，「我们内部有人认为，鸢当年隐匿是为了保护名单上的人，而不是为了叛逃。如果这是真的……你自己决定怎么做。」他把另一份文件压在桌下，「他在曲江亭，这已经确认了。」",
         "grants": { "flags": ["fei_ye_identity_confirmed"] }
+      },
+      {
+        "id": "storyteller_trusted",
+        "condition": { "talent": "耳报神", "flags_absent": ["tianji_trust_gained"] },
+        "text": "……说书人？」他的警惕松弛了一瞬，「天机阁有个旧规矩：说书人进门，比别人多三成信任——因为说书人本来就在讲故事，不需要另外撒谎。」\n\n他将茶盏推过来：「坐。你想知道这里的人在等什么，我告诉你。」",
+        "grants": { "flags": ["tianji_trust_gained"] }
+      },
+      {
+        "id": "thief_old_acquaintance",
+        "condition": { "talent": "三教九流", "flags_absent": ["tianji_trust_gained"] },
+        "text": "联络人端详你片刻，眼神里出现了认出的神色。「十一年前，天机阁曾雇一个飞贼传递过一件物件——扬州到长安，七天，完璧。」他停顿，「你就是那个人？还是……你认识那个人？」\n\n不管你如何回答，他都点了点头：「进来吧，知道这件事的人，不会是敌人。」",
+        "grants": { "flags": ["tianji_trust_gained"] }
       }
     ]
   }
