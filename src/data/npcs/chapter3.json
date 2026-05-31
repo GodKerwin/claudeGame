@@ -66,7 +66,7 @@
       },
       {
         "id": "wujue_resolution",
-        "condition": { "flags": ["chapter3_started", "tianji_founding_scroll"] },
+        "condition": { "flags": ["chapter3_started"], "has": ["tianji_founding_scroll"] },
         "text": "「你知道了真相。」他合掌，「贫僧守了二十年的秘密，终于有人替它开了口。」他的神情不是如释重负，而是一种说不清楚的沉重，「冤孽不会因为说出来就消散，但……至少，有人知道了。」",
         "grants": { "flags": [] }
       },
