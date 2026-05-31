@@ -8,7 +8,7 @@
       {
         "id": "examine_wounds",
         "label": "俯身细察伤处",
-        "requires": null,
+        "requires": { "flags_absent": ["body_examined"] },
         "result": "颈部有明显的勒痕，但伤口边缘发青，更像是先被毒物击昏，再被人勒毙。死前曾拼命挣扎过。",
         "grants": { "flags": ["body_examined", "wound_examined"] }
       },

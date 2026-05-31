@@ -133,17 +133,24 @@ export function CenterPanel({
             </div>
             {/* 子动作列表，左侧竖线体现层级 */}
             <div className="pl-2 border-l-2 border-gold/20 space-y-1.5">
-              {groupActions.map((a) => (
-                <ActionButton
-                  key={a.id}
-                  label={a.label}
-                  onClick={() => onAction(a.id)}
-                  disabled={!a.available}
-                  completed={a.completed}
-                  hint={a.hint}
-                  variant={a.variant}
-                />
-              ))}
+              {groupActions.map((a) =>
+                a.completed ? (
+                  <div key={a.id} className="flex items-center gap-1.5 py-0.5 pl-1 select-none">
+                    <span className="text-gold/30 text-[10px]">✓</span>
+                    <span className="text-ink/20 text-xs tracking-wide italic">已探查</span>
+                  </div>
+                ) : (
+                  <ActionButton
+                    key={a.id}
+                    label={a.label}
+                    onClick={() => onAction(a.id)}
+                    disabled={!a.available}
+                    completed={false}
+                    hint={a.hint}
+                    variant={a.variant}
+                  />
+                )
+              )}
             </div>
           </div>
         ))}

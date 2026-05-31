@@ -118,8 +118,8 @@ export default function Game() {
         if (event.requires && !evaluate(event.requires, ctx)) continue;
         const results = getActionResults(event, ctx);
         for (const r of results) {
-          // flag 锁定的 action 完全隐藏，属性/天赋锁定的置灰显示
-          if (!r.visible) continue;
+          // flag 锁定且未完成的 action 完全隐藏；已完成的透传以显示「已探查」
+          if (!r.visible && !r.completed) continue;
           result.push({
             id: `${interactableId}:${r.action.id}`,
             label: r.action.label,
