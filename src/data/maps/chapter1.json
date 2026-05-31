@@ -7,7 +7,7 @@
         "id": "room_203",
         "name": "二楼客房（二〇三号）",
         "description": "你从沉睡中惊醒，窗外天光微亮。隔壁传来急促的敲门声与压低的哭声。你推开房门，走廊尽头，客栈伙计跌跌撞撞地奔来——隔壁二〇二号房的商人宋怀义，死了。他那房间的门半开着，一股血腥气顺着走廊飘来。",
-        "interactables": ["evt_body_examine", "evt_room_search", "evt_window_look"],
+        "interactables": ["evt_body_examine", "evt_room_search", "evt_window_look", "evt_ch1_wisdom_growth"],
         "exits": ["lobby", "room_202"],
         "requires": null
       },
@@ -23,7 +23,7 @@
         "id": "lobby",
         "name": "客栈大堂",
         "description": "油灯昏黄，几桌食客低声议论，人人面露惶恐。掌柜李福站在柜台后，神色不安，额角渗着细汗。公告板上贴着几张新旧告示，其中一张的墨迹看起来比其他新。",
-        "interactables": ["npc_innkeeper_li_fu", "npc_drunk_zhang_san", "evt_notice_board", "evt_guest_register"],
+        "interactables": ["npc_innkeeper_li_fu", "npc_drunk_zhang_san", "evt_notice_board", "evt_guest_register", "evt_ch1_strength_growth"],
         "exits": ["room_203", "kitchen", "cellar", "forest"],
         "requires": null
       },

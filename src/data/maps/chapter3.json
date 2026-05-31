@@ -7,7 +7,7 @@
         "id": "dayan_pagoda",
         "name": "大雁塔下",
         "description": "大雁塔的钟声刚刚散去，塔下的慈恩寺偏院少有行人。老柏树后藏着一块不起眼的石碑，苔痕掩去了大半，但如果凑近，能看出碑文不是寻常经文。灰袍僧人端坐在矮凳上，像是在等什么人。",
-        "interactables": ["evt_nameless_stele", "evt_pagoda_shadow", "npc_wujue"],
+        "interactables": ["evt_nameless_stele", "evt_pagoda_shadow", "npc_wujue", "evt_ch3_constitution_growth"],
         "exits": ["feiyes_manor"],
         "requires": null
       },
@@ -15,7 +15,7 @@
         "id": "tianji_safehouse",
         "name": "天机安宅",
         "description": "长安城一条不显眼的巷子深处，门面是寻常茶水铺。推开后门，里面却是另一番光景——墙上挂着长安城的堪舆图，密密麻麻标注着数十个点位。一个面容模糊的人坐在图前，听到你进来，缓缓转过身。",
-        "interactables": ["evt_mission_orders", "evt_safehouse_wall", "npc_tianji_contact"],
+        "interactables": ["evt_mission_orders", "evt_safehouse_wall", "npc_tianji_contact", "evt_ch3_wisdom_growth"],
         "exits": ["feiyes_manor"],
         "requires": null
       },

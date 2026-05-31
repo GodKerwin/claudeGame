@@ -322,5 +322,35 @@
         "grants": { "flags": ["chapter2_join_ending"] }
       }
     ]
+  },
+  {
+    "id": "evt_ch2_constitution_growth",
+    "title": "研习毒物",
+    "description": "对着缴获的毒物样本，仔细研究其来路与成分。",
+    "requires": { "flags": ["chapter2_started"] },
+    "actions": [
+      {
+        "id": "study_poison_sample",
+        "label": "以身试毒，感受毒性",
+        "requires": { "constitution": 5, "flags_absent": ["ch2_constitution_grown"] },
+        "result": "你取一丝微量的毒液涂于皮肤，感受其蔓延的路径。轻微的麻木感很快消退——你的身体在这种经历中悄悄变得更加顽强。【根骨 +1】",
+        "grants": { "flags": ["ch2_constitution_grown"], "constitution": 1 }
+      }
+    ]
+  },
+  {
+    "id": "evt_ch2_agility_growth",
+    "title": "穿街追踪",
+    "description": "在东市迷宫般的街巷中追踪一个鬼鬼祟祟的身影。",
+    "requires": { "flags": ["langpeng_discovered"] },
+    "actions": [
+      {
+        "id": "chase_through_alleys",
+        "label": "全力追踪，不丢目标",
+        "requires": { "agility": 4, "flags_absent": ["ch2_agility_grown"] },
+        "result": "你在狭窄的巷子里时而翻墙、时而俯身，追了足足半刻钟。这番追逐让你的脚步愈发轻盈，对身体的掌控也更加从容。【敏捷 +1】",
+        "grants": { "flags": ["ch2_agility_grown", "langpeng_trail"], "agility": 1 }
+      }
+    ]
   }
 ]

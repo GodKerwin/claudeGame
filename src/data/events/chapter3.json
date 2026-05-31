@@ -225,5 +225,35 @@
         "grants": { "flags": ["deeper_threat_revealed"] }
       }
     ]
+  },
+  {
+    "id": "evt_ch3_wisdom_growth",
+    "title": "破解密语",
+    "description": "天机阁遗留的密文，需要极强的推理能力才能解读。",
+    "requires": { "flags": ["chapter3_started"] },
+    "actions": [
+      {
+        "id": "decode_cipher",
+        "label": "逐字推敲，拨云见日",
+        "requires": { "wisdom": 6, "flags_absent": ["ch3_wisdom_grown"] },
+        "result": "你在密文前枯坐了一个时辰，将每一个符号的逻辑关系理清。当那层迷雾终于散去，你感到脑中的某根弦被拨动了——推理之道，如同武功，愈练愈精。【智慧 +1】",
+        "grants": { "flags": ["ch3_wisdom_grown"], "wisdom": 1 }
+      }
+    ]
+  },
+  {
+    "id": "evt_ch3_constitution_growth",
+    "title": "枯坐冥想",
+    "description": "在大雁塔旁的古树下枯坐，调息吐纳，感受身体的极限。",
+    "requires": { "flags": ["chapter3_started"] },
+    "actions": [
+      {
+        "id": "meditate",
+        "label": "静心调息，固本培元",
+        "requires": { "flags_absent": ["ch3_constitution_grown"] },
+        "result": "你盘腿而坐，任凭风吹日晒，感受每一次呼吸在体内的流转。半日后，你睁开眼，身体仿佛比从前更加沉稳厚重。【根骨 +1】",
+        "grants": { "flags": ["ch3_constitution_grown"], "constitution": 1 }
+      }
+    ]
   }
 ]
