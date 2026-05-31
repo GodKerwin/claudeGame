@@ -108,7 +108,7 @@ export default function Game() {
       }));
     }
 
-    const result: Array<{ id: string; label: string; available: boolean; completed: boolean; hint: string; group?: 'npc' | 'event' | 'choice' }> = [];
+    const result: Array<{ id: string; label: string; available: boolean; completed: boolean; hint: string; group?: 'npc' | 'event' | 'choice'; eventId?: string; eventTitle?: string }> = [];
 
     for (const interactableId of room.interactables) {
       if (interactableId.startsWith('evt_')) {
@@ -127,6 +127,8 @@ export default function Game() {
             completed: r.completed,
             hint: r.hint,
             group: 'event' as const,
+            eventId: interactableId,
+            eventTitle: event.title,
           });
         }
       } else if (interactableId.startsWith('npc_')) {

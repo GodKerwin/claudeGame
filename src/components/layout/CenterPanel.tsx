@@ -10,6 +10,8 @@ interface ActionItem {
   hint: string;
   variant?: 'default' | 'danger' | 'special';
   group?: 'npc' | 'event' | 'choice';
+  eventId?: string;
+  eventTitle?: string;
 }
 
 interface Props {
@@ -105,18 +107,45 @@ export function CenterPanel({
       );
     }
 
+    // 按事件分组，保持原始顺序
+    const groups: Array<{ eventId: string; title: string; actions: ActionItem[] }> = [];
+    const groupMap = new Map<string, ActionItem[]>();
+    for (const a of eventActions) {
+      const eid = a.eventId ?? a.id;
+      if (!groupMap.has(eid)) {
+        const list: ActionItem[] = [];
+        groupMap.set(eid, list);
+        groups.push({ eventId: eid, title: a.eventTitle ?? '', actions: list });
+      }
+      groupMap.get(eid)!.push(a);
+    }
+
     return (
-      <div className="grid grid-cols-2 gap-2">
-        {eventActions.map((a) => (
-          <ActionButton
-            key={a.id}
-            label={a.label}
-            onClick={() => onAction(a.id)}
-            disabled={!a.available}
-            completed={a.completed}
-            hint={a.hint}
-            variant={a.variant}
-          />
+      <div className="space-y-3.5">
+        {groups.map(({ eventId, title, actions: groupActions }) => (
+          <div key={eventId}>
+            {/* 事件标题行 */}
+            <div className="flex items-center gap-2 mb-1.5">
+              <span className="text-gold/55 text-[10px] tracking-widest shrink-0 select-none">
+                {title}
+              </span>
+              <div className="flex-1 h-px bg-gold/12" />
+            </div>
+            {/* 子动作列表，左侧竖线体现层级 */}
+            <div className="pl-2 border-l-2 border-gold/20 space-y-1.5">
+              {groupActions.map((a) => (
+                <ActionButton
+                  key={a.id}
+                  label={a.label}
+                  onClick={() => onAction(a.id)}
+                  disabled={!a.available}
+                  completed={a.completed}
+                  hint={a.hint}
+                  variant={a.variant}
+                />
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     );
