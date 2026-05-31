@@ -89,6 +89,12 @@
         "text": "地窖里有些异样，我本想不管的，只是昨夜听到声响……客官请自便。"
       },
       {
+        "id": "buy_wine",
+        "condition": { "flags": ["innkeeper_met"], "flags_absent": ["wine_purchased"] },
+        "text": "你向李福要了一碗陈年老酒。他拿出一只粗陶碗，从柜台下的酒坛里舀了大半碗，推给你：「查案辛苦，这碗酒算小店的，不收钱。」",
+        "grants": { "flags": ["wine_purchased"], "items": ["tavern_wine"] }
+      },
+      {
         "id": "normal_chat",
         "condition": { "flags": ["innkeeper_met"] },
         "text": "客官，实不相瞒，昨夜小店后厨也有些异动，不过……那是内部之事，还请见谅。"
@@ -512,7 +518,7 @@
         },
         "text": "你提到墙上的刻记，周药商身子一僵，转过头低声道：\n\n「你认得那个记号？那是浪鹏帮的暗记。」他从怀里摸出一张折皱的纸条，「劫我货的人走时留下这个，说什么『名单交出来，货还你』。什么名单，我哪里知道！」\n\n他将纸条塞进你手里：「你若能帮我查清此事，这纸条你拿着，算是谢礼。」",
         "grants": {
-          "flags": ["merchant_zhou_talked"],
+          "flags": ["merchant_zhou_talked", "langpeng_discovered"],
           "items": ["extortion_note"]
         }
       },

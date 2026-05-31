@@ -95,6 +95,13 @@ const CHAPTER1_RULES: HintRule[] = [
     hint: '前往二楼命案房间（从大堂可以前往），检查宋怀义的尸体和现场痕迹。',
   },
   {
+    when: (ctx) =>
+      has(ctx, 'beggar_first_talked') &&
+      !has(ctx, 'langpeng_discovered') &&
+      !hasItem(ctx, 'tavern_wine'),
+    hint: '后巷老乞丐说口渴了。回客栈大堂向掌柜李福要一碗酒，再带去给他，他自然会把知道的事全告诉你。',
+  },
+  {
     when: () => true,
     hint: '从客栈大堂的掌柜入手，了解案发经过，再去二楼检查命案现场。',
   },
