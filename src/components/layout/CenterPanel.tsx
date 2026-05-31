@@ -40,6 +40,17 @@ export function CenterPanel({
   const storyEndRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState<ActiveTab>('npc');
 
+  const npcActions = actions.filter((a) => a.group === 'npc');
+  const eventActions = actions.filter((a) => a.group === 'event');
+  const choiceActions = actions.filter((a) => a.group === 'choice');
+
+  const hasNpc = npcActions.length > 0;
+  const hasEvent = eventActions.length > 0;
+
+  const npcBadge = npcActions.filter((a) => a.available && !a.completed).length;
+  const eventBadge = eventActions.filter((a) => a.available && !a.completed).length;
+  const choiceBadge = choiceActions.filter((a) => a.available && !a.completed).length;
+
   useEffect(() => {
     storyEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [storyTexts]);
@@ -57,15 +68,10 @@ export function CenterPanel({
     if (pendingChoices) setActiveTab('npc');
   }, [pendingChoices]);
 
-  const npcActions = actions.filter((a) => a.group === 'npc');
-  const eventActions = actions.filter((a) => a.group === 'event');
-  const choiceActions = actions.filter((a) => a.group === 'choice');
-
-  const npcBadge = npcActions.filter((a) => a.available && !a.completed).length;
-  const eventBadge = eventActions.filter((a) => a.available && !a.completed).length;
-
-  const hasNpc = npcActions.length > 0;
-  const hasEvent = eventActions.length > 0;
+  // pendingChoices が解除されて npc タブにコンテンツがない場合は探査へフォールバック
+  useEffect(() => {
+    if (!pendingChoices && !hasNpc) setActiveTab('event');
+  }, [pendingChoices, hasNpc]);
 
   const renderTabContent = () => {
     if (activeTab === 'npc') {
@@ -166,9 +172,9 @@ export function CenterPanel({
             }`}
           >
             {pendingChoices ? '如何回应' : '交谈'}
-            {pendingChoices && (
+            {pendingChoices && choiceBadge > 0 && (
               <span className="ml-1 text-[9px] bg-gold/15 text-gold/70 px-1 rounded-full">
-                {choiceActions.length}
+                {choiceBadge}
               </span>
             )}
             {!pendingChoices && npcBadge > 0 && (
