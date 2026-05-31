@@ -49,6 +49,16 @@ describe('evaluate', () => {
     expect(evaluate({ talent: '望闻断骨' }, baseCtx)).toBe(false);
   });
 
+  it('耳报神 talent check works via condition.talent', () => {
+    const ctx = { ...baseCtx, player: { ...baseCtx.player, talent: '耳报神' } };
+    expect(evaluate({ talent: '耳报神' }, ctx)).toBe(true);
+  });
+
+  it('三教九流 talent check works via condition.talent', () => {
+    const ctx = { ...baseCtx, player: { ...baseCtx.player, talent: '三教九流' } };
+    expect(evaluate({ talent: '三教九流' }, ctx)).toBe(true);
+  });
+
   it('passes item check when item in inventory', () => {
     const ctx = { ...baseCtx, inventory: ['broken_copper_badge'] };
     expect(evaluate({ has: ['broken_copper_badge'] }, ctx)).toBe(true);
