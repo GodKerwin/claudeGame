@@ -101,7 +101,7 @@ function TalentSeal({ name }: { name: string }) {
 
 type Tab = 'stats' | 'items' | 'lore';
 
-const TAB_LABELS: Record<Tab, string> = { stats: '人档', items: '物品', lore: '脉络' };
+const TAB_LABELS: Record<Tab, string> = { stats: '人物', items: '物品', lore: '脉络' };
 
 interface RightPanelProps {
   onSettings?: () => void;
