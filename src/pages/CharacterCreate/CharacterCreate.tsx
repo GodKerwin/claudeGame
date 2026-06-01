@@ -170,7 +170,7 @@ export default function CharacterCreate() {
             <div className="divider-gold mb-3">
               <span className="text-gold/45 text-xs tracking-widest shrink-0">秉性天赋</span>
             </div>
-            <div className="border border-gold/15 p-3 bg-paper-mid/60" style={{ minHeight: '120px' }}>
+            <div className="border border-gold/15 p-3 bg-paper-mid/60 overflow-y-auto scrollbar-thin" style={{ height: '152px' }}>
               {talent && (
                 <div className="space-y-1.5 h-full">
                   <div className="flex items-center gap-2">
