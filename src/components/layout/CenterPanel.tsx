@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from 'react';
+import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { TypewriterText } from '../ui/TypewriterText';
 import { ActionButton } from '../ui/ActionButton';
 
@@ -52,16 +52,16 @@ export function CenterPanel({
     });
   }, []);
 
-  const npcActions = actions.filter((a) => a.group === 'npc');
-  const eventActions = actions.filter((a) => a.group === 'event');
-  const choiceActions = actions.filter((a) => a.group === 'choice');
+  const npcActions = useMemo(() => actions.filter((a) => a.group === 'npc'), [actions]);
+  const eventActions = useMemo(() => actions.filter((a) => a.group === 'event'), [actions]);
+  const choiceActions = useMemo(() => actions.filter((a) => a.group === 'choice'), [actions]);
 
   const hasNpc = npcActions.length > 0;
   const hasEvent = eventActions.length > 0;
 
-  const npcBadge = npcActions.filter((a) => a.available && !a.completed).length;
-  const eventBadge = eventActions.filter((a) => a.available && !a.completed).length;
-  const choiceBadge = choiceActions.filter((a) => a.available && !a.completed).length;
+  const npcBadge = useMemo(() => npcActions.filter((a) => a.available && !a.completed).length, [npcActions]);
+  const eventBadge = useMemo(() => eventActions.filter((a) => a.available && !a.completed).length, [eventActions]);
+  const choiceBadge = useMemo(() => choiceActions.filter((a) => a.available && !a.completed).length, [choiceActions]);
 
   useEffect(() => { scrollToBottom(); }, [storyTexts, scrollToBottom]);
 
@@ -75,6 +75,21 @@ export function CenterPanel({
   useEffect(() => {
     if (!pendingChoices && !hasNpc) setActiveTab('event');
   }, [pendingChoices, hasNpc]);
+
+  const eventGroups = useMemo(() => {
+    const groups: Array<{ eventId: string; title: string; actions: ActionItem[] }> = [];
+    const groupMap = new Map<string, ActionItem[]>();
+    for (const a of eventActions) {
+      const eid = a.eventId ?? a.id;
+      if (!groupMap.has(eid)) {
+        const list: ActionItem[] = [];
+        groupMap.set(eid, list);
+        groups.push({ eventId: eid, title: a.eventTitle ?? '', actions: list });
+      }
+      groupMap.get(eid)!.push(a);
+    }
+    return groups;
+  }, [eventActions]);
 
   const renderTabContent = () => {
     if (activeTab === 'npc') {
@@ -96,21 +111,9 @@ export function CenterPanel({
       );
     }
 
-    const groups: Array<{ eventId: string; title: string; actions: ActionItem[] }> = [];
-    const groupMap = new Map<string, ActionItem[]>();
-    for (const a of eventActions) {
-      const eid = a.eventId ?? a.id;
-      if (!groupMap.has(eid)) {
-        const list: ActionItem[] = [];
-        groupMap.set(eid, list);
-        groups.push({ eventId: eid, title: a.eventTitle ?? '', actions: list });
-      }
-      groupMap.get(eid)!.push(a);
-    }
-
     return (
       <div className="space-y-4">
-        {groups.map(({ eventId, title, actions: groupActions }) => (
+        {eventGroups.map(({ eventId, title, actions: groupActions }) => (
           <div key={eventId}>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-gold/45 text-[10px] tracking-widest shrink-0 select-none">{title}</span>

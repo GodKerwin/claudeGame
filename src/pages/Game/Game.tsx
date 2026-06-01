@@ -21,6 +21,37 @@ import type { DialogueChoice } from '../../types/game';
 
 type ModalType = 'save' | 'load' | 'settings' | null;
 
+type Grants = {
+  flags?: string[];
+  clues?: string[];
+  items?: string[];
+  remove_items?: string[];
+  quests?: string[];
+  strength?: number | null;
+  agility?: number | null;
+  wisdom?: number | null;
+  constitution?: number | null;
+};
+
+function applyGrants(
+  grants: Grants | undefined,
+  scene: ReturnType<typeof useSceneStore>,
+  addItem: (id: string) => void,
+  removeItem: (id: string) => void,
+  player: ReturnType<typeof usePlayerStore>,
+) {
+  if (!grants) return;
+  grants.flags?.forEach((f) => scene.addFlag(f));
+  grants.clues?.forEach((c) => scene.addClue(c));
+  grants.items?.forEach((i) => addItem(i));
+  grants.remove_items?.forEach((i) => removeItem(i));
+  grants.quests?.forEach((q) => scene.addQuest(q));
+  if (grants.strength != null) player.incrementStat('strength', grants.strength);
+  if (grants.agility != null) player.incrementStat('agility', grants.agility);
+  if (grants.wisdom != null) player.incrementStat('wisdom', grants.wisdom);
+  if (grants.constitution != null) player.incrementStat('constitution', grants.constitution);
+}
+
 interface PendingChoices {
   npcId: string;
   npcName: string;
@@ -73,11 +104,11 @@ export default function Game() {
 
   const room = getRoom(scene.currentRoomId);
 
-  const chapter: 1 | 2 | 3 = scene.flags.includes('chapter3_started')
-    ? 3
-    : scene.flags.includes('chapter2_started')
-    ? 2
-    : 1;
+  const chapter = useMemo<1 | 2 | 3>(() =>
+    scene.flags.includes('chapter3_started') ? 3
+    : scene.flags.includes('chapter2_started') ? 2
+    : 1,
+  [scene.flags]);
 
   const ctx = useMemo<EvalContext>(() => ({
     player: {
@@ -167,17 +198,7 @@ export default function Game() {
       const choice = pendingChoices.choices.find((c) => c.id === choiceId);
       if (!choice) return;
       scene.addStoryText(`【${pendingChoices.npcName}】${choice.response}`);
-      if (choice.grants) {
-        choice.grants.flags?.forEach((f) => scene.addFlag(f));
-        choice.grants.clues?.forEach((c) => scene.addClue(c));
-        choice.grants.items?.forEach((i) => addItem(i));
-        choice.grants.remove_items?.forEach((i) => removeItem(i));
-        choice.grants.quests?.forEach((q) => scene.addQuest(q));
-        if (choice.grants.strength != null) player.incrementStat('strength', choice.grants.strength);
-        if (choice.grants.agility != null) player.incrementStat('agility', choice.grants.agility);
-        if (choice.grants.wisdom != null) player.incrementStat('wisdom', choice.grants.wisdom);
-        if (choice.grants.constitution != null) player.incrementStat('constitution', choice.grants.constitution);
-      }
+      applyGrants(choice.grants, scene, addItem, removeItem, player);
       setPendingChoices(null);
       return;
     }
@@ -192,17 +213,7 @@ export default function Game() {
       const action = event.actions.find((a) => a.id === subId);
       if (!action) return;
       scene.addStoryText(action.result);
-      if (action.grants) {
-        action.grants.flags?.forEach((f) => scene.addFlag(f));
-        action.grants.clues?.forEach((c) => scene.addClue(c));
-        action.grants.items?.forEach((i) => addItem(i));
-        action.grants.remove_items?.forEach((i) => removeItem(i));
-        action.grants.quests?.forEach((q) => scene.addQuest(q));
-        if (action.grants.strength != null) player.incrementStat('strength', action.grants.strength);
-        if (action.grants.agility != null) player.incrementStat('agility', action.grants.agility);
-        if (action.grants.wisdom != null) player.incrementStat('wisdom', action.grants.wisdom);
-        if (action.grants.constitution != null) player.incrementStat('constitution', action.grants.constitution);
-      }
+      applyGrants(action.grants, scene, addItem, removeItem, player);
     } else if (entityId.startsWith('npc_')) {
       const npc = getNPC(entityId);
       if (!npc) return;
@@ -216,16 +227,7 @@ export default function Game() {
       const d = nextUnseen;
       scene.addStoryText(`【${npc.name}】${d.text}`);
       scene.markDialogueSeen(`ch${chapter}:${entityId}:${d.id}`);
-      if (d.grants) {
-        d.grants.flags?.forEach((f) => scene.addFlag(f));
-        d.grants.clues?.forEach((c) => scene.addClue(c));
-        d.grants.items?.forEach((i) => addItem(i));
-        d.grants.quests?.forEach((q) => scene.addQuest(q));
-        if (d.grants.strength != null) player.incrementStat('strength', d.grants.strength);
-        if (d.grants.agility != null) player.incrementStat('agility', d.grants.agility);
-        if (d.grants.wisdom != null) player.incrementStat('wisdom', d.grants.wisdom);
-        if (d.grants.constitution != null) player.incrementStat('constitution', d.grants.constitution);
-      }
+      applyGrants(d.grants, scene, addItem, removeItem, player);
       // 处理分支选项
       if (d.choices && d.choices.length > 0) {
         const availableChoices = d.choices.filter(

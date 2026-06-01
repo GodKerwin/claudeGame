@@ -39,5 +39,10 @@ export function useAutoSave() {
     };
     const saved = saveToSlot(0, data, '自动存档');
     updateSlot(saved);
-  }, [scene.currentRoomId, scene.flags, scene.clues, scene.questLog]);
+  }, [
+    player.name, player.template, player.strength, player.agility,
+    player.wisdom, player.constitution, player.talent,
+    scene.currentRoomId, scene.flags, scene.clues, scene.questLog,
+    scene.seenDialogues, items, updateSlot,
+  ]);
 }

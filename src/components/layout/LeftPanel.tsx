@@ -44,14 +44,15 @@ export function LeftPanel({ onNavigate }: Props) {
   const exits = useMemo(() => (room ? getAvailableExits(room, ctx, ALL_ROOMS) : []), [room, ctx]);
   const lockedExits = useMemo(() => (room ? getLockedExits(room, ctx, ALL_ROOMS) : []), [room, ctx]);
 
-  const currentChapterRoomIds = new Set(
+  const currentChapterRoomIds = useMemo(() => new Set(
     MAPS.find((m) => m.rooms.some((r) => r.id === currentRoomId))?.rooms.map((r) => r.id) ?? []
-  );
+  ), [currentRoomId]);
 
-  const visitedRoomNames = visitedRooms
+  const visitedRoomNames = useMemo(() => visitedRooms
     .map((id) => getRoom(id))
     .filter(Boolean)
-    .filter((r) => r!.id !== currentRoomId && currentChapterRoomIds.has(r!.id));
+    .filter((r) => r!.id !== currentRoomId && currentChapterRoomIds.has(r!.id)),
+  [visitedRooms, currentRoomId, currentChapterRoomIds]);
 
   return (
     <div className="flex flex-col h-full p-3 gap-5 text-sm">
