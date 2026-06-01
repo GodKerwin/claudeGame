@@ -1,4 +1,6 @@
 // src/components/ui/CornerFrame.tsx
+import { cn } from '../../utils/cn';
+
 interface Props {
   children: React.ReactNode;
   size?: 'sm' | 'md' | 'lg';
@@ -7,7 +9,7 @@ interface Props {
 
 const SIZES = { sm: 8, md: 12, lg: 16 } as const;
 
-function Corner({ x, y, flip }: { x: 'left' | 'right'; y: 'top' | 'bottom'; flip: boolean }) {
+function Corner({ x, flip }: { x: 'left' | 'right'; flip: boolean }) {
   const s = 12; // rendered at md; parent scales via CSS if needed
   const stroke = 'rgba(201,168,76,0.35)';
   const sw = 1;
@@ -29,18 +31,18 @@ function Corner({ x, y, flip }: { x: 'left' | 'right'; y: 'top' | 'bottom'; flip
 export function CornerFrame({ children, size = 'md', className = '' }: Props) {
   const px = SIZES[size];
   return (
-    <div className={`relative ${className}`}>
+    <div className={cn('relative', className)}>
       <div style={{ position: 'absolute', top: 0, left: 0, width: px, height: px, pointerEvents: 'none' }}>
-        <Corner x="left" y="top" flip={false} />
+        <Corner x="left" flip={false} />
       </div>
       <div style={{ position: 'absolute', top: 0, right: 0, width: px, height: px, pointerEvents: 'none' }}>
-        <Corner x="right" y="top" flip={false} />
+        <Corner x="right" flip={false} />
       </div>
       <div style={{ position: 'absolute', bottom: 0, left: 0, width: px, height: px, pointerEvents: 'none' }}>
-        <Corner x="left" y="bottom" flip={true} />
+        <Corner x="left" flip={true} />
       </div>
       <div style={{ position: 'absolute', bottom: 0, right: 0, width: px, height: px, pointerEvents: 'none' }}>
-        <Corner x="right" y="bottom" flip={true} />
+        <Corner x="right" flip={true} />
       </div>
       {children}
     </div>
