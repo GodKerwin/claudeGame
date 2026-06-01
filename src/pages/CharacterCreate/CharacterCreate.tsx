@@ -108,7 +108,7 @@ export default function CharacterCreate() {
           <div className="divider-gold mb-4">
             <span className="text-gold/45 text-xs tracking-widest shrink-0">择一身份</span>
           </div>
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
             {TEMPLATES.map((t) => {
               const isSelected = selectedTemplate.id === t.id;
               return (
@@ -145,7 +145,7 @@ export default function CharacterCreate() {
         </div>
 
         {/* 资质 + 天赋 */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {/* 资质 */}
           <div>
             <div className="divider-gold mb-3">
