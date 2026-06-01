@@ -1,5 +1,6 @@
 import { StatBar } from '../ui/StatBar';
 import { Tooltip } from '../ui/Tooltip';
+import { DiamondDivider } from '../ui/DiamondDivider';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
@@ -58,13 +59,7 @@ const TIMELINE_FLAGS: Array<{ flag: string; text: string }> = [
 ];
 
 function SectionHeader({ label }: { label: string }) {
-  return (
-    <div className="flex items-center gap-2 mb-2">
-      <div className="w-1 h-1 rounded-full bg-gold/35 shrink-0" />
-      <span className="text-gold/40 text-[10px] tracking-[0.25em]">{label}</span>
-      <div className="flex-1 h-px bg-gold/10" />
-    </div>
-  );
+  return <DiamondDivider label={label} />;
 }
 
 export function RightPanel() {
@@ -157,11 +152,14 @@ export function RightPanel() {
             <div className="absolute left-[5px] top-1 bottom-1 w-px bg-gold/10" />
             {timelineEntries.map((entry, i) => (
               <li key={entry.flag} className="flex items-start gap-2">
-                <span className={`shrink-0 mt-[3px] w-[7px] h-[7px] rounded-full border transition-colors ${
-                  i === timelineEntries.length - 1
-                    ? 'border-gold/50 bg-gold/20'
-                    : 'border-gold/20 bg-transparent'
-                }`} />
+                <span
+                  className={`shrink-0 mt-[3px] w-[6px] h-[6px] border transition-colors ${
+                    i === timelineEntries.length - 1
+                      ? 'border-gold/55 bg-gold/25'
+                      : 'border-gold/20 bg-transparent'
+                  }`}
+                  style={{ transform: 'rotate(45deg)' }}
+                />
                 <span className={`text-[11px] leading-snug ${
                   i === timelineEntries.length - 1 ? 'text-ink/60' : 'text-ink/30'
                 }`}>
