@@ -4,6 +4,8 @@ import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
 import { getItem } from '../../data/loader';
 import { addSeenEnding } from '../../engine/endingRecord';
+import { CornerFrame } from '../../components/ui/CornerFrame';
+import { MountainBackground } from '../../components/ui/MountainBackground';
 
 const CHAPTER1_ENDINGS: Record<string, string> = {
   chapter1_truth_ending: '你以智慧解开了这道局，真相已在掌中。但棋局远未终止。',
@@ -94,39 +96,61 @@ export default function ChapterEnd() {
     }
   };
 
-  const buttonLabel = isChapter3 ? '回到主菜单' : isChapter2 ? '踏入第三章' : '踏入第二章';
-
   return (
-    <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center justify-center p-12">
-      <div className="max-w-xl w-full space-y-5">
-        {lines.map((line, i) => (
-          <p
-            key={i}
-            className={`leading-loose transition-opacity duration-1000 ${
-              i === 0
-                ? 'text-gold text-2xl tracking-widest text-center'
-                : line.startsWith('【')
-                ? 'text-gold/60 text-xs tracking-widest mt-6'
-                : line.startsWith('·')
-                ? 'text-ink/60 text-sm pl-2'
-                : 'text-base text-ink/80'
-            } ${i < visibleCount ? 'opacity-100' : 'opacity-0'}`}
-          >
-            {line}
-          </p>
-        ))}
+    <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center justify-center px-8 py-16 relative overflow-hidden">
+      <MountainBackground opacity={0.7} />
+
+      <div className="max-w-md w-full relative z-10">
+        <div className="space-y-8">
+          {lines.map((line, i) => {
+            const isTitle = i === 0;
+            const isClueHeader = line === '【你所掌握的线索】';
+            const isClueItem = line.startsWith('· ');
+
+            const content = (
+              <p
+                key={i}
+                className={`leading-[2] transition-all duration-1000 ${
+                  i < visibleCount ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2'
+                } ${
+                  isTitle
+                    ? 'text-gold/90 text-xl tracking-[0.3em] text-center'
+                    : isClueHeader
+                    ? 'text-gold/50 text-xs tracking-widest text-center'
+                    : isClueItem
+                    ? 'text-ink/60 text-sm pl-4 border-l border-gold/20'
+                    : 'text-ink/80 text-[15px] border-l-2 border-gold/20 pl-4'
+                }`}
+                style={{
+                  transitionDelay: `${i < visibleCount ? 0 : 100}ms`,
+                  textShadow: isTitle ? '0 0 30px rgba(201,168,76,0.4)' : undefined,
+                }}
+              >
+                {line}
+              </p>
+            );
+
+            return isTitle ? (
+              <CornerFrame key={i} size="sm" className="inline-block w-full text-center py-3 px-8">
+                {content}
+              </CornerFrame>
+            ) : content;
+          })}
+        </div>
+
         <div
-          className={`pt-8 text-center transition-opacity duration-700 ${
-            showButton ? 'opacity-100' : 'opacity-0'
-          }`}
+          className={`mt-16 text-center transition-all duration-700 ${showButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
         >
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-8 h-px bg-gold/20" />
+            <div className="w-[5px] h-[5px] bg-gold/30" style={{ transform: 'rotate(45deg)' }} />
+            <div className="w-8 h-px bg-gold/20" />
+          </div>
           <button
             onClick={handleContinue}
-            className={`border border-gold text-gold px-8 py-2 text-sm tracking-widest hover:shadow-[0_0_16px_rgba(201,168,76,0.4)] transition-all ${
-              showButton ? 'cursor-pointer' : 'pointer-events-none'
-            }`}
+            className="btn-jianghu border border-gold/40 text-gold/75 px-12 py-2.5 text-sm tracking-[0.3em] hover:border-gold hover:text-gold transition-all cursor-pointer"
           >
-            {buttonLabel}
+            {isChapter3 ? '回到主菜单' : '前往下一章'}
           </button>
         </div>
       </div>
