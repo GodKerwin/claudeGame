@@ -101,7 +101,7 @@ function TalentSeal({ name }: { name: string }) {
 
 type Tab = 'stats' | 'items' | 'lore';
 
-const TAB_LABELS: Record<Tab, string> = { stats: '身家', items: '物品', lore: '脉络' };
+const TAB_LABELS: Record<Tab, string> = { stats: '人档', items: '物品', lore: '脉络' };
 
 interface RightPanelProps {
   onSettings?: () => void;
@@ -160,12 +160,13 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                   return (
                     <Tooltip key={stat} content={STAT_DESCRIPTIONS[stat]} position="left">
                       <div className="cursor-help w-full flex items-center gap-1">
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                           <StatBar label={stat} value={player[stat]} />
                         </div>
-                        {delta > 0 && (
-                          <span className="text-[10px] text-gold/50 shrink-0 ml-0.5">+{delta}</span>
-                        )}
+                        {/* 始终占位，避免进度条宽度不一致 */}
+                        <span className="w-5 text-right text-[10px] text-gold/50 shrink-0">
+                          {delta > 0 ? `+${delta}` : ''}
+                        </span>
                       </div>
                     </Tooltip>
                   );
@@ -184,6 +185,27 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                     </div>
                   </div>
                 </Tooltip>
+              </div>
+            )}
+            {questLog.length > 0 && (
+              <div>
+                <DiamondDivider label="未竟之事" />
+                <ul className="space-y-3">
+                  {questLog.map((qid) => {
+                    const q = QUEST_HINTS[qid];
+                    return (
+                      <li key={qid} className="text-xs">
+                        <div className="flex items-start gap-1.5 mb-1">
+                          <span className="text-gold/40 mt-0.5 shrink-0 text-[10px]">▸</span>
+                          <span className="text-ink/65">{q?.name ?? qid}</span>
+                        </div>
+                        {q?.hint && (
+                          <p className="text-ink/28 leading-relaxed pl-3.5 text-[11px] whitespace-pre-line">{q.hint}</p>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             )}
           </div>
@@ -257,28 +279,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                 </ol>
               </div>
             )}
-            {questLog.length > 0 && (
-              <div>
-                <DiamondDivider label="未竟之事" />
-                <ul className="space-y-3">
-                  {questLog.map((qid) => {
-                    const q = QUEST_HINTS[qid];
-                    return (
-                      <li key={qid} className="text-xs">
-                        <div className="flex items-start gap-1.5 mb-1">
-                          <span className="text-gold/40 mt-0.5 shrink-0 text-[10px]">▸</span>
-                          <span className="text-ink/65">{q?.name ?? qid}</span>
-                        </div>
-                        {q?.hint && (
-                          <p className="text-ink/28 leading-relaxed pl-3.5 text-[11px] whitespace-pre-line">{q.hint}</p>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            )}
-            {timelineEntries.length === 0 && questLog.length === 0 && (
+            {timelineEntries.length === 0 && (
               <p className="text-ink/20 text-xs pl-3 italic">案情尚无头绪</p>
             )}
           </div>
