@@ -13,6 +13,7 @@ export default {
         gold: '#c9a84c',
         'gold-bright': '#dfc06a',
         blood: '#8b1a1a',
+        cinnabar: '#7a1a1a',
         jade: '#3a7a5a',
       },
       fontFamily: {

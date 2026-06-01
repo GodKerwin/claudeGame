@@ -32,6 +32,34 @@
     content: '';
     @apply flex-1 h-px bg-gold/20;
   }
+  /* 江湖按钮 hover 横线效果 */
+  .btn-jianghu {
+    position: relative;
+  }
+  .btn-jianghu::before,
+  .btn-jianghu::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 1px;
+    background: rgba(201, 168, 76, 0.5);
+    transition: width 0.2s ease;
+  }
+  .btn-jianghu::before {
+    right: 100%;
+    margin-right: 6px;
+    transform: translateY(-50%);
+  }
+  .btn-jianghu::after {
+    left: 100%;
+    margin-left: 6px;
+    transform: translateY(-50%);
+  }
+  .btn-jianghu:hover::before,
+  .btn-jianghu:hover::after {
+    width: 10px;
+  }
 }
 
 /* 细线滚动条，适配宣纸风格 */
