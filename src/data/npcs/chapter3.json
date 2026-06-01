@@ -66,9 +66,9 @@
       },
       {
         "id": "wujue_resolution",
-        "condition": { "flags": ["chapter3_started"], "has": ["tianji_founding_scroll"] },
-        "text": "「你知道了真相。」他合掌，「贫僧守了二十年的秘密，终于有人替它开了口。」他的神情不是如释重负，而是一种说不清楚的沉重，「冤孽不会因为说出来就消散，但……至少，有人知道了。」",
-        "grants": { "flags": [] }
+        "condition": { "flags": ["chapter3_started", "fei_ye_identity_confirmed"], "has": ["tianji_founding_scroll"] },
+        "text": "「你知道了真相。」他合掌，「贫僧守了二十年的秘密，终于有人替它开了口。」\n\n他沉默片刻，手指摩挲着佛珠：「飞爷当年来慈恩寺，带着一份名单，说要销毁它。贫僧问他为何，他只说：有人掌握了这份名单，比天机阁掌握它更危险。」\n\n「名单上的那些人……并非全是忠臣。有人早已倒戈，却还披着天机阁的外衣行事。那才是最深处的威胁。」\n\n他闭上眼，「现在你知道了全部。去吧。」",
+        "grants": { "flags": ["deeper_threat_revealed"] }
       },
       {
         "id": "healing_final_testimony",

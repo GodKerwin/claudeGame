@@ -317,7 +317,7 @@
       {
         "id": "join_ending",
         "label": "「天机阁……说来听听。」（考虑招募）",
-        "requires": { "flags": ["tianji_recruit_offered"], "agility": 8 },
+        "requires": { "flags": ["tianji_recruit_offered"], "agility": 6 },
         "result": "你靠在椅背上，神情懒散，语气漫不经心。\n\n李邈看了你片刻，似乎在衡量什么。然后他开口，将天机阁的真实面目徐徐道来——那不是一个帮派，而是一张网，覆盖长安城三十七处要津，每一处都有人在守。\n\n「宋怀义带走的名单，是这张网上的每一个节点。」他说，「若名单落入错误的人手里，整张网都会被摧毁。」\n\n「而你，」他顿了顿，「有能力帮我找回它。」\n\n你没有立刻答应，但你没有离开。窗外，长安城的灯火一盏一盏亮起来，像一张正在收紧的网。",
         "grants": { "flags": ["chapter2_join_ending"] }
       }
