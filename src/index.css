@@ -1,3 +1,5 @@
+@import '@fontsource/ma-shan-zheng/chinese-simplified.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -111,6 +113,25 @@
 }
 .seal-drop {
   animation: seal-drop 0.45s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+/* 主按钮文字呼吸光晕 */
+@keyframes text-breathe {
+  0%, 100% { text-shadow: 0 0 18px rgba(201,168,76,0.18); }
+  50%       { text-shadow: 0 0 36px rgba(201,168,76,0.48), 0 0 12px rgba(201,168,76,0.22); }
+}
+.text-breathe {
+  animation: text-breathe 3s ease-in-out infinite;
+}
+
+/* 标题字墨迹晕开入场 */
+@keyframes ink-reveal {
+  0%   { opacity: 0; filter: blur(8px) brightness(0.22); transform: scale(0.83); }
+  55%  { opacity: 0.82; filter: blur(1.5px) brightness(0.88); transform: scale(1.02); }
+  100% { opacity: 1;   filter: blur(0)   brightness(1);   transform: scale(1); }
+}
+.ink-reveal {
+  animation: ink-reveal 1s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
 
 /* 水墨粒子漂浮 */

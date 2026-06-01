@@ -18,89 +18,51 @@ const inkParticles = [
   { left: '55%', size: 3, delay: '6.6s', duration: '9.5s'},
 ];
 
-/** 远景楼阁剪影 + 飞檐 SVG */
-function PavilionSilhouette() {
+/** 淡月轮 */
+function InkMoon() {
   return (
     <svg
-      viewBox="0 0 320 200"
       className="fixed pointer-events-none"
-      style={{ bottom: '28%', left: '3%', width: 'clamp(140px, 20vw, 260px)', opacity: 0.18, zIndex: 1 }}
-      fill="rgba(201,168,76,0.6)"
+      viewBox="0 0 140 140"
+      style={{ top: '6%', right: '7%', width: 'clamp(88px, 13vw, 155px)', zIndex: 1 }}
     >
-      {/* 塔身三层 */}
-      <rect x="120" y="140" width="80" height="55" />
-      <rect x="108" y="100" width="104" height="48" />
-      <rect x="96"  y="62"  width="128" height="46" />
-      {/* 飞檐 */}
-      <polygon points="86,100  160,82  234,100  244,106  234,104  160,86  86,104" />
-      <polygon points="98,140  160,122  222,140  230,145  222,143  160,126  98,143" />
-      <polygon points="76,62   160,40   244,62   256,68   244,66   160,44   76,66" />
-      {/* 屋顶尖 */}
-      <polygon points="160,22 148,64 172,64" />
-      {/* 窗格 */}
-      <rect x="148" y="108" width="24" height="28" opacity="0.4" />
-      <rect x="148" y="148" width="24" height="40" opacity="0.35" />
+      <circle cx="70" cy="70" r="62" fill="rgba(201,168,76,0.032)" stroke="rgba(201,168,76,0.13)" strokeWidth="1" />
+      <circle cx="70" cy="70" r="54" fill="none" stroke="rgba(201,168,76,0.06)" strokeWidth="0.6" />
+      <circle cx="70" cy="70" r="44" fill="none" stroke="rgba(201,168,76,0.04)" strokeWidth="0.4" />
     </svg>
   );
 }
 
-/** 左侧松枝剪影 */
-function PineBranches() {
+/** 大雁群 —— 远近错落 */
+function FlyingGeese() {
+  const birds = [
+    { x: 120, y: 70,  w: 14, op: 0.22 },
+    { x: 240, y: 50,  w: 11, op: 0.17 },
+    { x: 335, y: 82,  w:  9, op: 0.14 },
+    { x: 510, y: 42,  w: 13, op: 0.20 },
+    { x: 648, y: 68,  w: 10, op: 0.16 },
+    { x: 788, y: 34,  w:  8, op: 0.13 },
+    { x: 900, y: 58,  w:  9, op: 0.15 },
+    { x: 968, y: 80,  w:  6, op: 0.11 },
+  ];
   return (
     <svg
-      viewBox="0 0 120 280"
       className="fixed pointer-events-none"
-      style={{ bottom: '20%', left: 0, width: 'clamp(60px, 8vw, 110px)', opacity: 0.20, zIndex: 2 }}
-      fill="rgba(201,168,76,0.5)"
+      viewBox="0 0 1060 140"
+      style={{ top: 0, left: 0, width: '100%', height: '38vh', zIndex: 1 }}
+      preserveAspectRatio="xMidYMid meet"
     >
-      <path d="M20,280 L30,180 C35,140 15,110 10,80 C20,90 40,95 50,82 C42,100 30,120 38,145 C48,120 65,108 72,90 C62,112 55,135 62,155 C70,135 85,118 90,100 C78,128 72,152 78,175 L60,280 Z" />
-      {/* 松针团 */}
-      <ellipse cx="12" cy="75" rx="22" ry="12" transform="rotate(-30 12 75)" />
-      <ellipse cx="52" cy="80" rx="26" ry="11" transform="rotate(15 52 80)" />
-      <ellipse cx="74" cy="88" rx="20" ry="10" transform="rotate(25 74 88)" />
-    </svg>
-  );
-}
-
-/** 右侧悬挂红灯笼 */
-function Lanterns() {
-  return (
-    <svg
-      viewBox="0 0 80 180"
-      className="fixed pointer-events-none"
-      style={{ top: '8%', right: 'clamp(20px, 4vw, 60px)', width: 'clamp(36px, 4vw, 60px)', zIndex: 2 }}
-    >
-      <defs>
-        <radialGradient id="lg1" cx="50%" cy="45%">
-          <stop offset="0%"  stopColor="rgba(180,40,20,0.75)" />
-          <stop offset="70%" stopColor="rgba(120,20,10,0.55)" />
-          <stop offset="100%" stopColor="rgba(60,10,5,0)" />
-        </radialGradient>
-        <radialGradient id="lg2" cx="50%" cy="45%">
-          <stop offset="0%"  stopColor="rgba(180,40,20,0.60)" />
-          <stop offset="100%" stopColor="rgba(60,10,5,0)" />
-        </radialGradient>
-      </defs>
-      {/* 绳 */}
-      <line x1="40" y1="0" x2="40" y2="16" stroke="rgba(201,168,76,0.30)" strokeWidth="1" />
-      {/* 灯笼一 */}
-      <ellipse cx="40" cy="42" rx="16" ry="22" fill="url(#lg1)" />
-      <rect x="37" y="16" width="6" height="6" rx="1" fill="rgba(180,40,20,0.50)" />
-      <rect x="37" y="62" width="6" height="5" rx="1" fill="rgba(180,40,20,0.45)" />
-      <line x1="40" y1="67" x2="40" y2="76" stroke="rgba(201,168,76,0.25)" strokeWidth="1" />
-      {/* 穗 */}
-      {[36,38,40,42,44].map((x, i) => (
-        <line key={i} x1={x} y1="76" x2={x - 1 + i * 0.5} y2="92" stroke="rgba(180,40,20,0.35)" strokeWidth="0.8" />
-      ))}
-      {/* 绳 */}
-      <line x1="40" y1="95" x2="40" y2="108" stroke="rgba(201,168,76,0.22)" strokeWidth="1" />
-      {/* 灯笼二（稍小） */}
-      <ellipse cx="40" cy="128" rx="13" ry="18" fill="url(#lg2)" />
-      <rect x="37.5" y="108" width="5" height="5" rx="1" fill="rgba(180,40,20,0.40)" />
-      <rect x="37.5" y="146" width="5" height="4" rx="1" fill="rgba(180,40,20,0.35)" />
-      {/* 穗 */}
-      {[37,39,41,43].map((x, i) => (
-        <line key={i} x1={x} y1="150" x2={x - 0.5 + i * 0.4} y2="162" stroke="rgba(180,40,20,0.28)" strokeWidth="0.7" />
+      {birds.map(({ x, y, w, op }, i) => (
+        <path
+          key={i}
+          d={`M${x},${y} Q${x - w * 0.52},${y - w * 0.42} ${x - w},${y - w * 0.07}
+              M${x},${y} Q${x + w * 0.52},${y - w * 0.42} ${x + w},${y - w * 0.07}`}
+          stroke="rgba(201,168,76,1)"
+          strokeWidth={w * 0.14}
+          fill="none"
+          strokeLinecap="round"
+          opacity={op}
+        />
       ))}
     </svg>
   );
@@ -144,18 +106,12 @@ export default function MainMenu() {
   };
 
   return (
-    <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center justify-between relative overflow-hidden select-none"
-      style={{ paddingTop: 'clamp(56px, 11vh, 100px)', paddingBottom: 'clamp(36px, 7vh, 64px)' }}>
+    <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center relative overflow-hidden select-none">
 
-      {/* 山水 */}
       <MountainBackground opacity={1} />
+      <InkMoon />
+      <FlyingGeese />
 
-      {/* 楼阁 · 松枝 · 灯笼 */}
-      <PavilionSilhouette />
-      <PineBranches />
-      <Lanterns />
-
-      {/* 漂浮墨粒 */}
       {inkParticles.map((p, i) => (
         <span key={i} className="ink-particle" style={{
           left: p.left, bottom: `${10 + (i % 3) * 8}%`,
@@ -164,8 +120,10 @@ export default function MainMenu() {
         }} />
       ))}
 
-      {/* ── 标题区 ── */}
-      <div className="relative z-10 flex flex-col items-center text-center">
+      {/* ── 主内容：标题 + 菜单合为一块，整体居中偏上 ── */}
+      <div className="relative z-10 flex flex-col items-center text-center w-full"
+        style={{ marginTop: 'clamp(56px, 12vh, 108px)' }}>
+
         {/* 题眉 */}
         <div className="flex items-center gap-3 mb-5">
           <div className="w-8 sm:w-14 h-px bg-gold/28" />
@@ -174,68 +132,104 @@ export default function MainMenu() {
         </div>
 
         {/* 主标题 */}
-        <h1
-          className="text-gold leading-none tracking-[0.35em]"
-          style={{
-            fontSize: 'clamp(2.8rem, 8vw, 5rem)',
-            textShadow: '0 0 50px rgba(201,168,76,0.30), 0 0 15px rgba(201,168,76,0.15)',
-          }}
-        >
-          天机残卷
-        </h1>
-
-        {/* 对联式副题 */}
-        <p className="text-ink/30 text-xs tracking-[0.3em] mt-3">往事客栈·一夜风雨·三章奇局</p>
-
-        {/* 下横线 */}
-        <div className="flex items-center gap-2 mt-4">
-          <div className="w-12 h-px bg-gold/18" />
-          <span className="text-gold/20 text-[8px] tracking-[0.3em]">推理文字游戏</span>
-          <div className="w-12 h-px bg-gold/18" />
-        </div>
-      </div>
-
-      {/* ── 菜单区 ── */}
-      <div className="relative z-10 flex flex-col items-center gap-3 w-full max-w-[240px] sm:max-w-[280px]">
-
-        {hasContinue && autoSave?.data && (
-          <button
-            onClick={handleContinue}
-            className="w-full py-3 border border-gold/50 text-gold text-sm tracking-[0.25em] transition-all duration-200 cursor-pointer hover:bg-gold/5"
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 24px rgba(201,168,76,0.18)'; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = ''; }}
-          >
-            继续游戏
-            <span className="block text-[10px] text-gold/40 mt-0.5 tracking-widest">
-              {autoSave.data.player.name} · {saveSubtitle}
+        <div className="flex items-end gap-2 sm:gap-3 my-2" style={{ lineHeight: 1 }}>
+          {[
+            { char: '天', dy: -14, rot: -2.2, delay: '0s',    size: 'clamp(2.6rem, 8.5vw, 4.5rem)' },
+            { char: '机', dy:  10, rot:  1.5, delay: '0.32s', size: 'clamp(2.3rem, 7.5vw, 4.0rem)' },
+            { char: '残', dy:  -6, rot: -1.0, delay: '0.64s', size: 'clamp(2.7rem, 9vw,   4.7rem)' },
+            { char: '卷', dy:  16, rot:  2.0, delay: '0.96s', size: 'clamp(2.2rem, 7.2vw, 3.8rem)' },
+          ].map(({ char, dy, rot, delay, size }) => (
+            <span key={char} className="ink-reveal" style={{
+              fontFamily: "'Ma Shan Zheng', '华文行楷', 'STXingkai', '霞鹜文楷', serif",
+              fontSize: size, color: 'rgba(201,168,76,0.90)', lineHeight: 1,
+              display: 'inline-block',
+              transform: `translateY(${dy}px) rotate(${rot}deg)`,
+              animationDelay: delay,
+              textShadow: '0 0 55px rgba(201,168,76,0.55), 0 0 20px rgba(201,168,76,0.28), 2px 5px 16px rgba(0,0,0,0.97)',
+            }}>
+              {char}
             </span>
-          </button>
-        )}
+          ))}
+        </div>
 
-        <button
-          onClick={() => navigate('/create')}
-          className={`w-full py-3 border text-sm tracking-[0.3em] transition-all duration-200 cursor-pointer ${
-            hasContinue
-              ? 'border-gold/22 text-ink/50 hover:border-gold/40 hover:text-ink/75'
-              : 'border-gold/50 text-gold hover:bg-gold/5'
-          }`}
-          onMouseEnter={(e) => { if (!hasContinue) (e.currentTarget as HTMLElement).style.boxShadow = '0 0 24px rgba(201,168,76,0.18)'; }}
-          onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = ''; }}
-        >
-          新游戏
-        </button>
+        {/* 副题 */}
+        <p className="text-ink/28 text-xs tracking-[0.32em] mt-4">
+          往事客栈 · 一夜风雨 · 三章奇局
+        </p>
 
-        <div className="flex gap-5 mt-1">
-          {hasAnyEnding && (
-            <button onClick={() => navigate('/endings')}
-              className="text-ink/28 hover:text-ink/52 tracking-widest transition-all text-xs cursor-pointer py-1">
-              结局图鉴
+        {/* 推理文字游戏 */}
+        <div className="flex items-center gap-2 mt-3">
+          <div className="w-10 h-px bg-gold/15" />
+          <span className="text-gold/18 text-[8px] tracking-[0.35em]">推理文字游戏</span>
+          <div className="w-10 h-px bg-gold/15" />
+        </div>
+
+        {/* 标题与菜单之间的分隔 */}
+        <div className="flex items-center gap-4 mt-9 mb-7" style={{ width: '180px' }}>
+          <div className="flex-1 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.18))' }} />
+          <span style={{ color: 'rgba(201,168,76,0.22)', fontSize: '8px', letterSpacing: '0.3em' }}>◈</span>
+          <div className="flex-1 h-px" style={{ background: 'linear-gradient(to left, transparent, rgba(201,168,76,0.18))' }} />
+        </div>
+
+        {/* ── 菜单按钮 —— 延迟淡入 ── */}
+        <div className="flex flex-col items-center w-full max-w-[240px]"
+          style={{ animation: 'fade-up 0.7s ease-out 1.1s both' }}>
+
+          {/* 续翻残卷 */}
+          {hasContinue && autoSave?.data && (
+            <button onClick={handleContinue}
+              className="group flex flex-col items-center mb-7 cursor-pointer">
+              <span className="text-breathe text-sm tracking-[0.42em] mb-2 transition-colors duration-200"
+                style={{ color: 'rgba(201,168,76,0.90)' }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#c9a84c')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(201,168,76,0.90)')}>
+                续翻残卷
+              </span>
+              <span className="block h-px origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+                style={{ width: '5rem', background: 'rgba(201,168,76,0.40)' }} />
+              <span className="text-[10px] tracking-[0.25em] mt-2"
+                style={{ color: 'rgba(232,213,163,0.24)' }}>
+                {autoSave.data.player.name} · {saveSubtitle}
+              </span>
             </button>
           )}
-          <button onClick={() => navigate('/credits')}
-            className="text-ink/28 hover:text-ink/52 tracking-widest transition-all text-xs cursor-pointer py-1">
-            关于
+
+          {/* 执笔入局 */}
+          <button onClick={() => navigate('/create')}
+            className="group flex flex-col items-center mb-9 cursor-pointer">
+            <span className="text-sm tracking-[0.42em] mb-2 transition-colors duration-200"
+              style={{ color: hasContinue ? 'rgba(232,213,163,0.35)' : 'rgba(201,168,76,0.90)' }}
+              onMouseEnter={e => (e.currentTarget.style.color = hasContinue ? 'rgba(232,213,163,0.62)' : '#c9a84c')}
+              onMouseLeave={e => (e.currentTarget.style.color = hasContinue ? 'rgba(232,213,163,0.35)' : 'rgba(201,168,76,0.90)')}>
+              执笔入局
+            </span>
+            <span className="block h-px origin-center scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+              style={{ width: '4rem', background: hasContinue ? 'rgba(232,213,163,0.20)' : 'rgba(201,168,76,0.40)' }} />
           </button>
+
+          {/* 次级菜单 */}
+          <div className="flex items-center gap-4">
+            {hasAnyEnding && (
+              <>
+                <button onClick={() => navigate('/endings')}
+                  className="text-[11px] tracking-[0.38em] cursor-pointer transition-colors duration-200"
+                  style={{ color: 'rgba(232,213,163,0.20)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.46)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.20)')}>
+                  天机图录
+                </button>
+                <span style={{ color: 'rgba(201,168,76,0.14)', fontSize: '7px' }}>·</span>
+              </>
+            )}
+            <button onClick={() => navigate('/credits')}
+              className="text-[11px] tracking-[0.38em] cursor-pointer transition-colors duration-200"
+              style={{ color: 'rgba(232,213,163,0.20)' }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.46)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.20)')}>
+              题记
+            </button>
+          </div>
+
         </div>
       </div>
 
