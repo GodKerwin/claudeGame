@@ -24,13 +24,13 @@ export function GameLayout({ left, center, right }: Props) {
     <div className="flex h-screen w-screen bg-paper text-ink font-serif overflow-hidden select-none">
       {/* Desktop: 三栏布局 (≥768px) */}
       <div className="hidden md:flex w-full h-full">
-        <div className="w-40 shrink-0 panel border-r border-gold/20 flex flex-col overflow-hidden">
+        <div className="w-44 shrink-0 panel border-r border-gold/15 flex flex-col overflow-hidden">
           {left}
         </div>
-        <div className="flex-1 flex flex-col overflow-hidden border-r border-gold/20">
+        <div className="flex-1 flex flex-col overflow-hidden border-r border-gold/10">
           {center}
         </div>
-        <div className="shrink-0 panel flex flex-col overflow-hidden" style={{ width: '200px' }}>
+        <div className="shrink-0 panel flex flex-col overflow-hidden" style={{ width: '210px' }}>
           {right}
         </div>
       </div>

@@ -63,32 +63,21 @@ export function CenterPanel({
   const eventBadge = eventActions.filter((a) => a.available && !a.completed).length;
   const choiceBadge = choiceActions.filter((a) => a.available && !a.completed).length;
 
-  // 新文本加入时立刻滚底
-  useEffect(() => {
-    scrollToBottom();
-  }, [storyTexts, scrollToBottom]);
+  useEffect(() => { scrollToBottom(); }, [storyTexts, scrollToBottom]);
 
-  // 换房间时自动选 Tab：有未读 NPC → 交谈，否则 → 探查
   useEffect(() => {
-    const hasUnreadNpc = actions.some(
-      (a) => a.group === 'npc' && a.available && !a.completed
-    );
+    const hasUnreadNpc = actions.some((a) => a.group === 'npc' && a.available && !a.completed);
     setActiveTab(hasUnreadNpc ? 'npc' : 'event');
   }, [roomName]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // pendingChoices 触发时切换到交谈 Tab
-  useEffect(() => {
-    if (pendingChoices) setActiveTab('npc');
-  }, [pendingChoices]);
+  useEffect(() => { if (pendingChoices) setActiveTab('npc'); }, [pendingChoices]);
 
-  // pendingChoices が解除されて npc タブにコンテンツがない場合は探査へフォールバック
   useEffect(() => {
     if (!pendingChoices && !hasNpc) setActiveTab('event');
   }, [pendingChoices, hasNpc]);
 
   const renderTabContent = () => {
     if (activeTab === 'npc') {
-      // pendingChoices 时显示对话选项
       const items = pendingChoices ? choiceActions : npcActions;
       return (
         <div className="space-y-1.5">
@@ -107,7 +96,6 @@ export function CenterPanel({
       );
     }
 
-    // 按事件分组，保持原始顺序
     const groups: Array<{ eventId: string; title: string; actions: ActionItem[] }> = [];
     const groupMap = new Map<string, ActionItem[]>();
     for (const a of eventActions) {
@@ -121,23 +109,19 @@ export function CenterPanel({
     }
 
     return (
-      <div className="space-y-3.5">
+      <div className="space-y-4">
         {groups.map(({ eventId, title, actions: groupActions }) => (
           <div key={eventId}>
-            {/* 事件标题行 */}
-            <div className="flex items-center gap-2 mb-1.5">
-              <span className="text-gold/55 text-[10px] tracking-widest shrink-0 select-none">
-                {title}
-              </span>
-              <div className="flex-1 h-px bg-gold/12" />
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-gold/45 text-[10px] tracking-widest shrink-0 select-none">{title}</span>
+              <div className="flex-1 h-px bg-gold/10" />
             </div>
-            {/* 子动作列表，左侧竖线体现层级 */}
-            <div className="pl-2 border-l-2 border-gold/20 space-y-1.5">
+            <div className="pl-2.5 border-l border-gold/20 space-y-1.5">
               {groupActions.map((a) =>
                 a.completed ? (
                   <div key={a.id} className="flex items-center gap-1.5 py-0.5 pl-1 select-none">
-                    <span className="text-gold/25 text-[10px] shrink-0">✓</span>
-                    <span className="text-ink/25 text-xs line-through decoration-ink/15">{a.label}</span>
+                    <span className="text-gold/20 text-[10px] shrink-0">✓</span>
+                    <span className="text-ink/20 text-xs line-through decoration-ink/12">{a.label}</span>
                   </div>
                 ) : (
                   <ActionButton
@@ -161,40 +145,46 @@ export function CenterPanel({
   return (
     <div className="flex flex-col h-full">
       {/* 房间标题 */}
-      <div className="px-5 py-3 border-b border-gold/10">
-        <h2 className="text-gold text-base tracking-wider">{roomName}</h2>
+      <div className="px-5 py-3 border-b border-gold/10 flex items-center gap-3">
+        <div className="flex-1 h-px bg-gradient-to-r from-transparent to-gold/15" />
+        <h2 className="text-gold/85 text-sm tracking-[0.2em] shrink-0">{roomName}</h2>
+        <div className="flex-1 h-px bg-gradient-to-l from-transparent to-gold/15" />
       </div>
 
       {/* 故事文本区（可滚动） */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto px-5 py-4 space-y-3 scrollbar-thin">
-        <p className="text-ink/80 leading-loose text-sm">{roomDescription}</p>
+      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto px-5 py-5 space-y-4 scrollbar-thin">
+        <p className="text-ink/50 leading-[1.9] text-sm border-l-2 border-gold/10 pl-3">{roomDescription}</p>
         {storyTexts.map((text, i) => (
-          <div key={i} className="border-l-2 border-gold/20 pl-3">
+          <div key={i} className="border-l-2 border-gold/25 pl-3">
             {i === storyTexts.length - 1 ? (
               <TypewriterText
                 text={text}
-                className="text-ink/90 leading-loose text-sm"
+                className="text-ink/90 leading-[1.9] text-sm"
                 onUpdate={scrollToBottom}
               />
             ) : (
-              <span className="text-ink/90 leading-loose text-sm">{text}</span>
+              <span className="text-ink/85 leading-[1.9] text-sm">{text}</span>
             )}
           </div>
         ))}
       </div>
 
-      {/* 操作区（固定底部，无滚动） */}
-      <div className="border-t border-gold/10 px-5 pt-3 pb-3">
+      {/* 操作区 */}
+      <div className="border-t border-gold/10 px-4 pt-3 pb-3" style={{ background: 'linear-gradient(to bottom, rgba(20,13,4,0) 0%, rgba(20,13,4,0.4) 100%)' }}>
         {/* 标题行 + 提示按钮 */}
-        <div className="flex items-center justify-between mb-2">
-          <p className="text-gold/40 text-xs tracking-widest">── 操作 ──</p>
+        <div className="flex items-center justify-between mb-2.5">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-px bg-gold/25" />
+            <p className="text-gold/30 text-[10px] tracking-[0.3em]">行动</p>
+            <div className="w-3 h-px bg-gold/25" />
+          </div>
           {onToggleHint && (
             <button
               onClick={onToggleHint}
-              className={`text-xs px-2 py-0.5 border transition-colors cursor-pointer ${
+              className={`text-[11px] px-2.5 py-0.5 border tracking-wider transition-colors cursor-pointer ${
                 showHint
-                  ? 'border-gold/40 text-gold/60'
-                  : 'border-ink/15 text-ink/30 hover:border-gold/30 hover:text-gold/40'
+                  ? 'border-gold/40 text-gold/65 bg-gold/5'
+                  : 'border-ink/10 text-ink/25 hover:border-gold/25 hover:text-gold/35'
               }`}
             >
               提示
@@ -204,59 +194,48 @@ export function CenterPanel({
 
         {/* 提示文字 */}
         {hint && (
-          <p className="text-ink/40 text-xs leading-relaxed mb-2 italic border-l border-gold/20 pl-2">
-            {hint}
-          </p>
+          <div className="mb-2.5 flex gap-2 items-start">
+            <div className="w-[2px] self-stretch bg-gold/25 shrink-0 rounded-full" />
+            <p className="text-ink/38 text-xs leading-relaxed italic">{hint}</p>
+          </div>
         )}
 
         {/* Tab 切换栏 */}
         <div className="flex border-b border-gold/10 mb-3">
-          {/* 交谈 Tab */}
           <button
-            onClick={() => {
-              if (!pendingChoices && hasNpc) setActiveTab('npc');
-            }}
+            onClick={() => { if (!pendingChoices && hasNpc) setActiveTab('npc'); }}
             disabled={!hasNpc || pendingChoices}
-            className={`flex-1 text-center py-1.5 text-xs tracking-widest transition-colors ${
+            className={`flex-1 text-center py-1.5 text-xs tracking-widest transition-all duration-150 ${
               activeTab === 'npc'
-                ? 'text-gold/85 border-b-2 border-gold/60 -mb-px'
+                ? 'text-gold/85 border-b border-gold/45 -mb-px'
                 : !hasNpc || pendingChoices
                 ? 'text-ink/15 cursor-default'
-                : 'text-ink/30 hover:text-ink/50 cursor-pointer'
+                : 'text-ink/30 hover:text-ink/55 cursor-pointer'
             }`}
           >
             {pendingChoices ? '如何回应' : '交谈'}
             {pendingChoices && choiceBadge > 0 && (
-              <span className="ml-1 text-[9px] bg-gold/15 text-gold/70 px-1 rounded-full">
-                {choiceBadge}
-              </span>
+              <span className="ml-1 text-[9px] bg-gold/15 text-gold/65 px-1 rounded-full">{choiceBadge}</span>
             )}
             {!pendingChoices && npcBadge > 0 && (
-              <span className="ml-1 text-[9px] bg-gold/15 text-gold/70 px-1 rounded-full">
-                {npcBadge}
-              </span>
+              <span className="ml-1 text-[9px] bg-gold/15 text-gold/65 px-1 rounded-full">{npcBadge}</span>
             )}
           </button>
 
-          {/* 探查 Tab */}
           <button
-            onClick={() => {
-              if (!pendingChoices && hasEvent) setActiveTab('event');
-            }}
+            onClick={() => { if (!pendingChoices && hasEvent) setActiveTab('event'); }}
             disabled={!hasEvent || pendingChoices}
-            className={`flex-1 text-center py-1.5 text-xs tracking-widest transition-colors ${
+            className={`flex-1 text-center py-1.5 text-xs tracking-widest transition-all duration-150 ${
               activeTab === 'event'
-                ? 'text-gold/85 border-b-2 border-gold/60 -mb-px'
+                ? 'text-gold/85 border-b border-gold/45 -mb-px'
                 : !hasEvent || pendingChoices
                 ? 'text-ink/15 cursor-default'
-                : 'text-ink/30 hover:text-ink/50 cursor-pointer'
+                : 'text-ink/30 hover:text-ink/55 cursor-pointer'
             }`}
           >
             探查
             {!pendingChoices && eventBadge > 0 && (
-              <span className="ml-1 text-[9px] bg-gold/15 text-gold/70 px-1 rounded-full">
-                {eventBadge}
-              </span>
+              <span className="ml-1 text-[9px] bg-gold/15 text-gold/65 px-1 rounded-full">{eventBadge}</span>
             )}
           </button>
         </div>

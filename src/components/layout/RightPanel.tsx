@@ -30,6 +30,16 @@ const QUEST_HINTS: Record<string, { name: string; hint: string }> = {
   },
 };
 
+function SectionHeader({ label }: { label: string }) {
+  return (
+    <div className="flex items-center gap-2 mb-2">
+      <div className="w-1 h-1 rounded-full bg-gold/35 shrink-0" />
+      <span className="text-gold/40 text-[10px] tracking-[0.25em]">{label}</span>
+      <div className="flex-1 h-px bg-gold/10" />
+    </div>
+  );
+}
+
 export function RightPanel() {
   const player = usePlayerStore();
   const { clues, questLog } = useSceneStore();
@@ -39,10 +49,11 @@ export function RightPanel() {
   const baseTemplate = getTemplate(player.template);
 
   return (
-    <div className="flex flex-col h-full p-3 gap-4 text-sm overflow-y-auto scrollbar-thin">
+    <div className="flex flex-col h-full p-3 gap-5 text-sm overflow-y-auto scrollbar-thin">
+      {/* 身家底细 */}
       <div>
-        <p className="text-gold/60 text-xs mb-2 tracking-widest">【身家底细】</p>
-        <div className="space-y-1.5">
+        <SectionHeader label="身家底细" />
+        <div className="space-y-2">
           {(['strength', 'agility', 'wisdom', 'constitution'] as const).map((stat) => {
             const base = baseTemplate?.stats[stat] ?? player[stat];
             const delta = player[stat] - base;
@@ -53,7 +64,7 @@ export function RightPanel() {
                     <StatBar label={stat} value={player[stat]} />
                   </div>
                   {delta > 0 && (
-                    <span className="text-xs text-gold/60 shrink-0">+{delta}</span>
+                    <span className="text-[10px] text-gold/50 shrink-0 ml-0.5">+{delta}</span>
                   )}
                 </div>
               </Tooltip>
@@ -62,24 +73,27 @@ export function RightPanel() {
         </div>
         {player.talent && talentInfo && (
           <Tooltip content={`${talentInfo.name}\n${talentInfo.description}\n${talentInfo.effect}`} position="left">
-            <p className="mt-2 text-xs text-gold/50 cursor-help">
-              天赋：<span className="text-gold">{player.talent}</span>
-              <span className="text-ink/30 ml-1">(?)</span>
-            </p>
+            <div className="mt-2.5 flex items-center gap-1.5 cursor-help border border-gold/12 px-2 py-1.5 bg-gold/3">
+              <span className="text-gold/35 text-[10px]">天赋</span>
+              <div className="w-px h-3 bg-gold/20 shrink-0" />
+              <span className="text-gold/75 text-xs">{player.talent}</span>
+              <span className="text-ink/20 text-[9px] ml-auto">?</span>
+            </div>
           </Tooltip>
         )}
       </div>
 
+      {/* 线索存档 */}
       <div>
-        <p className="text-gold/60 text-xs mb-2 tracking-widest">【线索存档】</p>
+        <SectionHeader label="线索存档" />
         {clueItems.length === 0 ? (
-          <p className="text-ink/30 text-xs">线索尚无，慢慢查来</p>
+          <p className="text-ink/20 text-xs pl-3 italic">线索尚无，慢慢查来</p>
         ) : (
           <ul className="space-y-1">
             {clueItems.map((item) => item && (
               <Tooltip key={item.id} content={item.description} position="left">
-                <li className="text-xs text-ink/70 flex items-start gap-1 cursor-help">
-                  <span className="text-gold/50 mt-0.5">·</span>
+                <li className="text-xs text-ink/60 flex items-start gap-1.5 cursor-help px-1 py-0.5 hover:text-ink/80 transition-colors group">
+                  <span className="text-gold/35 mt-0.5 shrink-0 group-hover:text-gold/55 transition-colors">◈</span>
                   <span>{item.name}</span>
                 </li>
               </Tooltip>
@@ -88,25 +102,28 @@ export function RightPanel() {
         )}
       </div>
 
-      <div>
-        <p className="text-gold/60 text-xs mb-2 tracking-widest">【未竟之事】</p>
-        <ul className="space-y-3">
-          {questLog.map((qid) => {
-            const q = QUEST_HINTS[qid];
-            return (
-              <li key={qid} className="text-xs">
-                <div className="flex items-start gap-1 mb-0.5">
-                  <span className="text-gold/50 mt-0.5 shrink-0">◈</span>
-                  <span className="text-ink/70">{q?.name ?? qid}</span>
-                </div>
-                {q?.hint && (
-                  <p className="text-ink/35 leading-relaxed pl-3 text-[11px]">{q.hint}</p>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      {/* 未竟之事 */}
+      {questLog.length > 0 && (
+        <div>
+          <SectionHeader label="未竟之事" />
+          <ul className="space-y-3">
+            {questLog.map((qid) => {
+              const q = QUEST_HINTS[qid];
+              return (
+                <li key={qid} className="text-xs">
+                  <div className="flex items-start gap-1.5 mb-1">
+                    <span className="text-gold/40 mt-0.5 shrink-0 text-[10px]">▸</span>
+                    <span className="text-ink/65">{q?.name ?? qid}</span>
+                  </div>
+                  {q?.hint && (
+                    <p className="text-ink/28 leading-relaxed pl-3.5 text-[11px] whitespace-pre-line">{q.hint}</p>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
   );
 }

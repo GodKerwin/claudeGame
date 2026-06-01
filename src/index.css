@@ -5,6 +5,9 @@
 @layer base {
   body {
     @apply bg-paper text-ink font-serif;
+    background-image:
+      radial-gradient(ellipse 80% 40% at 50% 0%, rgba(201,168,76,0.05) 0%, transparent 100%),
+      radial-gradient(ellipse 60% 30% at 50% 100%, rgba(139,26,26,0.04) 0%, transparent 100%);
   }
   * {
     box-sizing: border-box;
@@ -13,28 +16,56 @@
 
 @layer components {
   .panel {
-    @apply bg-[rgba(26,18,8,0.90)] border border-gold/30 shadow-inner;
+    @apply bg-[rgba(20,13,4,0.92)] border border-gold/20;
+    background-image: radial-gradient(ellipse 100% 60% at 50% 0%, rgba(201,168,76,0.03) 0%, transparent 70%);
   }
   .gold-border {
     @apply border border-gold/50;
+  }
+  /* 章节装饰横线 */
+  .divider-gold {
+    @apply flex items-center gap-3;
+  }
+  .divider-gold::before,
+  .divider-gold::after {
+    content: '';
+    @apply flex-1 h-px bg-gold/20;
   }
 }
 
 /* 细线滚动条，适配宣纸风格 */
 .scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: rgba(180, 140, 60, 0.25) transparent;
+  scrollbar-color: rgba(201, 168, 76, 0.2) transparent;
 }
 .scrollbar-thin::-webkit-scrollbar {
-  width: 4px;
+  width: 3px;
 }
 .scrollbar-thin::-webkit-scrollbar-track {
   background: transparent;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(180, 140, 60, 0.25);
+  background: rgba(201, 168, 76, 0.2);
   border-radius: 2px;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgba(180, 140, 60, 0.45);
+  background: rgba(201, 168, 76, 0.4);
+}
+
+/* 金色微光脉冲动画 */
+@keyframes gold-pulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(201,168,76,0); }
+  50% { box-shadow: 0 0 12px rgba(201,168,76,0.15); }
+}
+.glow-pulse {
+  animation: gold-pulse 3s ease-in-out infinite;
+}
+
+/* 文字渐入 */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up {
+  animation: fade-up 0.5s ease-out forwards;
 }

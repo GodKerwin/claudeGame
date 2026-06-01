@@ -37,25 +37,12 @@ export function LeftPanel({ onNavigate }: Props) {
     inventory: items,
     flags,
   }), [
-    player.name,
-    player.template,
-    player.strength,
-    player.agility,
-    player.wisdom,
-    player.constitution,
-    player.talent,
-    items,
-    flags,
+    player.name, player.template, player.strength, player.agility,
+    player.wisdom, player.constitution, player.talent, items, flags,
   ]);
 
-  const exits = useMemo(
-    () => (room ? getAvailableExits(room, ctx, ALL_ROOMS) : []),
-    [room, ctx]
-  );
-  const lockedExits = useMemo(
-    () => (room ? getLockedExits(room, ctx, ALL_ROOMS) : []),
-    [room, ctx]
-  );
+  const exits = useMemo(() => (room ? getAvailableExits(room, ctx, ALL_ROOMS) : []), [room, ctx]);
+  const lockedExits = useMemo(() => (room ? getLockedExits(room, ctx, ALL_ROOMS) : []), [room, ctx]);
 
   const currentChapterRoomIds = new Set(
     MAPS.find((m) => m.rooms.some((r) => r.id === currentRoomId))?.rooms.map((r) => r.id) ?? []
@@ -67,22 +54,27 @@ export function LeftPanel({ onNavigate }: Props) {
     .filter((r) => r!.id !== currentRoomId && currentChapterRoomIds.has(r!.id));
 
   return (
-    <div className="flex flex-col h-full p-3 gap-4 text-sm">
+    <div className="flex flex-col h-full p-3 gap-5 text-sm">
+      {/* 当前地点 */}
       <div>
-        <p className="text-gold/60 text-xs mb-1 tracking-widest">【当前地点】</p>
-        <p className="text-ink font-bold leading-snug">{room?.name ?? '—'}</p>
+        <p className="text-gold/35 text-[10px] mb-1.5 tracking-[0.3em]">所在</p>
+        <p className="text-ink/85 text-sm leading-snug pl-1 border-l border-gold/30">
+          {room?.name ?? '—'}
+        </p>
       </div>
 
-      <div>
-        <p className="text-gold/60 text-xs mb-2 tracking-widest">【可前往】</p>
-        <div className="flex flex-col gap-1">
+      {/* 可前往 */}
+      <div className="flex-1">
+        <p className="text-gold/35 text-[10px] mb-2 tracking-[0.3em]">前往</p>
+        <div className="flex flex-col gap-0.5">
           {exits.map((r) => (
             <button
               key={r.id}
               onClick={() => onNavigate(r.id)}
-              className="text-left text-ink/80 hover:text-gold text-xs py-1 px-2 border border-transparent hover:border-gold/20 transition-colors"
+              className="text-left text-ink/60 hover:text-gold text-xs py-1.5 px-2 border border-transparent hover:border-gold/20 hover:bg-gold/3 transition-all duration-150 group flex items-center gap-1.5 cursor-pointer"
             >
-              ▶ {r.name}
+              <span className="text-gold/30 group-hover:text-gold/60 transition-colors text-[10px]">›</span>
+              <span>{r.name}</span>
             </button>
           ))}
           {lockedExits.map((r) => {
@@ -91,24 +83,35 @@ export function LeftPanel({ onNavigate }: Props) {
             return (
               <div
                 key={r.id}
-                className="text-left text-ink/25 text-xs py-1 px-2 cursor-not-allowed"
+                className="text-ink/18 text-xs py-1.5 px-2 cursor-not-allowed flex items-start gap-1.5"
                 title={flagHint ?? '条件未达成'}
               >
-                ▷ {r.name}
-                {flagHint && <span className="block text-ink/20 text-[10px] leading-tight pl-3">{flagHint}</span>}
+                <span className="text-[10px] text-ink/15 shrink-0 mt-0.5">›</span>
+                <div>
+                  <span className="line-through decoration-ink/15">{r.name}</span>
+                  {flagHint && <p className="text-ink/15 text-[10px] leading-tight mt-0.5">{flagHint}</p>}
+                </div>
               </div>
             );
           })}
+          {exits.length === 0 && lockedExits.length === 0 && (
+            <p className="text-ink/15 text-xs px-2 py-1">无可前往之处</p>
+          )}
         </div>
       </div>
 
+      {/* 已探索 */}
       {visitedRoomNames.length > 0 && (
         <div>
-          <p className="text-gold/40 text-xs mb-1 tracking-widest">【已探索】</p>
+          <div className="flex items-center gap-1.5 mb-1.5">
+            <div className="flex-1 h-px bg-gold/10" />
+            <p className="text-gold/25 text-[10px] tracking-[0.2em] shrink-0">足迹</p>
+          </div>
           <ul className="space-y-0.5">
             {visitedRoomNames.map((r) => r && (
-              <li key={r.id} className="text-xs text-ink/40 py-0.5 px-2">
-                · {r.name}
+              <li key={r.id} className="text-[11px] text-ink/25 px-2 flex items-center gap-1.5">
+                <span className="text-gold/15">·</span>
+                {r.name}
               </li>
             ))}
           </ul>

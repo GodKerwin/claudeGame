@@ -1,0 +1,108 @@
+<style>
+  .game-panel {
+    background: #f5f0e8; color: #2c1810;
+    font-family: 'Noto Serif SC', 'Songti SC', serif;
+    border: 1px solid rgba(180,140,60,0.3);
+    width: 230px; display: flex; flex-direction: column; font-size: 13px;
+  }
+  .panel-story {
+    padding: 8px 12px; border-bottom: 1px solid rgba(180,140,60,0.12);
+    color: rgba(44,24,16,0.72); font-size: 12px; line-height: 1.7;
+  }
+  .panel-actions { padding: 8px 12px 10px; }
+  .actions-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 6px; font-size: 11px;
+    color: rgba(180,140,60,0.5); letter-spacing: 0.15em;
+  }
+  .tabs { display: flex; border-bottom: 1px solid rgba(180,140,60,0.15); margin-bottom: 8px; }
+  .tab {
+    flex: 1; text-align: center; padding: 4px 0; font-size: 10px;
+    color: rgba(44,24,16,0.3); letter-spacing: 0.1em;
+    border-bottom: 2px solid transparent;
+  }
+  .tab.active { color: rgba(180,140,60,0.85); border-bottom-color: rgba(180,140,60,0.6); }
+  .tab.disabled { color: rgba(44,24,16,0.15); cursor: not-allowed; }
+  .tab-badge {
+    font-size: 9px; background: rgba(180,140,60,0.15);
+    color: rgba(180,140,60,0.7); padding: 0 4px; border-radius: 8px; margin-left: 3px;
+  }
+  .action-btn {
+    display: block; width: 100%; text-align: left;
+    padding: 5px 8px; font-size: 12px;
+    border: 1px solid rgba(180,140,60,0.4); color: #2c1810;
+    background: none; margin-bottom: 4px; font-family: inherit;
+  }
+  .action-btn.done { border-color: rgba(180,140,60,0.12); color: rgba(44,24,16,0.22); }
+  .action-btn.disabled { border-color: rgba(44,24,16,0.1); color: rgba(44,24,16,0.28); }
+  .empty-hint {
+    font-size: 11px; color: rgba(44,24,16,0.2);
+    text-align: center; padding: 12px 0; letter-spacing: 0.05em;
+  }
+
+  .panels-row {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    justify-content: center; margin-top: 12px;
+  }
+  .panel-wrapper { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .panel-label { font-size: 12px; color: #888; text-align: center; max-width: 230px; line-height: 1.5; }
+  .panel-label strong { color: #333; display: block; font-size: 13px; margin-bottom: 3px; }
+  .scene-label {
+    font-size: 10px; background: rgba(44,24,16,0.07); color: rgba(44,24,16,0.4);
+    padding: 2px 10px; letter-spacing: 0.1em; text-align: center; margin-bottom: 4px;
+  }
+</style>
+
+<h2>无 NPC 的房间，「交谈」Tab 怎么处理？</h2>
+<p class="subtitle">例：地窖、密室等只有事件探查的场景</p>
+
+<div class="panels-row">
+
+  <!-- 方案 D1：隐藏交谈 tab，只显示探查 -->
+  <div class="panel-wrapper">
+    <div class="scene-label">地窖（无 NPC）</div>
+    <div class="game-panel option" data-choice="d1" onclick="toggleSelect(this)" style="cursor:pointer">
+      <div class="panel-story">地窖阴冷，角落堆着酒坛。最里头的石墙有道隐约可见的细缝，寒气从中渗出。</div>
+      <div class="panel-actions">
+        <div class="actions-header"><span>── 操作 ──</span></div>
+        <!-- 只剩探查，无 tab -->
+        <button class="action-btn">检查酒坛</button>
+        <button class="action-btn">推动石墙机括</button>
+        <button class="action-btn disabled">进入密室（需前置）</button>
+        <button class="action-btn done">✓ 寻找碎片</button>
+      </div>
+    </div>
+    <div class="panel-label">
+      <strong>D1 — 只有一类时，隐藏 Tab</strong>
+      无交谈内容时直接列出操作，不显示 tab 栏<br>
+      <span style="color:#777;font-size:10px">最简洁，tab 按需出现</span>
+    </div>
+  </div>
+
+  <!-- 方案 D2：交谈 tab 灰显禁用 -->
+  <div class="panel-wrapper">
+    <div class="scene-label">地窖（无 NPC）</div>
+    <div class="game-panel option" data-choice="d2" onclick="toggleSelect(this)" style="cursor:pointer">
+      <div class="panel-story">地窖阴冷，角落堆着酒坛。最里头的石墙有道隐约可见的细缝，寒气从中渗出。</div>
+      <div class="panel-actions">
+        <div class="actions-header"><span>── 操作 ──</span></div>
+        <div class="tabs">
+          <div class="tab disabled">交谈 —</div>
+          <div class="tab active">探查 <span class="tab-badge">3</span></div>
+        </div>
+        <button class="action-btn">检查酒坛</button>
+        <button class="action-btn">推动石墙机括</button>
+        <button class="action-btn disabled">进入密室（需前置）</button>
+        <button class="action-btn done">✓ 寻找碎片</button>
+      </div>
+    </div>
+    <div class="panel-label">
+      <strong>D2 — 交谈 Tab 灰显</strong>
+      Tab 栏保持可见，交谈项目为空时显示"—"<br>
+      <span style="color:#777;font-size:10px">布局稳定，不会跳动</span>
+    </div>
+  </div>
+
+</div>
+
+<p style="text-align:center;font-size:12px;color:#999;margin-top:16px">点击选择，或在终端回复</p>
