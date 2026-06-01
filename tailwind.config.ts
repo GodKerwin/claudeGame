@@ -16,7 +16,7 @@ export default {
         jade: '#3a7a5a',
       },
       fontFamily: {
-        serif: ['"KaiTi"', '"STKaiti"', '"楷体"', '"FangSong"', '"STFangsong"', '"仿宋"', '"SimSun"', '"宋体"', 'serif'],
+        serif: ['"LXGW WenKai"', '"KaiTi"', '"STKaiti"', '"楷体"', '"FangSong"', '"STFangsong"', '"仿宋"', '"SimSun"', '"宋体"', 'serif'],
       },
     },
   },
