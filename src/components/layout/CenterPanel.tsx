@@ -136,10 +136,18 @@ export function CenterPanel({
   return (
     <div className="flex flex-col h-full">
       {/* 房间标题 */}
-      <div className="px-5 py-3 border-b border-gold/10 flex items-center gap-3">
-        <div className="flex-1 h-px bg-gradient-to-r from-transparent to-gold/15" />
+      <div className="px-5 py-3 border-b border-gold/10 flex items-center gap-2">
+        <div
+          className="w-[5px] h-[5px] bg-gold/20 shrink-0"
+          style={{ transform: 'rotate(45deg)' }}
+        />
+        <div className="flex-1 h-px bg-gradient-to-r from-gold/15 to-transparent" />
         <h2 className="text-gold/85 text-sm tracking-[0.2em] shrink-0">{roomName}</h2>
-        <div className="flex-1 h-px bg-gradient-to-l from-transparent to-gold/15" />
+        <div className="flex-1 h-px bg-gradient-to-l from-gold/15 to-transparent" />
+        <div
+          className="w-[5px] h-[5px] bg-gold/20 shrink-0"
+          style={{ transform: 'rotate(45deg)' }}
+        />
       </div>
 
       {/* 故事文本区（可滚动） */}
@@ -163,7 +171,18 @@ export function CenterPanel({
       {/* 操作区 */}
       <div
         className="flex-[2] min-h-0 flex flex-col border-t border-gold/10 px-4 pt-3 pb-3"
-        style={{ background: 'linear-gradient(to bottom, rgba(20,13,4,0) 0%, rgba(20,13,4,0.4) 100%)' }}
+        style={{
+          background: `
+            repeating-linear-gradient(
+              135deg,
+              transparent,
+              transparent 20px,
+              rgba(201,168,76,0.015) 20px,
+              rgba(201,168,76,0.015) 21px
+            ),
+            linear-gradient(to bottom, rgba(20,13,4,0) 0%, rgba(20,13,4,0.4) 100%)
+          `,
+        }}
       >
         {/* 标题行 + 提示按钮 */}
         <div className="flex items-center justify-between mb-2">
