@@ -8,24 +8,36 @@ import type { CharacterTemplate } from '../../types/game';
 
 type StatKey = 'strength' | 'agility' | 'wisdom' | 'constitution';
 const STAT_LABELS: Record<StatKey, string> = {
-  strength: '力',
-  agility: '敏',
-  wisdom: '智',
-  constitution: '骨',
+  strength: '力量',
+  agility: '敏捷',
+  wisdom: '智慧',
+  constitution: '根骨',
 };
 
-function StatDots({ value, max = 10 }: { value: number; max?: number }) {
-  const dots = max;
+// 筹算风格：每5格一组，用细竖划表示，5格后加较宽间距
+function StatMarks({ value, max = 10 }: { value: number; max?: number }) {
   return (
-    <div className="flex gap-[3px] items-center">
-      {Array.from({ length: dots }).map((_, i) => (
-        <span
-          key={i}
-          className={`inline-block w-[5px] h-[5px] rounded-full transition-all ${
-            i < value ? 'bg-gold/80' : 'bg-gold/12'
-          }`}
-        />
-      ))}
+    <div className="flex items-center gap-[2px]">
+      {Array.from({ length: max }).map((_, i) => {
+        const filled = i < value;
+        const isGroupEnd = (i + 1) % 5 === 0 && i < max - 1;
+        return (
+          <span key={i} style={{ display: 'inline-flex', alignItems: 'center' }}>
+            <span
+              style={{
+                display: 'inline-block',
+                width: '3px',
+                height: '12px',
+                borderRadius: '1px',
+                background: filled ? 'rgba(201,168,76,0.82)' : 'rgba(201,168,76,0.10)',
+                boxShadow: filled ? '0 0 4px rgba(201,168,76,0.35)' : 'none',
+                transition: 'background 0.25s, box-shadow 0.25s',
+              }}
+            />
+            {isGroupEnd && <span style={{ display: 'inline-block', width: '4px' }} />}
+          </span>
+        );
+      })}
     </div>
   );
 }
@@ -139,12 +151,12 @@ export default function CharacterCreate() {
             <div className="divider-gold mb-3">
               <span className="text-gold/45 text-xs tracking-widest shrink-0">资质</span>
             </div>
-            <div className="space-y-2.5">
+            <div className="space-y-3">
               {(Object.keys(STAT_LABELS) as StatKey[]).map((stat) => (
-                <div key={stat} className="flex items-center gap-2.5">
-                  <span className="w-5 text-gold/50 text-xs shrink-0">{STAT_LABELS[stat]}</span>
-                  <StatDots value={selectedTemplate.stats[stat]} />
-                  <span className="text-ink/40 text-xs ml-auto">{selectedTemplate.stats[stat]}</span>
+                <div key={stat} className="flex items-center gap-2">
+                  <span className="w-9 text-gold/55 text-xs shrink-0 tracking-wide">{STAT_LABELS[stat]}</span>
+                  <StatMarks value={selectedTemplate.stats[stat]} />
+                  <span className="text-ink/35 text-xs ml-auto tabular-nums">{selectedTemplate.stats[stat]}</span>
                 </div>
               ))}
             </div>
@@ -158,16 +170,18 @@ export default function CharacterCreate() {
             <div className="divider-gold mb-3">
               <span className="text-gold/45 text-xs tracking-widest shrink-0">秉性天赋</span>
             </div>
-            {talent && (
-              <div className="border border-gold/15 p-3 bg-paper-mid/60 space-y-1.5">
-                <div className="flex items-center gap-2">
-                  <span className="text-gold text-sm tracking-wide">{talent.name}</span>
-                  <div className="flex-1 h-px bg-gold/10" />
+            <div className="border border-gold/15 p-3 bg-paper-mid/60" style={{ minHeight: '120px' }}>
+              {talent && (
+                <div className="space-y-1.5 h-full">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gold text-sm tracking-wide">{talent.name}</span>
+                    <div className="flex-1 h-px bg-gold/10" />
+                  </div>
+                  <p className="text-ink/60 text-xs leading-relaxed">{talent.description}</p>
+                  <p className="text-gold/40 text-[10px] leading-relaxed border-t border-gold/10 pt-1.5">{talent.effect}</p>
                 </div>
-                <p className="text-ink/60 text-xs leading-relaxed">{talent.description}</p>
-                <p className="text-gold/40 text-[10px] leading-relaxed border-t border-gold/10 pt-1.5">{talent.effect}</p>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
 
