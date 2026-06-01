@@ -35,7 +35,7 @@
       },
       {
         "id": "trust_low",
-        "condition": { "flags": ["body_examined"], "flags_absent": ["innkeeper_trusted"] },
+        "condition": { "flags": ["innkeeper_talked"], "flags_absent": ["innkeeper_trusted"] },
         "text": "客官，您真的在帮忙查案？那……后厨您可以去看看，厨娘王氏昨夜也听到了动静。",
         "grants": { "flags": ["innkeeper_trusted"] }
       },
