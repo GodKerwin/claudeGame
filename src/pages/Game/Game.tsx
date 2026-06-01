@@ -277,15 +277,6 @@ export default function Game() {
     : null;
 
   return (
-    <>
-      <button
-        onClick={() => setModal('settings')}
-        className="fixed top-2 right-3 z-20 text-sm text-gold/50 hover:text-gold border border-gold/20 hover:border-gold/50 px-2.5 py-1 tracking-widest transition-colors cursor-pointer"
-        title="设置"
-      >
-        设置
-      </button>
-
       <GameLayout
         left={<LeftPanel onNavigate={handleNavigate} />}
         center={
@@ -302,7 +293,7 @@ export default function Game() {
             showHint={showHint}
           />
         }
-        right={<RightPanel />}
+        right={<RightPanel onSettings={() => setModal('settings')} />}
       />
 
       {modal === 'settings' && (
@@ -321,26 +312,54 @@ export default function Game() {
       )}
 
       {showFirstRun && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-paper/80 backdrop-blur-sm">
-          <div className="font-serif bg-paper/90 border border-gold/30 max-w-sm w-full mx-4 p-8 space-y-4 text-ink">
-            <h2 className="text-gold text-lg tracking-widest text-center">初次踏入江湖</h2>
-            <div className="border-t border-gold/20" />
-            <ul className="space-y-2 text-sm tracking-wide text-ink/70">
-              <li>· 左侧面板：可前往的地点</li>
-              <li>· 中央区域：当前场景，点击下方选项推进</li>
-              <li>· 右侧面板：人物信息与任务线索</li>
-              <li>· 「提示」按钮：遇到困难时点击获得指引</li>
-            </ul>
-            <div className="border-t border-gold/20" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center font-serif"
+          style={{ background: 'rgba(10,6,2,0.75)', backdropFilter: 'blur(2px)' }}>
+          <div
+            className="relative max-w-xs w-full mx-6 px-8 py-7 text-ink"
+            style={{
+              background: 'linear-gradient(135deg, rgba(26,18,8,0.97) 0%, rgba(22,15,6,0.97) 100%)',
+              border: '1px solid rgba(201,168,76,0.25)',
+              boxShadow: '0 0 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(201,168,76,0.08)',
+            }}
+          >
+            {/* 角落装饰 */}
+            {[['top-2 left-2','border-t border-l'],['top-2 right-2','border-t border-r'],['bottom-2 left-2','border-b border-l'],['bottom-2 right-2','border-b border-r']].map(([pos, cls]) => (
+              <div key={pos} className={`absolute ${pos} w-3 h-3 border-gold/30 ${cls}`} />
+            ))}
+
+            <div className="text-center mb-5">
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="flex-1 h-px bg-gold/20" />
+                <span className="text-gold/40 text-[10px] tracking-[0.4em]">入局须知</span>
+                <div className="flex-1 h-px bg-gold/20" />
+              </div>
+              <h2 className="text-gold/90 text-base tracking-[0.3em]">天机残卷</h2>
+            </div>
+
+            <div className="space-y-3 mb-6">
+              {[
+                ['左侧', '可前往的地点，点击即可移动'],
+                ['中央', '「人物」区对话 NPC，「探索」区调查场景'],
+                ['右侧', '身家 · 物品 · 脉络，三标签切换'],
+                ['提示', '卡关时点击行动区右上角「提示」按钮'],
+              ].map(([label, desc]) => (
+                <div key={label} className="flex items-start gap-3">
+                  <span className="text-gold/50 text-[11px] tracking-widest shrink-0 w-6 text-right mt-0.5">{label}</span>
+                  <div className="w-px self-stretch bg-gold/15 shrink-0" />
+                  <span className="text-ink/55 text-xs leading-relaxed">{desc}</span>
+                </div>
+              ))}
+            </div>
+
             <div className="flex justify-center">
               <button
                 onClick={() => {
                   localStorage.setItem('tianji-firstrun-seen', '1');
                   setShowFirstRun(false);
                 }}
-                className="py-2 px-8 border border-gold/40 text-ink hover:border-gold hover:text-gold tracking-widest transition-all cursor-pointer text-sm"
+                className="btn-jianghu border border-gold/35 text-gold/70 hover:border-gold hover:text-gold px-10 py-2 text-sm tracking-[0.3em] transition-all cursor-pointer"
               >
-                明白了
+                踏入江湖
               </button>
             </div>
           </div>

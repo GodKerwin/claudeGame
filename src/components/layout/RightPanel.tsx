@@ -103,7 +103,11 @@ type Tab = 'stats' | 'items' | 'lore';
 
 const TAB_LABELS: Record<Tab, string> = { stats: '身家', items: '物品', lore: '脉络' };
 
-export function RightPanel() {
+interface RightPanelProps {
+  onSettings?: () => void;
+}
+
+export function RightPanel({ onSettings }: RightPanelProps) {
   const [tab, setTab] = useState<Tab>('stats');
   const player = usePlayerStore();
   const { clues, questLog, flags } = useSceneStore();
@@ -118,7 +122,7 @@ export function RightPanel() {
   return (
     <div className="flex flex-col h-full text-sm">
       {/* 标签栏 */}
-      <div className="flex border-b border-gold/15 shrink-0">
+      <div className="flex border-b border-gold/15 shrink-0 items-stretch">
         {(Object.keys(TAB_LABELS) as Tab[]).map((t) => (
           <button
             key={t}
@@ -132,6 +136,15 @@ export function RightPanel() {
             {TAB_LABELS[t]}
           </button>
         ))}
+        {onSettings && (
+          <button
+            onClick={onSettings}
+            title="设置"
+            className="px-2.5 text-ink/25 hover:text-gold/60 transition-colors cursor-pointer border-l border-gold/10 text-[11px] tracking-widest shrink-0"
+          >
+            ⚙
+          </button>
+        )}
       </div>
 
       <div className="flex-1 overflow-y-auto scrollbar-thin p-3">

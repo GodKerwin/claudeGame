@@ -177,20 +177,33 @@ export function CenterPanel({
 
       {/* 故事文本区（可滚动） */}
       <div ref={scrollContainerRef} className="flex-[3] min-h-0 overflow-y-auto px-5 py-5 space-y-4 scrollbar-thin">
-        <p className="text-ink/50 leading-[1.9] text-sm border-l-2 border-gold/10 pl-3">{roomDescription}</p>
-        {storyTexts.map((text, i) => (
-          <div key={i} className="border-l-2 border-gold/25 pl-3">
-            {i === storyTexts.length - 1 ? (
-              <TypewriterText
-                text={text}
-                className="text-ink/90 leading-[1.9] text-sm"
-                onUpdate={scrollToBottom}
-              />
-            ) : (
-              <span className="text-ink/85 leading-[1.9] text-sm">{text}</span>
-            )}
-          </div>
-        ))}
+        <p className="text-ink/45 leading-[1.9] text-sm border-l-2 border-gold/10 pl-3 italic">{roomDescription}</p>
+        {storyTexts.map((text, i) => {
+          const isLatest = i === storyTexts.length - 1;
+          const isRecent = i >= storyTexts.length - 3;
+          const isNpcSpeech = text.startsWith('【') && text.includes('】');
+          const isPlaceholder = text.startsWith('（') && text.endsWith('。）');
+          // 渐进透明：越旧的记录越淡
+          const opacity = isLatest ? 'text-ink/92' : isRecent ? 'text-ink/75' : 'text-ink/45';
+          const borderColor = isNpcSpeech
+            ? 'border-jade/40'
+            : isPlaceholder
+            ? 'border-gold/10'
+            : 'border-gold/30';
+          return (
+            <div key={i} className={`border-l-2 ${borderColor} pl-3 transition-opacity duration-500`}>
+              {isLatest ? (
+                <TypewriterText
+                  text={text}
+                  className={`${opacity} leading-[1.9] text-sm`}
+                  onUpdate={scrollToBottom}
+                />
+              ) : (
+                <span className={`${opacity} leading-[1.9] text-sm`}>{text}</span>
+              )}
+            </div>
+          );
+        })}
       </div>
 
       {/* 操作区 */}
