@@ -139,13 +139,15 @@ export function LeftPanel({ onNavigate }: Props) {
               return (
                 <div
                   key={r.id}
-                  className="text-ink/18 text-xs py-1.5 px-2 cursor-not-allowed flex items-start gap-2"
+                  className="text-ink/20 text-xs py-1.5 px-2 flex items-start gap-2 select-none"
                   title={flagHint ?? '条件未达成'}
                 >
-                  <span className="text-[10px] text-ink/12 shrink-0 mt-0.5">▸</span>
-                  <div>
-                    <span className="line-through decoration-ink/12">{r.name}</span>
-                    {flagHint && <p className="text-ink/15 text-[10px] leading-tight mt-0.5">{flagHint}</p>}
+                  <span className="text-[10px] text-ink/15 shrink-0 mt-0.5">○</span>
+                  <div className="min-w-0">
+                    <span className="text-ink/22 leading-snug">{r.name}</span>
+                    <span className="ml-1.5 text-[9px] text-ink/15 tracking-wide whitespace-nowrap">
+                      {flagHint ?? '暂不可前往'}
+                    </span>
                   </div>
                 </div>
               );
