@@ -24,7 +24,7 @@
         "name": "客栈大堂",
         "description": "油灯昏黄，几桌食客低声议论，人人面露惶恐。掌柜李福站在柜台后，神色不安，额角渗着细汗。公告板上贴着几张新旧告示，其中一张的墨迹看起来比其他新。",
         "interactables": ["npc_innkeeper_li_fu", "npc_drunk_zhang_san", "evt_notice_board", "evt_guest_register", "evt_copper_badge_examine", "evt_ch1_strength_growth"],
-        "exits": ["room_203", "kitchen", "cellar", "forest"],
+        "exits": ["room_203", "kitchen", "cellar", "forest", "old_mansion"],
         "requires": null
       },
       {
