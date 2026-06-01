@@ -243,9 +243,9 @@ export function CenterPanel({
                         ))
                       : entity.actions.map((a) =>
                           a.completed ? (
-                            <div key={a.id} className="flex items-center gap-1.5 py-0.5 px-1 select-none">
-                              <span className="text-gold/20 text-[9px] shrink-0">✓</span>
-                              <span className="text-ink/18 text-[11px] line-through decoration-ink/12">{a.label}</span>
+                            <div key={a.id} className="flex items-center gap-1.5 py-0.5 px-1 select-none opacity-40">
+                              <span className="text-gold/50 text-[9px] shrink-0">✓</span>
+                              <span className="text-ink/60 text-[11px]">{a.label}</span>
                             </div>
                           ) : (
                             <button
