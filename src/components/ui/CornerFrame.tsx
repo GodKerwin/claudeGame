@@ -10,8 +10,7 @@ interface Props {
 
 const SIZES = { sm: 8, md: 12, lg: 16 } as const;
 
-function Corner({ x, flip }: { x: 'left' | 'right'; flip: boolean }) {
-  const s = 12; // rendered at md; parent scales via CSS if needed
+function Corner({ x, flip, s }: { x: 'left' | 'right'; flip: boolean; s: number }) {
   const stroke = 'rgba(201,168,76,0.35)';
   const sw = 1;
   // Lines always go inward from the corner
@@ -34,16 +33,16 @@ export function CornerFrame({ children, size = 'md', className = '', style }: Pr
   return (
     <div className={cn('relative', className)} style={style}>
       <div style={{ position: 'absolute', top: 0, left: 0, width: px, height: px, pointerEvents: 'none' }}>
-        <Corner x="left" flip={false} />
+        <Corner x="left" flip={false} s={px} />
       </div>
       <div style={{ position: 'absolute', top: 0, right: 0, width: px, height: px, pointerEvents: 'none' }}>
-        <Corner x="right" flip={false} />
+        <Corner x="right" flip={false} s={px} />
       </div>
       <div style={{ position: 'absolute', bottom: 0, left: 0, width: px, height: px, pointerEvents: 'none' }}>
-        <Corner x="left" flip={true} />
+        <Corner x="left" flip={true} s={px} />
       </div>
       <div style={{ position: 'absolute', bottom: 0, right: 0, width: px, height: px, pointerEvents: 'none' }}>
-        <Corner x="right" flip={true} />
+        <Corner x="right" flip={true} s={px} />
       </div>
       {children}
     </div>
