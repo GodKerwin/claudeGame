@@ -143,7 +143,7 @@ export function CenterPanel({
       </div>
 
       {/* 故事文本区（可滚动） */}
-      <div ref={scrollContainerRef} className="flex-1 overflow-y-auto px-5 py-5 space-y-4 scrollbar-thin">
+      <div ref={scrollContainerRef} className="flex-[3] min-h-0 overflow-y-auto px-5 py-5 space-y-4 scrollbar-thin">
         <p className="text-ink/50 leading-[1.9] text-sm border-l-2 border-gold/10 pl-3">{roomDescription}</p>
         {storyTexts.map((text, i) => (
           <div key={i} className="border-l-2 border-gold/25 pl-3">
@@ -162,7 +162,7 @@ export function CenterPanel({
 
       {/* 操作区 */}
       <div
-        className="border-t border-gold/10 px-4 pt-3 pb-3"
+        className="flex-[2] min-h-0 flex flex-col border-t border-gold/10 px-4 pt-3 pb-3"
         style={{ background: 'linear-gradient(to bottom, rgba(20,13,4,0) 0%, rgba(20,13,4,0.4) 100%)' }}
       >
         {/* 标题行 + 提示按钮 */}
@@ -195,7 +195,7 @@ export function CenterPanel({
         )}
 
         {/* 实体折叠列表 */}
-        <div className="overflow-y-auto scrollbar-thin max-h-52">
+        <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin">
           {entities.length === 0 && (
             <p className="text-ink/20 text-xs px-2 py-2 italic">此处无可交互之物</p>
           )}
