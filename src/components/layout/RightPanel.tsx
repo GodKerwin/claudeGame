@@ -73,7 +73,7 @@ export function RightPanel() {
         </div>
         {player.talent && talentInfo && (
           <Tooltip content={`${talentInfo.name}\n${talentInfo.description}\n${talentInfo.effect}`} position="left">
-            <div className="mt-2.5 flex items-center gap-1.5 cursor-help border border-gold/12 px-2 py-1.5 bg-gold/3">
+            <div className="mt-2.5 flex items-center gap-1.5 cursor-help px-1 py-1">
               <span className="text-gold/35 text-[10px]">天赋</span>
               <div className="w-px h-3 bg-gold/20 shrink-0" />
               <span className="text-gold/75 text-xs">{player.talent}</span>
