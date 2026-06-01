@@ -176,6 +176,20 @@ const CHAPTER3_RULES: HintRule[] = [
   },
   {
     when: (ctx) =>
+      has(ctx, 'chapter3_started') &&
+      !has(ctx, 'tianji_mission_started') &&
+      !has(ctx, 'stele_seen'),
+    hint: '第三章伊始，两处可入手：天机安宅（接任务令，了解目标）和大雁塔下（无名碑藏有线索）。两处均可作为起点。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'tianji_mission_started') &&
+      !has(ctx, 'fei_ye_identity_confirmed') &&
+      !has(ctx, 'stele_decoded'),
+    hint: '任务令已接，目标是「旧主」。大雁塔下的无名碑是线索起点——碑文藏有天机阁创立者的信息。',
+  },
+  {
+    when: (ctx) =>
       has(ctx, 'fei_ye_identity_confirmed') &&
       !hasItem(ctx, 'tianji_founding_scroll'),
     hint: '飞爷身份已确认，但还缺天机阁创始档案作为铁证。大雁塔下的无名碑藏有线索。',

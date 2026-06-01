@@ -24,6 +24,13 @@
         "requires": { "flags": ["tianji_signal_known"] },
         "result": "天机阁内部联络暗语，你已烂熟于心。碑文隐语在你眼中一目了然：创立者署名「飞」，碑后夹缝藏有蜡封密卷。取出，正是天机阁的立阁原档。",
         "grants": { "flags": ["stele_decoded"], "items": ["tianji_founding_scroll"] }
+      },
+      {
+        "id": "sense_stele_qi",
+        "label": "以望气之法，感应碑文气场（望气观相）",
+        "requires": { "talent": "望气观相", "flags_absent": ["stele_qi_sensed"] },
+        "result": "你站在碑前，平息心神，以道家望气之法观察——碑上残留着一股经年不散的「执念气场」，是刻碑者一字一刀凿下时留下的。气机指向两个字：誓与护。刻碑者将毕生之念都压进了这块石头里。碑文的隐藏结构在这股气机的引导下自然显现——创立者的名字，就藏在每句誓言的第一字里。",
+        "grants": { "flags": ["stele_qi_sensed", "stele_decoded"], "items": ["tianji_founding_scroll"] }
       }
     ]
   },
@@ -45,6 +52,13 @@
         "requires": { "agility": 7 },
         "result": "脚印从西边来，在石碑前停顿，又朝曲江方向离去。步距均匀，不慌不忙，是一个走了很多年江湖的人留下的。",
         "grants": { "flags": ["fei_ye_sighted"] }
+      },
+      {
+        "id": "hear_nearby_rumors",
+        "label": "细听寺中香客的只言片语（耳报神）",
+        "requires": { "talent": "耳报神", "flags_absent": ["pagoda_rumor_heard"] },
+        "result": "你混在烧香的香客里，竖起耳朵——说书人走南闯北，练就了在嘈杂中抓住关键字的本事。两个老妇人在说「前日傍晚，有个白衣的先生在塔下坐了很久，后来往南边走了，像是去曲江那边」。另一个香客低声道「那人在碑前放了什么，后来捡走了」。你循着消息看向矮石——果然，石头下压着一封信。",
+        "grants": { "flags": ["pagoda_rumor_heard", "qujiang_location_known"], "items": ["qujiang_invitation"] }
       }
     ]
   },
@@ -109,6 +123,13 @@
         "requires": { "wisdom": 6, "flags": ["tianji_network_seen", "fei_ye_identity_confirmed"], "flags_absent": ["tianji_trust_gained"] },
         "result": "你将从长安各处查得的情报逐一摆出：往事客栈的案子、大雁塔碑文的真意、飞爷的真实身份……安宅暗处的监视者沉默了片刻，在一张纸上写下：「你比预想的更深入。他在等你。」",
         "grants": { "flags": ["tianji_trust_gained"] }
+      },
+      {
+        "id": "official_authority",
+        "label": "出示官牒，以大义名分要求配合（官威）",
+        "requires": { "talent": "官威", "flags_absent": ["tianji_trust_gained"] },
+        "result": "你沉声道：「本官奉命追查一起命案，此处涉及要犯，依律须配合调查。」你将官牒推到桌上。\n\n安宅内陷入一片沉默。片刻后，那个面容模糊的人站起身来，不疾不徐地拿起官牒看了看，又放回来——「捕快……有意思。鸢当年接触过不少官府的人，但愿意拿着官牒来这里的，你是头一个。」\n\n他在纸上写了一行字，推过来：「他在曲江等你。」",
+        "grants": { "flags": ["tianji_trust_gained", "official_cooperation"] }
       }
     ]
   },

@@ -56,7 +56,7 @@
         "id": "wujue_guilt",
         "condition": { "flags": ["chapter3_started", "wujue_spoke_once"] },
         "text": "「贫僧知道你想问什么。」他看着脚下的石板，「二十年前，贫僧亲手将那份名单藏入了大雁塔的夹壁。那时以为是保护，后来……」他停顿了很长时间，「后来有人因为那份名单死去，贫僧却没有出声。」\n\n「该说的，贫僧这次都说清楚。」",
-        "grants": { "flags": [] }
+        "grants": { "flags": ["wujue_guilt_revealed"], "clues": ["wujue_confession"] }
       },
       {
         "id": "final_testimony",
@@ -103,19 +103,19 @@
         "id": "first_contact",
         "condition": { "flags_absent": ["tianji_mission_started"] },
         "text": "「你来了。任务令在桌上，看完就知道该做什么。」他的目光在你身上停了一下，「你比上一个来的人更早。」",
-        "grants": { "flags": [] }
+        "grants": { "flags": ["tianji_contact_met"] }
       },
       {
         "id": "mission_briefing",
         "condition": { "flags": ["tianji_mission_started"], "flags_absent": ["tianji_trust_gained"] },
         "text": "「目标的行踪你已掌握，剩下的靠你自己判断。天机阁不需要知道过程，只需要结果。」他顿了顿，「但如果你想活着回来，建议你搞清楚旧主为什么带走了名单——而不仅仅是把它追回来。」",
-        "grants": { "flags": [] }
+        "grants": { "flags": ["tianji_briefing_received"] }
       },
       {
         "id": "trust_gained",
         "condition": { "flags": ["tianji_trust_gained"] },
         "text": "「你掌握的比我预想的更多。」他第一次抬起头，正视你，「他在等你。你自己判断要不要去。」",
-        "grants": { "flags": [] }
+        "grants": { "flags": ["tianji_endgame_ready"] }
       },
       {
         "id": "target_details",

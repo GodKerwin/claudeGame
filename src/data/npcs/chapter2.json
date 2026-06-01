@@ -126,8 +126,15 @@
     "dialogues": [
       {
         "id": "first_meet",
-        "condition": null,
-        "text": "客官请进，随便看，随便看。本店古玩字画，一应俱全，价钱公道，童叟无欺。"
+        "condition": { "flags_absent": ["antique_dealer_met"] },
+        "text": "客官请进，随便看，随便看。本店古玩字画，一应俱全，价钱公道，童叟无欺。",
+        "grants": { "flags": ["antique_dealer_met"] }
+      },
+      {
+        "id": "casual_chat",
+        "condition": { "flags": ["antique_dealer_met"], "flags_absent": ["tianji_seal_read"] },
+        "text": "「您在找什么？字画，还是老物件？」他边整理货架边道，「东市来来往往的人多，但像您这样……到处看的，不多见。」他的视线在你手上停了一下，又移开了。",
+        "grants": { "flags": ["antique_dealer_watched"] }
       },
       {
         "id": "token_inquiry",

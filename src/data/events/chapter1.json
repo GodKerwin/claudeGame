@@ -49,6 +49,13 @@
           "flags": ["medical_exam_done", "body_examined", "wound_examined", "cloth_fiber_found", "poison_tea_confirmed", "murder_sequence_deduced"],
           "clues": ["medical_report"]
         }
+      },
+      {
+        "id": "official_seal_scene",
+        "label": "持官牒封存现场，驱散闲杂（官威）",
+        "requires": { "talent": "官威", "flags": ["body_examined"], "flags_absent": ["scene_officially_sealed"] },
+        "result": "你掏出官牒，在门口一亮。\"此处系命案现场，无关人等速速退出。\"几个偷窥的旅客立刻散去，连掌柜也退到了楼梯口。你独自留在房中，重新仔细检视每一个角落——死者右手指甲缝里夹着黑色布料，入针精准的针孔，都在这份安静里变得一清二楚。",
+        "grants": { "flags": ["scene_officially_sealed", "cloth_fiber_found", "wound_examined"], "clues": ["cloth_fiber_clue"] }
       }
     ]
   },
@@ -78,6 +85,13 @@
         "requires": { "flags": ["room_searched"] },
         "result": "窗扇外侧有抓痕，从窗台向下延伸，凶手可能是从外墙攀入，也可能是事后从此处离开。",
         "grants": { "flags": ["window_checked"] }
+      },
+      {
+        "id": "sense_qi_room",
+        "label": "以望气之法，察残留气机（望气观相）",
+        "requires": { "talent": "望气观相", "flags_absent": ["qi_sense_done"] },
+        "result": "你平心静气，以道家望气之法扫视房中——死气最重处在枕角与窗台之间，有一道细细的阴寒气线，是人在恐惧中拼命挣扎时留下的遗痕。更奇的是，床脚处有一股截然不同的「外来气息」，轻而快，如来如去，是闯入者留下的残影。凶手不只一人进过这个房间。",
+        "grants": { "flags": ["qi_sense_done", "multiple_intruders_suspected"], "clues": ["qi_trace_clue"] }
       }
     ]
   },
@@ -473,10 +487,11 @@
         "id": "marks_done",
         "label": "此处刻痕已录入心",
         "requires": {
-          "flags": ["alley_marks_found"]
+          "flags": ["alley_marks_found"],
+          "flags_absent": ["alley_marks_revisited"]
         },
         "result": "那几道刻痕依旧刻在墙上，拓印已经在你手里了，再多看也看不出新东西。",
-        "grants": null
+        "grants": { "flags": ["alley_marks_revisited"] }
       }
     ]
   },
@@ -519,10 +534,11 @@
         "id": "manifest_obtained",
         "label": "货单在握，不必再翻",
         "requires": {
-          "flags": ["manifest_found"]
+          "flags": ["manifest_found"],
+          "flags_absent": ["manifest_reviewed"]
         },
         "result": "货箱已经搜查过了，货单已在你手中。",
-        "grants": null
+        "grants": { "flags": ["manifest_reviewed"] }
       }
     ]
   },
