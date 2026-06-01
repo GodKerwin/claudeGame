@@ -267,22 +267,24 @@ export function CenterPanel({
                               <span className="text-gold/50 text-[9px] shrink-0">✓</span>
                               <span className="text-ink/60 text-[11px]">{a.label}</span>
                             </div>
-                          ) : (
+                          ) : a.available ? (
                             <button
                               key={a.id}
                               onClick={() => onAction(a.id)}
-                              disabled={!a.available}
-                              className={`w-full text-left text-[11px] py-1 px-1 transition-colors duration-100 leading-snug ${
-                                a.available
-                                  ? 'text-ink/60 hover:text-gold/80 cursor-pointer'
-                                  : 'text-ink/22 cursor-not-allowed'
-                              }`}
+                              className="w-full text-left text-[11px] py-1 px-1 text-ink/60 hover:text-gold/80 cursor-pointer transition-colors duration-100 leading-snug"
                             >
                               {a.label}
-                              {!a.available && a.hint && (
-                                <span className="ml-1.5 text-ink/28 text-[10px]">（{a.hint}）</span>
-                              )}
                             </button>
+                          ) : (
+                            <div
+                              key={a.id}
+                              className="pl-2 pr-1 py-1 border-l border-gold/15 ml-px select-none"
+                            >
+                              <p className="text-[11px] text-ink/30 leading-snug">{a.label}</p>
+                              {a.hint && (
+                                <p className="text-[10px] text-gold/28 mt-0.5 tracking-wide">{a.hint}</p>
+                              )}
+                            </div>
                           )
                         )}
                   </div>

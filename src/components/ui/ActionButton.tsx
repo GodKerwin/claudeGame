@@ -35,7 +35,7 @@ export function ActionButton({ label, onClick, disabled = false, completed = fal
           variant === 'danger' && !isDisabled && 'border-blood/35 text-blood/75 hover:border-blood/60 hover:text-blood cursor-pointer',
           variant === 'special' && !isDisabled && 'border-gold/50 text-gold/85 hover:border-gold hover:text-gold cursor-pointer',
           completed && 'border-gold/10 text-ink/20 cursor-not-allowed',
-          !completed && disabled && 'border-ink/8 text-ink/25 cursor-not-allowed',
+          !completed && disabled && 'border-gold/12 text-ink/30 cursor-not-allowed',
           className,
         )}
       >
