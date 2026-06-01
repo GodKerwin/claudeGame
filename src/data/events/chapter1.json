@@ -15,7 +15,7 @@
       {
         "id": "find_under_pillow",
         "label": "掀枕搜寻",
-        "requires": { "flags": ["body_examined"], "flags_absent": ["blood_letter_found"] },
+        "requires": { "flags_absent": ["blood_letter_found"] },
         "result": "枕头下藏着一块染血的令牌，正面刻着\"天机\"二字，背面用血书写着\"东——三\"，笔画颤抖，是死者最后留下的。",
         "grants": { "flags": ["blood_letter_found", "clue_blood_letter_found"], "items": ["blood_letter"], "clues": ["blood_letter"] }
       },

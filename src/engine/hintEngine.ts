@@ -97,7 +97,7 @@ const CHAPTER1_RULES: HintRule[] = [
       has(ctx, 'learned_wuhen_bu') &&
       has(ctx, 'cellar_fragment_obtained') &&
       !has(ctx, 'clue_blood_letter_found'),
-    hint: '地窖碎片已得，还差血书令牌——在二楼二〇三号命案房间仔细翻查宋怀义的枕头下方。',
+    hint: '地窖碎片已得，还差血书令牌——回到二楼「检查尸体」事件，直接「掀枕搜寻」，枕头下方藏着染血令牌。无需任何前置步骤，进入房间即可翻查。',
   },
   {
     when: (ctx) =>
