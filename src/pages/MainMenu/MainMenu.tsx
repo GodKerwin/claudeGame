@@ -45,10 +45,39 @@ export default function MainMenu() {
     navigate('/game');
   };
 
+  // 水墨粒子：位置/大小/延迟各异，固定不变
+  const inkParticles = [
+    { left: '12%', size: 5,  delay: '0s',    duration: '9s'  },
+    { left: '28%', size: 3,  delay: '2.4s',  duration: '12s' },
+    { left: '45%', size: 4,  delay: '5.1s',  duration: '10s' },
+    { left: '61%', size: 6,  delay: '1.2s',  duration: '14s' },
+    { left: '74%', size: 3,  delay: '7.3s',  duration: '11s' },
+    { left: '87%', size: 5,  delay: '3.8s',  duration: '8s'  },
+    { left: '21%', size: 4,  delay: '9.0s',  duration: '13s' },
+    { left: '55%', size: 3,  delay: '6.6s',  duration: '9.5s'},
+  ];
+
   return (
     <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center justify-center relative overflow-hidden">
       {/* 山水背景 */}
       <MountainBackground opacity={0.9} />
+
+      {/* 水墨漂浮粒子 */}
+      {inkParticles.map((p, i) => (
+        <span
+          key={i}
+          className="ink-particle"
+          style={{
+            left: p.left,
+            bottom: `${10 + (i % 3) * 8}%`,
+            width: p.size,
+            height: p.size * 1.3,
+            animationDelay: p.delay,
+            animationDuration: p.duration,
+            opacity: 0,
+          }}
+        />
+      ))}
 
       {/* 内容层 */}
       <div className="relative z-10 flex flex-col items-center">

@@ -25,12 +25,62 @@ const CHAPTER3_ENDINGS: Record<string, string> = {
   chapter3_join_ending: '你烧了追查令，他告诉了你名单的下落。两个人，一张网，对抗同一个还没有名字的敌人。这局棋，还没有下完。',
 };
 
+interface EndingStyle {
+  sealChar: string;
+  sealColor: string;
+  atmosphereColor: string;
+  label: string;
+}
+
+const ENDING_STYLES: Record<string, EndingStyle> = {
+  chapter1_truth_ending:   { sealChar: '明', sealColor: 'rgba(201,168,76,0.88)',  atmosphereColor: 'rgba(201,168,76,0.07)',  label: '真相' },
+  chapter1_force_ending:   { sealChar: '武', sealColor: 'rgba(139,26,26,0.88)',   atmosphereColor: 'rgba(139,26,26,0.08)',   label: '以力' },
+  chapter1_hermit_ending:  { sealChar: '隐', sealColor: 'rgba(140,130,110,0.75)', atmosphereColor: 'rgba(60,55,45,0.06)',    label: '归隐' },
+  chapter2_arrest_ending:  { sealChar: '律', sealColor: 'rgba(201,168,76,0.88)',  atmosphereColor: 'rgba(201,168,76,0.06)',  label: '缉拿' },
+  chapter2_release_ending: { sealChar: '散', sealColor: 'rgba(150,140,125,0.75)', atmosphereColor: 'rgba(80,75,65,0.05)',    label: '放行' },
+  chapter2_join_ending:    { sealChar: '入', sealColor: 'rgba(58,122,90,0.88)',   atmosphereColor: 'rgba(58,122,90,0.07)',   label: '入局' },
+  chapter3_truth_ending:   { sealChar: '公', sealColor: 'rgba(201,168,76,0.90)',  atmosphereColor: 'rgba(201,168,76,0.09)',  label: '公诸' },
+  chapter3_standoff_ending:{ sealChar: '峙', sealColor: 'rgba(140,130,110,0.75)', atmosphereColor: 'rgba(60,55,45,0.06)',    label: '对峙' },
+  chapter3_join_ending:    { sealChar: '同', sealColor: 'rgba(58,122,90,0.90)',   atmosphereColor: 'rgba(58,122,90,0.08)',   label: '同行' },
+};
+
+function EndingSeal({ char, color, label, visible }: { char: string; color: string; label: string; visible: boolean }) {
+  return (
+    <div
+      className={`flex flex-col items-center gap-2 mb-10 transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}
+    >
+      <svg
+        width="68"
+        height="68"
+        viewBox="0 0 68 68"
+        className={visible ? 'seal-drop' : ''}
+      >
+        {/* 外框 */}
+        <rect x="3" y="3" width="62" height="62" rx="2"
+          fill={color.replace(/[\d.]+\)$/, '0.08)')}
+          stroke={color} strokeWidth="1.5" />
+        {/* 内框 */}
+        <rect x="8" y="8" width="52" height="52" rx="1"
+          fill="none" stroke={color} strokeWidth="0.5" opacity="0.45" />
+        {/* 篆书字 */}
+        <text x="34" y="48" textAnchor="middle"
+          fill={color} fontSize="34" fontFamily="serif" fontWeight="bold"
+          style={{ letterSpacing: 0 }}>
+          {char}
+        </text>
+      </svg>
+      <span style={{ color, fontSize: '11px', letterSpacing: '0.25em', opacity: 0.75 }}>{label}</span>
+    </div>
+  );
+}
+
 export default function ChapterEnd() {
   const navigate = useNavigate();
   const scene = useSceneStore();
   const { items } = useInventoryStore();
   const [visibleCount, setVisibleCount] = useState(0);
   const [showButton, setShowButton] = useState(false);
+  const [sealVisible, setSealVisible] = useState(false);
 
   const isChapter3 = scene.flags.includes('chapter3_started');
   const isChapter2 = scene.flags.includes('chapter2_started');
@@ -48,6 +98,8 @@ export default function ChapterEnd() {
       ? CHAPTER2_ENDINGS[endingFlag]
       : CHAPTER1_ENDINGS[endingFlag]
     : '';
+
+  const endingStyle = endingFlag ? ENDING_STYLES[endingFlag] : null;
 
   const chapterTitle = isChapter3 ? '第三章·完' : isChapter2 ? '第二章·完' : '第一章·完';
 
@@ -70,9 +122,21 @@ export default function ChapterEnd() {
     if (endingFlag) addSeenEnding(endingFlag);
   }, [endingFlag]);
 
+  // 印章先出现，然后文字开始逐行显现
   useEffect(() => {
+    const t0 = setTimeout(() => setSealVisible(true), 200);
+    const t1 = setTimeout(() => {
+      if (visibleCount < lines.length) {
+        setVisibleCount(1);
+      }
+    }, 900);
+    return () => { clearTimeout(t0); clearTimeout(t1); };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (visibleCount === 0) return;
     if (visibleCount < lines.length) {
-      const t = setTimeout(() => setVisibleCount((c) => c + 1), visibleCount === 0 ? 300 : 1800);
+      const t = setTimeout(() => setVisibleCount((c) => c + 1), 1800);
       return () => clearTimeout(t);
     }
     const t = setTimeout(() => setShowButton(true), 600);
@@ -100,7 +164,30 @@ export default function ChapterEnd() {
     <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center justify-center px-8 py-16 relative overflow-hidden">
       <MountainBackground opacity={0.7} />
 
+      {/* 结局氛围色调叠层 */}
+      {endingStyle && (
+        <div
+          className="fixed inset-0 pointer-events-none z-0 transition-opacity duration-1500"
+          style={{
+            opacity: sealVisible ? 1 : 0,
+            background: `radial-gradient(ellipse 70% 80% at 50% 35%, ${endingStyle.atmosphereColor} 0%, transparent 70%)`,
+          }}
+        />
+      )}
+
       <div className="max-w-md w-full relative z-10">
+        {/* 印章 */}
+        {endingStyle && (
+          <div className="flex justify-center">
+            <EndingSeal
+              char={endingStyle.sealChar}
+              color={endingStyle.sealColor}
+              label={endingStyle.label}
+              visible={sealVisible}
+            />
+          </div>
+        )}
+
         <div className="space-y-8">
           {lines.map((line, i) => {
             const isTitle = i === 0;

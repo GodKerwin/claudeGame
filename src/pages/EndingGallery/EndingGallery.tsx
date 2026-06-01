@@ -3,6 +3,33 @@ import { getSeenEndings } from '../../engine/endingRecord';
 import { CornerFrame } from '../../components/ui/CornerFrame';
 import { MountainBackground } from '../../components/ui/MountainBackground';
 
+const ENDING_META: Record<string, { sealChar: string; color: string }> = {
+  chapter1_truth_ending:   { sealChar: '明', color: 'rgba(201,168,76,0.85)' },
+  chapter1_force_ending:   { sealChar: '武', color: 'rgba(139,26,26,0.85)' },
+  chapter1_hermit_ending:  { sealChar: '隐', color: 'rgba(140,130,110,0.75)' },
+  chapter2_arrest_ending:  { sealChar: '律', color: 'rgba(201,168,76,0.85)' },
+  chapter2_release_ending: { sealChar: '散', color: 'rgba(150,140,125,0.75)' },
+  chapter2_join_ending:    { sealChar: '入', color: 'rgba(58,122,90,0.85)' },
+  chapter3_truth_ending:   { sealChar: '公', color: 'rgba(201,168,76,0.90)' },
+  chapter3_standoff_ending:{ sealChar: '峙', color: 'rgba(140,130,110,0.75)' },
+  chapter3_join_ending:    { sealChar: '同', color: 'rgba(58,122,90,0.90)' },
+};
+
+function MiniSeal({ char, color, unlocked }: { char: string; color: string; unlocked: boolean }) {
+  const c = unlocked ? color : 'rgba(100,90,75,0.25)';
+  return (
+    <svg width="28" height="28" viewBox="0 0 28 28" style={{ flexShrink: 0 }}>
+      <rect x="1.5" y="1.5" width="25" height="25" rx="1"
+        fill={c.replace(/[\d.]+\)$/, '0.08)')}
+        stroke={c} strokeWidth="1" />
+      <text x="14" y="20" textAnchor="middle"
+        fill={c} fontSize="14" fontFamily="serif" fontWeight="bold">
+        {char}
+      </text>
+    </svg>
+  );
+}
+
 interface EndingEntry {
   id: string;
   chapter: 1 | 2 | 3;
@@ -107,21 +134,25 @@ export default function EndingGallery() {
                   return (
                     <div
                       key={e.id}
-                      className={`border px-4 py-3 transition-colors ${
-                        unlocked
-                          ? 'border-gold/40 bg-gold/5'
-                          : 'border-ink/10'
-                      }`}
+                      className={`border px-4 py-3 transition-colors ${unlocked ? '' : 'border-ink/8'}`}
+                      style={unlocked && ENDING_META[e.id] ? {
+                        borderColor: ENDING_META[e.id].color.replace(/[\d.]+\)$/, '0.28)'),
+                        background: ENDING_META[e.id].color.replace(/[\d.]+\)$/, '0.04)'),
+                      } : undefined}
                     >
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className={unlocked ? 'text-gold text-xs' : 'text-ink/20 text-xs'}>
-                          {unlocked ? '★' : '☆'}
-                        </span>
+                      <div className="flex items-center gap-2.5 mb-1.5">
+                        {ENDING_META[e.id] && (
+                          <MiniSeal
+                            char={ENDING_META[e.id].sealChar}
+                            color={ENDING_META[e.id].color}
+                            unlocked={unlocked}
+                          />
+                        )}
                         <span className={`text-sm tracking-wide ${unlocked ? 'text-ink/90' : 'text-ink/25'}`}>
                           {e.name}
                         </span>
                       </div>
-                      <p className={`text-xs leading-relaxed pl-4 ${unlocked ? 'text-ink/60' : 'text-ink/20'}`}>
+                      <p className={`text-xs leading-relaxed pl-[38px] ${unlocked ? 'text-ink/55' : 'text-ink/18'}`}>
                         {unlocked ? e.description : '尚未解锁'}
                       </p>
                     </div>
