@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { getSeenEndings } from '../../engine/endingRecord';
+import { CornerFrame } from '../../components/ui/CornerFrame';
+import { MountainBackground } from '../../components/ui/MountainBackground';
 
 interface EndingEntry {
   id: string;
@@ -83,10 +85,13 @@ export default function EndingGallery() {
   }));
 
   return (
-    <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center py-12 px-6">
-      <div className="w-full max-w-2xl">
+    <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center py-12 px-6 relative overflow-hidden">
+      <MountainBackground opacity={0.5} />
+      <div className="w-full max-w-2xl relative z-10">
         <div className="flex items-baseline justify-between mb-10">
-          <h1 className="text-gold text-2xl tracking-[0.2em]">结局图鉴</h1>
+          <CornerFrame size="sm" className="px-4 py-2">
+            <h1 className="text-gold text-2xl tracking-[0.2em]">结局图鉴</h1>
+          </CornerFrame>
           <span className="text-ink/30 text-sm tracking-widest">
             {unlockedCount} / {ENDINGS.length} 已解锁
           </span>
