@@ -258,6 +258,20 @@
         "requires": { "constitution": 8, "flags_absent": ["secret_room_opened"] },
         "result": "你察觉到角落飘来一丝微弱的气味——寻常人怕是早已昏倒。你从容屏息，踏过毒烟区域，绕至密室的另一道暗门，推门而入。毒雾对你，不过清风拂面。",
         "grants": { "flags": ["secret_room_opened", "immune_shown", "cellar_entered_poison"] }
+      },
+      {
+        "id": "official_demand_cellar",
+        "label": "持官牒封存地窖，强制开启密室（官威）",
+        "requires": { "talent": "官威", "flags_absent": ["secret_room_opened"] },
+        "result": "你将官牒拍在掌柜面前：「此处涉及命案物证，本官依律封存并调取全部存档。配合者免责，阻挠者以藏匿证据论处。」\n\n掌柜脸色数变，最终颤着手从柜底摸出一把钥匙，默默将密室的木门推开。密室就在眼前。",
+        "grants": { "flags": ["secret_room_opened", "official_cellar_entry"] }
+      },
+      {
+        "id": "thief_pick_lock",
+        "label": "以飞贼手法拨弄机关锁芯（三教九流）",
+        "requires": { "talent": "三教九流", "flags_absent": ["secret_room_opened"] },
+        "result": "铜环机关对走惯了暗路的你毫无秘密可言——那几个卡口的位置，你用指尖一摸就摸出来了。你从腰间取出一根细铁丝，轻轻一拨，卡扣依次退开。石门无声滑开，连灰尘都没带起多少。",
+        "grants": { "flags": ["secret_room_opened", "thief_opened_cellar"] }
       }
     ]
   },

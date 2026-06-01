@@ -18,40 +18,103 @@ const has = (ctx: HintContext, flag: string) => ctx.flags.includes(flag);
 const hasItem = (ctx: HintContext, item: string) => ctx.items.includes(item);
 
 const CHAPTER1_RULES: HintRule[] = [
+  // ── 终局：三件物证全部到手 ──
   {
     when: (ctx) =>
-      has(ctx, 'kite_identity_clue') &&
-      has(ctx, 'cloth_fiber_found') &&
-      has(ctx, 'tianji_records_found'),
-    hint: '三条关键证据已齐备。前往城郊废弃宅院，揭开「鸢」的真面目。',
+      has(ctx, 'clue_blood_letter_found') &&
+      has(ctx, 'clue_arsenic_found') &&
+      has(ctx, 'cellar_fragment_obtained'),
+    hint: '三件关键证物已在手——血书令牌、砒霜物证、地窖碎片。前往城郊废弃宅院（从大堂出发），大门已可推开。',
+  },
+
+  // ── 无痕步专用路径（高优先） ──
+  {
+    when: (ctx) =>
+      has(ctx, 'learned_wuhen_bu') &&
+      !has(ctx, 'innkeeper_trusted'),
+    hint: '习得无痕步后废弃宅院还未开放。先回到客栈大堂，再和掌柜李福谈一次（他还有话要说），取得他的信任后可以进地窖拿到关键碎片。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'learned_wuhen_bu') &&
+      has(ctx, 'innkeeper_trusted') &&
+      !has(ctx, 'cellar_fragment_obtained'),
+    hint: '习得无痕步，掌柜已信任你。现在前往地窖（从大堂可到），进入深处打开密室——里面藏着能打开废弃宅院大门的关键碎片。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'learned_wuhen_bu') &&
+      has(ctx, 'cellar_fragment_obtained') &&
+      !has(ctx, 'clue_blood_letter_found'),
+    hint: '地窖碎片已得，还差血书令牌——回到「检查尸体」事件，直接「掀枕搜寻」，无需任何前置步骤，进入房间即可翻查。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'learned_wuhen_bu') &&
+      has(ctx, 'cellar_fragment_obtained') &&
+      has(ctx, 'clue_blood_letter_found') &&
+      !has(ctx, 'clue_arsenic_found'),
+    hint: '还差砒霜证物。前往后厨（从大堂可到），检查灶台旁倒扣的药罐，凑近嗅辨即可确认。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'learned_wuhen_bu') &&
+      has(ctx, 'cellar_fragment_obtained') &&
+      has(ctx, 'clue_blood_letter_found') &&
+      has(ctx, 'clue_arsenic_found'),
+    hint: '三件证物已齐。前往城郊废弃宅院（从大堂外「城郊树林」方向可到），在正堂找到「无痕步」的出路。',
+  },
+
+  // ── 普通路径：缺件补全（接诊过掌柜之后）──
+  {
+    when: (ctx) =>
+      has(ctx, 'innkeeper_trusted') &&
+      !has(ctx, 'cellar_fragment_obtained'),
+    hint: '掌柜已信任你，地窖（从大堂可直接进）的门已开。进入地窖后找到密室机关，按你的能力选一种方式打开——里面的锦盒藏着废弃宅院的关键碎片。',
   },
   {
     when: (ctx) =>
       has(ctx, 'body_examined') &&
-      has(ctx, 'kite_identity_clue') &&
-      !has(ctx, 'tianji_records_found'),
-    hint: '已有物证和身份线索。前往城郊废弃宅院（从客栈大堂可前往），搜寻天机阁的档案记录。',
+      has(ctx, 'innkeeper_met') &&
+      !has(ctx, 'innkeeper_trusted'),
+    hint: '尸体已检查。现在再去大堂找掌柜李福谈一次，他见你已在认真查案，会把地窖的钥匙交给你。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'innkeeper_talked') &&
+      !has(ctx, 'clue_arsenic_found'),
+    hint: '后厨（从大堂可到）灶台旁散落着白色粉末，就是毒物——凑近嗅辨即可认出，不需要任何特殊技能。',
   },
   {
     when: (ctx) =>
       has(ctx, 'body_examined') &&
-      has(ctx, 'cloth_fiber_found') &&
-      !has(ctx, 'kite_identity_clue'),
-    hint: '布料纤维已找到。找到飞爷，与他深谈，追问「鸢」的身份——他知道内情。',
+      !has(ctx, 'clue_blood_letter_found'),
+    hint: '案发房间枕头下还藏着一件物证——在「检查尸体」事件里直接「掀枕搜寻」，无需额外条件。',
+  },
+
+  // ── 职业专属：地窖 ──
+  {
+    when: (ctx) =>
+      ctx.talent === '官威' &&
+      has(ctx, 'innkeeper_trusted') &&
+      !has(ctx, 'cellar_fragment_obtained'),
+    hint: '持官牒可直接命令掌柜开启地窖密室，无需动用体力——在地窖「密室机关」事件中有官威专属选项。',
   },
   {
     when: (ctx) =>
-      has(ctx, 'body_examined') &&
-      !has(ctx, 'cloth_fiber_found') &&
-      !has(ctx, 'kite_identity_clue'),
-    hint: '尸体已检查。再仔细检查死者的手部，可能还有遗漏的物证。同时找飞爷了解案情背景。',
+      ctx.talent === '三教九流' &&
+      has(ctx, 'innkeeper_trusted') &&
+      !has(ctx, 'cellar_fragment_obtained'),
+    hint: '地窖密室的机关锁对走惯暗路的你来说没有秘密——「密室机关」事件里有飞贼专属的解锁选项。',
   },
+
+  // ── 职业专属：查案 ──
   {
     when: (ctx) =>
       ctx.talent === '官威' &&
       has(ctx, 'innkeeper_met') &&
       !has(ctx, 'body_examined'),
-    hint: '你持有官牒，可直接要求掌柜带路进入命案房间，无需额外周旋。',
+    hint: '你持有官牒，直接前往命案房间检查尸体——官威天赋会在检查后开放更多专属动作。',
   },
   {
     when: (ctx) =>
@@ -83,7 +146,7 @@ const CHAPTER1_RULES: HintRule[] = [
     when: (ctx) =>
       has(ctx, 'learned_wuhen_bu') &&
       !has(ctx, 'innkeeper_trusted'),
-    hint: '习得无痕步之后，白衣人指引你去废弃宅院。但宅院还未开放——需先回到客栈大堂，查验尸体后再与掌柜深谈，取得他的信任，才能进入地窖搜寻关键证物。',
+    hint: '习得无痕步后废弃宅院还未开放。先回到客栈大堂，再和掌柜李福谈一次（他还有话要说），取得他的信任后可以进地窖拿到关键碎片。',
   },
   {
     when: (ctx) =>
