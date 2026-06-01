@@ -31,6 +31,13 @@
         "requires": { "talent": "望气观相", "flags_absent": ["stele_qi_sensed"] },
         "result": "你站在碑前，平息心神，以道家望气之法观察——碑上残留着一股经年不散的「执念气场」，是刻碑者一字一刀凿下时留下的。气机指向两个字：誓与护。刻碑者将毕生之念都压进了这块石头里。碑文的隐藏结构在这股气机的引导下自然显现——创立者的名字，就藏在每句誓言的第一字里。",
         "grants": { "flags": ["stele_qi_sensed", "stele_decoded"], "items": ["tianji_founding_scroll"] }
+      },
+      {
+        "id": "thief_stele_contacts",
+        "label": "向附近江湖人打听碑文来历（三教九流）",
+        "requires": { "talent": "三教九流", "flags_absent": ["stele_contacted"] },
+        "result": "你在塔下转了一圈，认出了两个蹲靠在墙根的闲汉——都是跑黑市信息的老行当，认识你这种人。你压低声音问起这块碑，其中一个眯起眼睛：「那碑我盯过，说是某个帮派当年立誓用的。早年有人要拓碑拓纸，被人警告走了。」\n\n另一个补充：「碑后的夹缝，听说早年藏过东西，后来被人取走了，又塞回去了——不是同一件。」\n\n你绕到碑后查看，夹缝里果然还有一卷新近塞入的蜡封卷轴，取出，是天机阁的立阁原档。",
+        "grants": { "flags": ["stele_contacted", "stele_decoded"], "items": ["tianji_founding_scroll"] }
       }
     ]
   },
@@ -80,6 +87,13 @@
         "requires": { "wisdom": 7 },
         "result": "你逐一核对任务令上的特征描述：左手旧疤，习惯站于人群之后，说话从不先开口。每一条，你都在大飞帮见过。这个「旧主」，就是飞爷。",
         "grants": { "flags": ["fei_ye_suspect"] }
+      },
+      {
+        "id": "storyteller_read_orders",
+        "label": "辨析笔迹与措辞习惯（耳报神）",
+        "requires": { "talent": "耳报神", "flags_absent": ["orders_writing_read"] },
+        "result": "说书人见多识广，读过的文书比旁人多十倍。你盯着任务令，慢慢感到一丝熟悉——措辞格式、印章位置、收紧的横画，与第一章在客栈看过的那批旧档出自同一人之手，且那人惯于在关键字旁加细点作暗记。\n\n这道令，不像是普通文吏起草的——更像是一个长期活在阴影里、习惯让字迹消失的人，在不得不留下痕迹时写就的。你在令纸右下角找到一个几乎看不见的印压记——「鸢」的草写异体字。",
+        "grants": { "flags": ["orders_writing_read", "fei_ye_suspect"], "clues": ["orders_kite_mark"] }
       }
     ]
   },
@@ -158,6 +172,13 @@
         "requires": { "strength": 8 },
         "result": "你盯上一块略显突兀的砖，用力一拍，弹出一个铁盒。铁盒空了，夹层里有张纸条：「已转移，见面时给你。」",
         "grants": { "flags": ["manor_study_found"] }
+      },
+      {
+        "id": "medical_manor_exam",
+        "label": "以医者之眼察看旧伤痕迹（望闻断骨）",
+        "requires": { "talent": "望闻断骨", "flags_absent": ["manor_injury_read"] },
+        "result": "你蹲下身，在桌腿附近发现几处陈年血迹——颜色极淡，已渗入木纹，少说有十年以上。你更仔细地查看椅背扶手的磨损：右侧扶手几乎没有痕迹，左侧磨得光亮，使用者惯用左手；但桌沿左前方有一处明显的剐蹭凹陷，形状与小臂骨折后固定夹板的金属扣一致——此人左臂曾经断过，愈合后留下了痛感，所以习惯把手臂架在桌沿固定。\n\n这和无迹和尚腕骨旧伤的描述高度吻合。但留下这处伤痕的人，比无迹更年长，更有力量。长期住在这里、有过左臂骨折史的人……这个房间的主人，就是飞爷。",
+        "grants": { "flags": ["manor_injury_read", "fei_ye_identity_confirmed"], "clues": ["manor_medical_evidence"] }
       }
     ]
   },
@@ -295,6 +316,36 @@
         "requires": { "flags_absent": ["ch3_constitution_grown"] },
         "result": "你盘腿而坐，任凭风吹日晒，感受每一次呼吸在体内的流转。半日后，你睁开眼，身体仿佛比从前更加沉稳厚重。【根骨 +1】",
         "grants": { "flags": ["ch3_constitution_grown"], "constitution": 1 }
+      }
+    ]
+  },
+  {
+    "id": "evt_ch3_strength_growth",
+    "title": "旧居清障",
+    "description": "飞爷旧居的侧院堆满了多年的废旧农具和朽木，通往内室的侧道被死死堵住。",
+    "requires": { "flags": ["chapter3_started"] },
+    "actions": [
+      {
+        "id": "clear_debris",
+        "label": "硬撑着搬开废料，打通侧道",
+        "requires": { "strength": 5, "flags_absent": ["ch3_strength_grown"] },
+        "result": "你弯下腰，一捆一捆地搬开腐朽的横梁和农具。汗水湿透了衣背，每一块重物都是一次对身体极限的试探。当最后一截横木终于被你拖开，侧道重见光亮——你直起腰，感到臂膀和腰背深处有什么东西「松开」了，是久未用到的力量在苏醒。【力量 +1】",
+        "grants": { "flags": ["ch3_strength_grown", "manor_side_door_open"], "strength": 1 }
+      }
+    ]
+  },
+  {
+    "id": "evt_ch3_agility_growth",
+    "title": "大雁塔壁道",
+    "description": "大雁塔外壁有一条年久失修的石阶斜道，贴着墙面通往第三层的外廊，平日封锁，但锁早已锈烂。",
+    "requires": { "flags": ["chapter3_started"] },
+    "actions": [
+      {
+        "id": "climb_pagoda_wall",
+        "label": "攀上斜道，登临外廊远望",
+        "requires": { "agility": 5, "flags_absent": ["ch3_agility_grown"] },
+        "result": "斜道窄得只容一脚，边缘的石块几乎都是活动的。你屏住呼吸，脚尖点在最稳固的地方，一寸一寸往上挪。登上外廊的那一刻，长安城铺展在脚下——街巷如棋盘，熙熙攘攘，小如蚂蚁。\n\n下来时你比上去时快了一倍，脚步轻盈，身体记住了每一块石头的位置。这就是走惯了险路之后留下的东西。【敏捷 +1】",
+        "grants": { "flags": ["ch3_agility_grown"], "agility": 1 }
       }
     ]
   }

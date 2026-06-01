@@ -248,6 +248,20 @@ const CHAPTER3_RULES: HintRule[] = [
   },
   {
     when: (ctx) =>
+      ctx.talent === '三教九流' &&
+      !has(ctx, 'fei_ye_identity_confirmed') &&
+      has(ctx, 'tianji_mission_started'),
+    hint: '飞爷身份还未确认。前往天机安宅找联络人，他的「目标详情」一栏有完整身份记录——江湖人脉没法直接查，但天机阁的档案可以。',
+  },
+  {
+    when: (ctx) =>
+      ctx.talent === '望闻断骨' &&
+      !has(ctx, 'fei_ye_identity_confirmed') &&
+      has(ctx, 'manor_entered'),
+    hint: '旧居内室的桌椅留有旧伤痕迹，用医者之眼仔细检查——骨折习惯和使用手势能确认此处住过的人就是飞爷。',
+  },
+  {
+    when: (ctx) =>
       ctx.talent === '官威' &&
       has(ctx, 'fei_ye_identity_confirmed'),
     hint: '你有官牒。飞爷的身份一经坐实，可直接持令拘捕——前往曲江亭执行。',
