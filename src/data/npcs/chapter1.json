@@ -463,7 +463,8 @@
         },
         "text": "你将那碗酒递过去，老人接过，慢慢喝了一口，叹了声气。\n\n「昨夜二更，有个蓝衫汉子在这里蹲了半个时辰，腰上挂着串铜铃，走路有声。他拓了那面墙上的记号，又对着客栈方向看了好久，才走。」\n\n他顿了顿：「这城里的人叫他们浪鹏帮。不是什么好人，但也不乱杀人——只要你别挡着他们的道。」",
         "grants": {
-          "flags": ["beggar_told_langpeng", "langpeng_discovered"]
+          "flags": ["beggar_told_langpeng", "langpeng_discovered"],
+          "quests": ["quest_li_mao_case"]
         }
       },
       {
@@ -520,7 +521,8 @@
         "text": "你提到墙上的刻记，周药商身子一僵，转过头低声道：\n\n「你认得那个记号？那是浪鹏帮的暗记。」他从怀里摸出一张折皱的纸条，「劫我货的人走时留下这个，说什么『名单交出来，货还你』。什么名单，我哪里知道！」\n\n他将纸条塞进你手里：「你若能帮我查清此事，这纸条你拿着，算是谢礼。」",
         "grants": {
           "flags": ["merchant_zhou_talked", "langpeng_discovered"],
-          "items": ["extortion_note"]
+          "items": ["extortion_note"],
+          "quests": ["quest_li_mao_case"]
         }
       },
       {

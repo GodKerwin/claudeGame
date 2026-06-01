@@ -38,6 +38,13 @@
         "requires": { "wisdom": 7 },
         "result": "你摸出几枚铜钱，茶摊掌柜会意，凑近低声道：「那帮人昨夜急着撤，说是平康坊西头有人盯着……浪鹏帮的，这几日在城里走动频繁。」",
         "grants": { "flags": ["east_market_rumor", "langpeng_sighting"] }
+      },
+      {
+        "id": "storyteller_eavesdrop",
+        "label": "以说书人的耳力，从只言片语中捕捉要点（耳报神）",
+        "requires": { "talent": "耳报神", "flags_absent": ["langpeng_sighting"] },
+        "result": "说书人走南闯北，练就了在嘈杂人群中抓取关键字的本事。你不动声色地站在茶摊旁，听到了别人听不清的那几个字：「平康坊……西头……院子里……李爷吩咐的……」几句话拼合在一起，足够你判断浪鹏帮的位置了——而且有个叫「李爷」的人在背后发号施令。",
+        "grants": { "flags": ["east_market_rumor", "langpeng_sighting", "limao_mentioned_early"] }
       }
     ]
   },
@@ -65,6 +72,13 @@
         "label": "凭医理推断毒药来源",
         "requires": { "wisdom": 8 },
         "result": "你以精深的医理辨析药架中的可疑药材，很快锁定其中一格：砒霜与曼陀罗花合制，能令人先昏迷再窒息，恰与宋怀义的死状相符。",
+        "grants": { "flags": ["poison_matched", "poison_source_known"], "items": ["poison_residue_sample"] }
+      },
+      {
+        "id": "sense_poison_qi",
+        "label": "以望气之法，察药架毒气残留（望气观相）",
+        "requires": { "talent": "望气观相", "flags_absent": ["poison_matched"] },
+        "result": "你静气凝神，以道家望气之法扫视整排药架——绝大多数药材的气场平和，只有中段某一格散发着一股异样的「阴煞气」，带着血腥和窒息的味道，是毒药才有的气息。你取出那格的粉末细看：砒霜与曼陀罗合剂，恰是宋怀义死前的毒物。",
         "grants": { "flags": ["poison_matched", "poison_source_known"], "items": ["poison_residue_sample"] }
       }
     ]
@@ -179,6 +193,13 @@
         "requires": { "strength": 8 },
         "result": "你用力撬开书箱底板，木头嘎吱一声裂开，露出一层夹层。内藏一卷密封卷轴，记载着无迹和尚的真实身份与天机阁旧案始末。",
         "grants": { "items": ["monk_identity_scroll"] }
+      },
+      {
+        "id": "official_demand_monk",
+        "label": "持官牒，传召无迹和尚当面陈词（官威）",
+        "requires": { "talent": "官威", "flags": ["wujue_met"], "flags_absent": ["monk_identity_scroll"] },
+        "result": "你取出官牒，推门而入，声音不高却带着不容置疑的分量：「本官奉命追查一起命案，据知情者指证，此处与案情相关。请无迹大师配合调查。」\n\n和尚对视着你的官牒，沉默了很久，最终站起身，从书箱底层亲手取出了那卷密封的卷轴，递给你：「施主既持官牒前来，贫僧没有理由藏着。」",
+        "grants": { "items": ["monk_identity_scroll"], "flags": ["official_inquiry_used"] }
       }
     ]
   },
@@ -206,6 +227,13 @@
         "label": "凭天机线索解读壁画",
         "requires": { "flags": ["wujue_tianji_revealed"] },
         "result": "无迹已告知你天机阁的暗语体系。你对照壁画，很快找到藏于修补处的暗号册，取出后装入怀中。",
+        "grants": { "flags": ["mural_seen", "tianji_signal_known"], "items": ["tianji_signal_record"] }
+      },
+      {
+        "id": "sense_mural_qi",
+        "label": "以望气之法，感应壁画背后的气机（望气观相）",
+        "requires": { "talent": "望气观相", "flags_absent": ["tianji_signal_known"] },
+        "result": "你在壁画前驻足，平心静气——道家望气之法让你察觉到画面边缘的修补处有一股「人为气场」，刻意而压抑，像是某人曾在那里长时间驻留、反复触碰。你按着那股气机的指引，剥开修补的灰泥，后面藏着一册薄薄的小册子，正是天机阁内部暗号记录。",
         "grants": { "flags": ["mural_seen", "tianji_signal_known"], "items": ["tianji_signal_record"] }
       }
     ]
@@ -242,6 +270,13 @@
         "requires": { "wisdom": 6 },
         "result": "你把地上的纸屑一片片拼合，凭着过人的辨析能力，将残缺文字填补完整——是一份调令，李邈手书，命浪鹏帮监视往事客栈，伺机取走宋怀义的随身密件。",
         "grants": { "flags": ["hideout_entered"], "items": ["langpeng_dispatch_order"] }
+      },
+      {
+        "id": "official_raid",
+        "label": "持官牒清场，震慑帮众交代藏物（官威）",
+        "requires": { "talent": "官威", "flags_absent": ["langpeng_dispatch_order"] },
+        "result": "你踏进院门，官牒一亮：「官府追查要案，据点内所有人原地不动，不得离开。」声音不高，分量却重如铁。院中残余的帮众瞬间慌乱——有人想跑，被你一个眼神钉住了。\n\n片刻后，一个年长的帮众颤声道：「大……大人，调令文书在……在正堂灶台后面……是李爷放的，我们只是奉命行事……」\n\n你去灶台后面，取出那份调令。李邈的笔迹，清清楚楚。",
+        "grants": { "flags": ["hideout_entered", "official_raid_done"], "items": ["langpeng_dispatch_order"] }
       },
       {
         "id": "gang_code_greet",

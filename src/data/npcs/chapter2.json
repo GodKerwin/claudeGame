@@ -85,20 +85,20 @@
       {
         "id": "intimidate",
         "condition": { "strength": 8 },
-        "text": "你……你想干什么！行行好，别动手……我说，我都说！李爷确实让我们盯那个客栈，盯一个叫宋怀义的商人。我们只是盯着，没有动手，真的没有动手！",
-        "grants": { "flags": ["langpeng_trail"] }
+        "text": "你……你想干什么！行行好，别动手……我说，我都说！李爷确实让我们盯那个客栈，盯一个叫宋怀义的商人。我们只是盯着，没有动手，真的没有动手！」\n\n他哆哆嗦嗦地补了一句：「调令文书……在据点正堂的灶台后面，李爷亲笔写的……你若去拿，搜正堂！",
+        "grants": { "flags": ["langpeng_trail", "langpeng_scared"], "clues": ["langpeng_hideout_intel"] }
       },
       {
         "id": "tail",
         "condition": { "agility": 8 },
-        "text": "你……你一直跟着我？从据点到这里？……好，好吧。说就说。李爷下令，要我们跟紧那个宋怀义，他一旦取出藏起来的东西，立刻上报。我们只是跑腿的，真正知道内情的，是李爷自己。",
-        "grants": { "flags": ["langpeng_trail"] }
+        "text": "你……你一直跟着我？从据点到这里？……好，好吧。说就说。李爷下令，要我们跟紧那个宋怀义，他一旦取出藏起来的东西，立刻上报。我们只是跑腿的，真正知道内情的，是李爷自己。」\n\n他迟疑了一下，又压低声音：「他们有人藏在回春堂附近——监视那个和尚。和尚好像知道些什么，李爷不让他走漏消息。",
+        "grants": { "flags": ["langpeng_trail", "langpeng_wujue_watched"], "clues": ["langpeng_hideout_intel"] }
       },
       {
         "id": "probe",
         "condition": { "wisdom": 7 },
-        "text": "你知道浪鹏帮最近的动向……你也知道平康坊的事……你到底是什么人？……罢了，跟你说也无妨。是李邈，长安城里那位「李爷」，雇了我们帮他盯梢，监视往事客栈。那个宋怀义，他们早就盯上了。",
-        "grants": { "flags": ["langpeng_trail"] }
+        "text": "你知道浪鹏帮最近的动向……你也知道平康坊的事……你到底是什么人？……罢了，跟你说也无妨。是李邈，长安城里那位「李爷」，雇了我们帮他盯梢，监视往事客栈。那个宋怀义，他们早就盯上了。」\n\n你进一步追问，他叹了口气：「李爷跟浪鹏帮打交道不只这一次。他给帮主的好处不少，但帮主心里也清楚——这种人，用完就会翻脸的。",
+        "grants": { "flags": ["langpeng_trail", "langpeng_li_mao_relations"], "clues": ["langpeng_hideout_intel"] }
       },
       {
         "id": "trust_opened",

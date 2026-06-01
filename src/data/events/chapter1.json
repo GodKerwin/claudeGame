@@ -135,14 +135,14 @@
         "label": "细读诗文寻找规律",
         "requires": { "wisdom": 6, "flags": ["notice_read"] },
         "result": "你逐字审视，忽然发现——每行首字连读：大、风、起、兮、云、飞、扬。「大飞」二字呼之欲出，这是某个组织留下的暗号。你在地板角落找到一块铜牌，想必就是那把\"黑铁刀\"对应的真正\"失物\"。",
-        "grants": { "flags": ["dafei_notice_found", "dafei_acrostic_decoded"], "items": ["broken_copper_badge"] }
+        "grants": { "flags": ["dafei_notice_found", "dafei_acrostic_decoded"], "items": ["broken_copper_badge"], "quests": ["quest_dafei_gang"] }
       },
       {
         "id": "decode_acrostic_talent",
         "label": "扫一眼，脑中已有印象",
         "requires": { "talent": "望气观相" },
         "result": "告示上的字句在你脑中过了一遍，每行首字的规律跃然而出——大、风、起、兮、云、飞、扬。藏头诗，某个组织的接头暗号。你在地板角落找到了一块被踢到缝隙里的铜牌。",
-        "grants": { "flags": ["dafei_notice_found", "dafei_acrostic_decoded"], "items": ["broken_copper_badge"] }
+        "grants": { "flags": ["dafei_notice_found", "dafei_acrostic_decoded"], "items": ["broken_copper_badge"], "quests": ["quest_dafei_gang"] }
       },
       {
         "id": "recognize_gang_code",
@@ -353,7 +353,7 @@
         "label": "深挖箱底，细细翻查",
         "requires": { "wisdom": 7 },
         "result": "你在最底层发现一封密信，信封用特殊的蜡封口，上面印着飞鸟图案。信中写道：「残卷已取，人已除，望速来接应。」落款只有一个字：「鸢」。",
-        "grants": { "flags": ["kite_identity_clue"], "items": ["kite_letter"], "clues": ["kite_letter"] }
+        "grants": { "flags": ["kite_identity_clue"], "items": ["kite_letter"], "clues": ["kite_letter"], "quests": ["quest_find_kite"] }
       }
     ]
   },
