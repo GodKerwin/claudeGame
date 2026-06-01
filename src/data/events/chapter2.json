@@ -214,6 +214,13 @@
         "requires": { "talent": "官威", "flags": ["wujue_met"], "flags_absent": ["monk_identity_scroll"] },
         "result": "你取出官牒，推门而入，声音不高却带着不容置疑的分量：「本官奉命追查一起命案，据知情者指证，此处与案情相关。请无迹大师配合调查。」\n\n和尚对视着你的官牒，沉默了很久，最终站起身，从书箱底层亲手取出了那卷密封的卷轴，递给你：「施主既持官牒前来，贫僧没有理由藏着。」",
         "grants": { "items": ["monk_identity_scroll"], "flags": ["official_inquiry_used"] }
+      },
+      {
+        "id": "healer_trust_scroll",
+        "label": "「大师腕骨的旧伤——我能帮你看看」",
+        "requires": { "talent": "望闻断骨", "flags": ["wujue_met"], "flags_absent": ["monk_identity_scroll"] },
+        "result": "你注意到和尚持珠时右腕的细微弧度——是陈年骨裂留下的习惯性护持，常年未得根治，应是二十年前的旧伤。\n\n「大师，我是行医的。右腕的骨裂，如今只剩隐痛，但若遇寒便会加重——我有一副方子，三诊可愈。」\n\n和尚低头看着自己的右手，沉默了很长时间。\n\n「施主……愿意替贫僧看诊？」\n\n你为他正骨，推拿，开了方子。临走时，他取出那卷密封的卷轴，放在你的药箱旁：「医者仁心。有些事，贫僧本不想说——但你不一样。」",
+        "grants": { "items": ["monk_identity_scroll"], "flags": ["healer_monk_trust"] }
       }
     ]
   },
@@ -366,7 +373,7 @@
       {
         "id": "join_ending",
         "label": "「天机阁……说来听听。」（考虑招募）",
-        "requires": { "flags": ["tianji_recruit_offered"], "agility": 6 },
+        "requires": { "flags": ["tianji_recruit_offered"] },
         "result": "你靠在椅背上，神情懒散，语气漫不经心。\n\n李邈看了你片刻，似乎在衡量什么。然后他开口，将天机阁的真实面目徐徐道来——那不是一个帮派，而是一张网，覆盖长安城三十七处要津，每一处都有人在守。\n\n「宋怀义带走的名单，是这张网上的每一个节点。」他说，「若名单落入错误的人手里，整张网都会被摧毁。」\n\n「而你，」他顿了顿，「有能力帮我找回它。」\n\n你没有立刻答应，但你没有离开。窗外，长安城的灯火一盏一盏亮起来，像一张正在收紧的网。",
         "grants": { "flags": ["chapter2_join_ending"] }
       }

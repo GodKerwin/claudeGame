@@ -160,9 +160,25 @@ const CHAPTER2_RULES: HintRule[] = [
   },
   {
     when: (ctx) =>
+      ctx.talent === '望闻断骨' &&
+      hasItem(ctx, 'poison_residue_sample') &&
+      !hasItem(ctx, 'monk_identity_scroll'),
+    hint: '毒物样本已有。前往慈恩寺偏院的僧房，无迹和尚腕骨有旧伤——你可以主动开口提出为他看诊，以医者之诚换取他的信任，他会亲手交出那份证据。',
+  },
+  {
+    when: (ctx) =>
+      ctx.talent !== '望闻断骨' &&
       hasItem(ctx, 'poison_residue_sample') &&
       !hasItem(ctx, 'monk_identity_scroll'),
     hint: '毒物样本已有。找到无迹和尚，他的身份文书是证明李邈参与其中的关键。',
+  },
+  {
+    when: (ctx) =>
+      ctx.talent === '望闻断骨' &&
+      has(ctx, 'langpeng_trail') &&
+      hasItem(ctx, 'langpeng_dispatch_order') &&
+      !hasItem(ctx, 'monk_identity_scroll'),
+    hint: '调令文书已在手，若觉得三件证据难以凑齐，可直接前往茶馆——「放走」李邈也是一种结束，你手中的证据已足以逼他承认。',
   },
   {
     when: (ctx) =>
