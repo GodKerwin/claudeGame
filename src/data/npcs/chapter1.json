@@ -427,7 +427,7 @@
         "id": "pavilion_opening",
         "condition": { "flags": ["chapter3_started", "entered_pavilion"] },
         "text": "坐。等你好久了。……不用问我怎么知道你来，我建了这张网，网里有什么动静，我比你清楚。",
-        "grants": {}
+        "grants": { "flags": ["fei_ye_pavilion_met"] }
       },
       {
         "id": "identity_admitted",

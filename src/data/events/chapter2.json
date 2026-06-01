@@ -108,6 +108,13 @@
         "requires": { "flags": ["wujue_met"] },
         "result": "你仔细辨认方剂簿上某几页的笔迹，认出正是无迹和尚的手迹。这位和尚在此铺子留下了痕迹，而且是关于配毒的方子。",
         "grants": { "items": ["wujue_prescription"] }
+      },
+      {
+        "id": "doctor_toxicology",
+        "label": "「从配伍识别方子的真实用途」",
+        "requires": { "talent": "望闻断骨", "flags_absent": ["prescription_toxic_confirmed"] },
+        "result": "你浏览那几页方子时，职业敏感立刻锁定了异常：方剂中同时开具了曼陀罗与砒霜，两味若单用皆是剧毒，合用则会让毒性倍增且难以辨认死因。\n\n普通医者不会如此开方——这不是治病的方子，是专为致命而设计的配毒笺。\n\n写方之人，既懂医道，也知杀法。",
+        "grants": { "flags": ["prescription_toxic_confirmed", "poison_source_known"], "items": ["wujue_prescription"] }
       }
     ]
   },
@@ -130,6 +137,13 @@
         "requires": { "wisdom": 7 },
         "result": "你将令牌的纹饰特征一一道来，掌柜的脸色变了变，终于道：「你既知此物来历……」他从柜台下取出一册账本，翻到某一页，指给你看。",
         "grants": { "flags": ["tianji_seal_read"], "items": ["buyer_transaction_record"] }
+      },
+      {
+        "id": "underground_token_read",
+        "label": "「黑市眼力认出令牌来路」",
+        "requires": { "talent": "三教九流", "flags_absent": ["token_underground_known"] },
+        "result": "你把令牌在手心翻了翻，底面的落款方式、玉料的产地成色、刻工的手法——江湖上见过各路势力信物的人才会知道，这种组合指向一个消失已久的名字。\n\n「这是天机阁的信物，」你低声说，「不是普通古玩。」\n\n掌柜的笑容凝固了一秒，随即重新挂上来，但那一秒已经说明了一切。",
+        "grants": { "flags": ["token_underground_known", "tianji_seal_read"], "items": ["buyer_transaction_record"] }
       }
     ]
   },

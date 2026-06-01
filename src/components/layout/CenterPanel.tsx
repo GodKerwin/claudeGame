@@ -2,6 +2,27 @@ import { useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { TypewriterText } from '../ui/TypewriterText';
 import { ActionButton } from '../ui/ActionButton';
 
+const ROOM_ATMOSPHERE: Record<string, { glyph: string; color: string; label: string }> = {
+  room_203:           { glyph: '▲', color: 'rgba(201,168,76,0.45)', label: '室内·夜' },
+  room_202:           { glyph: '▲', color: 'rgba(139,26,26,0.55)', label: '凶案现场' },
+  lobby:              { glyph: '▲', color: 'rgba(201,168,76,0.35)', label: '室内' },
+  kitchen:            { glyph: '▲', color: 'rgba(201,168,76,0.30)', label: '后厨' },
+  cellar:             { glyph: '▼', color: 'rgba(201,168,76,0.25)', label: '地下' },
+  forest:             { glyph: '◌', color: 'rgba(58,122,90,0.55)', label: '林间·户外' },
+  old_mansion:        { glyph: '◌', color: 'rgba(201,168,76,0.25)', label: '废弃·户外' },
+  back_alley:         { glyph: '◌', color: 'rgba(201,168,76,0.25)', label: '巷道·夜' },
+  east_market_entrance:{ glyph: '◈', color: 'rgba(201,168,76,0.40)', label: '东市·晨' },
+  huichuntang:        { glyph: '▲', color: 'rgba(58,122,90,0.45)', label: '药铺·室内' },
+  antique_shop:       { glyph: '▲', color: 'rgba(201,168,76,0.35)', label: '古玩铺' },
+  cien_temple:        { glyph: '☽', color: 'rgba(201,168,76,0.35)', label: '寺院偏院' },
+  pingkang_hideout:   { glyph: '◌', color: 'rgba(139,26,26,0.40)', label: '据点·险' },
+  imperial_teahouse:  { glyph: '▲', color: 'rgba(201,168,76,0.45)', label: '茶馆·室内' },
+  dayan_pagoda:       { glyph: '☽', color: 'rgba(201,168,76,0.35)', label: '塔下·晨' },
+  tianji_safehouse:   { glyph: '▲', color: 'rgba(201,168,76,0.30)', label: '安宅·室内' },
+  feiyes_manor:       { glyph: '◌', color: 'rgba(201,168,76,0.25)', label: '旧居·午后' },
+  qujiang_pavilion:   { glyph: '◌', color: 'rgba(58,122,90,0.45)', label: '曲江·傍晚' },
+};
+
 interface ActionItem {
   id: string;
   label: string;
@@ -26,6 +47,7 @@ interface Entity {
 
 interface Props {
   roomName: string;
+  roomId?: string;
   roomDescription: string;
   storyTexts: string[];
   actions: ActionItem[];
@@ -38,6 +60,7 @@ interface Props {
 
 export function CenterPanel({
   roomName,
+  roomId,
   roomDescription,
   storyTexts,
   actions,
@@ -136,18 +159,20 @@ export function CenterPanel({
   return (
     <div className="flex flex-col h-full">
       {/* 房间标题 */}
-      <div className="px-5 py-3 border-b border-gold/10 flex items-center gap-2">
-        <div
-          className="w-[5px] h-[5px] bg-gold/20 shrink-0"
-          style={{ transform: 'rotate(45deg)' }}
-        />
-        <div className="flex-1 h-px bg-gradient-to-r from-gold/15 to-transparent" />
-        <h2 className="text-gold/85 text-sm tracking-[0.2em] shrink-0">{roomName}</h2>
-        <div className="flex-1 h-px bg-gradient-to-l from-gold/15 to-transparent" />
-        <div
-          className="w-[5px] h-[5px] bg-gold/20 shrink-0"
-          style={{ transform: 'rotate(45deg)' }}
-        />
+      <div className="px-5 py-3 border-b border-gold/10 flex flex-col items-center gap-1">
+        <div className="w-full flex items-center gap-2">
+          <div className="w-[5px] h-[5px] bg-gold/20 shrink-0" style={{ transform: 'rotate(45deg)' }} />
+          <div className="flex-1 h-px bg-gradient-to-r from-gold/15 to-transparent" />
+          <h2 className="text-gold/85 text-sm tracking-[0.2em] shrink-0">{roomName}</h2>
+          <div className="flex-1 h-px bg-gradient-to-l from-gold/15 to-transparent" />
+          <div className="w-[5px] h-[5px] bg-gold/20 shrink-0" style={{ transform: 'rotate(45deg)' }} />
+        </div>
+        {roomId && ROOM_ATMOSPHERE[roomId] && (
+          <div className="flex items-center gap-1">
+            <span style={{ color: ROOM_ATMOSPHERE[roomId].color, fontSize: '10px', lineHeight: 1 }}>{ROOM_ATMOSPHERE[roomId].glyph}</span>
+            <span className="text-ink/22 text-[10px] tracking-[0.15em]">{ROOM_ATMOSPHERE[roomId].label}</span>
+          </div>
+        )}
       </div>
 
       {/* 故事文本区（可滚动） */}

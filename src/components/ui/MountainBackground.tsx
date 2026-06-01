@@ -40,10 +40,27 @@ export function MountainBackground({ opacity = 1 }: Props) {
             <stop offset="40%" stopColor="rgba(26,18,8,0.85)" />
             <stop offset="100%" stopColor="rgba(26,18,8,1)" />
           </linearGradient>
+          <filter id="ink-blur">
+            <feGaussianBlur stdDeviation="3" />
+          </filter>
+          <style>{`
+            @keyframes mistDrift {
+              0%, 100% { transform: translateX(0px) scaleX(1); }
+              40% { transform: translateX(12px) scaleX(1.008); }
+              70% { transform: translateX(-8px) scaleX(0.995); }
+            }
+            @keyframes mistDriftSlow {
+              0%, 100% { transform: translateX(0px); opacity: 1; }
+              50% { transform: translateX(-16px); opacity: 0.88; }
+            }
+            .mist-far { animation: mistDriftSlow 22s ease-in-out infinite; transform-origin: 720px 300px; }
+            .mist-mid { animation: mistDrift 16s ease-in-out infinite; transform-origin: 720px 250px; }
+          `}</style>
         </defs>
 
         {/* 远山 — 极淡，柔和丘陵 */}
         <path
+          className="mist-far"
           d="M0,320 C80,300 180,285 300,270 C420,255 520,265 640,255
              C760,245 860,258 980,248 C1100,238 1220,252 1340,262
              C1380,266 1420,264 1440,265 L1440,400 L0,400 Z"
@@ -52,6 +69,7 @@ export function MountainBackground({ opacity = 1 }: Props) {
 
         {/* 中山 — 有明显峰势 */}
         <path
+          className="mist-mid"
           d="M0,360 C60,330 140,280 240,245 C320,218 400,240 480,222
              C560,204 630,165 720,178 C800,190 870,162 960,148
              C1050,134 1140,165 1230,195 C1320,225 1390,255 1440,270

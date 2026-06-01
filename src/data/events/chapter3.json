@@ -187,6 +187,13 @@
         "requires": { "flags": ["fei_ye_suspect"] },
         "result": "你取出任务令上的追查画像，与墙上的画像并排一看——是同一个人。追查令上的「旧主」，就是飞爷，就是鸢。",
         "grants": { "flags": ["fei_ye_identity_confirmed"] }
+      },
+      {
+        "id": "official_portrait_check",
+        "label": "「以官府档案比对通缉画像」",
+        "requires": { "talent": "官威", "flags_absent": ["official_portrait_matched"] },
+        "result": "你展出官牒，以公务名义调取长安府近十年的通缉存档和籍贯记录。档案吏翻出一沓画像，在第十三张上停下：面容与此处画像高度吻合，籍贯记录上的名字只留了半行——看来有人动过档案。\n\n但未被删去的部分已经够用：此人确有天机阁的成员记录，代号，鸢。",
+        "grants": { "flags": ["official_portrait_matched", "fei_ye_identity_confirmed"] }
       }
     ]
   },
@@ -251,6 +258,13 @@
         "requires": { "has": ["dafei_secret_intel"], "flags": ["fei_ye_identity_confirmed"] },
         "result": "飞爷接过那份文书，扫了一眼，脸色细微地变了：「这是……内部调度令。」他沉默片刻，「你从哪里得到的？」\n\n不需要回答。他已经明白了。档案上的笔迹，和他书案上的手书，出自同一人。",
         "grants": { "flags": ["deeper_threat_revealed"] }
+      },
+      {
+        "id": "thief_jianghu_talk",
+        "label": "「以江湖人的方式开场——不问身份，只谈道义」",
+        "requires": { "talent": "三教九流", "flags": ["fei_ye_identity_confirmed"], "flags_absent": ["thief_jianghu_opened"] },
+        "result": "你没有亮出官牒，也没有拿出证据，只是在他对面坐下，端起茶杯，平静地说：「江湖上有句话，恩怨两清，各自散。你建天机阁护那些人，是做的道义的事。有人要拿你，另说；但我不是来拿你的。」\n\n飞爷沉默了很久。这句话，和他这二十年听到的每一种开场都不同。\n\n「你是什么人？」他的语气松了一分。\n\n「三教九流，走惯了暗路的。」你放下茶杯，「所以知道——有些事，比对错更重要。」",
+        "grants": { "flags": ["thief_jianghu_opened", "negotiation_opened", "tianji_trust_gained"] }
       }
     ]
   },

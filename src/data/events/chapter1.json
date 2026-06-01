@@ -161,9 +161,9 @@
       {
         "id": "read_again",
         "label": "再看一遍告示",
-        "requires": { "flags": ["notice_read"], "flags_absent": ["dafei_notice_found"] },
+        "requires": { "flags": ["notice_read"], "flags_absent": ["dafei_notice_found", "notice_pondering_done"] },
         "result": "告示内容如前，你总觉得那首诗有些蹊跷，却一时想不透。也许需要更仔细地推敲……",
-        "grants": {}
+        "grants": { "flags": ["notice_pondering_done"] }
       },
       {
         "id": "gang_code_insight",
@@ -193,6 +193,13 @@
         "requires": { "constitution": 7, "flags_absent": ["arsenic_identified"] },
         "result": "你以内力护体，以指尖沾了极少量置于舌尖——苦涩之中带着灼烧感，确是砒霜，且纯度极高，非一般市售之物。此乃专业人士手中的物事。",
         "grants": { "flags": ["arsenic_identified", "arsenic_highgrade", "clue_arsenic_found"], "items": ["arsenic_evidence"], "clues": ["arsenic_evidence"] }
+      },
+      {
+        "id": "official_records_arsenic",
+        "label": "「以官牒征调仵作存档」",
+        "requires": { "talent": "官威", "flags_absent": ["arsenic_official_confirmed"] },
+        "result": "你展出官牒，以公务名义向本地仵作发令：近期有无特制毒药进货记录，即刻呈报。\n\n仵作翻出本季档案，抖着手指着一行墨迹：「此等配方，长安城中仅一处有合法备案——回春堂，经手人：无迹，七月十三。」\n\n名字、地点、日期，三项并列，白纸黑字。",
+        "grants": { "flags": ["arsenic_official_confirmed", "arsenic_identified", "clue_arsenic_found"], "items": ["arsenic_evidence"], "clues": ["arsenic_evidence"] }
       }
     ]
   },
@@ -303,6 +310,13 @@
         "requires": { "wisdom": 6, "flags_absent": ["forest_clue_found"] },
         "result": "脚印旁边的草丛有被人拨开的痕迹，树皮上有一道新鲜的刀痕，像是有人故意留下的记号，指向树林的东北方向。",
         "grants": { "flags": ["forest_clue_found"], "clues": ["forest_direction_mark"] }
+      },
+      {
+        "id": "thief_track_read",
+        "label": "「以江湖经验辨认步法特征」",
+        "requires": { "talent": "三教九流", "flags_absent": ["trail_type_known"] },
+        "result": "你蹲下细看那些脚印，职业本能让你注意到了别人会忽略的细节：脚尖内扣、落点靠外、步距均匀——这是长期走飞檐走壁之人才会留下的步法，不是寻常刺客，是受过系统训练的江湖杀手。\n\n另外，你留意到起脚的角度……惯用左手。",
+        "grants": { "flags": ["trail_type_known", "forest_clue_found"], "clues": ["killer_footprint_analysis"] }
       }
     ]
   },
@@ -413,9 +427,9 @@
       {
         "id": "guess_lock",
         "label": "凭感逐一试拨",
-        "requires": { "flags": ["dafei_well_entered"], "flags_absent": ["dafei_lock_solved"] },
+        "requires": { "flags": ["dafei_well_entered"], "flags_absent": ["dafei_lock_solved", "lock_guess_done"] },
         "result": "你随机拨动了几次，铜轮纹丝不动，发出刺耳的摩擦声。看来需要找到正确的数字线索才行。",
-        "grants": {}
+        "grants": { "flags": ["lock_guess_done"] }
       }
     ]
   },
@@ -601,6 +615,13 @@
         "requires": { "flags": ["scene_202_surveyed"], "flags_absent": ["tea_checked"] },
         "result": "你凑近茶杯细嗅，有一股极淡的苦味混在茶香中，与后厨发现的砒霜相对应。毒并非从外部施加，而是被人提前溶在了茶里。宋怀义喝下毒茶，以为只是睡意袭来，却再也没有醒来。\n\n凶手提前进入了这个房间。",
         "grants": { "flags": ["tea_checked", "poison_tea_confirmed"] }
+      },
+      {
+        "id": "medical_time_analysis",
+        "label": "「从气色与体温推算死亡时辰」",
+        "requires": { "talent": "望闻断骨", "flags": ["body_examined"], "flags_absent": ["death_time_estimated"] },
+        "result": "你俯身再观宋怀义遗体：皮色青紫中透出黄晕，肌肉已有僵化但尚未完全，指甲下毛细血管的颜色告诉你——距死亡不超过六个时辰，不少于四个时辰。\n\n你抬头看向窗外光线，此刻约是午前巳时。换算下来，死亡发生在昨夜三更至五更之间。\n\n「凶手昨夜动的手，不是今晨。」你在心中确定了这一点。",
+        "grants": { "flags": ["death_time_estimated", "murder_sequence_deduced"] }
       }
     ]
   },

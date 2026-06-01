@@ -6,6 +6,7 @@ import { CenterPanel } from '../../components/layout/CenterPanel';
 import { RightPanel } from '../../components/layout/RightPanel';
 import { SaveLoadModal } from '../../components/save/SaveLoadModal';
 import { SettingsModal } from '../../components/settings/SettingsModal';
+import { ChapterIntro } from '../../components/ui/ChapterIntro';
 import { useAutoSave } from '../../hooks/useAutoSave';
 import { useSettings } from '../../hooks/useSettings';
 import { usePlayerStore } from '../../store/playerStore';
@@ -77,6 +78,9 @@ export default function Game() {
   const [showFirstRun, setShowFirstRun] = useState<boolean>(
     !localStorage.getItem('tianji-firstrun-seen')
   );
+  const [chapterIntroShown, setChapterIntroShown] = useState<number>(() =>
+    parseInt(sessionStorage.getItem('tianji-intro-shown') ?? '1', 10)
+  );
   const processingRef = useRef(false);
 
   useAutoSave();
@@ -113,6 +117,14 @@ export default function Game() {
     : scene.flags.includes('chapter2_started') ? 2
     : 1,
   [scene.flags]);
+
+  const showChapterIntro = chapter > chapterIntroShown;
+
+  const handleIntroComplete = useCallback(() => {
+    const next = chapter as number;
+    sessionStorage.setItem('tianji-intro-shown', String(next));
+    setChapterIntroShown(next);
+  }, [chapter]);
 
   const ctx = useMemo<EvalContext>(() => ({
     player: {
@@ -279,6 +291,7 @@ export default function Game() {
         center={
           <CenterPanel
             roomName={room.name}
+            roomId={room.id}
             roomDescription={room.description}
             storyTexts={scene.storyText}
             actions={actions}
@@ -301,6 +314,10 @@ export default function Game() {
       )}
       {(modal === 'save' || modal === 'load') && (
         <SaveLoadModal mode={modal} onClose={() => setModal(null)} />
+      )}
+
+      {showChapterIntro && (
+        <ChapterIntro chapter={chapter} onDone={handleIntroComplete} />
       )}
 
       {showFirstRun && (

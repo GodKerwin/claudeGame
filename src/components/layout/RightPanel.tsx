@@ -70,6 +70,32 @@ const TIMELINE_FLAGS: Array<{ flag: string; text: string }> = [
   { flag: 'chapter3_join_ending',         text: '任务令付之一炬，同守天机名单' },
 ];
 
+function TalentSeal({ name }: { name: string }) {
+  const chars = name.split('');
+  const isLong = chars.length > 2;
+  const size = isLong ? 36 : 28;
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ display: 'inline-block', flexShrink: 0 }}>
+      <rect x="1.5" y="1.5" width={size - 3} height={size - 3} rx="1"
+        fill="rgba(139,26,26,0.08)" stroke="rgba(139,26,26,0.55)" strokeWidth="1" />
+      {chars.length <= 2 ? (
+        chars.map((c, i) => (
+          <text key={i} x={size / 2} y={chars.length === 1 ? size / 2 + 5 : (i === 0 ? 14 : 26)}
+            textAnchor="middle" fill="rgba(139,26,26,0.85)"
+            fontSize={chars.length === 1 ? 16 : 12} fontFamily="serif" fontWeight="bold">
+            {c}
+          </text>
+        ))
+      ) : (
+        <>
+          <text x={size / 2} y={13} textAnchor="middle" fill="rgba(139,26,26,0.85)" fontSize={9} fontFamily="serif" fontWeight="bold">{chars[0]}{chars[1]}</text>
+          <text x={size / 2} y={24} textAnchor="middle" fill="rgba(139,26,26,0.85)" fontSize={9} fontFamily="serif" fontWeight="bold">{chars[2]}{chars[3] ?? ''}</text>
+        </>
+      )}
+    </svg>
+  );
+}
+
 function SectionHeader({ label }: { label: string }) {
   return <DiamondDivider label={label} />;
 }
@@ -110,10 +136,10 @@ export function RightPanel() {
         </div>
         {player.talent && talentInfo && (
           <Tooltip content={`${talentInfo.name}\n${talentInfo.description}\n${talentInfo.effect}`} position="left">
-            <div className="mt-2.5 flex items-center gap-1.5 cursor-help px-1 py-1">
-              <span className="text-gold/35 text-[10px]">天赋</span>
+            <div className="mt-3 flex items-center gap-2.5 cursor-help px-1 py-0.5">
+              <span className="text-gold/35 text-[10px] shrink-0">天赋</span>
               <div className="w-px h-3 bg-gold/20 shrink-0" />
-              <span className="text-gold/75 text-xs">{player.talent}</span>
+              <TalentSeal name={player.talent} />
               <span className="text-ink/20 text-[9px] ml-auto">?</span>
             </div>
           </Tooltip>
