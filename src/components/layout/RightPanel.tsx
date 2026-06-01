@@ -2,6 +2,7 @@ import { StatBar } from '../ui/StatBar';
 import { Tooltip } from '../ui/Tooltip';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
+import { useInventoryStore } from '../../store/inventoryStore';
 import { getItem, TALENTS, getTemplate } from '../../data/loader';
 
 const STAT_DESCRIPTIONS: Record<string, string> = {
@@ -30,6 +31,32 @@ const QUEST_HINTS: Record<string, { name: string; hint: string }> = {
   },
 };
 
+// 按触发顺序排列——只显示已触发的条目
+const TIMELINE_FLAGS: Array<{ flag: string; text: string }> = [
+  { flag: 'innkeeper_met',           text: '从掌柜李福处得知案发经过' },
+  { flag: 'body_examined',           text: '检查宋怀义遗体，死因存疑' },
+  { flag: 'medical_exam_done',       text: '医者断定：毒与缢，两手并施' },
+  { flag: 'cloth_fiber_found',       text: '现场发现异色布料，凶手留痕' },
+  { flag: 'langpeng_discovered',     text: '确认浪鹏帮当夜现身案发地' },
+  { flag: 'kite_identity_clue',      text: '「鸢」字印记指向隐秘组织' },
+  { flag: 'tianji_records_found',    text: '天机阁旧档重见天日' },
+  { flag: 'dafei_contact_made',      text: '与大飞帮建立初步联系' },
+  { flag: 'white_stranger_trust',    text: '白衣人身份未明，却予以信任' },
+  { flag: 'learned_wuhen_bu',        text: '习得《无痕步》，另辟蹊径' },
+  { flag: 'gang_culture_known',      text: '掌握帮派暗语，可与黑市周旋' },
+  { flag: 'langpeng_trail',          text: '追踪浪鹏帮至东市据点' },
+  { flag: 'wujue_treated',           text: '无迹和尚吐露旧伤来历' },
+  { flag: 'hideout_trust_gained',    text: '以暗语取得据点成员信任' },
+  { flag: 'chapter2_join_ending',    text: '选择卧底，潜入浪鹏帮内部' },
+  { flag: 'stele_decoded',           text: '大雁塔碑文破译，创始者浮现' },
+  { flag: 'tianji_trust_gained',     text: '取得天机安宅联络人认可' },
+  { flag: 'feiyes_manor_searched',   text: '飞爷旧居画像壁藏有秘密' },
+  { flag: 'fei_ye_identity_confirmed', text: '飞爷真实身份已确认' },
+  { flag: 'negotiation_opened',      text: '以茶楼令牌开启谈判空间' },
+  { flag: 'deeper_threat_revealed',  text: '大飞情报揭露更深层威胁' },
+  { flag: 'wujue_spoke_once',        text: '无迹和尚首次开口，愧疚二十年' },
+];
+
 function SectionHeader({ label }: { label: string }) {
   return (
     <div className="flex items-center gap-2 mb-2">
@@ -42,11 +69,14 @@ function SectionHeader({ label }: { label: string }) {
 
 export function RightPanel() {
   const player = usePlayerStore();
-  const { clues, questLog } = useSceneStore();
+  const { clues, questLog, flags } = useSceneStore();
+  const { items } = useInventoryStore();
 
   const clueItems = clues.map((id) => getItem(id)).filter(Boolean);
+  const carriedItems = items.map((id) => getItem(id)).filter((item) => item && !item.isClue);
   const talentInfo = TALENTS.find((t) => t.id === player.talent);
   const baseTemplate = getTemplate(player.template);
+  const timelineEntries = TIMELINE_FLAGS.filter((e) => flags.includes(e.flag));
 
   return (
     <div className="flex flex-col h-full p-3 gap-5 text-sm overflow-y-auto scrollbar-thin">
@@ -83,6 +113,23 @@ export function RightPanel() {
         )}
       </div>
 
+      {/* 随身之物 */}
+      {carriedItems.length > 0 && (
+        <div>
+          <SectionHeader label="随身之物" />
+          <ul className="space-y-1">
+            {carriedItems.map((item) => item && (
+              <Tooltip key={item.id} content={item.description} position="left">
+                <li className="text-xs text-ink/60 flex items-start gap-1.5 cursor-help px-1 py-0.5 hover:text-ink/80 transition-colors group">
+                  <span className="text-gold/30 mt-0.5 shrink-0 group-hover:text-gold/50 transition-colors">◇</span>
+                  <span>{item.name}</span>
+                </li>
+              </Tooltip>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* 线索存档 */}
       <div>
         <SectionHeader label="线索存档" />
@@ -101,6 +148,30 @@ export function RightPanel() {
           </ul>
         )}
       </div>
+
+      {/* 案件时间线 */}
+      {timelineEntries.length > 0 && (
+        <div>
+          <SectionHeader label="已知脉络" />
+          <ol className="space-y-1.5 relative pl-3">
+            <div className="absolute left-[5px] top-1 bottom-1 w-px bg-gold/10" />
+            {timelineEntries.map((entry, i) => (
+              <li key={entry.flag} className="flex items-start gap-2">
+                <span className={`shrink-0 mt-[3px] w-[7px] h-[7px] rounded-full border transition-colors ${
+                  i === timelineEntries.length - 1
+                    ? 'border-gold/50 bg-gold/20'
+                    : 'border-gold/20 bg-transparent'
+                }`} />
+                <span className={`text-[11px] leading-snug ${
+                  i === timelineEntries.length - 1 ? 'text-ink/60' : 'text-ink/30'
+                }`}>
+                  {entry.text}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
 
       {/* 未竟之事 */}
       {questLog.length > 0 && (
