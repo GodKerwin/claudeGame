@@ -155,8 +155,8 @@
         "id": "gang_code_insight",
         "label": "「凭帮中暗号联络大飞帮」",
         "requires": { "flags": ["gang_culture_known"] },
-        "result": "你在公告板角落悄悄留下一行字，用的正是大飞帮惯用的帮中暗语格式——几个看似随意的词句，只有懂行的人才能读出其中的意思。你在末尾以特定句式标注了联络地点和时辰。帮中兄弟若经过此处，自会看懂这条消息。",
-        "grants": { "flags": ["dafei_contact_made"] }
+        "result": "你在公告板角落悄悄留下一行字，用的正是大飞帮惯用的帮中暗语格式——几个看似随意的词句，只有懂行的人才能读出其中的意思。你在末尾以特定句式标注了联络地点和时辰。帮中兄弟若经过此处，自会看懂这条消息。\n\n不到一刻钟，卖符老人起身出摊，侧身经过你时低声道：「城外废弃宅院，东侧枯井底。」他什么都没多说，背影消失在人群中。",
+        "grants": { "flags": ["dafei_contact_made", "dafei_address_obtained"] }
       }
     ]
   },
@@ -220,7 +220,7 @@
       {
         "id": "break_door",
         "label": "运力硬撞木门",
-        "requires": { "strength": 9, "flags_absent": ["secret_room_opened"] },
+        "requires": { "strength": 8, "flags_absent": ["secret_room_opened"] },
         "result": "你沉气凝神，双掌贴上木门运起内力，轰然一震——木门应声而裂，尘灰四散，动静不小。密室就在门后。你进去了，但外面应该有人听到了声音。",
         "grants": { "flags": ["secret_room_opened", "made_noise", "cellar_entered_strength"] }
       },
@@ -308,7 +308,7 @@
       {
         "id": "read_hold_breath",
         "label": "屏气凝神，竭力辨读",
-        "requires": { "constitution": 5, "flags_absent": ["dafei_password_known"] },
+        "requires": { "constitution": 4, "flags_absent": ["dafei_password_known"] },
         "result": "你凝神静气，运起内功稳住双手，在阳光下微微转动铜牌——「云散见青天」，五个细如发丝的字慢慢呈现。",
         "grants": { "flags": ["dafei_password_known"] }
       },

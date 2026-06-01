@@ -239,7 +239,7 @@
       {
         "id": "decode_records",
         "label": "辨析残留文书",
-        "requires": { "wisdom": 8 },
+        "requires": { "wisdom": 6 },
         "result": "你把地上的纸屑一片片拼合，凭着过人的辨析能力，将残缺文字填补完整——是一份调令，李邈手书，命浪鹏帮监视往事客栈，伺机取走宋怀义的随身密件。",
         "grants": { "flags": ["hideout_entered"], "items": ["langpeng_dispatch_order"] }
       },
