@@ -361,7 +361,7 @@
       {
         "id": "force_ending",
         "label": "「管他真相，先擒人！」（莽夫路线）",
-        "requires": { "strength": 8 },
+        "requires": { "strength": 7 },
         "result": "你看见后门闪入的人影，凭着力气追上，将其按倒在地。\n\n那人是个年轻的伙计，满身颤抖，招认是受人指使，却说不出幕后主使是谁——真正的幕后人趁乱逃脱了。\n\n你抓了个跑腿的，放走了真凶。\n\n伙计反复说的最后一句话让你记住了：「我只是送信的，信是从东市回春堂来的……」\n\n东市·回春堂。这是一条线索，但今天已经用完了。\n\n你松开了手。伙计跌跌撞撞地逃开，消失在长安的街巷里。\n\n宋怀义的案子，还没有结束。",
         "grants": { "flags": ["chapter1_force_ending"] }
       },
@@ -570,7 +570,7 @@
         "label": "纵目环观，察看全局",
         "requires": { "flags_absent": ["scene_202_surveyed"] },
         "result": "你在房间中缓缓踱步。地板中央和床头各有一团血迹，相距三步。死者不是在床上被害的——他先倒在地上，后来被人移到了床上。床头柜上摆着半杯已凉的茶，茶面有一层薄薄的油膜，像是有什么东西溶在里面。门缝处的地板上有一道细微划痕，和几粒细铁屑。",
-        "grants": { "flags": ["scene_202_surveyed"], "items": ["blood_pattern_sketch"], "clues": ["blood_pattern_sketch"] }
+        "grants": { "flags": ["scene_202_surveyed"], "items": ["blood_pattern_sketch", "magnifying_glass"], "clues": ["blood_pattern_sketch"] }
       },
       {
         "id": "analyze_blood",
