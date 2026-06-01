@@ -238,85 +238,131 @@ export function CenterPanel({
           </div>
         )}
 
-        {/* 实体折叠列表 */}
+        {/* ── 人物区块（NPC，直接点击对话）── */}
+        {entities.filter((e) => e.type === 'npc').length > 0 && !pendingChoices && (
+          <div className="mb-2">
+            <div className="flex items-center gap-1.5 mb-1.5 px-1">
+              <span className="text-[9px] text-gold/30 tracking-[0.25em]">人物</span>
+              <div className="flex-1 h-px bg-gold/10" />
+            </div>
+            <div className="flex flex-col gap-0.5">
+              {entities.filter((e) => e.type === 'npc').map((entity) => {
+                const a = entity.actions[0];
+                const hasNew = !a.completed;
+                return (
+                  <button
+                    key={entity.id}
+                    onClick={() => onAction(a.id)}
+                    className={`w-full text-left flex items-center gap-2 px-2 py-1.5 transition-colors duration-100 cursor-pointer group border-l-2 ${
+                      hasNew
+                        ? 'border-gold/45 text-ink/80 hover:text-gold'
+                        : 'border-gold/12 text-ink/35 hover:text-ink/55 hover:border-gold/25'
+                    }`}
+                  >
+                    <span className={`text-[9px] shrink-0 transition-colors ${hasNew ? 'text-gold/60' : 'text-ink/20'}`}>
+                      {hasNew ? '●' : '○'}
+                    </span>
+                    <span className="text-[13px] flex-1 tracking-wide leading-snug">{entity.name}</span>
+                    {hasNew && (
+                      <span className="text-[9px] text-gold/50 shrink-0 tracking-widest">对话</span>
+                    )}
+                    {!hasNew && (
+                      <span className="text-[9px] text-ink/18 shrink-0">已对话</span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* ── 探索区块（事件、选项，可折叠）── */}
         <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin">
-          {entities.length === 0 && (
+          {entities.filter((e) => e.type !== 'npc').length === 0 && entities.filter((e) => e.type === 'npc').length === 0 && (
             <p className="text-ink/20 text-xs px-2 py-2 italic">此处无可交互之物</p>
           )}
-          {entities.map((entity) => {
-            const isExpanded = expandedId === entity.id;
-            const newCount = entity.actions.filter((a) => a.available && !a.completed).length;
+          {entities.filter((e) => e.type !== 'npc').length > 0 && (
+            <>
+              {entities.filter((e) => e.type === 'npc').length > 0 && !pendingChoices && (
+                <div className="flex items-center gap-1.5 mb-1.5 px-1">
+                  <span className="text-[9px] text-gold/30 tracking-[0.25em]">探索</span>
+                  <div className="flex-1 h-px bg-gold/10" />
+                </div>
+              )}
+              {entities.filter((e) => e.type !== 'npc').map((entity) => {
+                const isExpanded = expandedId === entity.id;
+                const newCount = entity.actions.filter((a) => a.available && !a.completed).length;
 
-            return (
-              <div key={entity.id} className="border-b border-gold/8 last:border-0">
-                {/* 实体行 */}
-                <button
-                  onClick={() => toggle(entity.id)}
-                  className={`w-full flex items-center gap-2 px-1.5 py-2 text-left transition-colors duration-100 cursor-pointer group ${
-                    isExpanded ? 'text-gold/80' : 'text-ink/50 hover:text-ink/75'
-                  }`}
-                  style={isExpanded ? { background: 'linear-gradient(to right, rgba(201,168,76,0.07), transparent)' } : undefined}
-                >
-                  <span className={`text-[9px] shrink-0 transition-colors ${isExpanded ? 'text-gold/50' : 'text-ink/25 group-hover:text-ink/40'}`}>
-                    {isExpanded ? '▾' : '▸'}
-                  </span>
-                  <span className="text-xs flex-1 tracking-wide">{entity.name}</span>
-                  {newCount > 0 && (
-                    <span className="text-[9px] bg-gold/12 text-gold/55 px-1.5 py-0.5 rounded-full shrink-0 leading-none">
-                      {newCount}
-                    </span>
-                  )}
-                  {newCount === 0 && entity.allDone && (
-                    <span className="text-[9px] text-ink/18 shrink-0">已探</span>
-                  )}
-                </button>
+                return (
+                  <div key={entity.id} className="border-b border-gold/8 last:border-0">
+                    <button
+                      onClick={() => toggle(entity.id)}
+                      className={`w-full flex items-center gap-2 px-1.5 py-2 text-left transition-colors duration-100 cursor-pointer group ${
+                        isExpanded ? 'text-gold/80' : 'text-ink/50 hover:text-ink/75'
+                      }`}
+                      style={isExpanded ? { background: 'linear-gradient(to right, rgba(201,168,76,0.07), transparent)' } : undefined}
+                    >
+                      <span className={`text-[9px] shrink-0 transition-colors ${isExpanded ? 'text-gold/50' : 'text-ink/25 group-hover:text-ink/40'}`}>
+                        {isExpanded ? '▾' : '▸'}
+                      </span>
+                      <span className="text-[13px] flex-1 tracking-wide">{entity.name}</span>
+                      {newCount > 0 && (
+                        <span className="text-[9px] bg-gold/12 text-gold/55 px-1.5 py-0.5 rounded-full shrink-0 leading-none">
+                          {newCount}
+                        </span>
+                      )}
+                      {newCount === 0 && entity.allDone && (
+                        <span className="text-[9px] text-ink/18 shrink-0">已探</span>
+                      )}
+                    </button>
 
-                {/* 展开的动作列表 */}
-                {isExpanded && (
-                  <div className="ml-3 pl-3 border-l border-gold/12 pb-1.5 space-y-0.5">
-                    {entity.type === 'choice'
-                      ? entity.actions.map((a) => (
-                          <ActionButton
-                            key={a.id}
-                            label={a.label}
-                            onClick={() => onAction(a.id)}
-                            disabled={!a.available}
-                            completed={a.completed}
-                            hint={a.hint}
-                            variant={a.variant}
-                          />
-                        ))
-                      : entity.actions.map((a) =>
-                          a.completed ? (
-                            <div key={a.id} className="flex items-center gap-1.5 py-0.5 px-1 select-none opacity-40">
-                              <span className="text-gold/50 text-[9px] shrink-0">✓</span>
-                              <span className="text-ink/60 text-[11px]">{a.label}</span>
-                            </div>
-                          ) : a.available ? (
-                            <button
-                              key={a.id}
-                              onClick={() => onAction(a.id)}
-                              className="w-full text-left text-[11px] py-1 px-1 text-ink/60 hover:text-gold/80 cursor-pointer transition-colors duration-100 leading-snug"
-                            >
-                              {a.label}
-                            </button>
-                          ) : (
-                            <div
-                              key={a.id}
-                              className="pl-2 pr-1 py-1 border-l border-gold/15 ml-px select-none"
-                            >
-                              <p className="text-[11px] text-ink/30 leading-snug">{a.label}</p>
-                              {a.hint && (
-                                <p className="text-[10px] text-gold/28 mt-0.5 tracking-wide">{a.hint}</p>
-                              )}
-                            </div>
-                          )
-                        )}
+                    {isExpanded && (
+                      <div className="ml-3 pl-3 border-l border-gold/12 pb-1.5 space-y-0.5">
+                        {entity.type === 'choice'
+                          ? entity.actions.map((a) => (
+                              <ActionButton
+                                key={a.id}
+                                label={a.label}
+                                onClick={() => onAction(a.id)}
+                                disabled={!a.available}
+                                completed={a.completed}
+                                hint={a.hint}
+                                variant={a.variant}
+                              />
+                            ))
+                          : entity.actions.map((a) =>
+                              a.completed ? (
+                                <div key={a.id} className="flex items-center gap-1.5 py-0.5 px-1 select-none opacity-35">
+                                  <span className="text-gold/50 text-[9px] shrink-0">✓</span>
+                                  <span className="text-ink/60 text-[12px] line-through decoration-ink/20">{a.label}</span>
+                                </div>
+                              ) : a.available ? (
+                                <button
+                                  key={a.id}
+                                  onClick={() => onAction(a.id)}
+                                  className="w-full text-left text-[13px] py-1.5 px-1 text-ink/65 hover:text-gold/85 cursor-pointer transition-colors duration-100 leading-snug"
+                                >
+                                  {a.label}
+                                </button>
+                              ) : (
+                                <div
+                                  key={a.id}
+                                  className="pl-2 pr-1 py-1.5 border-l border-gold/12 ml-px select-none"
+                                >
+                                  <p className="text-[13px] text-ink/28 leading-snug">{a.label}</p>
+                                  {a.hint && (
+                                    <p className="text-[11px] text-gold/30 mt-0.5 tracking-wide leading-snug">{a.hint}</p>
+                                  )}
+                                </div>
+                              )
+                            )}
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            );
-          })}
+                );
+              })}
+            </>
+          )}
         </div>
       </div>
     </div>
