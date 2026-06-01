@@ -13,12 +13,6 @@ const STAT_LABELS: Record<StatKey, string> = {
   wisdom: '智',
   constitution: '骨',
 };
-const STAT_FULL: Record<StatKey, string> = {
-  strength: '力量',
-  agility: '敏捷',
-  wisdom: '智慧',
-  constitution: '根骨',
-};
 
 function StatDots({ value, max = 10 }: { value: number; max?: number }) {
   const dots = max;

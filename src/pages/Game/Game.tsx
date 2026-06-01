@@ -11,7 +11,7 @@ import { useSettings } from '../../hooks/useSettings';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
-import { getRoom, getEvent, getNPC, getTemplate } from '../../data/loader';
+import { getRoom, getEvent, getNPC } from '../../data/loader';
 import { getActionResults } from '../../engine/eventEngine';
 import { getAvailableDialogues } from '../../engine/storyEngine';
 import { evaluate } from '../../engine/conditionEvaluator';
@@ -33,12 +33,16 @@ type Grants = {
   constitution?: number | null;
 };
 
+type StatKey = 'strength' | 'agility' | 'wisdom' | 'constitution';
+interface SceneOps { addFlag: (f: string) => void; addClue: (c: string) => void; addQuest: (q: string) => void; }
+interface PlayerOps { incrementStat: (stat: StatKey, val: number) => void; }
+
 function applyGrants(
   grants: Grants | undefined,
-  scene: ReturnType<typeof useSceneStore>,
+  scene: SceneOps,
   addItem: (id: string) => void,
   removeItem: (id: string) => void,
-  player: ReturnType<typeof usePlayerStore>,
+  player: PlayerOps,
 ) {
   if (!grants) return;
   grants.flags?.forEach((f) => scene.addFlag(f));

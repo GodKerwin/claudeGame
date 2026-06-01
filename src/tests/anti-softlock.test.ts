@@ -6,7 +6,6 @@
 
 import { describe, it, expect } from 'vitest';
 import chapter1Maps from '../data/maps/chapter1.json';
-import chapter2Maps from '../data/maps/chapter2.json';
 import chapter1Events from '../data/events/chapter1.json';
 import chapter2Events from '../data/events/chapter2.json';
 import chapter1NPCs from '../data/npcs/chapter1.json';
