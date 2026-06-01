@@ -139,7 +139,7 @@ export default function Game() {
       }));
     }
 
-    const result: Array<{ id: string; label: string; available: boolean; completed: boolean; hint: string; group?: 'npc' | 'event' | 'choice'; eventId?: string; eventTitle?: string }> = [];
+    const result: Array<{ id: string; label: string; available: boolean; completed: boolean; hint: string; group?: 'npc' | 'event' | 'choice'; eventId?: string; eventTitle?: string; entityName?: string }> = [];
 
     for (const interactableId of room.interactables) {
       if (interactableId.startsWith('evt_')) {
@@ -172,13 +172,12 @@ export default function Game() {
           );
           result.push({
             id: `${interactableId}:talk`,
-            label: nextUnseen
-              ? `与${npc.name}交谈`
-              : `与${npc.name}交谈（已对话）`,
+            label: nextUnseen ? `与${npc.name}交谈` : `与${npc.name}交谈（已对话）`,
             available: true,
             completed: !nextUnseen && dialogues.length > 0,
             hint: '',
             group: 'npc' as const,
+            entityName: npc.name,
           });
         }
       }

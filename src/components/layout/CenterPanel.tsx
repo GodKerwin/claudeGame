@@ -12,6 +12,16 @@ interface ActionItem {
   group?: 'npc' | 'event' | 'choice';
   eventId?: string;
   eventTitle?: string;
+  entityName?: string;
+}
+
+interface Entity {
+  id: string;
+  name: string;
+  type: 'npc' | 'event' | 'choice';
+  actions: ActionItem[];
+  hasNew: boolean;
+  allDone: boolean;
 }
 
 interface Props {
@@ -26,8 +36,6 @@ interface Props {
   showHint?: boolean;
 }
 
-type ActiveTab = 'npc' | 'event';
-
 export function CenterPanel({
   roomName,
   roomDescription,
@@ -41,7 +49,7 @@ export function CenterPanel({
 }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
-  const [activeTab, setActiveTab] = useState<ActiveTab>('npc');
+  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const scrollToBottom = useCallback(() => {
     if (rafRef.current !== null) return;
@@ -55,26 +63,6 @@ export function CenterPanel({
   const npcActions = useMemo(() => actions.filter((a) => a.group === 'npc'), [actions]);
   const eventActions = useMemo(() => actions.filter((a) => a.group === 'event'), [actions]);
   const choiceActions = useMemo(() => actions.filter((a) => a.group === 'choice'), [actions]);
-
-  const hasNpc = npcActions.length > 0;
-  const hasEvent = eventActions.length > 0;
-
-  const npcBadge = useMemo(() => npcActions.filter((a) => a.available && !a.completed).length, [npcActions]);
-  const eventBadge = useMemo(() => eventActions.filter((a) => a.available && !a.completed).length, [eventActions]);
-  const choiceBadge = useMemo(() => choiceActions.filter((a) => a.available && !a.completed).length, [choiceActions]);
-
-  useEffect(() => { scrollToBottom(); }, [storyTexts, scrollToBottom]);
-
-  useEffect(() => {
-    const hasUnreadNpc = actions.some((a) => a.group === 'npc' && a.available && !a.completed);
-    setActiveTab(hasUnreadNpc ? 'npc' : 'event');
-  }, [roomName]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => { if (pendingChoices) setActiveTab('npc'); }, [pendingChoices]);
-
-  useEffect(() => {
-    if (!pendingChoices && !hasNpc) setActiveTab('event');
-  }, [pendingChoices, hasNpc]);
 
   const eventGroups = useMemo(() => {
     const groups: Array<{ eventId: string; title: string; actions: ActionItem[] }> = [];
@@ -91,59 +79,59 @@ export function CenterPanel({
     return groups;
   }, [eventActions]);
 
-  const renderTabContent = () => {
-    if (activeTab === 'npc') {
-      const items = pendingChoices ? choiceActions : npcActions;
-      return (
-        <div className="space-y-1.5">
-          {items.map((a) => (
-            <ActionButton
-              key={a.id}
-              label={a.label}
-              onClick={() => onAction(a.id)}
-              disabled={!a.available}
-              completed={a.completed}
-              hint={a.hint}
-              variant={a.variant}
-            />
-          ))}
-        </div>
-      );
+  // Build entity list: choices > NPCs > events
+  const entities = useMemo<Entity[]>(() => {
+    if (pendingChoices) {
+      return [{
+        id: '__choices__',
+        name: '如何回应',
+        type: 'choice',
+        actions: choiceActions,
+        hasNew: true,
+        allDone: false,
+      }];
     }
+    const result: Entity[] = [];
+    for (const a of npcActions) {
+      result.push({
+        id: a.id.split(':')[0],
+        name: a.entityName ?? a.label,
+        type: 'npc',
+        actions: [a],
+        hasNew: a.available && !a.completed,
+        allDone: a.completed,
+      });
+    }
+    for (const g of eventGroups) {
+      const hasNew = g.actions.some((a) => a.available && !a.completed);
+      const allDone = g.actions.length > 0 && g.actions.every((a) => a.completed);
+      result.push({
+        id: g.eventId,
+        name: g.title,
+        type: 'event',
+        actions: g.actions,
+        hasNew,
+        allDone,
+      });
+    }
+    return result;
+  }, [npcActions, eventGroups, choiceActions, pendingChoices]);
 
-    return (
-      <div className="space-y-4">
-        {eventGroups.map(({ eventId, title, actions: groupActions }) => (
-          <div key={eventId}>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-gold/45 text-[10px] tracking-widest shrink-0 select-none">{title}</span>
-              <div className="flex-1 h-px bg-gold/10" />
-            </div>
-            <div className="pl-2.5 border-l border-gold/20 space-y-1.5">
-              {groupActions.map((a) =>
-                a.completed ? (
-                  <div key={a.id} className="flex items-center gap-1.5 py-0.5 pl-1 select-none">
-                    <span className="text-gold/20 text-[10px] shrink-0">✓</span>
-                    <span className="text-ink/20 text-xs line-through decoration-ink/12">{a.label}</span>
-                  </div>
-                ) : (
-                  <ActionButton
-                    key={a.id}
-                    label={a.label}
-                    onClick={() => onAction(a.id)}
-                    disabled={!a.available}
-                    completed={false}
-                    hint={a.hint}
-                    variant={a.variant}
-                  />
-                )
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
-    );
-  };
+  useEffect(() => { scrollToBottom(); }, [storyTexts, scrollToBottom]);
+
+  // Auto-expand first entity with new actions on room change
+  useEffect(() => {
+    const first = entities.find((e) => e.hasNew) ?? entities[0];
+    setExpandedId(first?.id ?? null);
+  }, [roomName]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Auto-expand choices when they appear
+  useEffect(() => {
+    if (pendingChoices) setExpandedId('__choices__');
+  }, [pendingChoices]);
+
+  const toggle = (id: string) =>
+    setExpandedId((prev) => (prev === id ? null : id));
 
   return (
     <div className="flex flex-col h-full">
@@ -173,9 +161,12 @@ export function CenterPanel({
       </div>
 
       {/* 操作区 */}
-      <div className="border-t border-gold/10 px-4 pt-3 pb-3" style={{ background: 'linear-gradient(to bottom, rgba(20,13,4,0) 0%, rgba(20,13,4,0.4) 100%)' }}>
+      <div
+        className="border-t border-gold/10 px-4 pt-3 pb-3"
+        style={{ background: 'linear-gradient(to bottom, rgba(20,13,4,0) 0%, rgba(20,13,4,0.4) 100%)' }}
+      >
         {/* 标题行 + 提示按钮 */}
-        <div className="flex items-center justify-between mb-2.5">
+        <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <div className="w-3 h-px bg-gold/25" />
             <p className="text-gold/30 text-[10px] tracking-[0.3em]">行动</p>
@@ -197,55 +188,88 @@ export function CenterPanel({
 
         {/* 提示文字 */}
         {hint && (
-          <div className="mb-2.5 flex gap-2 items-start">
+          <div className="mb-2 flex gap-2 items-start">
             <div className="w-[2px] self-stretch bg-gold/25 shrink-0 rounded-full" />
             <p className="text-ink/38 text-xs leading-relaxed italic">{hint}</p>
           </div>
         )}
 
-        {/* Tab 切换栏 */}
-        <div className="flex border-b border-gold/10 mb-3">
-          <button
-            onClick={() => { if (!pendingChoices && hasNpc) setActiveTab('npc'); }}
-            disabled={!hasNpc || pendingChoices}
-            className={`flex-1 text-center py-1.5 text-xs tracking-widest transition-all duration-150 ${
-              activeTab === 'npc'
-                ? 'text-gold/85 border-b border-gold/45 -mb-px'
-                : !hasNpc || pendingChoices
-                ? 'text-ink/15 cursor-default'
-                : 'text-ink/30 hover:text-ink/55 cursor-pointer'
-            }`}
-          >
-            {pendingChoices ? '如何回应' : '交谈'}
-            {pendingChoices && choiceBadge > 0 && (
-              <span className="ml-1 text-[9px] bg-gold/15 text-gold/65 px-1 rounded-full">{choiceBadge}</span>
-            )}
-            {!pendingChoices && npcBadge > 0 && (
-              <span className="ml-1 text-[9px] bg-gold/15 text-gold/65 px-1 rounded-full">{npcBadge}</span>
-            )}
-          </button>
+        {/* 实体折叠列表 */}
+        <div className="overflow-y-auto scrollbar-thin max-h-52">
+          {entities.length === 0 && (
+            <p className="text-ink/20 text-xs px-2 py-2 italic">此处无可交互之物</p>
+          )}
+          {entities.map((entity) => {
+            const isExpanded = expandedId === entity.id;
+            const newCount = entity.actions.filter((a) => a.available && !a.completed).length;
 
-          <button
-            onClick={() => { if (!pendingChoices && hasEvent) setActiveTab('event'); }}
-            disabled={!hasEvent || pendingChoices}
-            className={`flex-1 text-center py-1.5 text-xs tracking-widest transition-all duration-150 ${
-              activeTab === 'event'
-                ? 'text-gold/85 border-b border-gold/45 -mb-px'
-                : !hasEvent || pendingChoices
-                ? 'text-ink/15 cursor-default'
-                : 'text-ink/30 hover:text-ink/55 cursor-pointer'
-            }`}
-          >
-            探查
-            {!pendingChoices && eventBadge > 0 && (
-              <span className="ml-1 text-[9px] bg-gold/15 text-gold/65 px-1 rounded-full">{eventBadge}</span>
-            )}
-          </button>
-        </div>
+            return (
+              <div key={entity.id}>
+                {/* 实体行 */}
+                <button
+                  onClick={() => toggle(entity.id)}
+                  className={`w-full flex items-center gap-2 px-1.5 py-2 text-left transition-colors duration-100 cursor-pointer group ${
+                    isExpanded ? 'text-gold/80' : 'text-ink/50 hover:text-ink/75'
+                  }`}
+                >
+                  <span className={`text-[9px] shrink-0 transition-colors ${isExpanded ? 'text-gold/50' : 'text-ink/25 group-hover:text-ink/40'}`}>
+                    {isExpanded ? '▾' : '▸'}
+                  </span>
+                  <span className="text-xs flex-1 tracking-wide">{entity.name}</span>
+                  {newCount > 0 && (
+                    <span className="text-[9px] bg-gold/12 text-gold/55 px-1.5 py-0.5 rounded-full shrink-0 leading-none">
+                      {newCount}
+                    </span>
+                  )}
+                  {newCount === 0 && entity.allDone && (
+                    <span className="text-[9px] text-ink/18 shrink-0">已探</span>
+                  )}
+                </button>
 
-        {/* Tab 内容（固定高度，超出滚动） */}
-        <div className="overflow-y-auto scrollbar-thin max-h-48 pb-1">
-          {renderTabContent()}
+                {/* 展开的动作列表 */}
+                {isExpanded && (
+                  <div className="ml-3 pl-3 border-l border-gold/12 pb-1.5 space-y-0.5">
+                    {entity.type === 'choice'
+                      ? entity.actions.map((a) => (
+                          <ActionButton
+                            key={a.id}
+                            label={a.label}
+                            onClick={() => onAction(a.id)}
+                            disabled={!a.available}
+                            completed={a.completed}
+                            hint={a.hint}
+                            variant={a.variant}
+                          />
+                        ))
+                      : entity.actions.map((a) =>
+                          a.completed ? (
+                            <div key={a.id} className="flex items-center gap-1.5 py-0.5 px-1 select-none">
+                              <span className="text-gold/20 text-[9px] shrink-0">✓</span>
+                              <span className="text-ink/18 text-[11px] line-through decoration-ink/12">{a.label}</span>
+                            </div>
+                          ) : (
+                            <button
+                              key={a.id}
+                              onClick={() => onAction(a.id)}
+                              disabled={!a.available}
+                              className={`w-full text-left text-[11px] py-1 px-1 transition-colors duration-100 leading-snug ${
+                                a.available
+                                  ? 'text-ink/60 hover:text-gold/80 cursor-pointer'
+                                  : 'text-ink/22 cursor-not-allowed'
+                              }`}
+                            >
+                              {a.label}
+                              {!a.available && a.hint && (
+                                <span className="ml-1.5 text-ink/28 text-[10px]">（{a.hint}）</span>
+                              )}
+                            </button>
+                          )
+                        )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>
