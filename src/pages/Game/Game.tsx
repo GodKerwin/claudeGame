@@ -277,6 +277,7 @@ export default function Game() {
     : null;
 
   return (
+    <>
       <GameLayout
         left={<LeftPanel onNavigate={handleNavigate} />}
         center={
