@@ -5,6 +5,7 @@ interface Props {
   children: React.ReactNode;
   size?: 'sm' | 'md' | 'lg';
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const SIZES = { sm: 8, md: 12, lg: 16 } as const;
@@ -28,10 +29,10 @@ function Corner({ x, flip }: { x: 'left' | 'right'; flip: boolean }) {
   );
 }
 
-export function CornerFrame({ children, size = 'md', className = '' }: Props) {
+export function CornerFrame({ children, size = 'md', className = '', style }: Props) {
   const px = SIZES[size];
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn('relative', className)} style={style}>
       <div style={{ position: 'absolute', top: 0, left: 0, width: px, height: px, pointerEvents: 'none' }}>
         <Corner x="left" flip={false} />
       </div>

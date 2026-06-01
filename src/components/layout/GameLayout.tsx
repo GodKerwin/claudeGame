@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { CornerFrame } from '../ui/CornerFrame';
 
 type MobilePanel = 'left' | 'center' | 'right';
 
@@ -24,15 +25,15 @@ export function GameLayout({ left, center, right }: Props) {
     <div className="flex h-screen w-screen bg-paper text-ink font-serif overflow-hidden select-none">
       {/* Desktop: 三栏布局 (≥768px) */}
       <div className="hidden md:flex w-full h-full">
-        <div className="w-44 shrink-0 panel border-r border-gold/15 flex flex-col overflow-hidden">
+        <CornerFrame size="sm" className="w-44 shrink-0 panel border-r border-gold/15 flex flex-col overflow-hidden">
           {left}
-        </div>
+        </CornerFrame>
         <div className="flex-1 flex flex-col overflow-hidden border-r border-gold/10">
           {center}
         </div>
-        <div className="shrink-0 panel flex flex-col overflow-hidden" style={{ width: '210px' }}>
+        <CornerFrame size="sm" className="shrink-0 panel flex flex-col overflow-hidden" style={{ width: '210px' }}>
           {right}
-        </div>
+        </CornerFrame>
       </div>
 
       {/* Mobile: 单栏 + 底部标签栏 (<768px) */}
