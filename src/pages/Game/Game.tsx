@@ -82,6 +82,7 @@ export default function Game() {
     parseInt(sessionStorage.getItem('tianji-intro-shown') ?? '1', 10)
   );
   const processingRef = useRef(false);
+  const prevRoomRef = useRef<string | null>(null);
 
   useAutoSave();
   useSettings();
@@ -94,6 +95,23 @@ export default function Game() {
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
   }, [modal]);
+
+  // 重访触发：换房间时检查新线索激活的旧地点提示
+  useEffect(() => {
+    const roomId = scene.currentRoomId;
+    const isRoomChange = prevRoomRef.current !== null && prevRoomRef.current !== roomId;
+    prevRoomRef.current = roomId;
+    if (!isRoomChange) return;
+
+    const currentRoom = getRoom(roomId);
+    if (!currentRoom?.revisitEvents) return;
+    for (const rev of currentRoom.revisitEvents) {
+      if (evaluate(rev.requires, ctx)) {
+        scene.addStoryText(rev.text);
+        rev.grants?.flags?.forEach((f) => scene.addFlag(f));
+      }
+    }
+  }, [scene.currentRoomId, ctx]); // eslint-disable-line
 
   useEffect(() => {
     const inChapter3 = scene.flags.includes('chapter3_started');
@@ -213,6 +231,7 @@ export default function Game() {
       const choice = pendingChoices.choices.find((c) => c.id === choiceId);
       if (!choice) return;
       scene.addStoryText(`【${pendingChoices.npcName}】${choice.response}`);
+      if (choice.hint) scene.addStoryText(choice.hint);
       applyGrants(choice.grants, scene, addItem, removeItem, player);
       setPendingChoices(null);
       return;
@@ -228,6 +247,7 @@ export default function Game() {
       const action = event.actions.find((a) => a.id === subId);
       if (!action) return;
       scene.addStoryText(action.result);
+      if (action.hint) scene.addStoryText(action.hint);
       applyGrants(action.grants, scene, addItem, removeItem, player);
     } else if (entityId.startsWith('npc_')) {
       const npc = getNPC(entityId);

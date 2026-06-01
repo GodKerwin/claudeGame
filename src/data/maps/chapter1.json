@@ -17,7 +17,21 @@
         "description": "这就是宋怀义遇难的地方。房间陈设简单，一张架子床、一只木箱、一张小桌。床铺凌乱，枕侧有深褐色血迹已干涸发黑——奇怪的是，地板中央还有另一处污迹，与床头位置相距三步。窗棂虚掩，寒风从缝隙钻入，带起床角的布帘。门边地板上有几道细微的划痕，像是重物被拖拽过的痕迹。",
         "interactables": ["evt_crime_scene_202", "evt_locked_room_mystery", "evt_victim_hidden_items"],
         "exits": ["room_203"],
-        "requires": null
+        "requires": null,
+        "revisitEvents": [
+          {
+            "id": "rev_room202_arsenic",
+            "requires": { "flags": ["arsenic_identified"], "flags_absent": ["poison_tea_confirmed", "rev_room202_arsenic_shown"] },
+            "text": "〔后厨那堆白色粉末的气味，此刻忽然在脑中浮现。这间屋子里……宋怀义喝过的那杯茶还在床头柜上，还没人碰过。〕",
+            "grants": { "flags": ["rev_room202_arsenic_shown"] }
+          },
+          {
+            "id": "rev_room202_tunnel",
+            "requires": { "flags": ["secret_tunnel_found", "door_lock_checked"], "flags_absent": ["tunnel_entry_deduced", "rev_room202_tunnel_shown"] },
+            "text": "〔密道……和门锁上那几道新鲜划痕……凶手进出这间屋子的路线，或许比最初想的要复杂许多。〕",
+            "grants": { "flags": ["rev_room202_tunnel_shown"] }
+          }
+        ]
       },
       {
         "id": "lobby",
@@ -25,7 +39,27 @@
         "description": "油灯昏黄，几桌食客低声议论，人人面露惶恐。掌柜李福站在柜台后，神色不安，额角渗着细汗。公告板上贴着几张新旧告示，其中一张的墨迹看起来比其他新。",
         "interactables": ["npc_innkeeper_li_fu", "npc_drunk_zhang_san", "evt_notice_board", "evt_guest_register", "evt_copper_badge_examine", "evt_ch1_strength_growth"],
         "exits": ["room_203", "kitchen", "cellar", "forest", "old_mansion"],
-        "requires": null
+        "requires": null,
+        "revisitEvents": [
+          {
+            "id": "rev_lobby_blood_letter",
+            "requires": { "flags": ["blood_letter_found"], "flags_absent": ["innkeeper_trusted", "rev_lobby_blood_letter_shown"] },
+            "text": "〔枕下那枚令牌，「天机」二字……掌柜见过形形色色的人，他认不认得这块令牌？〕",
+            "grants": { "flags": ["rev_lobby_blood_letter_shown"] }
+          },
+          {
+            "id": "rev_lobby_ear_room",
+            "requires": { "flags": ["ear_room_read"], "flags_absent": ["innkeeper_secret_told", "rev_lobby_ear_room_shown"] },
+            "text": "〔耳室里的名录、档案……掌柜李福在这里开了十年的店。他说自己只是一个普通掌柜，但那道耳室不可能和他毫无关联。〕",
+            "grants": { "flags": ["rev_lobby_ear_room_shown"] }
+          },
+          {
+            "id": "rev_lobby_bell",
+            "requires": { "flags": ["langpeng_spy_identified", "drunk_talked"], "flags_absent": ["drunk_bell_confirmed", "rev_lobby_bell_shown"] },
+            "text": "〔那截铜铃残件……张三说那人腰里挂着铜铃。他认不认识这个？〕",
+            "grants": { "flags": ["rev_lobby_bell_shown"] }
+          }
+        ]
       },
       {
         "id": "kitchen",
@@ -33,7 +67,15 @@
         "description": "灶火未熄，锅中不知煮着何物，香气与血腥混在一处。厨娘王氏坐在角落，双手捂脸，肩膀微微颤抖。灶台旁的木架上，一只药罐倒扣在地上，白色粉末撒了一地。密道的入口或许就藏在某处。",
         "interactables": ["npc_cook_wang", "evt_arsenic_trace", "evt_secret_tunnel"],
         "exits": ["lobby"],
-        "requires": { "flags": ["innkeeper_talked"] }
+        "requires": { "flags": ["innkeeper_talked"] },
+        "revisitEvents": [
+          {
+            "id": "rev_kitchen_sequence",
+            "requires": { "flags": ["murder_sequence_deduced", "cook_talked"], "flags_absent": ["cook_sequence_confirmed", "rev_kitchen_sequence_shown"] },
+            "text": "〔凶手的作案顺序已经清晰——这后厨，正是他来过的地方。厨娘王氏昨夜就在这里，她知道的或许不止已经说出来的那些。〕",
+            "grants": { "flags": ["rev_kitchen_sequence_shown"] }
+          }
+        ]
       },
       {
         "id": "cellar",

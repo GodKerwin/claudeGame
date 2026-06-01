@@ -36,6 +36,7 @@ export interface EventAction {
   label: string;
   requires: Condition | null;
   result: string;
+  hint?: string;
   grants?: ActionGrant;
 }
 
@@ -52,6 +53,7 @@ export interface DialogueChoice {
   label: string;
   condition?: Condition;
   response: string;
+  hint?: string;
   grants?: ActionGrant;
 }
 
@@ -71,6 +73,13 @@ export interface NPC {
   dialogues: DialogueLine[];
 }
 
+export interface RoomRevisitEvent {
+  id: string;
+  requires: Condition;
+  text: string;
+  grants?: ActionGrant;
+}
+
 export interface Room {
   id: string;
   name: string;
@@ -78,6 +87,7 @@ export interface Room {
   interactables: string[];
   exits: string[];
   requires?: Condition | null;
+  revisitEvents?: RoomRevisitEvent[];
 }
 
 export interface GameMap {

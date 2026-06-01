@@ -34,6 +34,28 @@
         ]
       },
       {
+        "id": "blood_letter_confrontation",
+        "condition": {
+          "flags": ["blood_letter_found", "innkeeper_met"],
+          "flags_absent": ["innkeeper_trusted", "innkeeper_blood_letter_asked"]
+        },
+        "text": "你将那枚染血的令牌轻轻放上柜台，「天机」二字朝上。李福的目光在令牌上停了整整三息，额角细汗慢慢沁出——不是因为天热，是因为这两个字。\n\n「客官……从何处得到此物？」",
+        "choices": [
+          {
+            "id": "token_from_pillow",
+            "label": "死者枕下，他藏的。",
+            "response": "李福将令牌翻过来，看了看背面的血字，轻轻将它推回你的方向。\n\n「这是天机阁的信物。」他声音沉下来，「宋怀义……不只是来做买卖的。」他停了停，似乎在权衡什么，最终挺直了腰：「后厨的厨娘昨夜亲眼见着了，客官不妨去问问她。」",
+            "grants": { "flags": ["innkeeper_blood_letter_asked", "innkeeper_trusted"] }
+          },
+          {
+            "id": "token_silence",
+            "label": "（不答，只是盯着他。）",
+            "response": "沉默在两人之间维持了漫长的几息。李福先移开了目光，低声道：「……后厨您自便。王氏昨夜也在，她见着了些东西。」",
+            "grants": { "flags": ["innkeeper_blood_letter_asked", "innkeeper_trusted"] }
+          }
+        ]
+      },
+      {
         "id": "trust_low",
         "condition": { "flags": ["innkeeper_talked"], "flags_absent": ["innkeeper_trusted"] },
         "text": "客官，您真的在帮忙查案？那……后厨您可以去看看，厨娘王氏昨夜也听到了动静。",
@@ -136,6 +158,15 @@
         ]
       },
       {
+        "id": "copper_bell_recognition",
+        "condition": {
+          "flags": ["drunk_talked", "langpeng_spy_identified"],
+          "flags_absent": ["drunk_bell_confirmed"]
+        },
+        "text": "你提起在后巷找到的那截铜铃残件，张三猛地坐直了：\n\n「铜铃！对对对，那蓝衫汉子腰里挂的就是铜铃！」他一拍桌子，「我在扬州码头见过这种铃——浪鹏帮押货的伙计人手一个！你说那汉子是浪鹏帮的眼线？他在这客栈一直……盯着宋掌柜？」",
+        "grants": { "flags": ["drunk_bell_confirmed", "langpeng_spy_confirmed_by_zhang"] }
+      },
+      {
         "id": "more_details",
         "condition": { "flags": ["drunk_talked"] },
         "text": "那人……往外跑了，往东边，树林那头去了。你要是追，趁早，脚印还在呢……"
@@ -204,6 +235,22 @@
             "label": "你为何不当时喊人？",
             "response": "王氏抬起头，眼神里有一丝不一样的东西：「因为……前一天晚上，有人来找过我。说让我这两天别多事，好好待着，会有好处。」\n\n「我没收那人的钱，但我害怕了。」她低下头，「我对不住宋掌柜。」",
             "grants": { "flags": ["cook_warned_confirmed"] }
+          }
+        ]
+      },
+      {
+        "id": "sequence_confirmed",
+        "condition": {
+          "flags": ["cook_talked", "murder_sequence_deduced"],
+          "flags_absent": ["cook_sequence_confirmed"]
+        },
+        "text": "你将推断出的作案顺序简单说给王氏听：先在茶水里下毒，等宋怀义毒发昏倒，再入室勒毙。\n\n王氏听完，手指慢慢攥紧了围裙。「所以……那壶茶……」她抬起头，眼眶已经红了，「那壶茶是我……是我送上去的。掌柜说宋掌柜点了茶，让我拿上去。我以为……」",
+        "choices": [
+          {
+            "id": "ask_tea_origin",
+            "label": "那壶茶是你亲手泡的？",
+            "response": "「不是。」王氏声音发颤，「是……已经泡好放在柜台上的。掌柜说让我拿上去，我以为是寻常……」她忽然停下，脸色白了，「那壶茶是提前泡好的，是有人事先在那壶茶里……」\n\n她说不下去了，但你们两个都已经明白了同一件事：茶，不是宋怀义点的。",
+            "grants": { "flags": ["cook_sequence_confirmed", "premade_tea_confirmed"], "clues": ["premade_tea_testimony"], "items": ["premade_tea_testimony"] }
           }
         ]
       },

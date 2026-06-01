@@ -92,6 +92,13 @@
         "requires": { "talent": "望气观相", "flags_absent": ["qi_sense_done"] },
         "result": "你平心静气，以道家望气之法扫视房中——死气最重处在枕角与窗台之间，有一道细细的阴寒气线，是人在恐惧中拼命挣扎时留下的遗痕。更奇的是，床脚处有一股截然不同的「外来气息」，轻而快，如来如去，是闯入者留下的残影。凶手不只一人进过这个房间。",
         "grants": { "flags": ["qi_sense_done", "multiple_intruders_suspected"], "clues": ["qi_trace_clue"] }
+      },
+      {
+        "id": "compare_fiber_samples",
+        "label": "取出两处黑色布料对比纤维",
+        "requires": { "flags": ["cloth_fiber_found", "tracks_followed"], "flags_absent": ["fiber_confirmed_same"] },
+        "result": "你将死者指甲缝中取出的黑色纤维，与追踪足迹时在大石旁拾得的黑布条，摊在掌心仔细比对。\n\n纹路相同，材质一致。死者在最后一刻死死抓住的，正是凶手逃跑时所穿衣物上的一块布料。大石后方是换鞋改道的地点，也是凶手真正离开的起点。两条线索，终于指向了同一件衣服，同一个人。",
+        "grants": { "flags": ["fiber_confirmed_same"], "clues": ["fiber_match_evidence"], "items": ["fiber_match_evidence"] }
       }
     ]
   },
@@ -185,6 +192,7 @@
         "label": "凑近嗅辨粉末",
         "requires": { "flags_absent": ["arsenic_identified"] },
         "result": "淡淡的大蒜气味，这是砒霜无误。分量不少，足以毒杀一个成年人。有人刻意将它掺入了某样食物或饮品。",
+        "hint": "〔这气味……宋怀义房里那杯还没倒掉的残茶——我应该回去再嗅一嗅。〕",
         "grants": { "flags": ["arsenic_identified", "clue_arsenic_found"], "items": ["arsenic_evidence"], "clues": ["arsenic_evidence"] }
       },
       {
@@ -286,6 +294,7 @@
         "label": "启开锦盒",
         "requires": { "flags_absent": ["cellar_fragment_obtained"] },
         "result": "锦盒内铺着半朽的绸缎，中间放着一片卷轴碎片，纸质古旧，上书密密麻麻的小字，其中一行清晰可辨：「天机阁第五代传人，藏残卷于……」后面的字已模糊难辨。这是《天机残卷》的一部分。",
+        "hint": "〔残卷碎片，令牌血书，后厨砒霜——三件关键物证，三处不同地方。若三者之间藏着暗号……〕",
         "grants": { "flags": ["cellar_fragment_obtained"], "items": ["cellar_fragment"], "clues": ["cellar_fragment"] }
       }
     ]
@@ -316,6 +325,7 @@
         "label": "顺迹追踪而去",
         "requires": { "agility": 5, "flags_absent": ["tracks_followed"] },
         "result": "你快步追踪脚印，沿途发现一块被丢弃的布条——黑色，与死者手指间发现的纤维材质一致。足迹最终消失在一块大石后方。凶手从此处换了鞋，改变了行进方向。",
+        "hint": "〔这块黑布……死者手中的纤维也是黑色的。两处线索，或许来自同一件衣物——若能取来比对，答案就在眼前。〕",
         "grants": { "flags": ["tracks_followed"], "clues": ["abandoned_cloth"] }
       },
       {
@@ -636,6 +646,13 @@
         "requires": { "talent": "望闻断骨", "flags": ["body_examined"], "flags_absent": ["death_time_estimated"] },
         "result": "你俯身再观宋怀义遗体：皮色青紫中透出黄晕，肌肉已有僵化但尚未完全，指甲下毛细血管的颜色告诉你——距死亡不超过六个时辰，不少于四个时辰。\n\n你抬头看向窗外光线，此刻约是午前巳时。换算下来，死亡发生在昨夜三更至五更之间。\n\n「凶手昨夜动的手，不是今晨。」你在心中确定了这一点。",
         "grants": { "flags": ["death_time_estimated", "murder_sequence_deduced"] }
+      },
+      {
+        "id": "recheck_tea_with_arsenic",
+        "label": "以砒霜印象重新细嗅案旁茶盅",
+        "requires": { "flags": ["arsenic_identified", "scene_202_surveyed"], "flags_absent": ["poison_tea_confirmed"] },
+        "result": "你刚在后厨辨认过砒霜的气味，此刻凑近那杯残茶——同样淡淡的大蒜气息，混在茶香里，若非专门去嗅几乎难以察觉。砒霜被溶进了茶水中。\n\n宋怀义喝下毒茶，以为只是困意袭来，再也没有醒来。凶手提前进入这间房，在茶杯里下毒，然后等待。",
+        "grants": { "flags": ["poison_tea_confirmed"] }
       }
     ]
   },
@@ -665,6 +682,13 @@
         "requires": { "wisdom": 7, "flags": ["door_lock_checked", "window_exit_checked"], "flags_absent": ["entry_route_deduced"] },
         "result": "你将所有细节串联：\n\n凶手提前潜入此房（趁宋怀义外出时），在茶水中下毒，然后锁好门离开。待宋怀义回房饮茶毒发，凶手再次以工具拨门入内，确认昏迷后搜身取物、移尸补刀，最后以绳索从窗口降逃。\n\n这是一次精心策划的行动，而非临时起意。",
         "grants": { "flags": ["entry_route_deduced"] }
+      },
+      {
+        "id": "recheck_entry_via_tunnel",
+        "label": "以密道视角重审入室路线",
+        "requires": { "flags": ["secret_tunnel_found", "door_lock_checked"], "flags_absent": ["tunnel_entry_deduced"] },
+        "result": "此前你推断凶手以铁丝从门缝拨门入室——但现在你知道后厨藏着一条密道，直通客栈外部。\n\n修正后的推断：凶手从密道潜入，趁宋怀义外出时以工具拨门投毒，复原门锁后从密道退出，待宋怀义毒发，再从正门入房确认，最后以绳索从窗口降逃——用来制造从外部攀入的假象。\n\n这套路线需要对客栈内部构造极为熟悉，绝非偶然经过的陌生人。",
+        "grants": { "flags": ["tunnel_entry_deduced"] }
       }
     ]
   },

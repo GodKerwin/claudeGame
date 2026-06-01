@@ -183,23 +183,29 @@ export function CenterPanel({
           const isRecent = i >= storyTexts.length - 3;
           const isNpcSpeech = text.startsWith('【') && text.includes('】');
           const isPlaceholder = text.startsWith('（') && text.endsWith('。）');
+          const isPsychHint = text.startsWith('〔') && text.endsWith('〕');
           // 渐进透明：越旧的记录越淡
           const opacity = isLatest ? 'text-ink/92' : isRecent ? 'text-ink/75' : 'text-ink/45';
           const borderColor = isNpcSpeech
             ? 'border-jade/40'
+            : isPsychHint
+            ? 'border-gold/22'
             : isPlaceholder
             ? 'border-gold/10'
             : 'border-gold/30';
+          const textClass = isPsychHint
+            ? 'text-gold/38 italic text-[13px]'
+            : `${opacity} text-sm`;
           return (
             <div key={i} className={`border-l-2 ${borderColor} pl-3 transition-opacity duration-500`}>
               {isLatest ? (
                 <TypewriterText
                   text={text}
-                  className={`${opacity} leading-[1.9] text-sm`}
+                  className={`${textClass} leading-[1.9]`}
                   onUpdate={scrollToBottom}
                 />
               ) : (
-                <span className={`${opacity} leading-[1.9] text-sm`}>{text}</span>
+                <span className={`${textClass} leading-[1.9]`}>{text}</span>
               )}
             </div>
           );
