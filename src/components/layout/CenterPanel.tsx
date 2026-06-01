@@ -170,7 +170,7 @@ export function CenterPanel({
 
       {/* 操作区 */}
       <div
-        className="flex-[2] min-h-0 flex flex-col border-t border-gold/10 px-4 pt-3 pb-3"
+        className="flex-[1.5] min-h-0 flex flex-col border-t border-gold/10 px-4 pt-3 pb-3"
         style={{
           background: `
             repeating-linear-gradient(
@@ -223,12 +223,12 @@ export function CenterPanel({
             const newCount = entity.actions.filter((a) => a.available && !a.completed).length;
 
             return (
-              <div key={entity.id}>
+              <div key={entity.id} className="border-b border-gold/8 last:border-0">
                 {/* 实体行 */}
                 <button
                   onClick={() => toggle(entity.id)}
                   className={`w-full flex items-center gap-2 px-1.5 py-2 text-left transition-colors duration-100 cursor-pointer group ${
-                    isExpanded ? 'text-gold/80' : 'text-ink/50 hover:text-ink/75'
+                    isExpanded ? 'text-gold/80 bg-gold/[0.04] border-l-2 border-gold/25 -ml-0.5 pl-2' : 'text-ink/50 hover:text-ink/75'
                   }`}
                 >
                   <span className={`text-[9px] shrink-0 transition-colors ${isExpanded ? 'text-gold/50' : 'text-ink/25 group-hover:text-ink/40'}`}>
