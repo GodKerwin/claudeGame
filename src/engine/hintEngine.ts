@@ -81,6 +81,42 @@ const CHAPTER1_RULES: HintRule[] = [
   },
   {
     when: (ctx) =>
+      has(ctx, 'learned_wuhen_bu') &&
+      !has(ctx, 'innkeeper_trusted'),
+    hint: '习得无痕步之后，白衣人指引你去废弃宅院。但宅院还未开放——需先回到客栈大堂，查验尸体后再与掌柜深谈，取得他的信任，才能进入地窖搜寻关键证物。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'learned_wuhen_bu') &&
+      has(ctx, 'innkeeper_trusted') &&
+      !has(ctx, 'cellar_fragment_obtained'),
+    hint: '习得无痕步，掌柜已信任你。现在前往地窖（从大堂可到），进入深处打开密室——里面藏着能打开废弃宅院大门的关键碎片。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'learned_wuhen_bu') &&
+      has(ctx, 'cellar_fragment_obtained') &&
+      !has(ctx, 'clue_blood_letter_found'),
+    hint: '地窖碎片已得，还差血书令牌——在二楼二〇三号命案房间仔细翻查宋怀义的枕头下方。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'learned_wuhen_bu') &&
+      has(ctx, 'cellar_fragment_obtained') &&
+      has(ctx, 'clue_blood_letter_found') &&
+      !has(ctx, 'clue_arsenic_found'),
+    hint: '还差砒霜证物。前往后厨（从大堂可到），检查灶台旁倒扣的药罐。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'learned_wuhen_bu') &&
+      has(ctx, 'cellar_fragment_obtained') &&
+      has(ctx, 'clue_blood_letter_found') &&
+      has(ctx, 'clue_arsenic_found'),
+    hint: '三件证物已齐。前往城郊废弃宅院（从大堂外「城郊树林」方向可到），在正堂找到「无痕步」的出路。',
+  },
+  {
+    when: (ctx) =>
       ctx.wisdom >= 7 &&
       has(ctx, 'innkeeper_met') &&
       !has(ctx, 'body_examined'),
