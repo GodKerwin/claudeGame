@@ -59,7 +59,7 @@ export function LeftPanel({ onNavigate }: Props) {
       {/* 当前地点 */}
       <div>
         <p className="text-gold/35 text-[10px] mb-1.5 tracking-[0.3em]">所在</p>
-        <p className="text-ink/85 text-sm leading-snug pl-1 border-l border-gold/30">
+        <p className="text-ink/90 text-sm leading-snug pl-2 border-l-2 border-gold/50">
           {room?.name ?? '—'}
         </p>
       </div>
@@ -74,7 +74,7 @@ export function LeftPanel({ onNavigate }: Props) {
               onClick={() => onNavigate(r.id)}
               className="text-left text-ink/60 hover:text-gold text-xs py-1.5 px-2 border border-transparent hover:border-gold/20 hover:bg-gold/3 transition-all duration-150 group flex items-center gap-1.5 cursor-pointer"
             >
-              <span className="text-gold/30 group-hover:text-gold/60 transition-colors text-[10px]">›</span>
+              <span className="text-gold/30 group-hover:text-gold/60 transition-colors text-[10px]">▸</span>
               <span>{r.name}</span>
             </button>
           ))}
@@ -87,7 +87,7 @@ export function LeftPanel({ onNavigate }: Props) {
                 className="text-ink/18 text-xs py-1.5 px-2 cursor-not-allowed flex items-start gap-1.5"
                 title={flagHint ?? '条件未达成'}
               >
-                <span className="text-[10px] text-ink/15 shrink-0 mt-0.5">›</span>
+                <span className="text-[10px] text-ink/15 shrink-0 mt-0.5">▸</span>
                 <div>
                   <span className="line-through decoration-ink/15">{r.name}</span>
                   {flagHint && <p className="text-ink/15 text-[10px] leading-tight mt-0.5">{flagHint}</p>}
