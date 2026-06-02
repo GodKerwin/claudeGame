@@ -40,6 +40,13 @@ const QUEST_ENDINGS: Record<string, string[]> = {
   quest_find_kite:    ['chapter3_truth_ending', 'chapter3_standoff_ending', 'chapter3_join_ending'],
 };
 
+const QUEST_CHAPTER_LABELS: Record<string, string> = {
+  quest_main_murder: '第一章·旧案',
+  quest_dafei_gang:  '第一章·旧案',
+  quest_li_mao_case: '第二章·追查',
+  quest_find_kite:   '第三章·终局',
+};
+
 const TIMELINE_FLAGS: Array<{ flag: string; text: string }> = [
   { flag: 'innkeeper_met',           text: '从掌柜李福处得知案发经过' },
   { flag: 'body_examined',           text: '检查宋怀义遗体，死因存疑' },
@@ -310,30 +317,43 @@ export function RightPanel({ onSettings }: RightPanelProps) {
             {questLog.length > 0 && (
               <div>
                 <DiamondDivider label="未竟之事" />
-                <ul className="space-y-3">
-                  {questLog.map((qid) => {
-                    const q = QUEST_HINTS[qid];
-                    const isDone = QUEST_ENDINGS[qid]?.some((f) => flags.includes(f)) ?? false;
-                    return (
-                      <li key={qid} className="text-xs">
-                        <div className="flex items-start gap-1.5 mb-1">
-                          <span className={`mt-0.5 shrink-0 text-[10px] ${isDone ? 'text-ink/20' : 'text-gold/40'}`}>
-                            {isDone ? '✓' : '▸'}
-                          </span>
-                          <span className={isDone ? 'text-ink/25 line-through' : 'text-ink/65'}>
-                            {q?.name ?? qid}
-                          </span>
-                          {isDone && (
-                            <span className="text-[9px] text-ink/20 ml-1 shrink-0">·已结案</span>
-                          )}
-                        </div>
-                        {q?.hint && !isDone && (
-                          <p className="text-ink/28 leading-relaxed pl-3.5 text-[11px] whitespace-pre-line">{q.hint}</p>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
+                {(() => {
+                  const groups = new Map<string, string[]>();
+                  for (const qid of questLog) {
+                    const label = QUEST_CHAPTER_LABELS[qid] ?? '其他';
+                    if (!groups.has(label)) groups.set(label, []);
+                    groups.get(label)!.push(qid);
+                  }
+                  return Array.from(groups.entries()).map(([chapterLabel, qids]) => (
+                    <div key={chapterLabel} className="mb-3 last:mb-0">
+                      <p className="text-[9px] text-gold/22 tracking-[0.3em] px-1 mb-1.5">{chapterLabel}</p>
+                      <ul className="space-y-3">
+                        {qids.map((qid) => {
+                          const q = QUEST_HINTS[qid];
+                          const isDone = QUEST_ENDINGS[qid]?.some((f) => flags.includes(f)) ?? false;
+                          return (
+                            <li key={qid} className="text-xs">
+                              <div className="flex items-start gap-1.5 mb-1">
+                                <span className={`mt-0.5 shrink-0 text-[10px] ${isDone ? 'text-ink/20' : 'text-gold/40'}`}>
+                                  {isDone ? '✓' : '▸'}
+                                </span>
+                                <span className={isDone ? 'text-ink/25 line-through' : 'text-ink/65'}>
+                                  {q?.name ?? qid}
+                                </span>
+                                {isDone && (
+                                  <span className="text-[9px] text-ink/20 ml-1 shrink-0">·已结案</span>
+                                )}
+                              </div>
+                              {q?.hint && !isDone && (
+                                <p className="text-ink/28 leading-relaxed pl-3.5 text-[11px] whitespace-pre-line">{q.hint}</p>
+                              )}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ));
+                })()}
               </div>
             )}
           </div>
