@@ -444,5 +444,75 @@
         "grants": { "flags": ["blackmarket_intel_bought", "langpeng_trail"], "items": ["langpeng_dispatch_order"] }
       }
     ]
+  },
+  {
+    "id": "evt_bounty_investigation",
+    "title": "深查悬赏令",
+    "description": "这张悬赏令是谁发的？画师是谁？为什么发布时间如此之快？",
+    "actions": [
+      {
+        "id": "trace_artist",
+        "label": "向坊官打听悬赏令的发布渠道",
+        "requires": { "flags": ["market_entry"], "flags_absent": ["li_mao_description_known"] },
+        "result": "你找到坊官，称是官府协查。坊官翻出登记本，告知这张悬赏令由长安府主簿亲署，下令日期在宋怀义死亡当夜，发布速度异乎寻常。你把「长安府主簿」这四个字默记于心。",
+        "grants": { "flags": ["li_mao_description_known", "li_mao_official_id_known"] }
+      },
+      {
+        "id": "official_inquiry",
+        "label": "以官身问询坊官，取得完整告示档案（官威）",
+        "requires": { "talent": "官威", "flags_absent": ["li_mao_description_known"] },
+        "result": "你亮出官牒，坊官立刻起身恭候。档案显示，这张悬赏令由长安府主簿李邈亲批，还附有一份手写的「嫌疑人体貌特征补充说明」，与往事客栈那个白衣人的特征一字不差。发令时间比案发早了足足四个时辰——这根本不是案后紧急通缉，是提前准备好的。",
+        "grants": { "flags": ["li_mao_description_known", "li_mao_official_id_known", "li_mao_premeditated_notice"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_hidden_safe",
+    "title": "古玩铺后室",
+    "description": "掌柜打发走你之后，铺子里有一扇半掩的门通往后室，透出一股旧纸气息。",
+    "actions": [
+      {
+        "id": "search_back_room",
+        "label": "趁掌柜不注意，溜进后室翻查",
+        "requires": { "agility": 7, "flags_absent": ["antique_back_searched"] },
+        "result": "后室不大，码着十几只木箱。你快速翻查，在最里面的一只箱底发现一叠夹页——几份往来账单，收款方一概以代号代替，其中一笔金额尤大，备注处写着「鸢字组旧档，一批，已交付」。这份东西说明古玩铺不只是中转站，还在主动购买天机阁的内部档案。",
+        "grants": { "flags": ["antique_back_searched", "deeper_network_known"], "items": ["second_killer_evidence"] }
+      },
+      {
+        "id": "intimidate_dealer",
+        "label": "以气势逼迫掌柜带你进后室",
+        "requires": { "strength": 8, "flags_absent": ["antique_back_searched"] },
+        "result": "你盯着掌柜，不说话，只是站着，那种久经江湖练出来的压迫感让掌柜的笑容渐渐僵住。他颤声道：「后……后室可以看，您随便看。」\n\n里头的东西没让你失望——一批往来账单，一笔标注「鸢字组旧档」的大额交易，证明有人在系统性收购天机阁的内部档案。",
+        "grants": { "flags": ["antique_back_searched", "deeper_network_known"], "items": ["second_killer_evidence"] }
+      },
+      {
+        "id": "gang_code_unlock",
+        "label": "以帮派暗语从掌柜处套出后室底细（三教九流）",
+        "requires": { "flags": ["gang_culture_known"], "flags_absent": ["antique_back_searched"] },
+        "result": "你说了几个江湖切口，掌柜的眼神一变，戒备瞬间松动——他认出你是行里人。他带你进后室，低声说：「自己人就直说吧，那批东西早被取走了，留下的这些是副本。委托人三个月没来取，我也不知道事情出了什么变故。」\n\n副本里的信息足够多——鸢字组旧档的买家，比想象中更有组织。",
+        "grants": { "flags": ["antique_back_searched", "deeper_network_known", "antique_gang_opened"], "items": ["second_killer_evidence"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_prisoner_testimony",
+    "title": "据点线人",
+    "description": "据点里有一个被关押着的人，手脚被绑，看见你走过来时眼神里出现了恐惧和希望交织的复杂神情。",
+    "actions": [
+      {
+        "id": "interrogate_prisoner",
+        "label": "审讯被关押的线人",
+        "requires": { "flags": ["hideout_entered"], "flags_absent": ["prisoner_interrogated"] },
+        "result": "那人颤声道：「我只是普通线人，帮浪鹏帮传话的……李爷下令盯的，不只是宋怀义一个人——名单上的另外几个人，在长安城各处，都有人盯着。」他喘了口气，「调令不止一份，据点灶台后面只是其中一份。还有一份，在李爷自己手上，内容是另外一批目标。我没见过那份，但我知道它存在。」",
+        "grants": { "flags": ["prisoner_interrogated"], "clues": ["langpeng_hideout_intel"] }
+      },
+      {
+        "id": "medical_treat_prisoner",
+        "label": "为受伤线人施救，换取口供（望闻断骨）",
+        "requires": { "talent": "望闻断骨", "flags_absent": ["prisoner_healed"] },
+        "result": "那人右肩有脱臼，脸上有两处淤伤，但不致命。你利落地复位，施了几针止痛，他疼得倒抽了口凉气，然后看着你，眼神变了。\n\n「你……是游方医？」他沉默片刻，「行，你待我好，我也不能亏你。告诉你一件事：李爷安排了人，专门在客栈周围蹲守，手里有一份名单，名单上的人一旦出现，立刻上报。宋怀义死那一夜，蹲守的人撤了——是有人通知他们撤的，那个人不是李爷。」\n\n他勉强坐起来：「幕后有两个人，不只一个。」",
+        "grants": { "flags": ["prisoner_healed", "prisoner_grateful", "prisoner_interrogated"], "clues": ["langpeng_hideout_intel"], "items": ["second_killer_evidence"] }
+      }
+    ]
   }
 ]
