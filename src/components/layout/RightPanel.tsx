@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StatBar } from '../ui/StatBar';
 import { Tooltip } from '../ui/Tooltip';
 import { DiamondDivider } from '../ui/DiamondDivider';
@@ -109,6 +109,17 @@ interface RightPanelProps {
 
 export function RightPanel({ onSettings }: RightPanelProps) {
   const [tab, setTab] = useState<Tab>('stats');
+  useEffect(() => {
+    const tabKeys: Record<string, Tab> = { '1': 'stats', '2': 'items', '3': 'deduce', '4': 'lore' };
+    const handler = (e: KeyboardEvent) => {
+      if ((e.target as HTMLElement).tagName === 'INPUT') return;
+      if ((e.target as HTMLElement).tagName === 'TEXTAREA') return;
+      const t = tabKeys[e.key];
+      if (t) setTab(t);
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, []);
   const [selectedA, setSelectedA] = useState<string | null>(null);
   const [selectedB, setSelectedB] = useState<string | null>(null);
   const [synthResult, setSynthResult] = useState<{ text: string; isNew: boolean } | null>(null);
@@ -201,10 +212,11 @@ export function RightPanel({ onSettings }: RightPanelProps) {
     <div className="flex flex-col h-full text-sm">
       {/* 标签栏 */}
       <div className="flex border-b border-gold/15 shrink-0 items-stretch">
-        {(Object.keys(TAB_LABELS) as Tab[]).map((t) => (
+        {(Object.keys(TAB_LABELS) as Tab[]).map((t, i) => (
           <button
             key={t}
             onClick={() => setTab(t)}
+            title={`${TAB_LABELS[t]} (${i + 1})`}
             className={`flex-1 py-2 text-[11px] tracking-widest transition-colors cursor-pointer ${
               tab === t
                 ? 'text-gold/80 border-b border-gold/55 -mb-px bg-gold/5'
