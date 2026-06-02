@@ -33,6 +33,13 @@ const QUEST_HINTS: Record<string, { name: string; hint: string }> = {
   },
 };
 
+const QUEST_ENDINGS: Record<string, string[]> = {
+  quest_main_murder:  ['chapter1_truth_ending', 'chapter1_force_ending', 'chapter1_hermit_ending'],
+  quest_dafei_gang:   ['chapter2_started', 'chapter1_hermit_ending'],
+  quest_li_mao_case:  ['chapter2_arrest_ending', 'chapter2_release_ending', 'chapter2_join_ending'],
+  quest_find_kite:    ['chapter3_truth_ending', 'chapter3_standoff_ending', 'chapter3_join_ending'],
+};
+
 const TIMELINE_FLAGS: Array<{ flag: string; text: string }> = [
   { flag: 'innkeeper_met',           text: '从掌柜李福处得知案发经过' },
   { flag: 'body_examined',           text: '检查宋怀义遗体，死因存疑' },
@@ -283,13 +290,21 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                 <ul className="space-y-3">
                   {questLog.map((qid) => {
                     const q = QUEST_HINTS[qid];
+                    const isDone = QUEST_ENDINGS[qid]?.some((f) => flags.includes(f)) ?? false;
                     return (
                       <li key={qid} className="text-xs">
                         <div className="flex items-start gap-1.5 mb-1">
-                          <span className="text-gold/40 mt-0.5 shrink-0 text-[10px]">▸</span>
-                          <span className="text-ink/65">{q?.name ?? qid}</span>
+                          <span className={`mt-0.5 shrink-0 text-[10px] ${isDone ? 'text-ink/20' : 'text-gold/40'}`}>
+                            {isDone ? '✓' : '▸'}
+                          </span>
+                          <span className={isDone ? 'text-ink/25 line-through' : 'text-ink/65'}>
+                            {q?.name ?? qid}
+                          </span>
+                          {isDone && (
+                            <span className="text-[9px] text-ink/20 ml-1 shrink-0">·已结案</span>
+                          )}
                         </div>
-                        {q?.hint && (
+                        {q?.hint && !isDone && (
                           <p className="text-ink/28 leading-relaxed pl-3.5 text-[11px] whitespace-pre-line">{q.hint}</p>
                         )}
                       </li>
