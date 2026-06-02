@@ -437,7 +437,9 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                             {isExpanded ? '▾' : '▸'}
                           </span>
                           <span className="text-[13px] flex-1 tracking-wide">{profile.name}</span>
-                          <span className="text-[9px] text-ink/25 shrink-0">{profile.role}</span>
+                          <span className="text-[9px] text-ink/20 shrink-0 tabular-nums">
+                            {visibleFacts.length}/{profile.facts.length}
+                          </span>
                         </button>
                         {isExpanded && (
                           <div className="ml-3 pl-3 border-l border-gold/12 pb-2 space-y-1.5">
