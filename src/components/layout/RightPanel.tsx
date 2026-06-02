@@ -5,7 +5,7 @@ import { DiamondDivider } from '../ui/DiamondDivider';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
-import { getItem, TALENTS, getTemplate, getSynthesisResult, SUSPECT_PROFILES, SYNTHESES } from '../../data/loader';
+import { getItem, getNPC, TALENTS, getTemplate, getSynthesisResult, SUSPECT_PROFILES, SYNTHESES } from '../../data/loader';
 
 const STAT_DESCRIPTIONS: Record<string, string> = {
   strength: '力量\n筋骨强健，以力破局。破门、格斗、强行撬锁等动作皆仰仗于此。',
@@ -150,6 +150,9 @@ export function RightPanel({ onSettings }: RightPanelProps) {
   const lastSeenItemCountRef = useRef(items.length);
   const lastSeenClueCountRef = useRef(clues.length);
   const itemsBadge = items.length > lastSeenItemCountRef.current || clues.length > lastSeenClueCountRef.current;
+  const activeQuestCount = questLog.filter(
+    (qid) => !(QUEST_ENDINGS[qid]?.some((f) => flags.includes(f)) ?? false)
+  ).length;
 
   useEffect(() => {
     if (tab === 'items') {
@@ -257,7 +260,16 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                 : 'text-ink/30 hover:text-ink/55'
             }`}
           >
-            {TAB_LABELS[t]}
+            {t === 'stats' ? (
+              <span className="relative inline-flex">
+                {TAB_LABELS[t]}
+                {tab !== 'stats' && activeQuestCount > 0 && (
+                  <span className="absolute -top-1 -right-1.5 text-[8px] text-gold/70 leading-none tabular-nums">
+                    {activeQuestCount}
+                  </span>
+                )}
+              </span>
+            ) : TAB_LABELS[t]}
             {t === 'items' && itemsBadge && tab !== 'items' && (
               <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-blood/70 rounded-full" />
             )}
@@ -500,7 +512,13 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                 <DiamondDivider label="人物档案" />
                 <div className="space-y-1">
                   {visibleProfiles.map((profile) => {
-                    const visibleFacts = profile.facts.filter((f) => flags.includes(f.flag));
+                    const visibleFacts = profile.facts
+                      .filter((f) => flags.includes(f.flag))
+                      .sort((a, b) => {
+                        if (a.type === 'contradiction' && b.type !== 'contradiction') return -1;
+                        if (a.type !== 'contradiction' && b.type === 'contradiction') return 1;
+                        return 0;
+                      });
                     const isExpanded = expandedNpc === profile.npcId;
                     return (
                       <div key={profile.npcId} className="border-b border-gold/8 last:border-0">
@@ -525,6 +543,14 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                             }`}>
                               {profile.suspicion}
                             </p>
+                            {(() => {
+                              const npcDesc = getNPC(profile.npcId)?.description;
+                              return npcDesc ? (
+                                <p className="text-[10px] text-ink/30 leading-relaxed italic border-l border-gold/8 pl-2 mb-1">
+                                  {npcDesc}
+                                </p>
+                              ) : null;
+                            })()}
                             {visibleFacts.map((fact) => (
                               <div
                                 key={fact.flag}
