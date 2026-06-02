@@ -248,7 +248,7 @@
       {
         "id": "expose_truth",
         "label": "「证据在此，你逃不了了。」",
-        "requires": { "has": ["tianji_founding_scroll"], "flags": ["deeper_threat_revealed"] },
+        "requires": { "has": ["tianji_founding_scroll"], "flags": ["deeper_threat_revealed", "synth_ch3_fei_ye_confirmed", "synth_ch3_deeper_threat_scale"] },
         "result": "你将天机创立卷推到桌上，又说出飞爷那番关于廷尉府的话。\n\n「创立卷加上你自己承认的——名单、廷尉府、天机阁的真正敌人，这些足够让官府拿你，也足够保护名单上的人。」\n\n飞爷看着那卷东西，沉默了很久，最后站起来，从怀里取出一个装订整齐的册子：「你比我以为的更能走到最后。——这是完整的名单，和廷尉府往来的证据。你知道该怎么用。」\n\n长安城的钟声响起，送走了这一天最后的光。",
         "grants": { "flags": ["chapter3_truth_ending"] }
       },

@@ -5,7 +5,9 @@
     "itemB": "name_list_fragment",
     "result": "鸢字认定：创立卷末页签名「飞，代号鸢」，名单残页载明「大飞帮主，代号鸢，鸢字组创立者」——两份文书从不同角度指向同一个人。飞爷，就是那个用二十年平静面孔藏住的秘密。",
     "hint": "天机创立卷 × 名单残页",
-    "grants": { "flags": ["synth_ch3_fei_ye_confirmed"] }
+    "grants": { "flags": ["synth_ch3_fei_ye_confirmed"] },
+    "pivotal": true,
+    "chapter": 3
   },
   {
     "id": "synth_ch3_fei_ye_self_led",
@@ -21,7 +23,9 @@
     "itemB": "name_list_fragment",
     "result": "上游威胁实质化：廷尉府密函与名单残页对照，上游威胁的目标是名单上散落各地的三十七人——追杀的不只是天机阁，而是那些已被庇护的人。真正的危险，远比浪鹏帮更深、更广。",
     "hint": "上游密函 × 名单残页",
-    "grants": { "flags": ["synth_ch3_deeper_threat_scale"] }
+    "grants": { "flags": ["synth_ch3_deeper_threat_scale"] },
+    "pivotal": true,
+    "chapter": 3
   },
   {
     "id": "synth_ch3_two_vigils",

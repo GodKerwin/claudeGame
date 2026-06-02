@@ -21,7 +21,9 @@
     "itemB": "captive_letter",
     "result": "指挥链确立：调令由李邈手书，被俘信函加盖浪鹏帮印章却引用了同样的行动代号——浪鹏帮在长安的所有行动，不过是李邈一个人决策的工具，而非独立的江湖势力。",
     "hint": "浪鹏调令 × 被俘信函",
-    "grants": { "flags": ["synth_ch2_li_mao_commands_langpeng"] }
+    "grants": { "flags": ["synth_ch2_li_mao_commands_langpeng"] },
+    "pivotal": true,
+    "chapter": 2
   },
   {
     "id": "synth_ch2_intel_network_rebuilt",
@@ -53,7 +55,9 @@
     "itemB": "wujue_testimony",
     "result": "内部证人：无迹方笺的配方细节与无迹医诊证词互为印证——韩朔不只是「知道」那批毒剂，他曾亲手调制过其中一部分。他是罪行的见证者，也是罪行的一环，二十年来以出家偿还。",
     "hint": "无迹方笺 × 无迹医诊证词",
-    "grants": { "flags": ["synth_ch2_wujue_complicit"] }
+    "grants": { "flags": ["synth_ch2_wujue_complicit"] },
+    "pivotal": true,
+    "chapter": 2
   },
   {
     "id": "synth_ch2_true_mastermind_hint",

@@ -5,7 +5,9 @@
     "itemB": "blood_pattern_sketch",
     "result": "砒霜的分量足够致死，但地板血迹说明死者先倒在地上——凶手没有单靠砒霜杀人，只是用它击昏，再动手勒毙。这是双重作案手法：一毒，一缢，缺一不可。",
     "hint": "毒药 + 血迹分布",
-    "grants": { "flags": ["synth_double_kill"] }
+    "grants": { "flags": ["synth_double_kill"] },
+    "pivotal": true,
+    "chapter": 1
   },
   {
     "id": "synth_struggle_confirmed",
@@ -21,7 +23,9 @@
     "itemB": "tianji_roster",
     "result": "令牌上的「天机」与名册中「线人·叛」并列——宋怀义曾是天机阁的线人，后来叛变，带走了某样重要的东西。这次死亡不是劫财，是一场等了十年的追杀，终于在往事客栈画上了句点。",
     "hint": "染血令牌 + 天机阁名录",
-    "grants": { "flags": ["synth_tianji_motive"] }
+    "grants": { "flags": ["synth_tianji_motive"] },
+    "pivotal": true,
+    "chapter": 1
   },
   {
     "id": "synth_entry_exit_route",

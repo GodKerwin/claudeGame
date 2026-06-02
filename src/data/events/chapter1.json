@@ -406,7 +406,7 @@
       {
         "id": "truth_ending",
         "label": "「我知道是谁干的了。」（真相路线）",
-        "requires": { "flags": ["kite_identity_clue", "cloth_fiber_found", "tianji_records_found"] },
+        "requires": { "flags": ["kite_identity_clue", "cloth_fiber_found", "tianji_records_found", "synth_double_kill", "synth_tianji_motive"] },
         "result": "你将所有线索串连，在废弃宅院的正堂缓缓开口，将那个已经成形的答案说了出来。\n\n宋怀义是天机阁的叛徒线人，十年前他带走了一份名单，有人等了他十年。幕后主使「鸢」先以毒物击昏他，再假扮意外勒毙；凶手在后厨留下砒霜是个失误——原本打算毒杀后伪装成病死，但厨娘王氏无意中撞见，计划被迫改变。\n\n大飞帮、浪鹏帮都在觊觎那份名单。而「鸢」这个字，指向的是某个更深的秘密。\n\n你环顾这座写着「天机阁」三字的废院。这里曾经站过许多人，现在只有你一个人站在这里，握着一个没有人能确认的真相。\n\n客栈伙计来报：官府的人已经到了。\n\n你合上手中的线索，整了整衣袍，走出了宅院的大门。\n\n身后，废院的牌匾在晨风中微微摇晃。",
         "grants": { "flags": ["chapter1_truth_ending"] }
       },

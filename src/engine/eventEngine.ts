@@ -53,9 +53,13 @@ export function getMissingConditionLabel(condition: Condition | null | undefined
     if (missingNames.length > 0) hints.push(`缺少：${missingNames.join('、')}`);
   }
   if (condition.flags) {
-    for (const flag of condition.flags) {
-      if (!ctx.flags.includes(flag)) hints.push(`条件未满足`);
-    }
+    const missingFlags = condition.flags.filter((f) => !ctx.flags.includes(f));
+    const missingSynths = missingFlags.filter((f) => f.startsWith('synth_'));
+    const missingOthers = missingFlags.filter((f) => !f.startsWith('synth_'));
+    if (missingSynths.length > 0)
+      hints.push(`需先在推理页完成关键推断（还差 ${missingSynths.length} 个）`);
+    if (missingOthers.length > 0)
+      hints.push(`条件未满足`);
   }
   return hints.join('，');
 }

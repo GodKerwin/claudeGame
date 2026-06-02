@@ -104,6 +104,8 @@ export interface Synthesis {
   result: string;
   hint: string;
   grants?: ActionGrant;
+  pivotal?: boolean;
+  chapter?: 1 | 2 | 3;
 }
 
 export interface SuspectFact {

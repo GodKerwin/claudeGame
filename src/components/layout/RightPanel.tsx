@@ -135,9 +135,9 @@ export function RightPanel({ onSettings }: RightPanelProps) {
     return () => window.removeEventListener('keydown', handler);
   }, []);
   const [selectedA, setSelectedA] = useState<string | null>(null);
-
   const [selectedB, setSelectedB] = useState<string | null>(null);
   const [synthResult, setSynthResult] = useState<{ text: string; isNew: boolean } | null>(null);
+  const [hintPair, setHintPair] = useState<[string, string] | null>(null);
   const [expandedNpc, setExpandedNpc] = useState<string | null>(null);
   const [expandedItemId, setExpandedItemId] = useState<string | null>(null);
   const [isNewSynth, setIsNewSynth] = useState(false);
@@ -191,6 +191,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
     : new Set<string>();
 
   const handleSelectItem = (itemId: string) => {
+    setHintPair(null);
     if (selectedA === itemId) {
       setSelectedA(null);
       setSynthResult(null);
@@ -239,6 +240,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
     setSelectedA(null);
     setSelectedB(null);
     setSynthResult(null);
+    setHintPair(null);
     if (synthTimerRef.current) clearTimeout(synthTimerRef.current);
     setIsNewSynth(false);
   };
@@ -247,6 +249,10 @@ export function RightPanel({ onSettings }: RightPanelProps) {
   const visibleProfiles = SUSPECT_PROFILES.filter((profile) =>
     profile.facts.some((fact) => flags.includes(fact.flag))
   );
+
+  const chapter: 1 | 2 | 3 = flags.includes('chapter3_started') ? 3 : flags.includes('chapter2_started') ? 2 : 1;
+  const pivotalSynths = SYNTHESES.filter((s) => s.pivotal && s.chapter === chapter);
+  const pivotalDone = pivotalSynths.filter((s) => foundSynthesisIds.includes(s.id)).length;
 
   return (
     <div className="flex flex-col h-full text-sm">
@@ -437,6 +443,61 @@ export function RightPanel({ onSettings }: RightPanelProps) {
         {/* ── 推理 ── */}
         {tab === 'deduce' && (
           <div className="space-y-5">
+            {/* 本章关键推断 */}
+            {pivotalSynths.length > 0 && (
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <DiamondDivider label="本章关键推断" />
+                  <span className={`text-[10px] tabular-nums shrink-0 ml-2 ${pivotalDone === pivotalSynths.length ? 'text-gold/70' : 'text-ink/30'}`}>
+                    {pivotalDone}/{pivotalSynths.length}
+                  </span>
+                </div>
+                <div className="space-y-1.5">
+                  {pivotalSynths.map((s) => {
+                    const done = foundSynthesisIds.includes(s.id);
+                    const isHinting = hintPair && hintPair[0] === s.itemA && hintPair[1] === s.itemB;
+                    return (
+                      <button
+                        key={s.id}
+                        onClick={() => {
+                          if (done) return;
+                          setHintPair(isHinting ? null : [s.itemA, s.itemB]);
+                        }}
+                        className={`w-full flex items-center gap-2 px-2 py-1.5 border-l-2 text-left transition-colors ${
+                          done
+                            ? 'border-gold/30 cursor-default'
+                            : isHinting
+                              ? 'border-gold/55 bg-gold/5 cursor-pointer'
+                              : 'border-ink/15 hover:border-gold/35 cursor-pointer'
+                        }`}
+                      >
+                        <span className={`text-[11px] shrink-0 leading-none ${done ? 'text-gold/65' : 'text-ink/25'}`}>
+                          {done ? '●' : '○'}
+                        </span>
+                        <span className={`text-[11px] leading-snug flex-1 ${done ? 'text-ink/50' : 'text-ink/40'}`}>
+                          {s.hint}
+                        </span>
+                        {!done && (
+                          <span className="text-[9px] text-ink/20 shrink-0 tracking-wide">
+                            {isHinting ? '取消' : '提示'}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+                {pivotalDone < pivotalSynths.length && (
+                  <p className="text-[10px] text-ink/20 px-1 mt-1.5 leading-snug">
+                    点击未完成项可在下方高亮所需物证
+                  </p>
+                )}
+                {pivotalDone === pivotalSynths.length && (
+                  <p className="text-[10px] text-gold/45 px-1 mt-1.5 tracking-wide">
+                    ✦ 本章关键推断已全部完成
+                  </p>
+                )}
+              </div>
+            )}
             {/* 证据推断 */}
             <div>
               <DiamondDivider label={`证据推断${foundSyntheses.length > 0 ? `  ${foundSyntheses.length}/${SYNTHESES.length}` : ''}`} />
@@ -456,6 +517,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                       const isA = selectedA === item.id;
                       const isB = selectedB === item.id;
                       const isSelected = isA || isB;
+                      const isHinted = hintPair && (hintPair[0] === item.id || hintPair[1] === item.id);
                       return (
                         <button
                           key={item.id}
@@ -463,9 +525,11 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                           className={`text-[11px] px-2 py-0.5 border transition-colors cursor-pointer tracking-wide ${
                             isSelected
                               ? 'border-gold/60 text-gold/85 bg-gold/8'
-                              : compatibleWithA.has(item.id)
-                                ? 'border-gold/35 text-ink/60 hover:border-gold/55 hover:text-ink/80'
-                                : 'border-ink/12 text-ink/45 hover:border-gold/30 hover:text-ink/65'
+                              : isHinted
+                                ? 'border-gold/55 text-gold/75 bg-gold/6 hint-pulse'
+                                : compatibleWithA.has(item.id)
+                                  ? 'border-gold/35 text-ink/60 hover:border-gold/55 hover:text-ink/80'
+                                  : 'border-ink/12 text-ink/45 hover:border-gold/30 hover:text-ink/65'
                           }`}
                         >
                           {isA && <span className="text-gold/50 mr-0.5 text-[9px]">甲</span>}
