@@ -335,7 +335,13 @@ export function RightPanel({ onSettings }: RightPanelProps) {
             {/* 证据推断 */}
             <div>
               <DiamondDivider label="证据推断" />
-              <p className="text-ink/25 text-[10px] pl-1 mb-2 leading-snug">选择两件物证，推断其关联</p>
+              <p className="text-ink/25 text-[10px] pl-1 mb-2 leading-snug">
+                {!selectedA
+                  ? '选择第一件物证（甲）开始推理'
+                  : !selectedB
+                    ? `已选甲：${allSelectableItems.find((i) => i.id === selectedA)?.name ?? selectedA}，再选一件物证（乙）`
+                    : '推理完成，可重置后继续'}
+              </p>
               {allSelectableItems.length === 0 ? (
                 <p className="text-ink/20 text-xs pl-3 italic">尚无可用物证</p>
               ) : (
