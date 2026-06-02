@@ -16,6 +16,8 @@ import talentsRaw from './talents.json';
 import templatesRaw from './templates.json';
 import chapter1SynthesesRaw from './syntheses/chapter1.json';
 import chapter1ProfilesRaw from './profiles/chapter1.json';
+import chapter2ProfilesRaw from './profiles/chapter2.json';
+import chapter3ProfilesRaw from './profiles/chapter3.json';
 
 export const MAPS: GameMap[] = [...chapter1MapsRaw, ...chapter2MapsRaw, ...chapter3MapsRaw] as GameMap[];
 export const EVENTS: GameEvent[] = [...chapter1EventsRaw, ...chapter2EventsRaw, ...chapter3EventsRaw] as GameEvent[];
@@ -41,7 +43,11 @@ export const getTalent = (id: string): Talent | undefined => talentMap.get(id);
 export const getTemplate = (id: string): CharacterTemplate | undefined => templateMap.get(id);
 
 export const SYNTHESES: Synthesis[] = chapter1SynthesesRaw as Synthesis[];
-export const SUSPECT_PROFILES: SuspectProfile[] = chapter1ProfilesRaw as SuspectProfile[];
+export const SUSPECT_PROFILES: SuspectProfile[] = [
+  ...chapter1ProfilesRaw,
+  ...chapter2ProfilesRaw,
+  ...chapter3ProfilesRaw,
+] as SuspectProfile[];
 
 export function getSynthesisResult(itemA: string, itemB: string): Synthesis | undefined {
   return SYNTHESES.find((s) =>

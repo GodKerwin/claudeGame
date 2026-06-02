@@ -1,0 +1,49 @@
+[
+  {
+    "npcId": "npc_wujue",
+    "name": "无迹和尚",
+    "role": "大雁塔驻寺僧人",
+    "suspicion": "知情者——身份复杂，隐有愧疚",
+    "facts": [
+      { "flag": "wujue_met", "text": "居于大雁塔多年，自称「已忘却世俗」，却对案情细节熟悉得异常。", "type": "known" },
+      { "flag": "wujue_treated", "text": "旧伤来历不凡，是二十年前某次「任务」留下的，对此讳莫如深。", "type": "known" },
+      { "flag": "poison_source_known", "text": "辨认出毒物配方：砒霜合曼陀罗，是天机阁当年的专用制剂，非市售寻常药材。", "type": "known" },
+      { "flag": "wujue_tianji_revealed", "text": "【身份确认】天机阁「风」字组成员，二十年前奉命参与「收网」行动，事后出家以赎罪。", "type": "known" },
+      { "flag": "wujue_guilt_revealed", "text": "【矛盾】声称自己「与此事无关」，但他知道鸢组的存在，知道那次行动的内容——他是亲历者，不是旁观者。", "type": "contradiction" },
+      { "flag": "wujue_spoke_once", "text": "道出名单埋藏之处，以此了却心中二十年的执念。", "type": "known" }
+    ]
+  },
+  {
+    "npcId": "npc_li_mao",
+    "name": "李邈",
+    "role": "长安府主簿",
+    "suspicion": "主要嫌疑人——幕后推手，证据确凿",
+    "facts": [
+      { "flag": "li_mao_exposed", "text": "【身份揭穿】长安府主簿，二十年来一直向浪鹏帮出售天机阁线人名单，以换取庇护。", "type": "known" },
+      { "flag": "li_mao_cornered", "text": "被铁证逼问时承认：授意鸢组除掉宋怀义，以阻止残卷情报泄露。", "type": "known" },
+      { "flag": "tianji_recruit_offered", "text": "【矛盾】声称自己「只是照命令行事」，但证据显示他在天机阁内部早有独立情报渠道，是主动的幕后操纵者，非被动棋子。", "type": "contradiction" }
+    ]
+  },
+  {
+    "npcId": "npc_langpeng_scout",
+    "name": "浪鹏帮探子",
+    "role": "浪鹏帮东市眼线",
+    "suspicion": "目击者——受雇于浪鹏帮，知情程度有限",
+    "facts": [
+      { "flag": "langpeng_trail", "text": "确认浪鹏帮在东市设有秘密据点，专门追踪天机阁线人的下落。", "type": "known" },
+      { "flag": "langpeng_scared", "text": "面对质问时态度明显软化，暗示浪鹏帮内部对「此次任务」存在分歧。", "type": "known" },
+      { "flag": "langpeng_wujue_watched", "text": "【矛盾】自称只是「例行看守」，但据点记录显示他曾多次单独监视无迹和尚——这超出了普通眼线的职责。", "type": "contradiction" }
+    ]
+  },
+  {
+    "npcId": "npc_buyer_contact",
+    "name": "古玩掌柜",
+    "role": "东市情报中转人",
+    "suspicion": "知情者——天机阁合法联络人",
+    "facts": [
+      { "flag": "antique_dealer_met", "text": "东市古玩铺掌柜，表面是普通商人，实为天机阁在东市的情报中转站。", "type": "known" },
+      { "flag": "tianji_seal_read", "text": "认出天机玉令，并透露接头暗语「归鸟问津」——他是天机阁的合法联络人。", "type": "known" },
+      { "flag": "buyer_identity_hinted", "text": "【矛盾】声称自己对「上面的事」一无所知，但他能认出天机玉令、背出接头暗语，说明他是主动知情者，非单纯受蒙蔽的掌柜。", "type": "contradiction" }
+    ]
+  }
+]

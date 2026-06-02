@@ -1,0 +1,14 @@
+[
+  {
+    "npcId": "npc_tianji_contact",
+    "name": "天机联络人",
+    "role": "天机安宅驻守者",
+    "suspicion": "中立者——天机阁遗属，任务导向",
+    "facts": [
+      { "flag": "tianji_contact_met", "text": "掌管天机安宅，一直在等待「合适的人」来接手未竟的任务。", "type": "known" },
+      { "flag": "tianji_briefing_received", "text": "透露：名单上共有三十七人，分散于大唐边疆各处，目前仍遭人追杀。", "type": "known" },
+      { "flag": "tianji_trust_gained", "text": "认可调查能力，提供飞爷旧居精确位置及入内方式。", "type": "known" },
+      { "flag": "tianji_endgame_ready", "text": "【矛盾】自称「只是守卫此地」，但他对飞爷的过往了如指掌——两人显然相识多年，绝非初见。", "type": "contradiction" }
+    ]
+  }
+]
