@@ -1,4 +1,4 @@
-import type { GameMap, GameEvent, NPC, Item, Talent, CharacterTemplate, Room } from '../types/game';
+import type { GameMap, GameEvent, NPC, Item, Talent, CharacterTemplate, Room, Synthesis, SuspectProfile } from '../types/game';
 
 import chapter1MapsRaw from './maps/chapter1.json';
 import chapter1EventsRaw from './events/chapter1.json';
@@ -14,6 +14,8 @@ import chapter3NPCsRaw from './npcs/chapter3.json';
 import chapter3ItemsRaw from './items/chapter3.json';
 import talentsRaw from './talents.json';
 import templatesRaw from './templates.json';
+import chapter1SynthesesRaw from './syntheses/chapter1.json';
+import chapter1ProfilesRaw from './profiles/chapter1.json';
 
 export const MAPS: GameMap[] = [...chapter1MapsRaw, ...chapter2MapsRaw, ...chapter3MapsRaw] as GameMap[];
 export const EVENTS: GameEvent[] = [...chapter1EventsRaw, ...chapter2EventsRaw, ...chapter3EventsRaw] as GameEvent[];
@@ -37,3 +39,17 @@ export const getNPC = (id: string): NPC | undefined => npcMap.get(id);
 export const getItem = (id: string): Item | undefined => itemMap.get(id);
 export const getTalent = (id: string): Talent | undefined => talentMap.get(id);
 export const getTemplate = (id: string): CharacterTemplate | undefined => templateMap.get(id);
+
+export const SYNTHESES: Synthesis[] = chapter1SynthesesRaw as Synthesis[];
+export const SUSPECT_PROFILES: SuspectProfile[] = chapter1ProfilesRaw as SuspectProfile[];
+
+export function getSynthesisResult(itemA: string, itemB: string): Synthesis | undefined {
+  return SYNTHESES.find((s) =>
+    (s.itemA === itemA && s.itemB === itemB) ||
+    (s.itemA === itemB && s.itemB === itemA)
+  );
+}
+
+export function getProfile(npcId: string): SuspectProfile | undefined {
+  return SUSPECT_PROFILES.find((p) => p.npcId === npcId);
+}

@@ -18,6 +18,28 @@
         "interactables": ["evt_crime_scene_202", "evt_locked_room_mystery", "evt_victim_hidden_items"],
         "exits": ["room_203"],
         "requires": null,
+        "talentViews": [
+          {
+            "talent": "望闻断骨",
+            "text": "〔医者直觉：地板血迹呈圆形扩散——毒发时仰躺形成；床头血迹侧溅——搬动后补刀所致。两处，两个时间点，一个人。体温和僵硬程度也告诉你：距死亡约四至六个时辰。〕"
+          },
+          {
+            "talent": "官威",
+            "text": "〔公务直觉：死者行囊被翻动过，但只取走了特定东西，不是财物。房间的整理方式说明凶手在死亡发生后还停留了一段时间。这不是劫财，是有目标的搜查。〕"
+          },
+          {
+            "talent": "三教九流",
+            "text": "〔江湖本能：窗台绳痕是专业降绳的手法，门锁铁丝划痕是定制工具的痕迹——走过暗道的人才知道这些技巧。这个房间，被同行光顾过。〕"
+          },
+          {
+            "talent": "望气观相",
+            "text": "〔气机感知：枕角与窗台之间有一道细细的阴寒气线，是人在恐惧中拼命挣扎留下的遗痕；床脚处有一股截然不同的轻快外来气息——闯入者到过两处不同的位置。〕"
+          },
+          {
+            "talent": "耳报神",
+            "text": "〔江湖消息：隔壁二〇三号的隔音极差——昨夜若有动静，左右邻室必然听到些什么。那个睡在走廊木椅上的醉客，说不定比他自己以为的看见了更多。〕"
+          }
+        ],
         "revisitEvents": [
           {
             "id": "rev_room202_arsenic",
@@ -40,6 +62,16 @@
         "interactables": ["npc_innkeeper_li_fu", "npc_drunk_zhang_san", "evt_notice_board", "evt_guest_register", "evt_copper_badge_examine", "evt_ch1_strength_growth"],
         "exits": ["room_203", "kitchen", "cellar", "forest", "old_mansion"],
         "requires": null,
+        "talentViews": [
+          {
+            "talent": "耳报神",
+            "text": "〔江湖消息：大堂里此刻的低声议论，你一一听进了耳中——有人昨夜没睡着，有人清晨比平时早起，有人在刻意避开某个方向的目光。每个人都在掩盖自己知道的东西。〕"
+          },
+          {
+            "talent": "官威",
+            "text": "〔公务直觉：客栈大堂的格局和掌柜的站位，让你立刻看出三四处视野盲区——昨夜从后厨方向走动的人，只要选对时机，完全可以不被柜台后的人看见。〕"
+          }
+        ],
         "revisitEvents": [
           {
             "id": "rev_lobby_blood_letter",
@@ -68,6 +100,20 @@
         "interactables": ["npc_cook_wang", "evt_arsenic_trace", "evt_secret_tunnel"],
         "exits": ["lobby"],
         "requires": { "flags": ["innkeeper_talked"] },
+        "talentViews": [
+          {
+            "talent": "望闻断骨",
+            "text": "〔医者直觉：砒霜洒落的位置是从架子高处取用时失手——动手的人知道砒霜放在哪里，而不是随手翻找的。这不是第一次进这间后厨。〕"
+          },
+          {
+            "talent": "三教九流",
+            "text": "〔江湖本能：密道入口的封口工艺太专业——封缝方式、与外部的连接角度，不是随手修缮，是经过专门设计的。这条道，在案发之前很可能已经用了不止一次。〕"
+          },
+          {
+            "talent": "耳报神",
+            "text": "〔江湖消息：厨娘王氏的肩膀绷着，呼吸比正常人短促——她还有话没说。不是因为她不想说，而是因为她害怕。给她一个安全感，她会开口的。〕"
+          }
+        ],
         "revisitEvents": [
           {
             "id": "rev_kitchen_sequence",

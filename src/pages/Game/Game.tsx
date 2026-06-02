@@ -12,14 +12,14 @@ import { useSettings } from '../../hooks/useSettings';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
-import { getRoom, getEvent, getNPC } from '../../data/loader';
+import { getRoom, getEvent, getNPC, getItem } from '../../data/loader';
 import { getActionResults } from '../../engine/eventEngine';
 import { getAvailableDialogues } from '../../engine/storyEngine';
 import { evaluate } from '../../engine/conditionEvaluator';
 import { getHint } from '../../engine/hintEngine';
 import { audioEngine } from '../../engine/audioEngine';
 import type { EvalContext } from '../../engine/conditionEvaluator';
-import type { DialogueChoice } from '../../types/game';
+import type { ActionGrant, DialogueChoice } from '../../types/game';
 
 type ModalType = 'save' | 'load' | 'settings' | null;
 
@@ -64,6 +64,17 @@ interface PendingChoices {
   choices: DialogueChoice[];
 }
 
+interface PendingInterrogation {
+  npcId: string;
+  npcName: string;
+  dialogueId: string;
+  prompt: string;
+  accepts: string[];
+  successResponse: string;
+  failResponse: string;
+  grants?: ActionGrant;
+}
+
 const CHAPTER1_ENDINGS = ['chapter1_truth_ending', 'chapter1_force_ending', 'chapter1_hermit_ending'];
 const CHAPTER2_ENDINGS = ['chapter2_arrest_ending', 'chapter2_release_ending', 'chapter2_join_ending'];
 const CHAPTER3_ENDINGS = ['chapter3_truth_ending', 'chapter3_standoff_ending', 'chapter3_join_ending'];
@@ -82,8 +93,10 @@ export default function Game() {
   const [chapterIntroShown, setChapterIntroShown] = useState<number>(() =>
     parseInt(sessionStorage.getItem('tianji-intro-shown') ?? '1', 10)
   );
+  const [pendingInterrogation, setPendingInterrogation] = useState<PendingInterrogation | null>(null);
   const processingRef = useRef(false);
   const prevRoomRef = useRef<string | null>(null);
+  const shownTalentViewsRef = useRef<Set<string>>(new Set());
 
   useAutoSave();
   useSettings();
@@ -160,6 +173,18 @@ export default function Game() {
       }
     }
   }, [scene.currentRoomId, ctx]); // eslint-disable-line
+
+  // 天赋专属调查视角
+  useEffect(() => {
+    if (!room?.talentViews || !player.talent) return;
+    const key = `${room.id}:${player.talent}`;
+    if (shownTalentViewsRef.current.has(key)) return;
+    const view = room.talentViews.find((v) => v.talent === player.talent);
+    if (view) {
+      shownTalentViewsRef.current.add(key);
+      scene.addStoryText(view.text);
+    }
+  }, [scene.currentRoomId]); // eslint-disable-line
 
   const actions = useMemo(() => {
     if (!room) return [];
@@ -269,6 +294,20 @@ export default function Game() {
         scene.addStoryText(`（${npc.name}似乎已无更多可说的了。）`);
         return;
       }
+      // 审讯博弈：若该对话有 interrogation，先暂停并请玩家出示证据
+      if (nextUnseen.interrogation) {
+        setPendingInterrogation({
+          npcId: entityId,
+          npcName: npc.name,
+          dialogueId: nextUnseen.id,
+          prompt: nextUnseen.interrogation.prompt,
+          accepts: nextUnseen.interrogation.accepts,
+          successResponse: nextUnseen.interrogation.successResponse,
+          failResponse: nextUnseen.interrogation.failResponse,
+          grants: nextUnseen.grants,
+        });
+        return;
+      }
       audioEngine.playSFX('dialogue');
       const d = nextUnseen;
       scene.addStoryText(`【${npc.name}】${d.text}`);
@@ -289,9 +328,30 @@ export default function Game() {
 
   const handleNavigate = useCallback((roomId: string) => {
     setPendingChoices(null);
+    setPendingInterrogation(null);
     audioEngine.playSFX('room_change');
     scene.setRoom(roomId);
   }, [scene]);
+
+  const handlePresentEvidence = useCallback((itemId: string) => {
+    if (!pendingInterrogation) return;
+    const { npcId, npcName, dialogueId, accepts, successResponse, failResponse, grants } = pendingInterrogation;
+    const itemName = getItem(itemId)?.name ?? '此物';
+    const isCorrect = accepts.includes(itemId);
+
+    scene.addStoryText(`你出示了【${itemName}】。`);
+    if (isCorrect) {
+      audioEngine.playSFX('discover');
+      scene.addStoryText(`【${npcName}】${successResponse}`);
+      scene.markDialogueSeen(`ch${chapter}:${npcId}:${dialogueId}`);
+      if (grants?.clues?.length || grants?.items?.length) audioEngine.playSFX('pickup');
+      applyGrants(grants, scene, addItem, removeItem, player);
+    } else {
+      audioEngine.playSFX('click');
+      scene.addStoryText(`【${npcName}】${failResponse}`);
+    }
+    setPendingInterrogation(null);
+  }, [pendingInterrogation, chapter, scene, addItem, removeItem, player]);
 
   if (!player.name) {
     return null;
@@ -307,6 +367,19 @@ export default function Game() {
 
   const currentHint = showHint
     ? getHint({ flags: scene.flags, items, chapter, strength: player.strength, agility: player.agility, wisdom: player.wisdom, constitution: player.constitution, talent: player.talent })
+    : null;
+
+  const interrogationAllItems = pendingInterrogation
+    ? [
+        ...scene.clues.map((id) => {
+          const it = getItem(id);
+          return it ? { id: it.id, name: it.name, isClue: true } : null;
+        }).filter(Boolean) as { id: string; name: string; isClue: boolean }[],
+        ...items.map((id) => {
+          const it = getItem(id);
+          return it && !it.isClue ? { id: it.id, name: it.name, isClue: false } : null;
+        }).filter(Boolean) as { id: string; name: string; isClue: boolean }[],
+      ]
     : null;
 
   return (
@@ -325,6 +398,13 @@ export default function Game() {
             hint={currentHint}
             onToggleHint={() => setShowHint((v) => !v)}
             showHint={showHint}
+            pendingInterrogation={pendingInterrogation ? {
+              npcName: pendingInterrogation.npcName,
+              prompt: pendingInterrogation.prompt,
+              allItems: interrogationAllItems ?? [],
+              onPresent: handlePresentEvidence,
+              onCancel: () => setPendingInterrogation(null),
+            } : null}
           />
         }
         right={<RightPanel onSettings={() => setModal('settings')} />}

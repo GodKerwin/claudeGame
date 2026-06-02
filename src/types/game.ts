@@ -64,6 +64,12 @@ export interface DialogueLine {
   grants?: ActionGrant;
   hidden?: boolean;
   choices?: DialogueChoice[];
+  interrogation?: {
+    prompt: string;
+    accepts: string[];
+    successResponse: string;
+    failResponse: string;
+  };
 }
 
 export interface NPC {
@@ -88,6 +94,30 @@ export interface Room {
   exits: string[];
   requires?: Condition | null;
   revisitEvents?: RoomRevisitEvent[];
+  talentViews?: { talent: string; text: string }[];
+}
+
+export interface Synthesis {
+  id: string;
+  itemA: string;
+  itemB: string;
+  result: string;
+  hint: string;
+  grants?: ActionGrant;
+}
+
+export interface SuspectFact {
+  flag: string;
+  text: string;
+  type: 'known' | 'contradiction';
+}
+
+export interface SuspectProfile {
+  npcId: string;
+  name: string;
+  role: string;
+  suspicion: string;
+  facts: SuspectFact[];
 }
 
 export interface GameMap {

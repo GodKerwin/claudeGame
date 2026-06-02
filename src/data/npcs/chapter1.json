@@ -84,6 +84,12 @@
         "id": "innkeeper_trusted_secret",
         "condition": { "flags": ["innkeeper_trusted"], "flags_absent": ["innkeeper_secret_told"] },
         "text": "李福把「暂停营业」的木牌挂到门口，回身时，神情已经变了——不再是掌柜的油滑，而是某种久藏心底的沉重：「有些事，我已经藏了十年。也许……是该有人知道了。」",
+        "interrogation": {
+          "prompt": "此事非同寻常。在我开口之前，我需要确认——你手上有什么能证明你已经查到了那一层？",
+          "accepts": ["blood_letter", "tianji_jade_token", "tianji_roster"],
+          "successResponse": "李福看着你递出的物件，沉默了片刻，长叹一口气：「您已经查到这一步了。」他把那块木牌重新挂好，转过身来，神情彻底变了——不再是掌柜，而是一个等了十年的人：「好，我说。」",
+          "failResponse": "李福摇了摇头，神情重新变得疏远：「客官，有些话说了对您没有好处。还是算了吧。」他低下头去整理柜台，不再看你。"
+        },
         "choices": [
           {
             "id": "ask_tianji",
@@ -276,6 +282,12 @@
         "id": "white_stranger_deep_talk",
         "condition": { "flags": ["stranger_questioned", "clue_blood_letter_found", "tianji_records_found"], "flags_absent": ["white_stranger_trust"] },
         "text": "白衣人看了看你手中握着的线索，点了点头，像是在确认什么：「你比我预想的走得更远。」他指了指旁边一块平整的石头，「坐下。这一次，我多说一些。」",
+        "interrogation": {
+          "prompt": "你走得够远了。但在我继续开口之前——把你最关键的发现拿出来让我看看。",
+          "accepts": ["tianji_roster", "kite_letter", "ear_room_ledger", "cellar_fragment"],
+          "successResponse": "白衣人接过你递来的物件，仔细看了片刻，合上，还给你。「好。你找到了真正要找的东西。」他抬头，目光里第一次有了某种认可：「坐下，我说。」",
+          "failResponse": "白衣人微微摇头：「你还没到那一步。继续查，等你找到真正的核心，我自然会说更多。」他重新看向树林，不再开口。"
+        },
         "choices": [
           {
             "id": "ask_song_real_identity",

@@ -45,6 +45,14 @@ interface Entity {
   allDone: boolean;
 }
 
+interface InterrogationProps {
+  npcName: string;
+  prompt: string;
+  allItems: { id: string; name: string; isClue: boolean }[];
+  onPresent: (itemId: string) => void;
+  onCancel: () => void;
+}
+
 interface Props {
   roomName: string;
   roomId?: string;
@@ -56,6 +64,7 @@ interface Props {
   hint?: string | null;
   onToggleHint?: () => void;
   showHint?: boolean;
+  pendingInterrogation?: InterrogationProps | null;
 }
 
 export function CenterPanel({
@@ -69,6 +78,7 @@ export function CenterPanel({
   hint,
   onToggleHint,
   showHint,
+  pendingInterrogation,
 }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
@@ -228,6 +238,46 @@ export function CenterPanel({
           `,
         }}
       >
+        {/* ── 审讯博弈模式 ── */}
+        {pendingInterrogation ? (
+          <div className="flex flex-col h-full">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-3 h-px bg-blood/40" />
+              <p className="text-blood/60 text-[10px] tracking-[0.3em]">审讯·出示证据</p>
+              <div className="w-3 h-px bg-blood/40" />
+            </div>
+            <div className="mb-3 border-l-2 border-jade/35 pl-3">
+              <p className="text-[11px] text-gold/55 tracking-wide mb-0.5">{pendingInterrogation.npcName}</p>
+              <p className="text-ink/70 text-xs leading-relaxed">{pendingInterrogation.prompt}</p>
+            </div>
+            <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin space-y-0.5 mb-2">
+              {pendingInterrogation.allItems.length === 0 ? (
+                <p className="text-ink/25 text-xs italic px-1">暂无可出示之物</p>
+              ) : (
+                pendingInterrogation.allItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => pendingInterrogation.onPresent(item.id)}
+                    className="w-full text-left flex items-center gap-2 px-2 py-1.5 border-l-2 border-gold/20 text-ink/65 hover:text-gold hover:border-gold/55 transition-colors cursor-pointer group"
+                  >
+                    <span className={`text-[9px] shrink-0 ${item.isClue ? 'text-gold/50' : 'text-ink/25'}`}>
+                      {item.isClue ? '◈' : '◇'}
+                    </span>
+                    <span className="text-[13px] flex-1">{item.name}</span>
+                    <span className="text-[9px] text-gold/35 shrink-0 tracking-widest group-hover:text-gold/60">出示</span>
+                  </button>
+                ))
+              )}
+            </div>
+            <button
+              onClick={pendingInterrogation.onCancel}
+              className="w-full text-center text-[11px] text-ink/25 hover:text-ink/45 py-1 tracking-widest cursor-pointer transition-colors border-t border-gold/8 pt-2"
+            >
+              算了，暂不出示
+            </button>
+          </div>
+        ) : (
+          <>
         {/* 标题行 + 提示按钮 */}
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
@@ -383,6 +433,8 @@ export function CenterPanel({
             </>
           )}
         </div>
+          </>
+        )}
       </div>
     </div>
   );

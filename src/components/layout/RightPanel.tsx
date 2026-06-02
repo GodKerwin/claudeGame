@@ -5,7 +5,7 @@ import { DiamondDivider } from '../ui/DiamondDivider';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
-import { getItem, TALENTS, getTemplate } from '../../data/loader';
+import { getItem, TALENTS, getTemplate, getSynthesisResult, SUSPECT_PROFILES } from '../../data/loader';
 
 const STAT_DESCRIPTIONS: Record<string, string> = {
   strength: '力量\n筋骨强健，以力破局。破门、格斗、强行撬锁等动作皆仰仗于此。',
@@ -99,9 +99,9 @@ function TalentSeal({ name }: { name: string }) {
   );
 }
 
-type Tab = 'stats' | 'items' | 'lore';
+type Tab = 'stats' | 'items' | 'deduce' | 'lore';
 
-const TAB_LABELS: Record<Tab, string> = { stats: '人物', items: '物品', lore: '脉络' };
+const TAB_LABELS: Record<Tab, string> = { stats: '人物', items: '物品', deduce: '推理', lore: '脉络' };
 
 interface RightPanelProps {
   onSettings?: () => void;
@@ -109,15 +109,80 @@ interface RightPanelProps {
 
 export function RightPanel({ onSettings }: RightPanelProps) {
   const [tab, setTab] = useState<Tab>('stats');
+  const [selectedA, setSelectedA] = useState<string | null>(null);
+  const [selectedB, setSelectedB] = useState<string | null>(null);
+  const [synthResult, setSynthResult] = useState<{ text: string; isNew: boolean } | null>(null);
+  const [foundSyntheses, setFoundSyntheses] = useState<Array<{ id: string; hint: string; result: string }>>([]);
+  const [expandedNpc, setExpandedNpc] = useState<string | null>(null);
+
   const player = usePlayerStore();
-  const { clues, questLog, flags } = useSceneStore();
-  const { items } = useInventoryStore();
+  const { clues, questLog, flags, addFlag } = useSceneStore();
+  const { items, addItem } = useInventoryStore();
 
   const clueItems = clues.map((id) => getItem(id)).filter(Boolean);
   const carriedItems = items.map((id) => getItem(id)).filter((item) => item && !item.isClue);
   const talentInfo = TALENTS.find((t) => t.id === player.talent);
   const baseTemplate = getTemplate(player.template);
   const timelineEntries = TIMELINE_FLAGS.filter((e) => flags.includes(e.flag));
+
+  // All selectable items for synthesis board
+  const allSelectableItems = [
+    ...clues.map((id) => getItem(id)).filter(Boolean).map((it) => ({ ...it!, isClue: true })),
+    ...items.map((id) => getItem(id)).filter((it) => it && !it.isClue).map((it) => ({ ...it!, isClue: false })),
+  ];
+
+  const handleSelectItem = (itemId: string) => {
+    if (selectedA === itemId) {
+      setSelectedA(null);
+      setSynthResult(null);
+      return;
+    }
+    if (selectedB === itemId) {
+      setSelectedB(null);
+      setSynthResult(null);
+      return;
+    }
+    if (!selectedA) {
+      setSelectedA(itemId);
+      return;
+    }
+    if (!selectedB) {
+      const newB = itemId;
+      setSelectedB(newB);
+      // Run synthesis immediately
+      const synth = getSynthesisResult(selectedA, newB);
+      if (!synth) {
+        setSynthResult({ text: '这两件物证之间，暂无关联。', isNew: false });
+      } else {
+        const alreadyFound = foundSyntheses.some((f) => f.id === synth.id);
+        if (!alreadyFound) {
+          setFoundSyntheses((prev) => [...prev, { id: synth.id, hint: synth.hint, result: synth.result }]);
+          // Apply grants
+          synth.grants?.flags?.forEach((f) => addFlag(f));
+          synth.grants?.items?.forEach((i) => addItem(i));
+          setSynthResult({ text: synth.result, isNew: true });
+        } else {
+          setSynthResult({ text: synth.result, isNew: false });
+        }
+      }
+    } else {
+      // Reset and start fresh with this item as A
+      setSelectedA(itemId);
+      setSelectedB(null);
+      setSynthResult(null);
+    }
+  };
+
+  const resetSynthesis = () => {
+    setSelectedA(null);
+    setSelectedB(null);
+    setSynthResult(null);
+  };
+
+  // Suspect profiles: only show NPCs where at least one fact's flag is in current flags
+  const visibleProfiles = SUSPECT_PROFILES.filter((profile) =>
+    profile.facts.some((fact) => flags.includes(fact.flag))
+  );
 
   return (
     <div className="flex flex-col h-full text-sm">
@@ -248,6 +313,129 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                 </ul>
               )}
             </div>
+          </div>
+        )}
+
+        {/* ── 推理 ── */}
+        {tab === 'deduce' && (
+          <div className="space-y-5">
+            {/* 证据推断 */}
+            <div>
+              <DiamondDivider label="证据推断" />
+              <p className="text-ink/25 text-[10px] pl-1 mb-2 leading-snug">选择两件物证，推断其关联</p>
+              {allSelectableItems.length === 0 ? (
+                <p className="text-ink/20 text-xs pl-3 italic">尚无可用物证</p>
+              ) : (
+                <>
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    {allSelectableItems.map((item) => {
+                      const isA = selectedA === item.id;
+                      const isB = selectedB === item.id;
+                      const isSelected = isA || isB;
+                      return (
+                        <button
+                          key={item.id}
+                          onClick={() => handleSelectItem(item.id)}
+                          className={`text-[11px] px-2 py-0.5 border transition-colors cursor-pointer tracking-wide ${
+                            isSelected
+                              ? 'border-gold/60 text-gold/85 bg-gold/8'
+                              : 'border-ink/12 text-ink/45 hover:border-gold/30 hover:text-ink/65'
+                          }`}
+                        >
+                          {isA && <span className="text-gold/50 mr-0.5 text-[9px]">甲</span>}
+                          {isB && <span className="text-gold/50 mr-0.5 text-[9px]">乙</span>}
+                          {item.name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                  {(selectedA || selectedB) && (
+                    <button
+                      onClick={resetSynthesis}
+                      className="text-[10px] text-ink/20 hover:text-ink/40 tracking-widest mb-2 cursor-pointer transition-colors"
+                    >
+                      重置选择
+                    </button>
+                  )}
+                  {synthResult && (
+                    <div className={`border-l-2 pl-3 mb-2 ${synthResult.isNew ? 'border-gold/55' : 'border-ink/15'}`}>
+                      {synthResult.isNew && (
+                        <span className="text-[9px] text-gold/65 tracking-widest mb-1 block">新发现</span>
+                      )}
+                      <p className="text-xs leading-relaxed text-ink/70">{synthResult.text}</p>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+
+            {/* 已推断记录 */}
+            {foundSyntheses.length > 0 && (
+              <div>
+                <DiamondDivider label="推断记录" />
+                <ul className="space-y-2">
+                  {foundSyntheses.map((s) => (
+                    <li key={s.id} className="border-l border-gold/15 pl-2">
+                      <p className="text-[10px] text-gold/40 tracking-wide mb-0.5">{s.hint}</p>
+                      <p className="text-[11px] text-ink/45 leading-snug">{s.result}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* 人物档案 */}
+            {visibleProfiles.length > 0 && (
+              <div>
+                <DiamondDivider label="人物档案" />
+                <div className="space-y-1">
+                  {visibleProfiles.map((profile) => {
+                    const visibleFacts = profile.facts.filter((f) => flags.includes(f.flag));
+                    const isExpanded = expandedNpc === profile.npcId;
+                    return (
+                      <div key={profile.npcId} className="border-b border-gold/8 last:border-0">
+                        <button
+                          onClick={() => setExpandedNpc(isExpanded ? null : profile.npcId)}
+                          className={`w-full flex items-center gap-2 px-1 py-2 text-left transition-colors cursor-pointer ${
+                            isExpanded ? 'text-gold/75' : 'text-ink/55 hover:text-ink/75'
+                          }`}
+                        >
+                          <span className={`text-[9px] shrink-0 ${isExpanded ? 'text-gold/45' : 'text-ink/20'}`}>
+                            {isExpanded ? '▾' : '▸'}
+                          </span>
+                          <span className="text-[13px] flex-1 tracking-wide">{profile.name}</span>
+                          <span className="text-[9px] text-ink/25 shrink-0">{profile.role}</span>
+                        </button>
+                        {isExpanded && (
+                          <div className="ml-3 pl-3 border-l border-gold/12 pb-2 space-y-1.5">
+                            <p className={`text-[10px] tracking-wide mb-1 ${
+                              profile.suspicion.startsWith('可疑') ? 'text-blood/65' : 'text-gold/50'
+                            }`}>
+                              {profile.suspicion}
+                            </p>
+                            {visibleFacts.map((fact) => (
+                              <div
+                                key={fact.flag}
+                                className={`text-[11px] leading-snug border-l-2 pl-2 ${
+                                  fact.type === 'contradiction'
+                                    ? 'border-blood/45 text-blood/60'
+                                    : 'border-gold/15 text-ink/55'
+                                }`}
+                              >
+                                {fact.text}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+            {visibleProfiles.length === 0 && foundSyntheses.length === 0 && (
+              <p className="text-ink/20 text-xs pl-3 italic">尚未对任何人物形成印象</p>
+            )}
           </div>
         )}
 

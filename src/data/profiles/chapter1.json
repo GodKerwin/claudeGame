@@ -1,0 +1,66 @@
+[
+  {
+    "npcId": "npc_innkeeper_li_fu",
+    "name": "掌柜李福",
+    "role": "往事客栈掌柜",
+    "suspicion": "可疑——知情不报，身份存疑",
+    "facts": [
+      { "flag": "innkeeper_met", "text": "案发当夜在前台守夜至亥时，自称之后未再注意动静。", "type": "known" },
+      { "flag": "blue_shirt_seen_by_innkeeper", "text": "记得昨日下午一名蓝衫男子在大堂久坐、腰挂铜铃，怀疑与案子有关。", "type": "known" },
+      { "flag": "innkeeper_blood_letter_asked", "text": "见到「天机」令牌时神情明显一顿——他认得这两个字。", "type": "contradiction" },
+      { "flag": "li_fu_tianji_confirmed", "text": "【身份确认】天机阁「驿」，专职情报中转，已潜伏十年。", "type": "known" },
+      { "flag": "innkeeper_secret_told", "text": "透露关键情报：宋怀义托人带话「东市回春堂，三日内」。", "type": "known" },
+      { "flag": "premade_tea_confirmed", "text": "【矛盾】厨娘证词——那壶茶是有人预先备好放在柜台的，掌柜让厨娘送上楼。", "type": "contradiction" }
+    ]
+  },
+  {
+    "npcId": "npc_drunk_zhang_san",
+    "name": "醉汉张三",
+    "role": "大堂食客",
+    "suspicion": "目击证人——无嫌疑",
+    "facts": [
+      { "flag": "drunk_talked", "text": "三更前在楼梯口被一名黑衣人撞到，对方步伐极快，腰间有圆形黑色物件。", "type": "known" },
+      { "flag": "zhang_san_details_asked", "text": "描述：身形细窄，走路无声，黑色衣物。往后厨方向转，进去后不见了。", "type": "known" },
+      { "flag": "drunk_extra_clue", "text": "确认：目击黑衣人案发后曾与掌柜有过接触（换了酒水后坦白）。", "type": "known" },
+      { "flag": "drunk_bell_confirmed", "text": "认出蓝衫汉子腰间铜铃正是浪鹏帮帮徽——他在扬州码头见过同款。", "type": "known" }
+    ]
+  },
+  {
+    "npcId": "npc_cook_wang",
+    "name": "厨娘王氏",
+    "role": "往事客栈厨娘",
+    "suspicion": "关键目击者——受过威胁",
+    "facts": [
+      { "flag": "cook_talked", "text": "二更天目击一名黑衣人（女性体态）从后门溜入，在厨房取用砒霜，随后从密道离开。", "type": "known" },
+      { "flag": "cook_details_asked", "text": "细节：那人取了砒霜后，对着密道缝隙说「找到了」，然后消失其中。", "type": "known" },
+      { "flag": "cook_warned_confirmed", "text": "案发前一日有人登门警告她「别多事」——她受到了威胁。", "type": "known" },
+      { "flag": "cook_poison_wine_revealed", "text": "那人把砒霜溶进温酒里搅匀带走——不是用来撒的，是用来毒人的。", "type": "known" },
+      { "flag": "cook_sequence_confirmed", "text": "关键证词：那晚那壶茶是有人提前备好放在柜台的，掌柜让她送上楼。", "type": "known" }
+    ]
+  },
+  {
+    "npcId": "npc_white_stranger",
+    "name": "白衣人",
+    "role": "身份未明",
+    "suspicion": "知情者——立场不明",
+    "facts": [
+      { "flag": "white_stranger_met", "text": "在城郊树林等待，自称等了一个时辰。知道你会来，对案情有所了解。", "type": "known" },
+      { "flag": "stranger_questioned", "text": "自承「知道太多」，与天机阁有过渊源，拒绝说明自身身份。", "type": "known" },
+      { "flag": "scroll_true_purpose_known", "text": "情报：残卷记录的是一张覆盖大唐边疆的情报网络，仍在运作——有人阻止它被拼齐。", "type": "known" },
+      { "flag": "white_stranger_trust", "text": "给予关键线索：东市回春堂，接头暗语「归鸟问津」。", "type": "known" },
+      { "flag": "kite_role_known", "text": "揭露：能动用鸢组的人在整个天机阁不超过三个。现在可能更少了。", "type": "known" }
+    ]
+  },
+  {
+    "npcId": "npc_fei_ye",
+    "name": "飞爷",
+    "role": "大飞帮帮主",
+    "suspicion": "可疑——隐藏目的",
+    "facts": [
+      { "flag": "dafei_joined", "text": "面容普通，不易记住。大飞帮帮主，愿意共享情报以换取合作。", "type": "known" },
+      { "flag": "fei_ye_langpeng_analysis", "text": "分析：浪鹏帮追的不是残卷，而是一个名字——他们是在寻仇。", "type": "known" },
+      { "flag": "fei_ye_kite_hint", "text": "重要线索：鸢组当年只有一个执行者，是个女人。飞爷年轻时见过一次。", "type": "known" },
+      { "flag": "fei_ye_secret_told", "text": "坦白：大飞帮的真正目的是重建天机阁情报网络，等待网络再次被人认领。", "type": "known" }
+    ]
+  }
+]
