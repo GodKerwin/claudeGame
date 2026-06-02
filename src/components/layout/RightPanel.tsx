@@ -112,11 +112,10 @@ export function RightPanel({ onSettings }: RightPanelProps) {
   const [selectedA, setSelectedA] = useState<string | null>(null);
   const [selectedB, setSelectedB] = useState<string | null>(null);
   const [synthResult, setSynthResult] = useState<{ text: string; isNew: boolean } | null>(null);
-  const [foundSyntheses, setFoundSyntheses] = useState<Array<{ id: string; hint: string; result: string }>>([]);
   const [expandedNpc, setExpandedNpc] = useState<string | null>(null);
 
   const player = usePlayerStore();
-  const { clues, questLog, flags, addFlag } = useSceneStore();
+  const { clues, questLog, flags, addFlag, foundSynthesisIds, addFoundSynthesisId } = useSceneStore();
   const { items, addItem } = useInventoryStore();
 
   const clueItems = clues.map((id) => getItem(id)).filter(Boolean);
@@ -124,6 +123,11 @@ export function RightPanel({ onSettings }: RightPanelProps) {
   const talentInfo = TALENTS.find((t) => t.id === player.talent);
   const baseTemplate = getTemplate(player.template);
   const timelineEntries = TIMELINE_FLAGS.filter((e) => flags.includes(e.flag));
+
+  // Derive synthesis display objects from persisted IDs
+  const foundSyntheses = foundSynthesisIds
+    .map((id) => SYNTHESES.find((s) => s.id === id))
+    .filter(Boolean) as import('../../types/game').Synthesis[];
 
   // All selectable items for synthesis board
   const allSelectableItems = [
@@ -163,9 +167,9 @@ export function RightPanel({ onSettings }: RightPanelProps) {
       if (!synth) {
         setSynthResult({ text: '这两件物证之间，暂无关联。', isNew: false });
       } else {
-        const alreadyFound = foundSyntheses.some((f) => f.id === synth.id);
+        const alreadyFound = foundSynthesisIds.includes(synth.id);
         if (!alreadyFound) {
-          setFoundSyntheses((prev) => [...prev, { id: synth.id, hint: synth.hint, result: synth.result }]);
+          addFoundSynthesisId(synth.id);
           // Apply grants
           synth.grants?.flags?.forEach((f) => addFlag(f));
           synth.grants?.items?.forEach((i) => addItem(i));

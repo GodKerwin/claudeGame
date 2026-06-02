@@ -71,6 +71,7 @@ export function SaveLoadModal({ mode, onClose }: Props) {
       storyText: (data.storyText ?? []).slice(-20),
       seenDialogues: data.seenDialogues ?? [],
       visitedRooms: data.visitedRooms ?? [data.currentRoomId],
+      foundSynthesisIds: data.foundSynthesisIds ?? [],
     });
     loadItems(data.inventory);
     setSlots(loadAllSlots());

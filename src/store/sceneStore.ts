@@ -8,6 +8,7 @@ interface SceneState {
   storyText: string[];
   seenDialogues: string[];
   visitedRooms: string[];
+  foundSynthesisIds: string[];
   setRoom: (roomId: string) => void;
   addFlag: (flag: string) => void;
   addClue: (clueId: string) => void;
@@ -15,7 +16,10 @@ interface SceneState {
   addStoryText: (text: string) => void;
   clearStoryText: () => void;
   markDialogueSeen: (key: string) => void;
-  loadState: (state: Partial<Pick<SceneState, 'currentRoomId' | 'flags' | 'clues' | 'questLog' | 'storyText' | 'seenDialogues' | 'visitedRooms'>>) => void;
+  addFoundSynthesisId: (id: string) => void;
+  loadState: (state: Partial<Pick<SceneState,
+    'currentRoomId' | 'flags' | 'clues' | 'questLog' | 'storyText' |
+    'seenDialogues' | 'visitedRooms' | 'foundSynthesisIds'>>) => void;
   reset: () => void;
 }
 
@@ -27,6 +31,7 @@ const defaultState = {
   storyText: [] as string[],
   seenDialogues: [] as string[],
   visitedRooms: ['room_203'] as string[],
+  foundSynthesisIds: [] as string[],
 };
 
 export const useSceneStore = create<SceneState>((set) => ({
@@ -54,6 +59,10 @@ export const useSceneStore = create<SceneState>((set) => ({
   markDialogueSeen: (key) =>
     set((s) => ({
       seenDialogues: s.seenDialogues.includes(key) ? s.seenDialogues : [...s.seenDialogues, key],
+    })),
+  addFoundSynthesisId: (id) =>
+    set((s) => ({
+      foundSynthesisIds: s.foundSynthesisIds.includes(id) ? s.foundSynthesisIds : [...s.foundSynthesisIds, id],
     })),
   loadState: (state) => set(state),
   reset: () => set(defaultState),

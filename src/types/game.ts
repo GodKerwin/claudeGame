@@ -165,6 +165,7 @@ export interface SaveData {
   storyText: string[];
   seenDialogues: string[];
   visitedRooms: string[];
+  foundSynthesisIds?: string[];
 }
 
 export interface SaveSlot {

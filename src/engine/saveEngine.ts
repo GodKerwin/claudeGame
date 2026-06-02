@@ -45,6 +45,7 @@ export function loadFromSlot(slotId: number): SaveData | null {
   return {
     ...slot.data,
     seenDialogues: migrateSeenDialogues(slot.data.seenDialogues ?? []),
+    foundSynthesisIds: slot.data.foundSynthesisIds ?? [],
   };
 }
 

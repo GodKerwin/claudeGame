@@ -36,6 +36,7 @@ export function useAutoSave() {
       storyText: scene.storyText,
       seenDialogues: scene.seenDialogues,
       visitedRooms: scene.visitedRooms,
+      foundSynthesisIds: scene.foundSynthesisIds,
     };
     const saved = saveToSlot(0, data, '自动存档');
     updateSlot(saved);
@@ -43,6 +44,6 @@ export function useAutoSave() {
     player.name, player.template, player.strength, player.agility,
     player.wisdom, player.constitution, player.talent,
     scene.currentRoomId, scene.flags, scene.clues, scene.questLog,
-    scene.seenDialogues, items, updateSlot,
+    scene.seenDialogues, scene.foundSynthesisIds, items, updateSlot,
   ]);
 }
