@@ -165,8 +165,13 @@ export default function Game() {
 
     const currentRoom = getRoom(roomId);
     if (!currentRoom?.revisitEvents) return;
+    let firstRevisit = true;
     for (const rev of currentRoom.revisitEvents) {
       if (evaluate(rev.requires, ctx)) {
+        if (firstRevisit && scene.storyText.length > 0) {
+          scene.addStoryText('---SEPARATOR---');
+          firstRevisit = false;
+        }
         scene.addStoryText(rev.text);
         audioEngine.playSFX('hint');
         rev.grants?.flags?.forEach((f) => scene.addFlag(f));
