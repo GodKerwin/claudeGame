@@ -186,6 +186,13 @@
         "requires": { "agility": 7 },
         "result": "趁掌柜不备，你迅速将几页关键账目拓下。记录显示，天机令牌曾在此铺三度易手，最后一次的买家写的是「委托人，李，长安城」。",
         "grants": { "flags": ["ledger_seen"], "items": ["buyer_transaction_record"] }
+      },
+      {
+        "id": "decode_kite_mark",
+        "label": "辨认账本中隐藏的暗记符号（三教九流）",
+        "requires": { "talent": "三教九流", "flags_absent": ["kite_identity_clue"] },
+        "result": "跑黑市的人练就了认暗记的眼力。你翻着账本，在几笔金额旁发现了极细微的勾画——那是黑市江湖里某个老牌组织的标记方式，以「鸢」字为核心的变体符。你见过这符号，但一直不知道它背后的组织叫什么，如今对照账本里的往来记录，答案浮现：鸢字组，天机阁内部一个特殊的部门。这个「委托人」，正是鸢字组的人。",
+        "grants": { "flags": ["kite_identity_clue", "kite_ledger_found"] }
       }
     ]
   },

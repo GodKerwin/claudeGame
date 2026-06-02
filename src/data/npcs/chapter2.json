@@ -43,6 +43,12 @@
         "condition": { "talent": "三教九流", "flags_absent": ["langpeng_thief_exchange"] },
         "text": "探子打量了你一眼，眼神里出现了不同的东西。「你……是行里人？」他放低了声音，「行，那就说明白话。我们接的活儿是李爷的，监视宋怀义，截他带的东西。」他顿了顿，「你若有消息跟我换，我告诉你李爷在哪落脚。」",
         "grants": { "flags": ["langpeng_thief_exchange", "langpeng_trail"] }
+      },
+      {
+        "id": "kite_clue_exchange",
+        "condition": { "flags": ["hideout_trust_gained"], "flags_absent": ["kite_identity_clue"] },
+        "text": "探子朝四周看了看，压低声音：「既然你是自己人，我告诉你个更大的事。李爷真正在找的，不只是那份名单——他要的是名单背后一个叫「鸢字组」的东西。这帮人在长安暗中经营了二十年，换了好几张脸，李爷一直没抓到根子。」\n\n他拍了拍你的肩膀：「你若查到「鸢」这个字眼，那就是到核心了。」",
+        "grants": { "flags": ["kite_identity_clue", "langpeng_kite_mentioned"] }
       }
     ]
   },
