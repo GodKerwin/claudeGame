@@ -10,7 +10,9 @@
       { "flag": "poison_source_known", "text": "辨认出毒物配方：砒霜合曼陀罗，是天机阁当年的专用制剂，非市售寻常药材。", "type": "known" },
       { "flag": "wujue_tianji_revealed", "text": "【身份确认】天机阁「风」字组成员，二十年前奉命参与「收网」行动，事后出家以赎罪。", "type": "known" },
       { "flag": "wujue_guilt_revealed", "text": "【矛盾】声称自己「与此事无关」，但他知道鸢组的存在，知道那次行动的内容——他是亲历者，不是旁观者。", "type": "contradiction" },
-      { "flag": "wujue_spoke_once", "text": "道出名单埋藏之处，以此了却心中二十年的执念。", "type": "known" }
+      { "flag": "wujue_spoke_once", "text": "道出名单埋藏之处，以此了却心中二十年的执念。", "type": "known" },
+      { "flag": "fei_ye_identity_confirmed", "text": "亲口证实飞爷身份——他一直知道真相，只是沉默了整整二十年，等待有人值得相信。", "type": "known" },
+      { "flag": "fei_ye_tianji_origin_known", "text": "【矛盾】以「已忘却世俗」为由多年拒绝开口，但对天机阁内情了如指掌——他根本没有忘记，只是在等待。", "type": "contradiction" }
     ]
   },
   {
