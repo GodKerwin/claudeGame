@@ -37,13 +37,18 @@ describe('chapter3 map and item integrity', () => {
     expect(room?.requires).toBeNull();
   });
 
-  it('all 5 chapter3 items exist', () => {
+  it('all 10 chapter3 items exist', () => {
     const expected = [
       'tianji_founding_scroll',
       'target_profile',
       'name_list_fragment',
       'deeper_threat_evidence',
       'qujiang_invitation',
+      'wujue_confession',
+      'qi_trace_clue',
+      'orders_kite_mark',
+      'manor_medical_evidence',
+      'unsent_letter',
     ];
     for (const id of expected) {
       expect(allItemIds.has(id), `missing item: ${id}`).toBe(true);
@@ -68,12 +73,13 @@ describe('chapter3 event integrity', () => {
   const allNpcIds = new Set(NPCS.map((n) => n.id));
   const ch3Map = MAPS.find((m) => m.id === 'chapter3');
 
-  it('all 8 chapter3 events exist', () => {
+  it('all 10 chapter3 events exist', () => {
     const expected = [
       'evt_nameless_stele', 'evt_pagoda_shadow',
       'evt_mission_orders', 'evt_safehouse_wall',
       'evt_abandoned_room', 'evt_portrait_wall',
       'evt_pavilion_approach', 'evt_fei_ye_confrontation',
+      'evt_hidden_letter', 'evt_pavilion_final_choice',
     ];
     for (const id of expected) {
       expect(allEventIds.has(id), `missing event: ${id}`).toBe(true);
@@ -202,6 +208,28 @@ describe('chapter3 npc integrity', () => {
         }
       }
     }
+  });
+
+  it('npc_temple_novice exists with fei_ye_sighting dialogue', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_temple_novice');
+    expect(npc, 'npc_temple_novice missing').toBeDefined();
+    const d = npc?.dialogues.find((d) => d.id === 'fei_ye_sighting_novice');
+    expect(d).toBeDefined();
+    expect(d?.grants?.flags).toContain('fei_ye_sighted');
+  });
+
+  it('npc_fei_ye has three ending closure dialogues', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_fei_ye');
+    expect(npc?.dialogues.find((d) => d.id === 'truth_ending_dialogue')).toBeDefined();
+    expect(npc?.dialogues.find((d) => d.id === 'standoff_ending_dialogue')).toBeDefined();
+    expect(npc?.dialogues.find((d) => d.id === 'join_ending_dialogue')).toBeDefined();
+  });
+
+  it('evt_hidden_letter exists and grants unsent_letter', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_hidden_letter');
+    expect(evt, 'evt_hidden_letter missing').toBeDefined();
+    const action = evt?.actions.find((a) => a.id === 'find_unsent_letter');
+    expect(action?.grants?.items).toContain('unsent_letter');
   });
 
   it('completion guarantee: npc_wujue.final_testimony has no stat condition', () => {

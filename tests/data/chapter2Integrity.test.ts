@@ -39,7 +39,7 @@ describe('chapter2 map and item integrity', () => {
     expect(room?.requires?.flags).toContain('langpeng_trail');
   });
 
-  it('all 10 chapter2 items exist', () => {
+  it('all 11 chapter2 items exist', () => {
     const expected = [
       'poison_residue_sample',
       'wujue_prescription',
@@ -51,6 +51,7 @@ describe('chapter2 map and item integrity', () => {
       'second_killer_evidence',
       'reward_notice',
       'teahouse_token',
+      'owner_testimony',
     ];
     for (const id of expected) {
       expect(allItemIds.has(id), `missing item: ${id}`).toBe(true);
@@ -76,7 +77,7 @@ describe('chapter2 event integrity', () => {
   const allNpcIds = new Set(NPCS.map((n) => n.id));
   const ch2Map = MAPS.find((m) => m.id === 'chapter2');
 
-  it('all 12 chapter2 events exist', () => {
+  it('all 15 chapter2 events exist', () => {
     const expected = [
       'evt_market_notice', 'evt_merchant_gossip',
       'evt_medicine_shelf', 'evt_prescription_book',
@@ -84,6 +85,7 @@ describe('chapter2 event integrity', () => {
       'evt_monk_cell', 'evt_temple_mural',
       'evt_hideout_search', 'evt_captive_note',
       'evt_teahouse_ambush', 'evt_li_mao_encounter',
+      'evt_bounty_investigation', 'evt_hidden_safe', 'evt_prisoner_testimony',
     ];
     for (const id of expected) {
       expect(allEventIds.has(id), `missing event: ${id}`).toBe(true);
@@ -149,8 +151,8 @@ describe('chapter2 npc integrity', () => {
   const allNpcIds = new Set(NPCS.map((n) => n.id));
   const allItemIds = new Set(ITEMS.map((i) => i.id));
 
-  it('all 4 chapter2 npcs exist', () => {
-    const expected = ['npc_wujue', 'npc_langpeng_scout', 'npc_buyer_contact', 'npc_li_mao'];
+  it('all 5 chapter2 npcs exist', () => {
+    const expected = ['npc_wujue', 'npc_langpeng_scout', 'npc_buyer_contact', 'npc_li_mao', 'npc_huichuntang_owner'];
     for (const id of expected) {
       expect(allNpcIds.has(id), `missing npc: ${id}`).toBe(true);
     }
@@ -200,6 +202,37 @@ describe('chapter2 npc integrity', () => {
         }
       }
     }
+  });
+
+  it('reachability: kite_identity_clue available to 三教九流 via evt_buyer_ledger', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_buyer_ledger');
+    const action = evt?.actions.find((a) => a.id === 'decode_kite_mark');
+    expect(action, 'decode_kite_mark action missing from evt_buyer_ledger').toBeDefined();
+    expect(action?.requires?.talent).toBe('三教九流');
+    expect(action?.grants?.flags).toContain('kite_identity_clue');
+  });
+
+  it('reachability: kite_identity_clue available via trust-based scout dialogue', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_langpeng_scout');
+    const d = npc?.dialogues.find((d) => d.id === 'kite_clue_exchange');
+    expect(d, 'kite_clue_exchange dialogue missing').toBeDefined();
+    expect(d?.grants?.flags).toContain('kite_identity_clue');
+  });
+
+  it('reachability: poison_residue_sample available via constitution>=6', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_medicine_shelf');
+    const action = evt?.actions.find((a) => a.id === 'constitution_smell');
+    expect(action, 'constitution_smell action missing').toBeDefined();
+    expect(action?.requires?.constitution).toBeLessThanOrEqual(6);
+    expect(action?.grants?.items).toContain('poison_residue_sample');
+  });
+
+  it('reachability: poison_residue_sample available via 三教九流', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_medicine_shelf');
+    const action = evt?.actions.find((a) => a.id === 'thief_poison_sniff');
+    expect(action, 'thief_poison_sniff action missing').toBeDefined();
+    expect(action?.requires?.talent).toBe('三教九流');
+    expect(action?.grants?.items).toContain('poison_residue_sample');
   });
 
   it('completion guarantee: all templates reach at least chapter2_release_ending via langpeng_trail', () => {
