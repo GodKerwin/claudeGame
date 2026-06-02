@@ -132,6 +132,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
   const [selectedB, setSelectedB] = useState<string | null>(null);
   const [synthResult, setSynthResult] = useState<{ text: string; isNew: boolean } | null>(null);
   const [expandedNpc, setExpandedNpc] = useState<string | null>(null);
+  const [isNewSynth, setIsNewSynth] = useState(false);
 
   const player = usePlayerStore();
   const { clues, questLog, flags, addFlag, foundSynthesisIds, addFoundSynthesisId } = useSceneStore();
@@ -204,6 +205,8 @@ export function RightPanel({ onSettings }: RightPanelProps) {
           synth.grants?.flags?.forEach((f) => addFlag(f));
           synth.grants?.items?.forEach((i) => addItem(i));
           setSynthResult({ text: synth.result, isNew: true });
+          setIsNewSynth(true);
+          setTimeout(() => setIsNewSynth(false), 3000);
         } else {
           setSynthResult({ text: synth.result, isNew: false });
         }
@@ -421,9 +424,14 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                     </button>
                   )}
                   {synthResult && (
-                    <div className={`border-l-2 pl-3 mb-2 ${synthResult.isNew ? 'border-gold/55' : 'border-ink/15'}`}>
-                      {synthResult.isNew && (
-                        <span className="text-[9px] text-gold/65 tracking-widest mb-1 block">新发现</span>
+                    <div className={`border-l-2 pl-3 mb-2 transition-colors duration-700 ${
+                      isNewSynth ? 'border-gold/60 bg-gold/6' : synthResult.isNew ? 'border-gold/55' : 'border-ink/15'
+                    }`}>
+                      {isNewSynth && (
+                        <span className="text-[9px] text-gold/65 tracking-[0.2em] mb-1 block">✦ 新推论</span>
+                      )}
+                      {!isNewSynth && synthResult.isNew && (
+                        <span className="text-[9px] text-gold/45 tracking-widest mb-1 block">新发现</span>
                       )}
                       <p className="text-xs leading-relaxed text-ink/70">{synthResult.text}</p>
                     </div>
