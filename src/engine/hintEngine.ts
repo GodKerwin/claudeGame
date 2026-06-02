@@ -144,42 +144,6 @@ const CHAPTER1_RULES: HintRule[] = [
   },
   {
     when: (ctx) =>
-      has(ctx, 'learned_wuhen_bu') &&
-      !has(ctx, 'innkeeper_trusted'),
-    hint: '习得无痕步后废弃宅院还未开放。先回到客栈大堂，再和掌柜李福谈一次（他还有话要说），取得他的信任后可以进地窖拿到关键碎片。',
-  },
-  {
-    when: (ctx) =>
-      has(ctx, 'learned_wuhen_bu') &&
-      has(ctx, 'innkeeper_trusted') &&
-      !has(ctx, 'cellar_fragment_obtained'),
-    hint: '习得无痕步，掌柜已信任你。现在前往地窖（从大堂可到），进入深处打开密室——里面藏着能打开废弃宅院大门的关键碎片。',
-  },
-  {
-    when: (ctx) =>
-      has(ctx, 'learned_wuhen_bu') &&
-      has(ctx, 'cellar_fragment_obtained') &&
-      !has(ctx, 'clue_blood_letter_found'),
-    hint: '地窖碎片已得，还差血书令牌——回到二楼「检查尸体」事件，直接「掀枕搜寻」，枕头下方藏着染血令牌。无需任何前置步骤，进入房间即可翻查。',
-  },
-  {
-    when: (ctx) =>
-      has(ctx, 'learned_wuhen_bu') &&
-      has(ctx, 'cellar_fragment_obtained') &&
-      has(ctx, 'clue_blood_letter_found') &&
-      !has(ctx, 'clue_arsenic_found'),
-    hint: '还差砒霜证物。前往后厨（从大堂可到），检查灶台旁倒扣的药罐。',
-  },
-  {
-    when: (ctx) =>
-      has(ctx, 'learned_wuhen_bu') &&
-      has(ctx, 'cellar_fragment_obtained') &&
-      has(ctx, 'clue_blood_letter_found') &&
-      has(ctx, 'clue_arsenic_found'),
-    hint: '三件证物已齐。前往城郊废弃宅院（从大堂外「城郊树林」方向可到），在正堂找到「无痕步」的出路。',
-  },
-  {
-    when: (ctx) =>
       ctx.wisdom >= 7 &&
       has(ctx, 'innkeeper_met') &&
       !has(ctx, 'body_examined'),
@@ -286,8 +250,16 @@ const CHAPTER3_RULES: HintRule[] = [
   {
     when: (ctx) =>
       hasItem(ctx, 'tianji_founding_scroll') &&
-      has(ctx, 'fei_ye_identity_confirmed'),
+      has(ctx, 'fei_ye_identity_confirmed') &&
+      has(ctx, 'deeper_threat_revealed'),
     hint: '证据与真相俱全。前往曲江亭，飞爷在那里等你——做出你的最终选择。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'fei_ye_identity_confirmed') &&
+      hasItem(ctx, 'tianji_founding_scroll') &&
+      !has(ctx, 'deeper_threat_revealed'),
+    hint: '飞爷身份已确认，创始卷在手，但名单背后还有未解的威胁。回到大雁塔找无迹和尚再谈一次，他知道名单上不止有受害者——有人早已倒戈，那才是更深处的危险。',
   },
   {
     when: (ctx) =>

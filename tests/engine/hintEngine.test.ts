@@ -84,10 +84,10 @@ describe('hintEngine – Chapter 2', () => {
 });
 
 describe('hintEngine – Chapter 3', () => {
-  it('returns final confrontation hint when scroll and identity confirmed', () => {
+  it('returns final confrontation hint when scroll and identity confirmed and deeper threat revealed', () => {
     const hint = getHint(base({
       chapter: 3,
-      flags: ['chapter3_started', 'fei_ye_identity_confirmed'],
+      flags: ['chapter3_started', 'fei_ye_identity_confirmed', 'deeper_threat_revealed'],
       items: ['tianji_founding_scroll'],
     }));
     expect(hint).toContain('曲江亭');
@@ -115,5 +115,15 @@ describe('hintEngine – Chapter 3', () => {
       flags: ['chapter3_started', 'tianji_mission_started', 'stele_decoded', 'feiyes_manor_searched'],
     }));
     expect(hint).toContain('无迹');
+  });
+
+  it('hints toward wujue for deeper threat when deeper_threat_revealed not yet found', () => {
+    const ctx = base({
+      chapter: 3,
+      flags: ['chapter3_started', 'fei_ye_identity_confirmed'],
+      items: ['tianji_founding_scroll'],
+    });
+    const hint = getHint(ctx);
+    expect(hint).toMatch(/深处|威胁|无迹|名单.*倒戈|上游/);
   });
 });
