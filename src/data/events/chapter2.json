@@ -80,6 +80,20 @@
         "requires": { "talent": "望气观相", "flags_absent": ["poison_matched"] },
         "result": "你静气凝神，以道家望气之法扫视整排药架——绝大多数药材的气场平和，只有中段某一格散发着一股异样的「阴煞气」，带着血腥和窒息的味道，是毒药才有的气息。你取出那格的粉末细看：砒霜与曼陀罗合剂，恰是宋怀义死前的毒物。",
         "grants": { "flags": ["poison_matched", "poison_source_known"], "items": ["poison_residue_sample"] }
+      },
+      {
+        "id": "constitution_smell",
+        "label": "以强健的体质，直接凭气味鉴定毒药成分",
+        "requires": { "constitution": 6, "flags_absent": ["poison_matched"] },
+        "result": "你的鼻腔从小就被各种气味磨砺过，对毒物尤其敏感。凑近一闻，记忆里某次见过的气味立刻浮现——砒霜特有的酸腥气，还混着一股淡淡的草木香……曼陀罗。你取下这格药，已经可以确定：这就是害死宋怀义的毒的来源。",
+        "grants": { "flags": ["poison_matched"], "items": ["poison_residue_sample"] }
+      },
+      {
+        "id": "thief_poison_sniff",
+        "label": "以走江湖的经验，辨认毒药种类（三教九流）",
+        "requires": { "talent": "三教九流", "flags_absent": ["poison_matched"] },
+        "result": "黑市上跑过的路子，见过的毒不止一种。你拨开药架，凑近那几格新旧混杂的药材，在旁人看来只是随手翻找，实则每一格你都嗅了个仔细。砒霜混着曼陀罗，这个配法你见过——是专门针对有解毒经验者的烈性组合，坊间难觅，黑市上偶有流通。取下这格药，就是那毒的来源。",
+        "grants": { "flags": ["poison_matched", "poison_source_known"], "items": ["poison_residue_sample"] }
       }
     ]
   },
