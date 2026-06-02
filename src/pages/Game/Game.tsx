@@ -17,6 +17,7 @@ import { getActionResults } from '../../engine/eventEngine';
 import { getAvailableDialogues } from '../../engine/storyEngine';
 import { evaluate } from '../../engine/conditionEvaluator';
 import { getHint } from '../../engine/hintEngine';
+import { audioEngine } from '../../engine/audioEngine';
 import type { EvalContext } from '../../engine/conditionEvaluator';
 import type { DialogueChoice } from '../../types/game';
 
@@ -108,6 +109,7 @@ export default function Game() {
     for (const rev of currentRoom.revisitEvents) {
       if (evaluate(rev.requires, ctx)) {
         scene.addStoryText(rev.text);
+        audioEngine.playSFX('hint');
         rev.grants?.flags?.forEach((f) => scene.addFlag(f));
       }
     }
@@ -118,7 +120,8 @@ export default function Game() {
     const inChapter2 = scene.flags.includes('chapter2_started');
     const endings = inChapter3 ? CHAPTER3_ENDINGS : inChapter2 ? CHAPTER2_ENDINGS : CHAPTER1_ENDINGS;
     if (endings.some((f) => scene.flags.includes(f))) {
-      navigate('/chapter-end');
+      audioEngine.playSFX('chapter');
+      setTimeout(() => navigate('/chapter-end'), 1200);
     }
   }, [scene.flags, navigate]);
 
@@ -230,8 +233,10 @@ export default function Game() {
       const choiceId = actionId.slice('choice:'.length);
       const choice = pendingChoices.choices.find((c) => c.id === choiceId);
       if (!choice) return;
+      audioEngine.playSFX('click');
       scene.addStoryText(`【${pendingChoices.npcName}】${choice.response}`);
-      if (choice.hint) scene.addStoryText(choice.hint);
+      if (choice.hint) { scene.addStoryText(choice.hint); audioEngine.playSFX('hint'); }
+      if (choice.grants?.clues?.length || choice.grants?.items?.length) audioEngine.playSFX('discover');
       applyGrants(choice.grants, scene, addItem, removeItem, player);
       setPendingChoices(null);
       return;
@@ -246,8 +251,13 @@ export default function Game() {
       if (!event) return;
       const action = event.actions.find((a) => a.id === subId);
       if (!action) return;
+      // 根据收益选择音效
+      const g = action.grants;
+      if (g?.clues?.length)        audioEngine.playSFX('discover');
+      else if (g?.items?.length)   audioEngine.playSFX('pickup');
+      else                         audioEngine.playSFX('click');
       scene.addStoryText(action.result);
-      if (action.hint) scene.addStoryText(action.hint);
+      if (action.hint) { scene.addStoryText(action.hint); audioEngine.playSFX('hint'); }
       applyGrants(action.grants, scene, addItem, removeItem, player);
     } else if (entityId.startsWith('npc_')) {
       const npc = getNPC(entityId);
@@ -259,9 +269,11 @@ export default function Game() {
         scene.addStoryText(`（${npc.name}似乎已无更多可说的了。）`);
         return;
       }
+      audioEngine.playSFX('dialogue');
       const d = nextUnseen;
       scene.addStoryText(`【${npc.name}】${d.text}`);
       scene.markDialogueSeen(`ch${chapter}:${entityId}:${d.id}`);
+      if (d.grants?.clues?.length || d.grants?.items?.length) audioEngine.playSFX('discover');
       applyGrants(d.grants, scene, addItem, removeItem, player);
       // 处理分支选项
       if (d.choices && d.choices.length > 0) {
@@ -277,6 +289,7 @@ export default function Game() {
 
   const handleNavigate = useCallback((roomId: string) => {
     setPendingChoices(null);
+    audioEngine.playSFX('room_change');
     scene.setRoom(roomId);
   }, [scene]);
 

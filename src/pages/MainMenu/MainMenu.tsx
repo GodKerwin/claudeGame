@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
@@ -6,6 +7,7 @@ import { useSaveStore } from '../../store/saveStore';
 import { loadFromSlot, loadAllSlots } from '../../engine/saveEngine';
 import { getSeenEndings } from '../../engine/endingRecord';
 import { MountainBackground } from '../../components/ui/MountainBackground';
+import { audioEngine } from '../../engine/audioEngine';
 
 const inkParticles = [
   { left: '12%', size: 5, delay: '0s',   duration: '9s'  },
@@ -74,6 +76,13 @@ export default function MainMenu() {
   const scene = useSceneStore();
   const { loadItems } = useInventoryStore();
   const { setSlots } = useSaveStore();
+
+  // 首次用户交互后启动 BGM（浏览器策略要求）
+  useEffect(() => {
+    const start = () => audioEngine.startBGM();
+    document.addEventListener('click', start, { once: true });
+    return () => document.removeEventListener('click', start);
+  }, []);
 
   const slots = loadAllSlots();
   const autoSave = slots.find((s) => s.id === 0);

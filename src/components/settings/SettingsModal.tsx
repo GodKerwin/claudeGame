@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSettings } from '../../hooks/useSettings';
+import { audioEngine } from '../../engine/audioEngine';
 
 interface Props {
   onClose: () => void;
@@ -16,6 +17,9 @@ const CORNERS = [
 
 export function SettingsModal({ onClose, onSave, onLoad }: Props) {
   const { fontSize, increaseFontSize, decreaseFontSize, resetFontSize, MIN_SIZE, MAX_SIZE } = useSettings();
+  const [bgmVol, setBgmVol] = useState(audioEngine.bgmVolume);
+  const [sfxVol, setSfxVol] = useState(audioEngine.sfxVolume);
+  const [muted,  setMuted]  = useState(audioEngine.muted);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -79,6 +83,69 @@ export function SettingsModal({ onClose, onSave, onLoad }: Props) {
               </button>
             </div>
             <p className="text-ink/25 text-xs mt-2 pl-1">预览：这是一行示例文字</p>
+          </div>
+
+          {/* 音频 */}
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <div className="flex-1 h-px bg-gold/10" />
+              <p className="text-gold/35 text-[10px] tracking-[0.3em] shrink-0">音频</p>
+              <div className="flex-1 h-px bg-gold/10" />
+            </div>
+            <div className="space-y-3">
+              {/* 静音切换 */}
+              <div className="flex items-center justify-between">
+                <span className="text-ink/45 text-xs tracking-wide">静音</span>
+                <button
+                  onClick={() => {
+                    const next = !muted;
+                    audioEngine.setMuted(next);
+                    setMuted(next);
+                  }}
+                  className={`relative w-9 h-5 border transition-colors cursor-pointer ${
+                    muted ? 'border-gold/45' : 'border-ink/20'
+                  }`}
+                  style={{ background: muted ? 'rgba(201,168,76,0.12)' : 'transparent' }}
+                >
+                  <div className={`absolute top-[3px] w-[14px] h-[14px] transition-all duration-200 ${
+                    muted ? 'right-[3px] bg-gold/65' : 'left-[3px] bg-ink/20'
+                  }`} />
+                </button>
+              </div>
+              {/* BGM 音量 */}
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-ink/45 text-xs tracking-wide shrink-0">背景乐</span>
+                <input
+                  type="range" min="0" max="1" step="0.05"
+                  value={bgmVol}
+                  onChange={e => {
+                    const v = Number(e.target.value);
+                    audioEngine.setBGMVolume(v);
+                    setBgmVol(v);
+                  }}
+                  className="flex-1 h-[2px] appearance-none cursor-pointer"
+                  style={{ accentColor: 'rgba(201,168,76,0.7)' }}
+                />
+                <span className="text-ink/28 text-[11px] tabular-nums w-7 text-right">{Math.round(bgmVol * 100)}</span>
+              </div>
+              {/* 音效音量 */}
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-ink/45 text-xs tracking-wide shrink-0">音效</span>
+                <input
+                  type="range" min="0" max="1" step="0.05"
+                  value={sfxVol}
+                  onChange={e => {
+                    const v = Number(e.target.value);
+                    audioEngine.setSFXVolume(v);
+                    setSfxVol(v);
+                    audioEngine.playSFX('click');
+                  }}
+                  className="flex-1 h-[2px] appearance-none cursor-pointer"
+                  style={{ accentColor: 'rgba(201,168,76,0.7)' }}
+                />
+                <span className="text-ink/28 text-[11px] tabular-nums w-7 text-right">{Math.round(sfxVol * 100)}</span>
+              </div>
+            </div>
           </div>
 
           {/* 存档区 */}
