@@ -133,6 +133,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
   const [synthResult, setSynthResult] = useState<{ text: string; isNew: boolean } | null>(null);
   const [expandedNpc, setExpandedNpc] = useState<string | null>(null);
   const [isNewSynth, setIsNewSynth] = useState(false);
+  const synthTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const player = usePlayerStore();
   const { clues, questLog, flags, addFlag, foundSynthesisIds, addFoundSynthesisId } = useSceneStore();
@@ -206,7 +207,8 @@ export function RightPanel({ onSettings }: RightPanelProps) {
           synth.grants?.items?.forEach((i) => addItem(i));
           setSynthResult({ text: synth.result, isNew: true });
           setIsNewSynth(true);
-          setTimeout(() => setIsNewSynth(false), 3000);
+          if (synthTimerRef.current) clearTimeout(synthTimerRef.current);
+          synthTimerRef.current = setTimeout(() => setIsNewSynth(false), 3000);
         } else {
           setSynthResult({ text: synth.result, isNew: false });
         }
@@ -223,6 +225,8 @@ export function RightPanel({ onSettings }: RightPanelProps) {
     setSelectedA(null);
     setSelectedB(null);
     setSynthResult(null);
+    if (synthTimerRef.current) clearTimeout(synthTimerRef.current);
+    setIsNewSynth(false);
   };
 
   // Suspect profiles: only show NPCs where at least one fact's flag is in current flags
