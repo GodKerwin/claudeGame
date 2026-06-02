@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useId } from 'react';
 
 interface Props {
   chapter: 1 | 2 | 3;
@@ -13,6 +13,7 @@ const CHAPTER_INFO: Record<number, { num: string; title: string; sub: string }> 
 
 export function ChapterIntro({ chapter, onDone }: Props) {
   const [phase, setPhase] = useState<'in' | 'hold' | 'out'>('in');
+  const uid = useId();
   const info = CHAPTER_INFO[chapter];
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export function ChapterIntro({ chapter, onDone }: Props) {
     >
       {/* 水墨晕染背景 */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <InkSplash />
+        <InkSplash uid={uid} />
       </div>
 
       <div className={`relative z-10 text-center transition-all duration-700 ${phase === 'in' ? 'translate-y-3 opacity-0' : phase === 'out' ? '-translate-y-3 opacity-0' : 'translate-y-0 opacity-100'}`}>
@@ -64,7 +65,10 @@ export function ChapterIntro({ chapter, onDone }: Props) {
   );
 }
 
-function InkSplash() {
+function InkSplash({ uid }: { uid: string }) {
+  const cId = `${uid}-ink-center`;
+  const tId = `${uid}-ink-top`;
+  const bId = `${uid}-ink-bot`;
   return (
     <svg
       viewBox="0 0 800 600"
@@ -74,16 +78,16 @@ function InkSplash() {
       style={{ position: 'absolute', inset: 0 }}
     >
       <defs>
-        <radialGradient id="ink-center" cx="50%" cy="50%" r="50%">
+        <radialGradient id={cId} cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="rgba(201,168,76,0.07)" />
           <stop offset="60%" stopColor="rgba(201,168,76,0.03)" />
           <stop offset="100%" stopColor="rgba(201,168,76,0)" />
         </radialGradient>
-        <radialGradient id="ink-top" cx="30%" cy="20%" r="40%">
+        <radialGradient id={tId} cx="30%" cy="20%" r="40%">
           <stop offset="0%" stopColor="rgba(201,168,76,0.05)" />
           <stop offset="100%" stopColor="rgba(201,168,76,0)" />
         </radialGradient>
-        <radialGradient id="ink-bot" cx="70%" cy="80%" r="40%">
+        <radialGradient id={bId} cx="70%" cy="80%" r="40%">
           <stop offset="0%" stopColor="rgba(201,168,76,0.04)" />
           <stop offset="100%" stopColor="rgba(201,168,76,0)" />
         </radialGradient>
@@ -96,9 +100,9 @@ function InkSplash() {
           .ink-anim { animation: inkFloat 8s ease-in-out infinite; transform-origin: center; }
         `}</style>
       </defs>
-      <ellipse className="ink-anim" cx="400" cy="300" rx="380" ry="280" fill="url(#ink-center)" style={{ animationDelay: '0s' }} />
-      <ellipse className="ink-anim" cx="240" cy="160" rx="260" ry="200" fill="url(#ink-top)" style={{ animationDelay: '-2.5s' }} />
-      <ellipse className="ink-anim" cx="560" cy="440" rx="240" ry="180" fill="url(#ink-bot)" style={{ animationDelay: '-5s' }} />
+      <ellipse className="ink-anim" cx="400" cy="300" rx="380" ry="280" fill={`url(#${cId})`} style={{ animationDelay: '0s' }} />
+      <ellipse className="ink-anim" cx="240" cy="160" rx="260" ry="200" fill={`url(#${tId})`} style={{ animationDelay: '-2.5s' }} />
+      <ellipse className="ink-anim" cx="560" cy="440" rx="240" ry="180" fill={`url(#${bId})`} style={{ animationDelay: '-5s' }} />
     </svg>
   );
 }
