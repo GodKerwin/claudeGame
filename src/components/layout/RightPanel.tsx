@@ -132,6 +132,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
   const [selectedB, setSelectedB] = useState<string | null>(null);
   const [synthResult, setSynthResult] = useState<{ text: string; isNew: boolean } | null>(null);
   const [expandedNpc, setExpandedNpc] = useState<string | null>(null);
+  const [expandedItemId, setExpandedItemId] = useState<string | null>(null);
   const [isNewSynth, setIsNewSynth] = useState(false);
   const synthTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -348,12 +349,19 @@ export function RightPanel({ onSettings }: RightPanelProps) {
               ) : (
                 <ul className="space-y-1">
                   {carriedItems.map((item) => item && (
-                    <Tooltip key={item.id} content={item.description} position="left">
-                      <li className="text-xs text-ink/60 flex items-start gap-1.5 cursor-help px-1 py-0.5 hover:text-ink/80 transition-colors group">
+                    <li key={item.id} className="text-xs">
+                      <button
+                        onClick={() => setExpandedItemId(expandedItemId === item.id ? null : item.id)}
+                        className="w-full flex items-start gap-1.5 px-1 py-0.5 text-ink/60 hover:text-ink/80 transition-colors group cursor-pointer text-left"
+                      >
                         <span className="text-gold/30 mt-0.5 shrink-0 group-hover:text-gold/50 transition-colors">◇</span>
-                        <span>{item.name}</span>
-                      </li>
-                    </Tooltip>
+                        <span className="flex-1">{item.name}</span>
+                        <span className="text-[9px] text-ink/18 shrink-0 mt-0.5">{expandedItemId === item.id ? '▴' : '▾'}</span>
+                      </button>
+                      {expandedItemId === item.id && (
+                        <p className="text-[11px] text-ink/38 leading-relaxed pl-4 pr-1 pb-1 border-l border-gold/12 ml-1.5">{item.description}</p>
+                      )}
+                    </li>
                   ))}
                 </ul>
               )}
@@ -365,12 +373,19 @@ export function RightPanel({ onSettings }: RightPanelProps) {
               ) : (
                 <ul className="space-y-1">
                   {clueItems.map((item) => item && (
-                    <Tooltip key={item.id} content={item.description} position="left">
-                      <li className="text-xs text-ink/60 flex items-start gap-1.5 cursor-help px-1 py-0.5 hover:text-ink/80 transition-colors group">
+                    <li key={item.id} className="text-xs">
+                      <button
+                        onClick={() => setExpandedItemId(expandedItemId === item.id ? null : item.id)}
+                        className="w-full flex items-start gap-1.5 px-1 py-0.5 text-ink/60 hover:text-ink/80 transition-colors group cursor-pointer text-left"
+                      >
                         <span className="text-gold/35 mt-0.5 shrink-0 group-hover:text-gold/55 transition-colors">◈</span>
-                        <span>{item.name}</span>
-                      </li>
-                    </Tooltip>
+                        <span className="flex-1">{item.name}</span>
+                        <span className="text-[9px] text-ink/18 shrink-0 mt-0.5">{expandedItemId === item.id ? '▴' : '▾'}</span>
+                      </button>
+                      {expandedItemId === item.id && (
+                        <p className="text-[11px] text-ink/38 leading-relaxed pl-4 pr-1 pb-1 border-l border-gold/12 ml-1.5">{item.description}</p>
+                      )}
+                    </li>
                   ))}
                 </ul>
               )}
