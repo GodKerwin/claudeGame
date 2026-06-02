@@ -12,7 +12,7 @@ import { useSettings } from '../../hooks/useSettings';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
-import { getRoom, getEvent, getNPC, getItem } from '../../data/loader';
+import { getRoom, getEvent, getNPC, getItem, TALENTS } from '../../data/loader';
 import { getActionResults } from '../../engine/eventEngine';
 import { getAvailableDialogues } from '../../engine/storyEngine';
 import { evaluate } from '../../engine/conditionEvaluator';
@@ -281,7 +281,10 @@ export default function Game() {
       if (g?.clues?.length)        audioEngine.playSFX('discover');
       else if (g?.items?.length)   audioEngine.playSFX('pickup');
       else                         audioEngine.playSFX('click');
-      scene.addStoryText(action.result);
+      const talentPrefix = action.requires?.talent && action.requires.talent === player.talent
+        ? `【天赋·${TALENTS.find((t) => t.id === player.talent)?.name ?? player.talent}】`
+        : '';
+      scene.addStoryText(talentPrefix ? `${talentPrefix}\n${action.result}` : action.result);
       if (action.hint) { scene.addStoryText(action.hint); audioEngine.playSFX('hint'); }
       applyGrants(action.grants, scene, addItem, removeItem, player);
     } else if (entityId.startsWith('npc_')) {
