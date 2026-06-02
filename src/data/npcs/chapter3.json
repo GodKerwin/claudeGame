@@ -91,6 +91,30 @@
         "condition": { "talent": "望闻断骨", "flags": ["wujue_met"], "flags_absent": ["wujue_treated"] },
         "text": "你注意到和尚持珠时右手有轻微不自然——旧伤未愈，腕骨处有陈年损伤。你开口：「右手的伤，是当年的？」\n\n无迹和尚停住了，沉默片刻，缓缓伸出右手。\n\n你为他诊治时，他低声说：「天机阁风字组，二十年前押运一批货，出了事故，伤了骨头。那批货是砒霜，配着曼陀罗的那种——是有人专门调制的毒，不是寻常药材。」",
         "grants": { "flags": ["wujue_treated", "poison_source_known"], "clues": ["wujue_testimony"] }
+      },
+      {
+        "id": "ch2_cold_reception",
+        "condition": { "flags": ["wujue_met"], "flags_absent": ["chapter3_started", "ch2_wujue_opened"] },
+        "text": "「你又来了。」无迹和尚合掌，目光平静，「贫僧已说的，无可再补。若施主有话要问，直接问，贫僧酌情作答。」\n\n他转回去捻动佛珠，背影透着一种漫长等待后沉淀下来的疲惫。",
+        "grants": { "flags": ["ch2_wujue_opened"] }
+      },
+      {
+        "id": "ch2_poison_confirm",
+        "condition": { "flags": ["wujue_met", "poison_matched"], "flags_absent": ["chapter3_started", "poison_source_known"] },
+        "text": "你把在药架发现的东西告诉他。\n\n无迹和尚沉默了很长时间，然后缓缓道：「那批药……是贫僧的。」他没有为自己辩解，「贫僧是从前留下的，二十年了，没想到还被人找到。」\n\n他抬眼看你：「你想知道那毒从哪来，贫僧告诉你——是天机阁当年的配方，非市售之物，在下是当年的知情者之一。」",
+        "grants": { "flags": ["poison_source_known"] }
+      },
+      {
+        "id": "ch2_identity_pressed",
+        "condition": { "has": ["monk_identity_scroll"], "flags_absent": ["chapter3_started", "wujue_tianji_revealed"] },
+        "text": "「你找到那卷东西了。」\n\n无迹和尚放下佛珠，看着你手中的密卷，沉默了半晌。\n\n「韩朔，天机阁风字组。二十年前，贫僧用那个名字行事。」他闭目，「施主若想知道更多，贫僧可以说。但贫僧要先问你一句：你查这件事，是为了真相，还是只为了结案？」\n\n——他等着你的回答，但无论你怎么说，他还是开了口：「天机阁的那段旧事，必须有人知道，贫僧已等了太久了。」",
+        "grants": { "flags": ["wujue_tianji_revealed"] }
+      },
+      {
+        "id": "ch2_final_warning",
+        "condition": { "flags": ["wujue_tianji_revealed"], "flags_absent": ["chapter3_started", "wujue_ch2_warned"] },
+        "text": "「李邈不是终点。」\n\n无迹和尚在你准备离开时开口，声音低沉，「施主去茶馆见他，要有心理准备——他背后还有一层，他自己也不全知道那一层是什么。」\n\n「有些事，等你到了第三章……」他顿住，像是察觉到了什么，「等你查完李邈，会知道的。去吧。」",
+        "grants": { "flags": ["wujue_ch2_warned"] }
       }
     ]
   },
