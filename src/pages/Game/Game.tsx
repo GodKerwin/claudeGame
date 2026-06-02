@@ -97,24 +97,6 @@ export default function Game() {
     return () => document.removeEventListener('keydown', handler);
   }, [modal]);
 
-  // 重访触发：换房间时检查新线索激活的旧地点提示
-  useEffect(() => {
-    const roomId = scene.currentRoomId;
-    const isRoomChange = prevRoomRef.current !== null && prevRoomRef.current !== roomId;
-    prevRoomRef.current = roomId;
-    if (!isRoomChange) return;
-
-    const currentRoom = getRoom(roomId);
-    if (!currentRoom?.revisitEvents) return;
-    for (const rev of currentRoom.revisitEvents) {
-      if (evaluate(rev.requires, ctx)) {
-        scene.addStoryText(rev.text);
-        audioEngine.playSFX('hint');
-        rev.grants?.flags?.forEach((f) => scene.addFlag(f));
-      }
-    }
-  }, [scene.currentRoomId, ctx]); // eslint-disable-line
-
   useEffect(() => {
     const inChapter3 = scene.flags.includes('chapter3_started');
     const inChapter2 = scene.flags.includes('chapter2_started');
@@ -160,6 +142,24 @@ export default function Game() {
     inventory: items,
     flags: scene.flags,
   }), [player, items, scene.flags]);
+
+  // 重访触发：必须放在 ctx 声明之后，避免 TDZ
+  useEffect(() => {
+    const roomId = scene.currentRoomId;
+    const isRoomChange = prevRoomRef.current !== null && prevRoomRef.current !== roomId;
+    prevRoomRef.current = roomId;
+    if (!isRoomChange) return;
+
+    const currentRoom = getRoom(roomId);
+    if (!currentRoom?.revisitEvents) return;
+    for (const rev of currentRoom.revisitEvents) {
+      if (evaluate(rev.requires, ctx)) {
+        scene.addStoryText(rev.text);
+        audioEngine.playSFX('hint');
+        rev.grants?.flags?.forEach((f) => scene.addFlag(f));
+      }
+    }
+  }, [scene.currentRoomId, ctx]); // eslint-disable-line
 
   const actions = useMemo(() => {
     if (!room) return [];
