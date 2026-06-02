@@ -189,6 +189,9 @@ export function CenterPanel({
       <div key={roomName} ref={scrollContainerRef} className="flex-[3] min-h-0 overflow-y-auto px-5 py-5 space-y-4 scrollbar-thin panel-fade-in">
         <p className="text-ink/45 leading-[1.9] text-sm border-l-2 border-gold/10 pl-3 italic">{roomDescription}</p>
         {storyTexts.map((text, i) => {
+          if (text === '---SEPARATOR---') {
+            return <div key={i} className="border-t border-gold/8 my-1 mx-1 opacity-60" />;
+          }
           const isLatest = i === storyTexts.length - 1;
           const isRecent = i >= storyTexts.length - 3;
           const isNpcSpeech = text.startsWith('【') && text.includes('】');

@@ -250,6 +250,9 @@ export default function Game() {
   const handleAction = useCallback((actionId: string) => {
     if (processingRef.current) return;
     processingRef.current = true;
+    if (scene.storyText.length > 0) {
+      scene.addStoryText('---SEPARATOR---');
+    }
     setTimeout(() => { processingRef.current = false; }, 300);
 
     // 处理对话选项
