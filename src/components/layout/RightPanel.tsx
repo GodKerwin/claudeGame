@@ -5,7 +5,7 @@ import { DiamondDivider } from '../ui/DiamondDivider';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
-import { getItem, getNPC, TALENTS, getTemplate, getSynthesisResult, SUSPECT_PROFILES, SYNTHESES } from '../../data/loader';
+import { getItem, getNPC, TALENTS, getTemplate, getSynthesisResult, SUSPECT_PROFILES, SYNTHESES, MAPS } from '../../data/loader';
 
 const STAT_DESCRIPTIONS: Record<string, string> = {
   strength: '力量\n筋骨强健，以力破局。破门、格斗、强行撬锁等动作皆仰仗于此。',
@@ -47,44 +47,44 @@ const QUEST_CHAPTER_LABELS: Record<string, string> = {
   quest_find_kite:   '第三章·终局',
 };
 
-const TIMELINE_FLAGS: Array<{ flag: string; text: string }> = [
-  { flag: 'innkeeper_met',           text: '从掌柜李福处得知案发经过' },
-  { flag: 'body_examined',           text: '检查宋怀义遗体，死因存疑' },
-  { flag: 'medical_exam_done',       text: '医者断定：毒与缢，两手并施' },
-  { flag: 'cloth_fiber_found',       text: '现场发现异色布料，凶手留痕' },
-  { flag: 'langpeng_discovered',     text: '确认浪鹏帮当夜现身案发地' },
-  { flag: 'kite_identity_clue',      text: '「鸢」字印记指向隐秘组织' },
-  { flag: 'tianji_records_found',    text: '天机阁旧档重见天日' },
-  { flag: 'dafei_contact_made',      text: '与大飞帮建立初步联系' },
-  { flag: 'white_stranger_trust',    text: '白衣人身份未明，却予以信任' },
-  { flag: 'learned_wuhen_bu',        text: '习得《无痕步》，另辟蹊径' },
-  { flag: 'gang_culture_known',      text: '掌握帮派暗语，可与黑市周旋' },
-  { flag: 'langpeng_trail',               text: '追踪浪鹏帮至东市据点' },
-  { flag: 'wujue_met',                    text: '初见无迹和尚，他似乎知道更多' },
-  { flag: 'wujue_treated',               text: '无迹和尚吐露旧伤来历' },
-  { flag: 'poison_source_known',          text: '毒物溯源：砒霜配曼陀罗，非市售成药' },
-  { flag: 'hideout_trust_gained',         text: '以暗语取得据点成员信任' },
-  { flag: 'li_mao_exposed',              text: '李邈身份揭穿，幕后黑手现形' },
-  { flag: 'chapter2_join_ending',         text: '选择卧底，潜入浪鹏帮内部' },
-  { flag: 'chapter3_started',             text: '天机来令：追查旧主与失踪名单' },
-  { flag: 'tianji_contact_met',           text: '初见天机安宅联络人' },
-  { flag: 'stele_decoded',               text: '大雁塔碑文破译，创始者浮现' },
-  { flag: 'orders_writing_read',          text: '任务令笔迹藏「鸢」字暗记' },
-  { flag: 'wujue_tianji_revealed',        text: '无迹和尚承认昔日天机阁风字组身份' },
-  { flag: 'fei_ye_tianji_origin_known',   text: '天机阁创立初心：护名单上之人' },
-  { flag: 'tianji_trust_gained',          text: '取得天机安宅联络人认可' },
-  { flag: 'feiyes_manor_searched',        text: '飞爷旧居画像壁揭开真相' },
-  { flag: 'manor_injury_read',            text: '旧居伤痕印证：此处住过飞爷' },
-  { flag: 'stele_contacted',              text: '江湖人脉证实：碑后密卷尚在' },
-  { flag: 'fei_ye_sighted',              text: '塔下脚印犹新，飞爷近在长安城中' },
-  { flag: 'fei_ye_identity_confirmed',    text: '飞爷真实身份已确认' },
-  { flag: 'wujue_guilt_revealed',         text: '无迹和尚首次开口，愧疚二十年' },
-  { flag: 'wujue_spoke_once',            text: '和尚道出名单埋藏之处' },
-  { flag: 'negotiation_opened',           text: '以茶楼令牌开启谈判空间' },
-  { flag: 'deeper_threat_revealed',       text: '大飞情报揭露更深层威胁' },
-  { flag: 'chapter3_truth_ending',        text: '铁证俱全，真相公之于众' },
-  { flag: 'chapter3_standoff_ending',     text: '曲江亭对峙，各守半段真相' },
-  { flag: 'chapter3_join_ending',         text: '任务令付之一炬，同守天机名单' },
+const TIMELINE_FLAGS: Array<{ flag: string; text: string; chapter: 1 | 2 | 3 }> = [
+  { flag: 'innkeeper_met',           text: '从掌柜李福处得知案发经过',           chapter: 1 },
+  { flag: 'body_examined',           text: '检查宋怀义遗体，死因存疑',           chapter: 1 },
+  { flag: 'medical_exam_done',       text: '医者断定：毒与缢，两手并施',         chapter: 1 },
+  { flag: 'cloth_fiber_found',       text: '现场发现异色布料，凶手留痕',         chapter: 1 },
+  { flag: 'langpeng_discovered',     text: '确认浪鹏帮当夜现身案发地',           chapter: 1 },
+  { flag: 'kite_identity_clue',      text: '「鸢」字印记指向隐秘组织',           chapter: 1 },
+  { flag: 'tianji_records_found',    text: '天机阁旧档重见天日',                 chapter: 1 },
+  { flag: 'dafei_contact_made',      text: '与大飞帮建立初步联系',               chapter: 1 },
+  { flag: 'white_stranger_trust',    text: '白衣人身份未明，却予以信任',         chapter: 1 },
+  { flag: 'learned_wuhen_bu',        text: '习得《无痕步》，另辟蹊径',           chapter: 1 },
+  { flag: 'gang_culture_known',      text: '掌握帮派暗语，可与黑市周旋',         chapter: 1 },
+  { flag: 'langpeng_trail',          text: '追踪浪鹏帮至东市据点',               chapter: 2 },
+  { flag: 'wujue_met',               text: '初见无迹和尚，他似乎知道更多',       chapter: 2 },
+  { flag: 'wujue_treated',           text: '无迹和尚吐露旧伤来历',               chapter: 2 },
+  { flag: 'poison_source_known',     text: '毒物溯源：砒霜配曼陀罗，非市售成药', chapter: 2 },
+  { flag: 'hideout_trust_gained',    text: '以暗语取得据点成员信任',             chapter: 2 },
+  { flag: 'li_mao_exposed',          text: '李邈身份揭穿，幕后黑手现形',         chapter: 2 },
+  { flag: 'chapter2_join_ending',    text: '选择卧底，潜入浪鹏帮内部',           chapter: 2 },
+  { flag: 'chapter3_started',        text: '天机来令：追查旧主与失踪名单',       chapter: 3 },
+  { flag: 'tianji_contact_met',      text: '初见天机安宅联络人',                 chapter: 3 },
+  { flag: 'stele_decoded',           text: '大雁塔碑文破译，创始者浮现',         chapter: 3 },
+  { flag: 'orders_writing_read',     text: '任务令笔迹藏「鸢」字暗记',           chapter: 3 },
+  { flag: 'wujue_tianji_revealed',   text: '无迹和尚承认昔日天机阁风字组身份',   chapter: 3 },
+  { flag: 'fei_ye_tianji_origin_known', text: '天机阁创立初心：护名单上之人',    chapter: 3 },
+  { flag: 'tianji_trust_gained',     text: '取得天机安宅联络人认可',             chapter: 3 },
+  { flag: 'feiyes_manor_searched',   text: '飞爷旧居画像壁揭开真相',             chapter: 3 },
+  { flag: 'manor_injury_read',       text: '旧居伤痕印证：此处住过飞爷',         chapter: 3 },
+  { flag: 'stele_contacted',         text: '江湖人脉证实：碑后密卷尚在',         chapter: 3 },
+  { flag: 'fei_ye_sighted',          text: '塔下脚印犹新，飞爷近在长安城中',     chapter: 3 },
+  { flag: 'fei_ye_identity_confirmed', text: '飞爷真实身份已确认',               chapter: 3 },
+  { flag: 'wujue_guilt_revealed',    text: '无迹和尚首次开口，愧疚二十年',       chapter: 3 },
+  { flag: 'wujue_spoke_once',        text: '和尚道出名单埋藏之处',               chapter: 3 },
+  { flag: 'negotiation_opened',      text: '以茶楼令牌开启谈判空间',             chapter: 3 },
+  { flag: 'deeper_threat_revealed',  text: '大飞情报揭露更深层威胁',             chapter: 3 },
+  { flag: 'chapter3_truth_ending',   text: '铁证俱全，真相公之于众',             chapter: 3 },
+  { flag: 'chapter3_standoff_ending', text: '曲江亭对峙，各守半段真相',          chapter: 3 },
+  { flag: 'chapter3_join_ending',    text: '任务令付之一炬，同守天机名单',       chapter: 3 },
 ];
 
 function TalentSeal({ name }: { name: string }) {
@@ -144,7 +144,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
   const synthTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const player = usePlayerStore();
-  const { clues, questLog, flags, addFlag, foundSynthesisIds, addFoundSynthesisId } = useSceneStore();
+  const { clues, questLog, flags, addFlag, foundSynthesisIds, addFoundSynthesisId, currentRoomId } = useSceneStore();
   const { items, addItem } = useInventoryStore();
 
   const lastSeenItemCountRef = useRef(items.length);
@@ -166,6 +166,9 @@ export function RightPanel({ onSettings }: RightPanelProps) {
   const talentInfo = TALENTS.find((t) => t.id === player.talent);
   const baseTemplate = getTemplate(player.template);
   const timelineEntries = TIMELINE_FLAGS.filter((e) => flags.includes(e.flag));
+
+  // 当前章节名
+  const currentChapterName = MAPS.find((m) => m.rooms.some((r) => r.id === currentRoomId))?.name ?? null;
 
   // Derive synthesis display objects from persisted IDs
   const foundSyntheses = foundSynthesisIds
@@ -290,6 +293,12 @@ export function RightPanel({ onSettings }: RightPanelProps) {
         {/* ── 身家 ── */}
         {tab === 'stats' && (
           <div className="space-y-5">
+            {currentChapterName && (
+              <div className="flex items-center gap-1.5 px-1 pt-0.5">
+                <div className="w-[3px] h-[3px] bg-gold/35 shrink-0" style={{ transform: 'rotate(45deg)' }} />
+                <span className="text-[10px] text-gold/40 tracking-[0.2em]">{currentChapterName}</span>
+              </div>
+            )}
             <div>
               <DiamondDivider label="资质" />
               <div className="space-y-2">
@@ -430,7 +439,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
           <div className="space-y-5">
             {/* 证据推断 */}
             <div>
-              <DiamondDivider label="证据推断" />
+              <DiamondDivider label={`证据推断${foundSyntheses.length > 0 ? `  ${foundSyntheses.length}/${SYNTHESES.length}` : ''}`} />
               <p className="text-ink/25 text-[10px] pl-1 mb-2 leading-snug">
                 {!selectedA
                   ? '选择第一件物证（甲）开始推理'
@@ -580,31 +589,56 @@ export function RightPanel({ onSettings }: RightPanelProps) {
         {/* ── 脉络 ── */}
         {tab === 'lore' && (
           <div className="space-y-5">
-            {timelineEntries.length > 0 && (
-              <div>
-                <DiamondDivider label="已知脉络" />
-                <ol className="space-y-1.5 relative pl-3">
-                  <div className="absolute left-[5px] top-1 bottom-1 w-px bg-gold/10" />
-                  {timelineEntries.map((entry, i) => (
-                    <li key={entry.flag} className="flex items-start gap-2">
-                      <span
-                        className={`shrink-0 mt-[3px] w-[6px] h-[6px] border transition-colors ${
-                          i === timelineEntries.length - 1
-                            ? 'border-gold/55 bg-gold/25'
-                            : 'border-gold/20 bg-transparent'
-                        }`}
-                        style={{ transform: 'rotate(45deg)' }}
-                      />
-                      <span className={`text-[11px] leading-snug ${
-                        i === timelineEntries.length - 1 ? 'text-ink/60' : 'text-ink/30'
-                      }`}>
-                        {entry.text}
-                      </span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            )}
+            {timelineEntries.length > 0 && (() => {
+              const CHAPTER_LABELS: Record<1 | 2 | 3, string> = {
+                1: '第一章·旧案',
+                2: '第二章·追查',
+                3: '第三章·终局',
+              };
+              const groups = new Map<1 | 2 | 3, typeof timelineEntries>([
+                [1, []], [2, []], [3, []],
+              ]);
+              for (const entry of timelineEntries) {
+                groups.get(entry.chapter)!.push(entry);
+              }
+              let globalIdx = 0;
+              const totalCount = timelineEntries.length;
+              return ([1, 2, 3] as const).map((ch) => {
+                const entries = groups.get(ch)!;
+                if (entries.length === 0) return null;
+                const chapterStart = globalIdx;
+                globalIdx += entries.length;
+                return (
+                  <div key={ch}>
+                    <DiamondDivider label={CHAPTER_LABELS[ch]} />
+                    <ol className="space-y-1.5 relative pl-3">
+                      <div className="absolute left-[5px] top-1 bottom-1 w-px bg-gold/10" />
+                      {entries.map((entry, i) => {
+                        const absIdx = chapterStart + i;
+                        const isLast = absIdx === totalCount - 1;
+                        return (
+                          <li key={entry.flag} className="flex items-start gap-2">
+                            <span
+                              className={`shrink-0 mt-[3px] w-[6px] h-[6px] border transition-colors ${
+                                isLast
+                                  ? 'border-gold/55 bg-gold/25'
+                                  : 'border-gold/20 bg-transparent'
+                              }`}
+                              style={{ transform: 'rotate(45deg)' }}
+                            />
+                            <span className={`text-[11px] leading-snug ${
+                              isLast ? 'text-ink/60' : 'text-ink/30'
+                            }`}>
+                              {entry.text}
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ol>
+                  </div>
+                );
+              });
+            })()}
             {timelineEntries.length === 0 && (
               <p className="text-ink/20 text-xs pl-3 italic">案情尚无头绪</p>
             )}

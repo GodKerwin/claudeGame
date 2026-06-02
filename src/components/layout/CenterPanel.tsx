@@ -301,7 +301,9 @@ export function CenterPanel({
               className={`text-[11px] px-2.5 py-0.5 border tracking-wider transition-colors cursor-pointer ${
                 showHint
                   ? 'border-gold/40 text-gold/65 bg-gold/5'
-                  : 'border-ink/10 text-ink/25 hover:border-gold/25 hover:text-gold/35'
+                  : hint
+                    ? 'border-gold/25 text-gold/40 hover:border-gold/40 hover:text-gold/60 hint-pulse'
+                    : 'border-ink/10 text-ink/25 hover:border-gold/25 hover:text-gold/35'
               }`}
             >
               提示

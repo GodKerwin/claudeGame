@@ -1,0 +1,42 @@
+[
+  {
+    "id": "synth_ch3_fei_ye_confirmed",
+    "itemA": "tianji_founding_scroll",
+    "itemB": "name_list_fragment",
+    "result": "鸢字认定：创立卷末页签名「飞，代号鸢」，名单残页载明「大飞帮主，代号鸢，鸢字组创立者」——两份文书从不同角度指向同一个人。飞爷，就是那个用二十年平静面孔藏住的秘密。",
+    "hint": "天机创立卷 × 名单残页",
+    "grants": { "flags": ["synth_ch3_fei_ye_confirmed"] }
+  },
+  {
+    "id": "synth_ch3_fei_ye_self_led",
+    "itemA": "target_profile",
+    "itemB": "orders_kite_mark",
+    "result": "令从本人起草：追查令描述与令纸鸢字暗记共同证明，发出这道令的人，正是令中所追查的目标。飞爷用天机的名义，引导调查者一步步接近他自己——他一直在主动设计这场相遇。",
+    "hint": "追查令 × 令纸鸢字暗记",
+    "grants": { "flags": ["synth_ch3_fei_ye_self_led"] }
+  },
+  {
+    "id": "synth_ch3_deeper_threat_scale",
+    "itemA": "deeper_threat_evidence",
+    "itemB": "name_list_fragment",
+    "result": "上游威胁实质化：廷尉府密函与名单残页对照，上游威胁的目标是名单上散落各地的三十七人——追杀的不只是天机阁，而是那些已被庇护的人。真正的危险，远比浪鹏帮更深、更广。",
+    "hint": "上游密函 × 名单残页",
+    "grants": { "flags": ["synth_ch3_deeper_threat_scale"] }
+  },
+  {
+    "id": "synth_ch3_two_vigils",
+    "itemA": "wujue_confession",
+    "itemB": "manor_medical_evidence",
+    "result": "两段孤独的守候：和尚的告白说他将名单藏入塔壁「等待时机」；旧居伤痕说故居主人长期独居——两个人，二十年，用不同的方式守着同一件事，却始终没有开口对话过。",
+    "hint": "和尚的告白 × 旧居伤痕诊断",
+    "grants": { "flags": ["synth_ch3_two_vigils"] }
+  },
+  {
+    "id": "synth_ch3_same_lineage",
+    "itemA": "qi_trace_clue",
+    "itemB": "target_profile",
+    "result": "同门异道：道家气感感知的「轻快外来气机」与追查令所描述的体态习惯高度吻合——凶手的行动方式与飞爷的功夫路数来自同一师承，但目的截然相反。追杀者与被追杀者，曾是同门。",
+    "hint": "气机踪迹 × 追查令",
+    "grants": { "flags": ["synth_ch3_same_lineage"] }
+  }
+]

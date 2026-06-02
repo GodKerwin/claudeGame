@@ -156,3 +156,12 @@
 .panel-fade-in {
   animation: panelFadeIn 0.2s ease-out;
 }
+
+/* 提示按钮可用时的微脉动 */
+@keyframes hintPulse {
+  0%, 100% { border-color: rgba(201,168,76,0.25); }
+  50%       { border-color: rgba(201,168,76,0.55); }
+}
+.hint-pulse {
+  animation: hintPulse 2.4s ease-in-out infinite;
+}

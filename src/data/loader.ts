@@ -15,6 +15,8 @@ import chapter3ItemsRaw from './items/chapter3.json';
 import talentsRaw from './talents.json';
 import templatesRaw from './templates.json';
 import chapter1SynthesesRaw from './syntheses/chapter1.json';
+import chapter2SynthesesRaw from './syntheses/chapter2.json';
+import chapter3SynthesesRaw from './syntheses/chapter3.json';
 import chapter1ProfilesRaw from './profiles/chapter1.json';
 import chapter2ProfilesRaw from './profiles/chapter2.json';
 import chapter3ProfilesRaw from './profiles/chapter3.json';
@@ -42,7 +44,11 @@ export const getItem = (id: string): Item | undefined => itemMap.get(id);
 export const getTalent = (id: string): Talent | undefined => talentMap.get(id);
 export const getTemplate = (id: string): CharacterTemplate | undefined => templateMap.get(id);
 
-export const SYNTHESES: Synthesis[] = chapter1SynthesesRaw as Synthesis[];
+export const SYNTHESES: Synthesis[] = [
+  ...chapter1SynthesesRaw,
+  ...chapter2SynthesesRaw,
+  ...chapter3SynthesesRaw,
+] as Synthesis[];
 export const SUSPECT_PROFILES: SuspectProfile[] = [
   ...chapter1ProfilesRaw,
   ...chapter2ProfilesRaw,

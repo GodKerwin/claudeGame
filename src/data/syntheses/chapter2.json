@@ -1,0 +1,66 @@
+[
+  {
+    "id": "synth_ch2_poison_wujue_link",
+    "itemA": "poison_residue_sample",
+    "itemB": "wujue_prescription",
+    "result": "配方印证：回春堂药架的毒残样与无迹方笺所载配方完全一致——同一种毒剂，在天机阁之外，只有无迹和尚一人知道配方。宋怀义的死与天机阁旧部直接相关。",
+    "hint": "毒药残样 × 无迹方笺",
+    "grants": { "flags": ["synth_ch2_poison_wujue_link"] }
+  },
+  {
+    "id": "synth_ch2_monk_poison_origin",
+    "itemA": "monk_identity_scroll",
+    "itemB": "poison_residue_sample",
+    "result": "旧毒溯源：僧籍密卷证实韩朔曾掌管天机阁特殊毒剂配方；毒药残样与那批配方一致——二十年前那批毒剂，有人把它带出了天机阁，带进了长安。无迹和尚并未真的与旧事两清。",
+    "hint": "僧籍密卷 × 毒药残样",
+    "grants": { "flags": ["synth_ch2_monk_poison_origin"] }
+  },
+  {
+    "id": "synth_ch2_li_mao_commands_langpeng",
+    "itemA": "langpeng_dispatch_order",
+    "itemB": "captive_letter",
+    "result": "指挥链确立：调令由李邈手书，被俘信函加盖浪鹏帮印章却引用了同样的行动代号——浪鹏帮在长安的所有行动，不过是李邈一个人决策的工具，而非独立的江湖势力。",
+    "hint": "浪鹏调令 × 被俘信函",
+    "grants": { "flags": ["synth_ch2_li_mao_commands_langpeng"] }
+  },
+  {
+    "id": "synth_ch2_intel_network_rebuilt",
+    "itemA": "buyer_transaction_record",
+    "itemB": "tianji_signal_record",
+    "result": "情报网络重建：买家往来账的「委托人」正在系统性收购天机暗号——他们不是想解密，而是想以古玩铺为中转站重建天机内部联络网络，绕开官府视野，徐图大事。",
+    "hint": "买家往来账 × 天机暗号册",
+    "grants": { "flags": ["synth_ch2_intel_network_rebuilt"] }
+  },
+  {
+    "id": "synth_ch2_premeditated_surveillance",
+    "itemA": "langpeng_hideout_intel",
+    "itemB": "captive_letter",
+    "result": "双线监控揭秘：探子供词证实浪鹏帮同时监视回春堂和往事客栈；被俘信函证实这是同一个人的指令——李邈在宋怀义到达长安之前，就已知道名单的下落，并布置了双重保险。",
+    "hint": "探子供词 × 被俘信函",
+    "grants": { "flags": ["synth_ch2_premeditated_surveillance"] }
+  },
+  {
+    "id": "synth_ch2_li_mao_knows_wujue",
+    "itemA": "langpeng_dispatch_order",
+    "itemB": "monk_identity_scroll",
+    "result": "李邈知道韩朔：调令的措辞包含一条特殊注记——「回春堂风字旧部」——李邈知道无迹和尚的真实身份，一直将他作为天机阁知情者的缓冲，既不除掉，也不放走。",
+    "hint": "浪鹏调令 × 僧籍密卷",
+    "grants": { "flags": ["synth_ch2_li_mao_knows_wujue"] }
+  },
+  {
+    "id": "synth_ch2_wujue_complicit",
+    "itemA": "wujue_prescription",
+    "itemB": "wujue_testimony",
+    "result": "内部证人：无迹方笺的配方细节与无迹医诊证词互为印证——韩朔不只是「知道」那批毒剂，他曾亲手调制过其中一部分。他是罪行的见证者，也是罪行的一环，二十年来以出家偿还。",
+    "hint": "无迹方笺 × 无迹医诊证词",
+    "grants": { "flags": ["synth_ch2_wujue_complicit"] }
+  },
+  {
+    "id": "synth_ch2_true_mastermind_hint",
+    "itemA": "buyer_transaction_record",
+    "itemB": "langpeng_hideout_intel",
+    "result": "幕后三层：古玩铺往来账记载令牌流向，探子供词交代据点运作方式——两者都指向同一个无名「委托人」，此人与李邈之间隔了整整三层中间人。他才是真正的幕后，比李邈站得更深、更稳。",
+    "hint": "买家往来账 × 探子供词",
+    "grants": { "flags": ["synth_ch2_true_mastermind_hint"] }
+  }
+]
