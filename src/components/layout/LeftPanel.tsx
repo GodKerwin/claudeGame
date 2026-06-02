@@ -65,6 +65,7 @@ export function LeftPanel({ onNavigate }: Props) {
 
   const exits = useMemo(() => (room ? getAvailableExits(room, ctx, ALL_ROOMS) : []), [room, ctx]);
   const lockedExits = useMemo(() => (room ? getLockedExits(room, ctx, ALL_ROOMS) : []), [room, ctx]);
+  const visitedSet = useMemo(() => new Set(visitedRooms), [visitedRooms]);
 
   const currentChapterRoomIds = useMemo(() => new Set(
     MAPS.find((m) => m.rooms.some((r) => r.id === currentRoomId))?.rooms.map((r) => r.id) ?? []
@@ -129,7 +130,12 @@ export function LeftPanel({ onNavigate }: Props) {
                   >
                     {glyph ? glyph.glyph : '▸'}
                   </span>
-                  <span className="group-hover:text-gold/85 transition-colors">{r.name}</span>
+                  <span className="group-hover:text-gold/85 transition-colors flex items-center gap-1.5">
+                    {r.name}
+                    {visitedSet.has(r.id) && (
+                      <span className="text-[8px] text-ink/18 tracking-wider shrink-0">·访</span>
+                    )}
+                  </span>
                 </button>
               );
             })}

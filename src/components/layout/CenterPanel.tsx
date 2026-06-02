@@ -112,6 +112,12 @@ export function CenterPanel({
     return groups;
   }, [eventActions]);
 
+  const allExplored = useMemo(() => {
+    if (pendingChoices) return false;
+    const nonChoice = [...npcActions, ...eventActions];
+    return nonChoice.length > 0 && nonChoice.every((a) => a.completed);
+  }, [npcActions, eventActions, pendingChoices]);
+
   // Build entity list: choices > NPCs > events
   const entities = useMemo<Entity[]>(() => {
     if (pendingChoices) {
@@ -351,6 +357,12 @@ export function CenterPanel({
 
         {/* ── 探索区块（事件、选项，可折叠）── */}
         <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin">
+          {allExplored && (
+            <p className="text-ink/18 text-[11px] px-2 py-3 italic text-center leading-relaxed">
+              此处探查已尽<br />
+              <span className="text-[10px] tracking-wide">可前往其他地点继续调查</span>
+            </p>
+          )}
           {entities.filter((e) => e.type !== 'npc').length === 0 && entities.filter((e) => e.type === 'npc').length === 0 && (
             <p className="text-ink/20 text-xs px-2 py-2 italic">此处无可交互之物</p>
           )}
