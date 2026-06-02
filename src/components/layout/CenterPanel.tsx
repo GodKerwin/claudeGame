@@ -186,7 +186,7 @@ export function CenterPanel({
       </div>
 
       {/* 故事文本区（可滚动） */}
-      <div ref={scrollContainerRef} className="flex-[3] min-h-0 overflow-y-auto px-5 py-5 space-y-4 scrollbar-thin">
+      <div key={roomName} ref={scrollContainerRef} className="flex-[3] min-h-0 overflow-y-auto px-5 py-5 space-y-4 scrollbar-thin panel-fade-in">
         <p className="text-ink/45 leading-[1.9] text-sm border-l-2 border-gold/10 pl-3 italic">{roomDescription}</p>
         {storyTexts.map((text, i) => {
           const isLatest = i === storyTexts.length - 1;
@@ -224,7 +224,8 @@ export function CenterPanel({
 
       {/* 操作区 */}
       <div
-        className="flex-[1.5] min-h-0 flex flex-col border-t border-gold/10 px-4 pt-3 pb-3"
+        key={`action-${roomName}`}
+        className="flex-[1.5] min-h-0 flex flex-col border-t border-gold/10 px-4 pt-3 pb-3 panel-fade-in"
         style={{
           background: `
             repeating-linear-gradient(
