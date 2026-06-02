@@ -52,6 +52,7 @@ export function SaveLoadModal({ mode, onClose }: Props) {
       storyText: scene.storyText,
       seenDialogues: scene.seenDialogues,
       visitedRooms: scene.visitedRooms,
+      foundSynthesisIds: scene.foundSynthesisIds,
     };
     const saved = saveToSlot(slotId, data);
     updateSlot(saved);
