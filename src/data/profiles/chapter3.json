@@ -10,5 +10,19 @@
       { "flag": "tianji_trust_gained", "text": "认可调查能力，提供飞爷旧居精确位置及入内方式。", "type": "known" },
       { "flag": "tianji_endgame_ready", "text": "【矛盾】自称「只是守卫此地」，但他对飞爷的过往了如指掌——两人显然相识多年，绝非初见。", "type": "contradiction" }
     ]
+  },
+  {
+    "npcId": "npc_fei_ye",
+    "name": "飞爷",
+    "role": "追查目标·「鸢」的真身",
+    "suspicion": "核心人物——天机阁创始者，隐于市井二十年",
+    "facts": [
+      { "flag": "stele_decoded", "text": "碑文指向天机阁创始人代号「鸢」，此人于二十年前从长安消失，不知所踪。", "type": "known" },
+      { "flag": "fei_ye_sighted", "text": "大雁塔附近留有新鲜脚印——飞爷至今未离长安城，隐身于市井之中。", "type": "known" },
+      { "flag": "manor_injury_read", "text": "旧居内室伤痕印记证实：曾有人长居于此，其行事习惯与飞爷完全吻合。", "type": "known" },
+      { "flag": "fei_ye_identity_confirmed", "text": "身份确认：飞爷即天机阁创始人「鸢」，当年主动销声匿迹，实则以另一身份守护名单。", "type": "known" },
+      { "flag": "fei_ye_tianji_origin_known", "text": "创立天机阁的初衷：以情报之网护住名单上三十七名被追杀者，从不以杀戮换安宁。", "type": "known" },
+      { "flag": "tianji_endgame_ready", "text": "【矛盾】自称「一切皆已放下」，却二十年来从未真正离开长安——他仍在等待某人来接手那张名单。", "type": "contradiction" }
+    ]
   }
 ]
