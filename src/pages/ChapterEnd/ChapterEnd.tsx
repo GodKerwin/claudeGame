@@ -104,9 +104,9 @@ export default function ChapterEnd() {
 
   const chapterTitle = isChapter3 ? '第三章·完' : isChapter2 ? '第二章·完' : '第一章·完';
 
-  const clueItems = isChapter3 || isChapter2
-    ? []
-    : items.flatMap((id) => { const item = getItem(id); return item?.isClue ? [item] : []; });
+  const clueItems = clues
+    .map((id) => getItem(id))
+    .filter((item): item is NonNullable<typeof item> => item !== undefined && item !== null);
 
   const lines = useMemo(
     () =>
