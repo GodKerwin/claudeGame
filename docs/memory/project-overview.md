@@ -64,6 +64,7 @@ tests/
   engine/hintEngine.test.ts
   store/sceneStore.test.ts
   data/profilesIntegrity.test.ts
+  # (plus 8 more test files covering: engine, store, data integrity across all 3 chapters; total 13 files, 172 tests)
 .github/workflows/deploy.yml     # GitHub Actions 自动部署
 vite.config.ts                   # base: '/claudeGame/'
 ```
