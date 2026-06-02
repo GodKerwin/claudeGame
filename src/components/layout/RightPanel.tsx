@@ -5,7 +5,7 @@ import { DiamondDivider } from '../ui/DiamondDivider';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
-import { getItem, TALENTS, getTemplate, getSynthesisResult, SUSPECT_PROFILES } from '../../data/loader';
+import { getItem, TALENTS, getTemplate, getSynthesisResult, SUSPECT_PROFILES, SYNTHESES } from '../../data/loader';
 
 const STAT_DESCRIPTIONS: Record<string, string> = {
   strength: '力量\n筋骨强健，以力破局。破门、格斗、强行撬锁等动作皆仰仗于此。',
@@ -130,6 +130,15 @@ export function RightPanel({ onSettings }: RightPanelProps) {
     ...clues.map((id) => getItem(id)).filter(Boolean).map((it) => ({ ...it!, isClue: true })),
     ...items.map((id) => getItem(id)).filter((it) => it && !it.isClue).map((it) => ({ ...it!, isClue: false })),
   ];
+
+  // When selectedA is set, pre-compute which items have a synthesis recipe with it
+  const compatibleWithA = selectedA
+    ? new Set(
+        SYNTHESES
+          .filter((s) => s.itemA === selectedA || s.itemB === selectedA)
+          .map((s) => (s.itemA === selectedA ? s.itemB : s.itemA))
+      )
+    : new Set<string>();
 
   const handleSelectItem = (itemId: string) => {
     if (selectedA === itemId) {
@@ -339,7 +348,9 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                           className={`text-[11px] px-2 py-0.5 border transition-colors cursor-pointer tracking-wide ${
                             isSelected
                               ? 'border-gold/60 text-gold/85 bg-gold/8'
-                              : 'border-ink/12 text-ink/45 hover:border-gold/30 hover:text-ink/65'
+                              : compatibleWithA.has(item.id)
+                                ? 'border-gold/35 text-ink/60 hover:border-gold/55 hover:text-ink/80'
+                                : 'border-ink/12 text-ink/45 hover:border-gold/30 hover:text-ink/65'
                           }`}
                         >
                           {isA && <span className="text-gold/50 mr-0.5 text-[9px]">甲</span>}
