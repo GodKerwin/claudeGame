@@ -78,6 +78,7 @@ export default function ChapterEnd() {
   const navigate = useNavigate();
   const scene = useSceneStore();
   const { items } = useInventoryStore();
+  const { clues, visitedRooms, foundSynthesisIds } = useSceneStore();
   const [visibleCount, setVisibleCount] = useState(0);
   const [showButton, setShowButton] = useState(false);
   const [sealVisible, setSealVisible] = useState(false);
@@ -223,6 +224,20 @@ export default function ChapterEnd() {
               </CornerFrame>
             ) : content;
           })}
+        </div>
+
+        {/* 此行收获 */}
+        <div className="mt-8 mb-4 flex justify-center gap-8">
+          {[
+            { label: '线索收集', value: clues.length },
+            { label: '推理洞察', value: foundSynthesisIds.length },
+            { label: '走访之处', value: visitedRooms.length },
+          ].map(({ label, value }) => (
+            <div key={label} className="flex flex-col items-center gap-1">
+              <span className="text-gold/75 text-xl tracking-wide font-serif">{value}</span>
+              <span className="text-ink/30 text-[10px] tracking-[0.2em]">{label}</span>
+            </div>
+          ))}
         </div>
 
         <div
