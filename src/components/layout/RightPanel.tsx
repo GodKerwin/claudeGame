@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { StatBar } from '../ui/StatBar';
 import { Tooltip } from '../ui/Tooltip';
 import { DiamondDivider } from '../ui/DiamondDivider';
@@ -128,6 +128,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
     return () => window.removeEventListener('keydown', handler);
   }, []);
   const [selectedA, setSelectedA] = useState<string | null>(null);
+
   const [selectedB, setSelectedB] = useState<string | null>(null);
   const [synthResult, setSynthResult] = useState<{ text: string; isNew: boolean } | null>(null);
   const [expandedNpc, setExpandedNpc] = useState<string | null>(null);
@@ -135,6 +136,17 @@ export function RightPanel({ onSettings }: RightPanelProps) {
   const player = usePlayerStore();
   const { clues, questLog, flags, addFlag, foundSynthesisIds, addFoundSynthesisId } = useSceneStore();
   const { items, addItem } = useInventoryStore();
+
+  const lastSeenItemCountRef = useRef(items.length);
+  const lastSeenClueCountRef = useRef(clues.length);
+  const itemsBadge = items.length > lastSeenItemCountRef.current || clues.length > lastSeenClueCountRef.current;
+
+  useEffect(() => {
+    if (tab === 'items') {
+      lastSeenItemCountRef.current = items.length;
+      lastSeenClueCountRef.current = clues.length;
+    }
+  }, [tab, items.length, clues.length]);
 
   const clueItems = clues.map((id) => getItem(id)).filter(Boolean);
   const carriedItems = items.map((id) => getItem(id)).filter((item) => item && !item.isClue);
@@ -224,13 +236,16 @@ export function RightPanel({ onSettings }: RightPanelProps) {
             key={t}
             onClick={() => setTab(t)}
             title={`${TAB_LABELS[t]} (${i + 1})`}
-            className={`flex-1 py-2 text-[11px] tracking-widest transition-colors cursor-pointer ${
+            className={`flex-1 py-2 text-[11px] tracking-widest transition-colors cursor-pointer relative ${
               tab === t
                 ? 'text-gold/80 border-b border-gold/55 -mb-px bg-gold/5'
                 : 'text-ink/30 hover:text-ink/55'
             }`}
           >
             {TAB_LABELS[t]}
+            {t === 'items' && itemsBadge && tab !== 'items' && (
+              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-blood/70 rounded-full" />
+            )}
           </button>
         ))}
         {onSettings && (
