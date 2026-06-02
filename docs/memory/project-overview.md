@@ -18,7 +18,7 @@
 | TailwindCSS | v3 | 样式 |
 | Zustand | v4 | 状态管理 |
 | React Router | v6 | 路由（HashRouter，兼容 GitHub Pages） |
-| Vitest | - | 测试（105 用例，7 文件） |
+| Vitest | - | 测试（172 用例，13 文件） |
 
 ---
 
@@ -61,6 +61,9 @@ src/
     templates.json
 tests/
   data/chapter3Integrity.test.ts  # safehouse 测试 requires===null
+  engine/hintEngine.test.ts
+  store/sceneStore.test.ts
+  data/profilesIntegrity.test.ts
 .github/workflows/deploy.yml     # GitHub Actions 自动部署
 vite.config.ts                   # base: '/claudeGame/'
 ```
