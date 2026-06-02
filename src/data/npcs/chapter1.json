@@ -505,6 +505,33 @@
         "condition": { "flags": ["chapter3_started", "chapter2_join_ending", "tianji_trust_gained"] },
         "text": "你把追查令烧了。……我看见了。那就是你的回答。不用再说什么，我知道你的选择。名单藏在——你把手给我，我写在你掌心里。",
         "grants": { "flags": ["final_choice_unlocked"] }
+      },
+      {
+        "id": "pavilion_tension",
+        "condition": { "flags": ["fei_ye_pavilion_met"], "flags_absent": ["fei_ye_identity_confirmed", "pavilion_tension_played"] },
+        "text": "「你来找我，」飞爷没有回头，「说明你已经查到了某处。问吧。」\n\n他的声音平静，没有防御，也没有讨好，像是一个等待结果的人——而不是一个被追问的人。\n\n「你知道的是哪一段？」他问。",
+        "grants": { "flags": ["pavilion_tension_played"] }
+      },
+      {
+        "id": "twenty_years_monologue",
+        "condition": { "flags": ["fei_ye_admitted"], "flags_absent": ["fei_ye_story_told"] },
+        "text": "「你想知道为什么。」\n\n他看着池水，「二十年前，天机阁垮了。名单上的人，是我答应过会保护的——答应的时候，我以为自己有能力。」\n\n他停了很长时间。\n\n「后来我发现我没有那个能力。但我不想让他们知道。所以我换了一张脸，在这座城里藏着，等一个比我更能保住那份名单的人出现。」\n\n他回头看你：「你，就是那个人吗？」",
+        "grants": { "flags": ["fei_ye_story_told"] }
+      },
+      {
+        "id": "truth_ending_dialogue",
+        "condition": { "flags": ["chapter3_truth_ending"] },
+        "text": "「你选了最难的一条路。」飞爷看着你，「把真相公之于众，意味着名单上的每个人都将曝光——有些人会得救，有些人不会。」\n\n他平静地说：「但这是他们应该得到的东西。知道自己的处境，然后自己选择。」\n\n「谢谢你，」他最后说，「等了二十年，我现在才说这句话。」"
+      },
+      {
+        "id": "standoff_ending_dialogue",
+        "condition": { "flags": ["chapter3_standoff_ending"] },
+        "text": "飞爷看了你很久，然后轻轻点头。\n\n「各守一段真相，也许是眼下最好的结局。」他站起来，「你守住查到的，我守住剩下的——这样，无论哪一边出了问题，还有另一边在。」\n\n他走向池边，声音落在水面上：「下次见面，不知是哪一年了。但你若回来，曲江亭，我还在这里。」"
+      },
+      {
+        "id": "join_ending_dialogue",
+        "condition": { "flags": ["chapter3_join_ending"] },
+        "text": "任务令在池水里散开，墨迹洇染，最终看不出字迹。\n\n飞爷看着那团湿纸，很长时间没有说话。\n\n「我知道这不是结束，」他开口，「名单上还有很多人，廷尉府的那一层还在。但是……」他顿了顿，「至少今天，我不是一个人了。」\n\n他第一次真正地看向你，眼神里有一种二十年都藏着的东西，刚刚松动了一点。"
       }
     ]
   },

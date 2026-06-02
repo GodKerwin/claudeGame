@@ -348,5 +348,40 @@
         "grants": { "flags": ["ch3_agility_grown"], "agility": 1 }
       }
     ]
+  },
+  {
+    "id": "evt_hidden_letter",
+    "title": "书桌抽屉",
+    "description": "书桌的最底层抽屉比其他的更紧，不是上了锁，是长期没有人动，木头涨了。",
+    "actions": [
+      {
+        "id": "find_unsent_letter",
+        "label": "拉开抽屉，查看里面的东西",
+        "requires": { "flags": ["manor_study_found"], "flags_absent": ["unsent_letter_found"] },
+        "result": "抽屉里只有一封折叠的信，收信人处写着「韩朔」——就是无迹和尚的俗名。你打开来：「若你看到此信，说明我已不在，名单交予来人。若来人值得信任——你判断。飞」\n\n字迹镇定，像是写了许多年的习惯，而不是仓促留书。这封信，被写好后放在这里，从来没有被送出去。",
+        "grants": { "flags": ["unsent_letter_found"], "items": ["unsent_letter"] }
+      },
+      {
+        "id": "healer_decipher",
+        "label": "以医者眼光辨析笔迹的书写状态（望闻断骨）",
+        "requires": { "talent": "望闻断骨", "flags": ["manor_study_found"], "flags_absent": ["unsent_letter_found"] },
+        "result": "你拿着信细看——笔画的压力均匀，没有停顿痕迹，是一个习惯了书写的人在平静状态下写的。但信纸的折痕被展开过不止一次，说明写信的人曾经多次取出来重读，又重新折好放回去。\n\n写给无迹和尚的字，被反复重读了许多年。这封信，对写信的人来说，不只是交代，是一种陪伴。\n\n你将信放入怀中，心里的某些疑问，有了答案的方向。",
+        "grants": { "flags": ["unsent_letter_found", "fei_ye_identity_confirmed"], "items": ["unsent_letter"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_pavilion_final_choice",
+    "title": "曲江亭·最终抉择",
+    "description": "飞爷已将一切托出，现在该你说了。这一刻，三章的调查走向，汇聚在这一个决定里。",
+    "actions": [
+      {
+        "id": "pause_before_deciding",
+        "label": "沉默片刻，回顾三章来时的路",
+        "requires": { "flags": ["fei_ye_story_told"], "flags_absent": ["pavilion_final_moment"] },
+        "result": "〔往事客栈的那个清晨，走廊里的血腥气，掌柜额角的汗……一路走来的每一步，都在引向这里。飞爷在等，等你说出那个字。〕\n\n你深呼一口气，做出了你的决定。",
+        "grants": { "flags": ["pavilion_final_moment"] }
+      }
+    ]
   }
 ]

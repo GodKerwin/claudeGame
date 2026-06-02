@@ -7,7 +7,7 @@
         "id": "dayan_pagoda",
         "name": "大雁塔下",
         "description": "大雁塔的钟声刚刚散去，塔下的慈恩寺偏院少有行人。老柏树后藏着一块不起眼的石碑，苔痕掩去了大半，但如果凑近，能看出碑文不是寻常经文。灰袍僧人端坐在矮凳上，像是在等什么人。",
-        "interactables": ["evt_nameless_stele", "evt_pagoda_shadow", "npc_wujue", "evt_ch3_constitution_growth"],
+        "interactables": ["evt_nameless_stele", "evt_pagoda_shadow", "npc_wujue", "evt_ch3_constitution_growth", "npc_temple_novice"],
         "exits": ["feiyes_manor"],
         "requires": null,
         "talentViews": [
@@ -51,7 +51,7 @@
         "id": "feiyes_manor",
         "name": "飞爷故居",
         "description": "院落年久失修，砖缝间长着枯草。正门虽关，却未上锁。屋内陈设简朴，灰尘积了薄薄一层，但有些东西被人动过——桌上的茶杯，书架上的空格，像是有人不久前来过，又刻意抹去了痕迹。",
-        "interactables": ["evt_abandoned_room", "evt_portrait_wall", "npc_wujue"],
+        "interactables": ["evt_abandoned_room", "evt_portrait_wall", "npc_wujue", "evt_hidden_letter"],
         "exits": ["dayan_pagoda", "tianji_safehouse", "qujiang_pavilion"],
         "requires": null,
         "talentViews": [
@@ -73,7 +73,7 @@
         "id": "qujiang_pavilion",
         "name": "曲江亭",
         "description": "曲江池水面映着落日余晖，亭子里有个人背对着你，看着水面，一动不动。你认出了那件洗旧了的白衫，那个四十出头、在街上绝对不会多看一眼的普通男人。飞爷。他开口，没有回头：「坐，等你好久了。」",
-        "interactables": ["evt_pavilion_approach", "evt_fei_ye_confrontation", "npc_fei_ye"],
+        "interactables": ["evt_pavilion_approach", "evt_fei_ye_confrontation", "npc_fei_ye", "evt_pavilion_final_choice"],
         "exits": ["feiyes_manor"],
         "requires": { "flags": ["fei_ye_identity_confirmed"] },
         "talentViews": [

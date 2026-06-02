@@ -164,6 +164,48 @@
         "condition": { "talent": "三教九流", "flags_absent": ["tianji_trust_gained"] },
         "text": "联络人端详你片刻，眼神里出现了认出的神色。「十一年前，天机阁曾雇一个飞贼传递过一件物件——扬州到长安，七天，完璧。」他停顿，「你就是那个人？还是……你认识那个人？」\n\n不管你如何回答，他都点了点头：「进来吧，知道这件事的人，不会是敌人。」",
         "grants": { "flags": ["tianji_trust_gained"] }
+      },
+      {
+        "id": "fei_ye_location_hint",
+        "condition": { "flags": ["tianji_trust_gained"], "flags_absent": ["fei_ye_sighted", "qujiang_location_known"] },
+        "text": "「你想找到他，」联络人不是在问，「他最近几日在曲江池一带。每当事情接近结局，他都会去那里。」\n\n他顿了顿，「他在等的那个人，到底是什么样子的——我见过你，我觉得，也许就是你。」",
+        "grants": { "flags": ["fei_ye_sighted", "qujiang_location_known"] }
+      },
+      {
+        "id": "upstream_warning",
+        "condition": { "flags": ["tianji_trust_gained", "tianji_network_seen"], "flags_absent": ["upstream_threat_warned"] },
+        "text": "「还有一件事要告诉你。」他的声音降低了，「追查飞爷的不只是我们。有一双眼睛，在我们之上——他们比天机阁更早知道名单的存在，比浪鹏帮更安静，比李邈更有耐心。」\n\n「你去见飞爷，要有这个准备：那双眼睛，也在等着飞爷开口的那一刻。」",
+        "grants": { "flags": ["upstream_threat_warned"] }
+      },
+      {
+        "id": "ending_reaction",
+        "condition": { "flags": ["fei_ye_identity_confirmed"] },
+        "text": "联络人沉默了一会儿。\n\n「你已经走到这里了。」他看着你，「接下来的那步，只有你能走，我给不了你指引。」\n\n「去找他。」"
+      }
+    ]
+  },
+  {
+    "id": "npc_temple_novice",
+    "name": "寺院小僧",
+    "description": "一个十五六岁的小沙弥，正用扫帚打扫庭院，见到来人微微躬身，神情纯朴但眼神机灵。",
+    "dialogues": [
+      {
+        "id": "novice_greeting",
+        "condition": { "flags_absent": ["novice_met"] },
+        "text": "「施主请了。」小僧放下扫帚合掌，「本寺偏院少有人来，施主若是礼佛，正殿在东侧。若是找无迹大师，他在药铺里，今日或许下午回来。」",
+        "grants": { "flags": ["novice_met"] }
+      },
+      {
+        "id": "fei_ye_sighting_novice",
+        "condition": { "flags": ["stele_decoded", "novice_met"], "flags_absent": ["fei_ye_sighted"] },
+        "text": "「那块碑……」小僧若有所思，「前几日确实有位施主在碑前站了很久。白衣，年纪不大不小，左手——」他想了想，「左手好像有一道旧疤，他看碑的时候，手摸着碑角，一直没放。」\n\n小僧指了指东南方向：「他离开时，往那边走的，那条路通往曲江池。」",
+        "grants": { "flags": ["fei_ye_sighted", "qujiang_direction_known"] }
+      },
+      {
+        "id": "wujue_testimony_ref",
+        "condition": { "flags": ["wujue_guilt_revealed"], "flags_absent": ["novice_wujue_words"] },
+        "text": "「无迹大师……」小僧的表情变得认真，「他前两日跟我说了一句话，说得很奇怪，我一直记着。」\n\n「他说：「有些罪，念多少经都还不清楚，只有说出来，才能真正还。」」\n\n小僧低头，「我不懂他说的是什么，但他说完就轻松了一些，好像放下了什么东西。」",
+        "grants": { "flags": ["novice_wujue_words"] }
       }
     ]
   }
