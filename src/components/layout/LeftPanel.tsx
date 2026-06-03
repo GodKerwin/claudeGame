@@ -48,13 +48,18 @@ export function LeftPanel({ onNavigate }: Props) {
       player.wisdom, player.constitution, player.talent, items, flags]);
 
   // Find current chapter layout
-  const currentMap = MAPS.find((m) => m.rooms.some((r) => r.id === currentRoomId));
+  const currentMap = useMemo(
+    () => MAPS.find((m) => m.rooms.some((r) => r.id === currentRoomId)),
+    [currentRoomId]
+  );
   const layout = currentMap ? CHAPTER_LAYOUTS[currentMap.id] : null;
 
   const visitedSet = useMemo(() => new Set(visitedRooms), [visitedRooms]);
 
-  // Compute reachable / locked sets from map engine
-  const currentRoom = currentMap?.rooms.find((r) => r.id === currentRoomId);
+  const currentRoom = useMemo(
+    () => currentMap?.rooms.find((r) => r.id === currentRoomId),
+    [currentMap, currentRoomId]
+  );
   const availableExitIds = useMemo(() => {
     if (!currentRoom || !currentMap) return new Set<string>();
     return new Set(getAvailableExits(currentRoom, ctx, currentMap.rooms).map((r) => r.id));
@@ -223,7 +228,7 @@ export function LeftPanel({ onNavigate }: Props) {
             const node = nodes.find((n) => n.id === lockMsg.id);
             if (!node) return null;
             const pctX = (node.cx / 156) * 100;
-            const pctY = ((node.cy + NH / 2 + 4) / viewBoxHeight) * 100;
+            const pctY = Math.min(((node.cy + NH / 2 + 4) / viewBoxHeight) * 100, 85);
             return (
               <div
                 className="absolute z-10 max-w-[130px] px-2 py-1.5 text-[10px] italic text-ink/60 border border-gold/20 leading-snug"
