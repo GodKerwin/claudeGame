@@ -13,7 +13,7 @@ export const DEFAULT_SIZE = 16;
 
 function applyFontSize(size: number) {
   document.documentElement.style.fontSize = `${size}px`;
-  (document.body.style as Record<string, string>).zoom = String(size / 16);
+  (document.body.style as unknown as Record<string, string>).zoom = String(size / 16);
 }
 
 export function useSettings() {

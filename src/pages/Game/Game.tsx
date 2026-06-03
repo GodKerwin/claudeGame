@@ -33,6 +33,7 @@ type Grants = {
   agility?: number | null;
   wisdom?: number | null;
   constitution?: number | null;
+  storyText?: string;
 };
 
 type StatKey = 'strength' | 'agility' | 'wisdom' | 'constitution';
