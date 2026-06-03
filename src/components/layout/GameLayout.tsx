@@ -25,15 +25,19 @@ export function GameLayout({ left, center, right }: Props) {
     <div className="flex h-screen w-screen bg-paper text-ink font-serif overflow-hidden select-none">
       {/* Desktop: 三栏布局 (≥1024px) */}
       <div className="hidden lg:flex w-full h-full">
-        <CornerFrame size="sm" className="w-56 shrink-0 panel border-r border-gold/15 flex flex-col overflow-hidden">
-          {left}
-        </CornerFrame>
-        <div className="flex-1 flex flex-col overflow-hidden border-r border-gold/10">
+        <nav aria-label="地图导航" className="w-56 shrink-0 border-r border-gold/15 flex flex-col overflow-hidden">
+          <CornerFrame size="sm" className="flex flex-col overflow-hidden h-full panel">
+            {left}
+          </CornerFrame>
+        </nav>
+        <main className="flex-1 flex flex-col overflow-hidden border-r border-gold/10" aria-label="故事主区">
           {center}
-        </div>
-        <CornerFrame size="sm" className="shrink-0 panel flex flex-col overflow-hidden" style={{ width: '210px' }}>
-          {right}
-        </CornerFrame>
+        </main>
+        <aside aria-label="角色状态" className="shrink-0 flex flex-col overflow-hidden" style={{ width: '210px' }}>
+          <CornerFrame size="sm" className="flex flex-col overflow-hidden h-full panel">
+            {right}
+          </CornerFrame>
+        </aside>
       </div>
 
       {/* Mobile: 单栏 + 底部标签栏 (<1024px) */}
