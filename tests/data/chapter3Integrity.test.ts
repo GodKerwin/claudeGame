@@ -283,4 +283,28 @@ describe('chapter3 npc integrity', () => {
     expect(d, 'novice_scroll_wonder dialogue missing').toBeDefined();
     expect(d?.condition?.has).toContain('tianji_founding_scroll');
   });
+
+  it('npc_wujue has wujue_deepest_secret dialogue gated on wisdom 8', () => {
+    const wujue = NPCS.find((n) => n.id === 'npc_wujue');
+    expect(wujue).toBeDefined();
+    const deepSecret = wujue?.dialogues.find((d) => d.id === 'wujue_deepest_secret');
+    expect(deepSecret, 'wujue_deepest_secret dialogue missing').toBeDefined();
+    expect(deepSecret?.condition?.wisdom).toBe(8);
+  });
+
+  it('npc_fei_ye has fei_ye_upper_truth dialogue gated on wisdom 8 + leyou_inscription', () => {
+    const feiYe = NPCS.find((n) => n.id === 'npc_fei_ye');
+    expect(feiYe).toBeDefined();
+    const upperTruth = feiYe?.dialogues.find((d) => d.id === 'fei_ye_upper_truth');
+    expect(upperTruth, 'fei_ye_upper_truth dialogue missing').toBeDefined();
+    expect(upperTruth?.condition?.wisdom).toBe(8);
+    expect(upperTruth?.condition?.has).toContain('leyou_inscription');
+  });
+
+  it('chapter3_truth_path flag is granted by an event action', () => {
+    const truthPathEvent = EVENTS.find((e) =>
+      e.actions.some((a) => a.grants?.flags?.includes('chapter3_truth_path'))
+    );
+    expect(truthPathEvent, 'no event grants chapter3_truth_path flag').toBeDefined();
+  });
 });

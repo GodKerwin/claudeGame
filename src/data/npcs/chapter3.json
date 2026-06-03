@@ -115,6 +115,12 @@
         "condition": { "flags": ["wujue_tianji_revealed"], "flags_absent": ["chapter3_started", "wujue_ch2_warned"] },
         "text": "「李邈不是终点。」\n\n无迹和尚在你准备离开时开口，声音低沉，「施主去茶馆见他，要有心理准备——他背后还有一层，他自己也不全知道那一层是什么。」\n\n「有些事，等你到了第三章……」他顿住，像是察觉到了什么，「等你查完李邈，会知道的。去吧。」",
         "grants": { "flags": ["wujue_ch2_warned"] }
+      },
+      {
+        "id": "wujue_deepest_secret",
+        "condition": { "wisdom": 8 },
+        "text": "无迹看了你很久，才开口：「二十年前那次事故……不是事故。」他的声音很平静，「那批货在路上出了问题，不是因为疏失，是因为有人故意安排的。那个人知道那批货的内容，知道运送的时间，知道每一个经手人的名字。」\n\n他停顿了一下：「那个人，至今还在长安。」",
+        "grants": { "flags": ["wujue_accident_truth_known"] }
       }
     ]
   },

@@ -115,14 +115,14 @@
         "label": "逐卷查阅卷轴架",
         "requires": { "wisdom": 8 },
         "result": "你从卷轴架最底层抽出一卷封了蜡的旧档，拆开，是天机阁最初立阁的密档。创立者自署「鸢」，末页附有真名——飞字组，飞，单名。",
-        "grants": { "items": ["tianji_founding_scroll"] }
+        "grants": { "items": ["tianji_founding_scroll"], "flags": ["chapter3_truth_path"] }
       },
       {
         "id": "find_archive_agi",
         "label": "翻找架后暗格机关",
         "requires": { "agility": 7 },
         "result": "你摸遍架子背面，找到一处暗格的弹簧机关，拨开，里面存着一卷密档——天机阁立阁时的原始记录，创立者的真名藏于其中。",
-        "grants": { "items": ["tianji_founding_scroll"] }
+        "grants": { "items": ["tianji_founding_scroll"], "flags": ["chapter3_truth_path"] }
       },
       {
         "id": "earn_trust",
