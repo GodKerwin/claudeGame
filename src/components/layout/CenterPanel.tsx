@@ -83,6 +83,7 @@ export function CenterPanel({
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [interrogationFocusIdx, setInterrogationFocusIdx] = useState(0);
 
   const scrollToBottom = useCallback(() => {
     if (rafRef.current !== null) return;
@@ -157,6 +158,35 @@ export function CenterPanel({
   }, [npcActions, eventGroups, choiceActions, pendingChoices]);
 
   useEffect(() => { scrollToBottom(); }, [storyTexts, scrollToBottom]);
+
+  // Reset focus when interrogation changes
+  useEffect(() => {
+    setInterrogationFocusIdx(0);
+  }, [pendingInterrogation]);
+
+  // Keyboard navigation for interrogation mode
+  useEffect(() => {
+    if (!pendingInterrogation) return;
+    const items = pendingInterrogation.allItems;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setInterrogationFocusIdx((i) => Math.min(i + 1, items.length - 1));
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setInterrogationFocusIdx((i) => Math.max(i - 1, 0));
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const item = items[interrogationFocusIdx];
+        if (item) pendingInterrogation.onPresent(item.id);
+      } else if (e.key === 'Escape') {
+        e.preventDefault();
+        pendingInterrogation.onCancel();
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [pendingInterrogation, interrogationFocusIdx]);
 
   // Auto-expand first entity with new actions on room change
   useEffect(() => {
@@ -264,11 +294,15 @@ export function CenterPanel({
               {pendingInterrogation.allItems.length === 0 ? (
                 <p className="text-ink/25 text-xs italic px-1">暂无可出示之物</p>
               ) : (
-                pendingInterrogation.allItems.map((item) => (
+                pendingInterrogation.allItems.map((item, index) => (
                   <button
                     key={item.id}
                     onClick={() => pendingInterrogation.onPresent(item.id)}
-                    className="w-full text-left flex items-center gap-2 px-2 py-1.5 border-l-2 border-gold/20 text-ink/65 hover:text-gold hover:border-gold/55 transition-colors cursor-pointer group"
+                    className={`w-full text-left flex items-center gap-2 px-2 py-1.5 border-l-2 transition-colors cursor-pointer group ${
+                      index === interrogationFocusIdx
+                        ? 'border-gold/55 text-gold bg-gold/5'
+                        : 'border-gold/20 text-ink/65 hover:text-gold hover:border-gold/55'
+                    }`}
                   >
                     <span className={`text-[9px] shrink-0 ${item.isClue ? 'text-gold/50' : 'text-ink/25'}`}>
                       {item.isClue ? '◈' : '◇'}
