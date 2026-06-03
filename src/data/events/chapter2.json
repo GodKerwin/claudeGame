@@ -516,6 +516,20 @@
     ]
   },
   {
+    "id": "evt_censorate_exterior",
+    "title": "廷尉府外街",
+    "description": "廷尉府的外围街道，两侧是低矮的官署附属建筑。行人稀少，偶有小吏匆匆经过。档案外署的牌子挂在一扇半掩的门旁。",
+    "actions": [
+      {
+        "id": "observe_street",
+        "label": "观察廷尉府外围布置",
+        "requires": null,
+        "result": "廷尉府外街比你预料的冷清。几名守卫站在不显眼的位置，其中一人的目光不断扫向档案外署的门口——好像在等什么人来取档案。",
+        "grants": { "flags": ["censorate_observed"] }
+      }
+    ]
+  },
+  {
     "id": "evt_nightmarket_tail",
     "title": "永宁坊夜市入口",
     "description": "坊间一条不起眼的窄巷，傍晚才有人影进出。你循着浪鹏帮探子的去向追来，巷口有人把守，并不对外人开放。",

@@ -31,6 +31,25 @@ describe('chapter2 map and item integrity', () => {
     expect(room?.exits).toContain('yongning_nightmarket');
   });
 
+  it('censorate_street room exists with correct structure', () => {
+    const room = ch2Map?.rooms.find((r) => r.id === 'censorate_street');
+    expect(room, 'censorate_street missing').toBeDefined();
+    expect(room?.requires?.flags).toContain('li_mao_background');
+    expect(room?.exits).toContain('imperial_teahouse');
+  });
+
+  it('censorate_street items exist', () => {
+    const ids = ['censorate_old_file', 'imperial_pursuit_order'];
+    for (const id of ids) {
+      expect(allItemIds.has(id), `missing item: ${id}`).toBe(true);
+    }
+  });
+
+  it('imperial_teahouse exits include censorate_street', () => {
+    const room = ch2Map?.rooms.find((r) => r.id === 'imperial_teahouse');
+    expect(room?.exits).toContain('censorate_street');
+  });
+
   it('all 6 chapter2 rooms exist', () => {
     const expected = [
       'east_market_entrance',

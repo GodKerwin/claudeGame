@@ -154,7 +154,7 @@
         "name": "皇城茶馆",
         "description": "皇城外一家看似普通的茶馆，雅间深处灯火昏黄。茶香中隐有肃杀气。那个你一直在追寻的白色身影，正端坐在最里间，等着你。",
         "interactables": ["evt_teahouse_ambush", "evt_li_mao_encounter", "npc_li_mao"],
-        "exits": ["pingkang_hideout"],
+        "exits": ["pingkang_hideout", "censorate_street"],
         "requires": {
           "flags": ["langpeng_trail"]
         },
@@ -203,6 +203,35 @@
             },
             "text": "〔再来夜市，气氛变了——货摊减少了一半，几个熟悉的面孔不见了。销赃掌柜收摊的动作比平时快了三倍。浪鹏帮正在撤人。〕",
             "grants": { "flags": ["rev_nightmarket_retreat_shown", "langpeng_retreating"] }
+          }
+        ]
+      },
+      {
+        "id": "censorate_street",
+        "name": "廷尉府外街",
+        "description": "廷尉府的外围街道，低矮的官署建筑排列两侧，空气中有一股陈年卷宗特有的霉味。档案外署的牌子半遮在枯藤之后，不刻意留心就会错过。",
+        "interactables": ["evt_censorate_exterior", "npc_archive_clerk"],
+        "exits": ["imperial_teahouse"],
+        "requires": { "flags": ["li_mao_background"] },
+        "talentViews": [
+          {
+            "talent": "官威",
+            "text": "〔公务直觉：廷尉府档案外署对持有公文的官员开放，但需出示品阶凭证。以你的身份进入不难——难的是，里面的档案有没有被动过手脚。〕"
+          },
+          {
+            "talent": "望气观相",
+            "text": "〔望气所感：档案外署的气场有些不对。那里积累着一种特殊的观察者气机——有人长期在此守候，等着看谁来翻这批旧档。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_censorate_after_access",
+            "requires": {
+              "flags": ["full_censorate_file_read"],
+              "flags_absent": ["rev_censorate_after_shown"]
+            },
+            "text": "〔再次经过廷尉府外街，你注意到档案室的门被关紧了，窗帘也拉上了——有人知道你来过。〕",
+            "grants": { "flags": ["rev_censorate_after_shown", "censorate_aware_of_you"] }
           }
         ]
       }

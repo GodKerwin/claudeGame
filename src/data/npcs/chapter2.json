@@ -174,6 +174,52 @@
     ]
   },
   {
+    "id": "npc_archive_clerk",
+    "name": "档案小吏",
+    "description": "廷尉府外街上的一个小吏，年约三十，面容普通，穿着整洁但不起眼。神情习惯性地警觉，见陌生人走近会微微侧身。",
+    "dialogues": [
+      {
+        "id": "clerk_first_meet",
+        "condition": null,
+        "text": "「这里是廷尉府档案外署，闲人勿近。有事去前堂递状纸。」他转过身，不再搭理你。"
+      },
+      {
+        "id": "clerk_intimidate",
+        "condition": { "talent": "官威" },
+        "text": "你亮出身份，小吏的背脊立刻挺直了。「大……大人，请进。」他侧身让路，额头微微冒汗，「您要查哪一年的档案，小的这就去取。」",
+        "grants": { "flags": ["censorate_access_granted"] }
+      },
+      {
+        "id": "clerk_qi_warning",
+        "condition": { "talent": "望气观相" },
+        "text": "你以望气之法细看，发现档案室窗口有一抹暗沉的气机——不是档案本身，是有人长期在此监视，留下了观察者特有的气场印记。这里有人在盯着某些档案，或者盯着来取档案的人。",
+        "grants": { "flags": ["surveillance_detected"] }
+      },
+      {
+        "id": "clerk_bribe",
+        "condition": { "flags_absent": ["censorate_access_granted"] },
+        "text": "你摸出几枚银锞，小吏犹豫片刻，接了过去。「我只能给你看外层档案，里面的……不在我权限之内。」他从外柜取出薄薄一叠，「只有这些了。」",
+        "grants": {
+          "flags": ["censorate_partial_access"],
+          "items": ["censorate_old_file"],
+          "clues": ["censorate_old_file"]
+        }
+      },
+      {
+        "id": "clerk_full_access",
+        "condition": { "flags": ["censorate_access_granted"] },
+        "text": "档案室内，你翻出了二十年前那批被封存的卷宗。廷尉府的追查令赫然在列，落款是当年的廷尉正——一个已故多年的名字。这不是一份遗忘的档案，是一份被刻意埋藏的档案。",
+        "grants": {
+          "flags": ["full_censorate_file_read"],
+          "items": ["censorate_old_file", "imperial_pursuit_order"],
+          "clues": ["censorate_old_file", "imperial_pursuit_order"],
+          "wisdom": 1,
+          "storyText": "〖那些被刻意遗忘的名字，此刻在你脑海中清晰起来。〗"
+        }
+      }
+    ]
+  },
+  {
     "id": "npc_nightmarket_fence",
     "name": "销赃掌柜",
     "description": "一个四十出头的男人，眼神警惕，货摊后有一道挂帘，不知藏着什么。见生人进来，手放在摊沿上，不动声色地观察。",
