@@ -653,6 +653,13 @@ export function RightPanel({ onSettings }: RightPanelProps) {
         {/* ── 脉络 ── */}
         {tab === 'lore' && (
           <div className="space-y-5">
+            {/* 整体进度 */}
+            <div className="flex items-center justify-between px-1">
+              <span className="text-ink/30 text-[10px] tracking-wider">案情脉络</span>
+              <span className={`text-[10px] tabular-nums ${timelineEntries.length === TIMELINE_FLAGS.length ? 'text-gold/70' : 'text-ink/30'}`}>
+                {timelineEntries.length}/{TIMELINE_FLAGS.length}
+              </span>
+            </div>
             {timelineEntries.length > 0 && (() => {
               const CHAPTER_LABELS: Record<1 | 2 | 3, string> = {
                 1: '第一章·旧案',
@@ -665,6 +672,11 @@ export function RightPanel({ onSettings }: RightPanelProps) {
               for (const entry of timelineEntries) {
                 groups.get(entry.chapter)!.push(entry);
               }
+              const chapterTotals: Record<1 | 2 | 3, number> = {
+                1: TIMELINE_FLAGS.filter((e) => e.chapter === 1).length,
+                2: TIMELINE_FLAGS.filter((e) => e.chapter === 2).length,
+                3: TIMELINE_FLAGS.filter((e) => e.chapter === 3).length,
+              };
               let globalIdx = 0;
               const totalCount = timelineEntries.length;
               return ([1, 2, 3] as const).map((ch) => {
@@ -674,7 +686,12 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                 globalIdx += entries.length;
                 return (
                   <div key={ch}>
-                    <DiamondDivider label={CHAPTER_LABELS[ch]} />
+                    <div className="flex items-center justify-between mb-1">
+                      <DiamondDivider label={CHAPTER_LABELS[ch]} />
+                      <span className={`text-[10px] tabular-nums shrink-0 ml-2 ${entries.length === chapterTotals[ch] ? 'text-gold/60' : 'text-ink/25'}`}>
+                        {entries.length}/{chapterTotals[ch]}
+                      </span>
+                    </div>
                     <ol className="space-y-1.5 relative pl-3">
                       <div className="absolute left-[5px] top-1 bottom-1 w-px bg-gold/10" />
                       {entries.map((entry, i) => {
