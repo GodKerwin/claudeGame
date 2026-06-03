@@ -29,6 +29,7 @@ export interface ActionGrant {
   agility?: number;
   wisdom?: number;
   constitution?: number;
+  storyText?: string;
 }
 
 export interface EventAction {

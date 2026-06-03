@@ -233,17 +233,22 @@ export function CenterPanel({
           const isNpcSpeech = text.startsWith('【') && text.includes('】');
           const isPlaceholder = text.startsWith('（') && text.endsWith('。）');
           const isPsychHint = text.startsWith('〔') && text.endsWith('〕');
+          const isGrowthText = text.startsWith('〖') && text.endsWith('〗');
           // 渐进透明：越旧的记录越淡
           const opacity = isLatest ? 'text-ink/92' : isRecent ? 'text-ink/75' : 'text-ink/45';
           const borderColor = isNpcSpeech
             ? 'border-jade/40'
             : isPsychHint
             ? 'border-gold/22'
+            : isGrowthText
+            ? 'border-gold/35'
             : isPlaceholder
             ? 'border-gold/10'
             : 'border-gold/30';
           const textClass = isPsychHint
             ? 'text-gold/38 italic text-[13px]'
+            : isGrowthText
+            ? 'text-gold/55 italic text-[12px] tracking-wide'
             : `${opacity} text-sm`;
           return (
             <div key={i} className={`border-l-2 ${borderColor} pl-3 transition-opacity duration-500`}>

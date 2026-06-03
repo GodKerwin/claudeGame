@@ -71,6 +71,7 @@ function applyGrants(
   if (grants.agility != null) player.incrementStat('agility', grants.agility);
   if (grants.wisdom != null) player.incrementStat('wisdom', grants.wisdom);
   if (grants.constitution != null) player.incrementStat('constitution', grants.constitution);
+  if (grants.storyText) scene.addStoryText(grants.storyText);
 }
 
 interface PendingChoices {
@@ -189,7 +190,7 @@ export default function Game() {
         }
         scene.addStoryText(rev.text);
         audioEngine.playSFX('hint');
-        rev.grants?.flags?.forEach((f) => scene.addFlag(f));
+        applyGrants(rev.grants, scene, addItem, removeItem, player);
       }
     }
   }, [scene.currentRoomId, ctx]); // eslint-disable-line
