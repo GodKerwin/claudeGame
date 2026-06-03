@@ -25,7 +25,7 @@ export function GameLayout({ left, center, right }: Props) {
     <div className="flex h-screen w-screen bg-paper text-ink font-serif overflow-hidden select-none">
       {/* Desktop: 三栏布局 (≥1024px) */}
       <div className="hidden lg:flex w-full h-full">
-        <CornerFrame size="sm" className="w-44 shrink-0 panel border-r border-gold/15 flex flex-col overflow-hidden">
+        <CornerFrame size="sm" className="w-56 shrink-0 panel border-r border-gold/15 flex flex-col overflow-hidden">
           {left}
         </CornerFrame>
         <div className="flex-1 flex flex-col overflow-hidden border-r border-gold/10">
