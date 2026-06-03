@@ -6,9 +6,29 @@ describe('chapter2 map and item integrity', () => {
   const allRoomIds = new Set(ch2Map?.rooms.map((r) => r.id) ?? []);
   const allItemIds = new Set(ITEMS.map((i) => i.id));
 
-  it('chapter2 map exists with 6 rooms', () => {
+  it('chapter2 map exists with correct room count', () => {
     expect(ch2Map, 'chapter2 map missing').toBeDefined();
-    expect(ch2Map?.rooms.length).toBe(6);
+    expect(ch2Map?.rooms.length).toBeGreaterThanOrEqual(7);
+  });
+
+  it('yongning_nightmarket room exists with correct structure', () => {
+    const room = ch2Map?.rooms.find((r) => r.id === 'yongning_nightmarket');
+    expect(room, 'yongning_nightmarket missing').toBeDefined();
+    expect(room?.requires?.flags).toContain('langpeng_discovered');
+    expect(room?.exits).toContain('east_market_entrance');
+    expect(room?.revisitEvents?.length).toBeGreaterThanOrEqual(1);
+  });
+
+  it('nightmarket items exist', () => {
+    const ids = ['nightmarket_ledger', 'concealed_dagger', 'black_channel_intel'];
+    for (const id of ids) {
+      expect(allItemIds.has(id), `missing item: ${id}`).toBe(true);
+    }
+  });
+
+  it('east_market_entrance exits include yongning_nightmarket', () => {
+    const room = ch2Map?.rooms.find((r) => r.id === 'east_market_entrance');
+    expect(room?.exits).toContain('yongning_nightmarket');
   });
 
   it('all 6 chapter2 rooms exist', () => {

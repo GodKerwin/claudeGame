@@ -172,5 +172,49 @@
         "grants": { "flags": ["owner_told_truth"], "items": ["owner_testimony"] }
       }
     ]
+  },
+  {
+    "id": "npc_nightmarket_fence",
+    "name": "销赃掌柜",
+    "description": "一个四十出头的男人，眼神警惕，货摊后有一道挂帘，不知藏着什么。见生人进来，手放在摊沿上，不动声色地观察。",
+    "dialogues": [
+      {
+        "id": "fence_first_meet",
+        "condition": null,
+        "text": "这里不接待不认识的人。你走错地方了。"
+      },
+      {
+        "id": "fence_thief_open",
+        "condition": { "talent": "三教九流" },
+        "text": "你低声说出一句接头用语，掌柜的眼神变了。「自己人？……行，你想知道什么。」他往四周扫了一眼，压低声音，「问吧，但别太久。」",
+        "grants": { "flags": ["fence_talk_opened"] }
+      },
+      {
+        "id": "fence_extortion_open",
+        "condition": { "has": ["extortion_note"] },
+        "text": "你将勒索纸条递过去，掌柜看了一眼，神情微变。「这是浪鹏帮的字迹……你从哪里弄来的？」他顿了顿，「罢了，你既然能拿到这个，不是普通人。说吧，想知道什么。」",
+        "grants": { "flags": ["fence_talk_opened"] }
+      },
+      {
+        "id": "fence_ledger_trade",
+        "condition": { "flags": ["fence_talk_opened"] },
+        "text": "「浪鹏帮最近销赃的东西里，有几块玉令——天机阁的信物，我认得。买家每次都是同一个中间人来，落款都是个「李」字。」他从帘后取出一本册子，「这个你拿去，我不想留着。」",
+        "grants": {
+          "flags": ["nightmarket_ledger_obtained"],
+          "items": ["nightmarket_ledger"],
+          "clues": ["nightmarket_ledger"]
+        }
+      },
+      {
+        "id": "fence_black_channel",
+        "condition": { "talent": "三教九流", "flags": ["nightmarket_ledger_obtained"] },
+        "text": "掌柜压低声音：「告诉你个更大的事。那个「李」字买家，不只雇了浪鹏帮。据我所知，他在城里还有几条互不相知的线——每条线都只知道自己那一段，不知道全局。这种布置，不是普通官员能想出来的。」",
+        "grants": {
+          "flags": ["black_channel_intel_obtained"],
+          "items": ["black_channel_intel"],
+          "clues": ["black_channel_intel"]
+        }
+      }
+    ]
   }
 ]

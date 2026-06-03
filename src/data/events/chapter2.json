@@ -514,5 +514,54 @@
         "grants": { "flags": ["prisoner_healed", "prisoner_grateful", "prisoner_interrogated"], "clues": ["langpeng_hideout_intel"], "items": ["second_killer_evidence"] }
       }
     ]
+  },
+  {
+    "id": "evt_nightmarket_tail",
+    "title": "永宁坊夜市入口",
+    "description": "坊间一条不起眼的窄巷，傍晚才有人影进出。你循着浪鹏帮探子的去向追来，巷口有人把守，并不对外人开放。",
+    "actions": [
+      {
+        "id": "tail_default",
+        "label": "贴墙跟进，混入人群",
+        "requires": null,
+        "result": "你趁把守的人转身，混入一批进来的货商，成功进入夜市。销赃掌柜正在整理货架，见你进来，眯起眼打量。",
+        "grants": { "flags": ["fence_talk_opened"] }
+      },
+      {
+        "id": "tail_precise",
+        "label": "精准尾随探子，不被察觉",
+        "requires": { "agility": 7 },
+        "result": "你以极精准的步伐跟在探子身后，连他的影子都没有察觉。进入夜市后，探子向掌柜说了什么，掌柜抬头看向你，竟主动点了头——你的身手，让他认为你是自己人。",
+        "grants": {
+          "flags": ["fence_talk_opened", "agility_growth_nightmarket"],
+          "agility": 1,
+          "storyText": "〖暗处跟人，靠的不是速度，是对方的节奏。你已学会听那个节奏。〗"
+        }
+      },
+      {
+        "id": "tail_intel",
+        "label": "以探子供词为依据，直接亮明来意",
+        "requires": { "has": ["langpeng_hideout_intel"] },
+        "result": "你将探子供词递给把守，他认出了浪鹏帮内部的字迹格式，侧身让路。掌柜见你拿着这个进来，沉默片刻后说：「进来吧。」",
+        "grants": { "flags": ["fence_talk_opened"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_nightmarket_goods",
+    "title": "夜市货摊",
+    "description": "摊子上摆着各色不便言说的货物。短刃、染血绸布、封蜡信件……每一样都有来历，每一样都不太干净。",
+    "actions": [
+      {
+        "id": "buy_dagger",
+        "label": "购入袖中短刃",
+        "requires": { "talent": "三教九流", "flags_absent": ["has_concealed_dagger"] },
+        "result": "掌柜从帘后取出一柄包裹严实的短刃，递给你，没有多说话。这种东西，懂的人自然懂。",
+        "grants": {
+          "items": ["concealed_dagger"],
+          "flags": ["has_concealed_dagger"]
+        }
+      }
+    ]
   }
 ]

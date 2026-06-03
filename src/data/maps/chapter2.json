@@ -8,7 +8,7 @@
         "name": "东市入口",
         "description": "晨雾未散，东市外的长街已经嘈杂起来。货车辚辚，叫卖声此起彼伏，却有一种与往常不同的紧张气息在人群中流淌。官府的悬赏令贴在坊墙上，白纸黑字，触目惊心。",
         "interactables": ["evt_market_notice", "evt_merchant_gossip", "evt_bounty_investigation"],
-        "exits": ["huichuntang", "antique_shop", "cien_temple"],
+        "exits": ["huichuntang", "antique_shop", "cien_temple", "yongning_nightmarket"],
         "requires": null,
         "talentViews": [
           {
@@ -178,6 +178,31 @@
             "requires": { "flags": ["langpeng_trail"], "flags_absent": ["rev_teahouse_watchers_shown"] },
             "text": "〔茶馆里的茶客换了几张脸，但那种不动声色的观察没有换——李邈的人，还在。他知道你来了，也知道你带着什么来的。这一趟不是谈判，是一场两边都在等的棋局终盘。〕",
             "grants": { "flags": ["rev_teahouse_watchers_shown"] }
+          }
+        ]
+      },
+      {
+        "id": "yongning_nightmarket",
+        "name": "永宁坊夜市",
+        "description": "坊间深处一条灯火昏黄的窄巷，夜色遮住了货物的真实面目。销赃、换信、买消息——这里的交易没有白纸黑字，只有眼神和分寸。",
+        "interactables": ["evt_nightmarket_tail", "evt_nightmarket_goods", "npc_nightmarket_fence"],
+        "exits": ["east_market_entrance"],
+        "requires": { "flags": ["langpeng_discovered"] },
+        "talentViews": [
+          {
+            "talent": "三教九流",
+            "text": "〔江湖本能：夜市里有三类人——卖东西的、买东西的、盯着前两类人的。你一眼扫过去，已经数出了两个盯梢的。他们不是为你来的，是在等另一个人。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_nightmarket_langpeng_retreat",
+            "requires": {
+              "flags": ["langpeng_trail"],
+              "flags_absent": ["rev_nightmarket_retreat_shown"]
+            },
+            "text": "〔再来夜市，气氛变了——货摊减少了一半，几个熟悉的面孔不见了。销赃掌柜收摊的动作比平时快了三倍。浪鹏帮正在撤人。〕",
+            "grants": { "flags": ["rev_nightmarket_retreat_shown", "langpeng_retreating"] }
           }
         ]
       }

@@ -76,5 +76,23 @@
     "name": "老板娘证词",
     "description": "回春堂老板娘在追问下透露的话：无迹和尚在此坐诊并非偶然，是有人安排他在此地保持低调，这个安排来自十年前，出自一个她从未见过正脸的委托人。",
     "isClue": true
+  },
+  {
+    "id": "nightmarket_ledger",
+    "name": "夜市暗账",
+    "description": "浪鹏帮近期销赃记录，其中出现天机令牌数次易手的流转痕迹，最终买家以「李」字落款。",
+    "isClue": true
+  },
+  {
+    "id": "concealed_dagger",
+    "name": "袖中短刃",
+    "description": "制作精良的隐藏短刃，可藏于袖中不露形迹。出自惯走江湖之人的手艺。",
+    "isClue": false
+  },
+  {
+    "id": "black_channel_intel",
+    "name": "黑道内幕",
+    "description": "销赃掌柜透露的消息：李邈背后有更大的委托人，那个人不止雇用浪鹏帮，还在长安城内布置了多条互不相知的线。",
+    "isClue": true
   }
 ]
