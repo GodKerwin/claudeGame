@@ -110,6 +110,7 @@ export default function Game() {
     parseInt(sessionStorage.getItem('tianji-intro-shown') ?? '1', 10)
   );
   const [pendingInterrogation, setPendingInterrogation] = useState<PendingInterrogation | null>(null);
+  const [endingPending, setEndingPending] = useState(false);
   const processingRef = useRef(false);
   const prevRoomRef = useRef<string | null>(null);
   const shownTalentViewsRef = useRef<Set<string>>(new Set());
@@ -120,11 +121,12 @@ export default function Game() {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      if (endingPending) { navigate('/chapter-end'); return; }
       if (e.key === 'Escape' && modal === null) setModal('settings');
     };
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
-  }, [modal]);
+  }, [modal, endingPending, navigate]);
 
   useEffect(() => {
     const inChapter3 = scene.flags.includes('chapter3_started');
@@ -132,9 +134,9 @@ export default function Game() {
     const endings = inChapter3 ? CHAPTER3_ENDINGS : inChapter2 ? CHAPTER2_ENDINGS : CHAPTER1_ENDINGS;
     if (endings.some((f) => scene.flags.includes(f))) {
       audioEngine.playSFX('chapter');
-      setTimeout(() => navigate('/chapter-end'), 1200);
+      setEndingPending(true);
     }
-  }, [scene.flags, navigate]);
+  }, [scene.flags]);
 
   useEffect(() => {
     if (!player.name) {
@@ -446,6 +448,17 @@ export default function Game() {
       )}
       {(modal === 'save' || modal === 'load') && (
         <SaveLoadModal mode={modal} onClose={() => setModal(null)} />
+      )}
+
+      {endingPending && (
+        <div
+          className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 cursor-pointer select-none"
+          onClick={() => navigate('/chapter-end')}
+        >
+          <div className="w-16 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent)' }} />
+          <p className="text-gold/70 text-[13px] tracking-[0.35em]">查看结局</p>
+          <p className="text-ink/28 text-[10px] tracking-[0.2em]">点击或按任意键继续</p>
+        </div>
       )}
 
       {showChapterIntro && (

@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSceneStore } from '../../store/sceneStore';
 import { getItem } from '../../data/loader';
@@ -141,12 +141,18 @@ export default function ChapterEnd() {
   useEffect(() => {
     if (visibleCount === 0) return;
     if (visibleCount < lines.length) {
-      const t = setTimeout(() => setVisibleCount((c) => c + 1), 1800);
+      const t = setTimeout(() => setVisibleCount((c) => c + 1), 1100);
       return () => clearTimeout(t);
     }
-    const t = setTimeout(() => setShowButton(true), 600);
+    const t = setTimeout(() => setShowButton(true), 400);
     return () => clearTimeout(t);
   }, [visibleCount, lines.length]);
+
+  const handleSkip = useCallback(() => {
+    setSealVisible(true);
+    setVisibleCount(lines.length);
+    setShowButton(true);
+  }, [lines.length]);
 
   const handleContinue = () => {
     if (isChapter3) {
@@ -168,6 +174,16 @@ export default function ChapterEnd() {
   return (
     <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center justify-center px-8 py-16 relative overflow-hidden">
       <MountainBackground opacity={0.7} />
+
+      {/* 跳过按钮 */}
+      {!showButton && (
+        <button
+          onClick={handleSkip}
+          className="fixed top-6 right-8 z-20 text-ink/30 hover:text-ink/65 text-[11px] tracking-[0.25em] cursor-pointer transition-colors"
+        >
+          跳过 ›
+        </button>
+      )}
 
       {/* 结局氛围色调叠层 */}
       {endingStyle && (
