@@ -91,10 +91,12 @@ export function LeftPanel({ onNavigate }: Props) {
 
   const { nodes, edges, viewBoxHeight } = layout;
 
-  const getNodeState = (id: string): 'current' | 'available' | 'visited' | 'locked' | 'other' => {
+  // 'exit_visited' = 是当前出口 + 曾访问（可导航）
+  // 'visited'      = 曾访问但不是当前出口（历史足迹，不可点击）
+  const getNodeState = (id: string): 'current' | 'available' | 'exit_visited' | 'visited' | 'locked' | 'other' => {
     if (id === currentRoomId) return 'current';
     if (lockedRoomIds.has(id)) return 'locked';
-    if (availableExitIds.has(id)) return visitedSet.has(id) ? 'visited' : 'available';
+    if (availableExitIds.has(id)) return visitedSet.has(id) ? 'exit_visited' : 'available';
     if (visitedSet.has(id)) return 'visited';
     return 'other';
   };
@@ -163,20 +165,24 @@ export function LeftPanel({ onNavigate }: Props) {
 
             {/* Nodes */}
             {nodes.map((node) => {
-              const state = getNodeState(node.id);
-              const isClickable = state === 'available' || state === 'visited' || state === 'locked';
-              const isLocked    = state === 'locked';
-              const isCurrent   = state === 'current';
-              const isVisited   = state === 'visited';
-              const isShowingMsg = lockMsg?.id === node.id;
+              const state       = getNodeState(node.id);
+              const isLocked       = state === 'locked';
+              const isCurrent      = state === 'current';
+              const isAvailable    = state === 'available';
+              const isExitVisited  = state === 'exit_visited'; // 出口 + 已访问
+              const isHistoryOnly  = state === 'visited';      // 历史足迹，非出口
+              const isClickable    = isAvailable || isExitVisited || isLocked;
+              const isShowingMsg   = lockMsg?.id === node.id;
 
               const stroke = isCurrent
                 ? 'rgba(201,168,76,0.70)'
                 : isLocked
                   ? 'rgba(255,255,255,0.12)'
-                  : isVisited
-                    ? 'rgba(201,168,76,0.22)'
-                    : 'rgba(201,168,76,0.38)';
+                  : isExitVisited
+                    ? 'rgba(201,168,76,0.35)'   // 出口已访问：比普通出口稍暗但比历史清晰
+                    : isHistoryOnly
+                      ? 'rgba(201,168,76,0.10)' // 历史足迹：几乎不可见
+                      : 'rgba(201,168,76,0.38)';
 
               const fill = isCurrent
                 ? 'rgba(201,168,76,0.14)'
@@ -188,9 +194,17 @@ export function LeftPanel({ onNavigate }: Props) {
                 ? 'rgba(201,168,76,0.95)'
                 : isLocked
                   ? 'rgba(255,255,255,0.18)'
-                  : isVisited
-                    ? 'rgba(230,210,150,0.45)'
-                    : 'rgba(230,210,150,0.80)';
+                  : isExitVisited
+                    ? 'rgba(230,210,150,0.65)' // 可回退，较亮
+                    : isHistoryOnly
+                      ? 'rgba(230,210,150,0.20)' // 历史足迹，极暗
+                      : 'rgba(230,210,150,0.80)';
+
+              const label = isCurrent
+                ? `● ${node.label}`
+                : isExitVisited
+                  ? `↩ ${node.label}` // 明确提示可返回/导航
+                  : node.label;
 
               return (
                 <g
@@ -231,7 +245,7 @@ export function LeftPanel({ onNavigate }: Props) {
                       fontSize="9"
                       fontFamily="serif"
                     >
-                      {isCurrent ? `● ${node.label}` : isVisited ? `${node.label} ·` : node.label}
+                      {label}
                     </text>
                   </g>
                 </g>
