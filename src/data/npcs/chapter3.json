@@ -232,5 +232,50 @@
         "grants": { "flags": ["novice_scroll_wonder_shown"] }
       }
     ]
+  },
+  {
+    "id": "npc_leyou_wanderer",
+    "name": "过路隐者",
+    "description": "一个头发花白的老人，正在高地上远望长安。见你走来，转身看了你一眼，什么也没说。",
+    "dialogues": [
+      {
+        "id": "wanderer_brief",
+        "condition": null,
+        "text": "老人看了你一眼，轻声说了一句话：「走到这里的人，都是因为看见了什么，又放不下。」他转身离去，很快消失在高地另一侧的林间。此后无论你再来几次，这里都只剩下风声。",
+        "grants": { "flags": ["leyou_wanderer_met"] }
+      }
+    ]
+  },
+  {
+    "id": "npc_censorate_senior",
+    "name": "廷尉主事",
+    "description": "一个五十出头的官员，头发花白，神情老练，说话前总要停一停，好像在考量每一个字的分量。",
+    "dialogues": [
+      {
+        "id": "senior_first_meet",
+        "condition": null,
+        "text": "「你带来了什么？」他没有寒暄，直接看向你手中。「这种地方，没有证据的人来了也没用。」"
+      },
+      {
+        "id": "senior_official_channel",
+        "condition": { "talent": "官威" },
+        "text": "你将身份与证据一并呈上。廷尉主事沉默地翻看，没有表情，但你注意到他翻到追查令副本时，手微微停了一下。\n\n「这件事，」他合上卷宗，「我会亲自过问。你放心，此案绝不会再被压下。」\n\n他亲手写下收案凭证，盖上私印。",
+        "grants": {
+          "flags": ["case_officially_reopened"],
+          "items": ["case_reopened_receipt"],
+          "clues": ["case_reopened_receipt"]
+        }
+      },
+      {
+        "id": "senior_submit",
+        "condition": { "flags_absent": ["case_officially_reopened"] },
+        "text": "你通过中间人递交了材料。廷尉主事看完，沉吟片刻，发给你一张收案凭证。「材料已收，按程序走。」\n\n他没有承诺更多，但凭证上的印章是真的。案子进了官方程序，接下来会怎样，不在你的掌控之内了。",
+        "grants": {
+          "flags": ["case_officially_reopened"],
+          "items": ["case_reopened_receipt"],
+          "clues": ["case_reopened_receipt"]
+        }
+      }
+    ]
   }
 ]

@@ -383,5 +383,145 @@
         "grants": { "flags": ["pavilion_final_moment"] }
       }
     ]
+  },
+  {
+    "id": "evt_stone_inscription",
+    "title": "乐游原石碑",
+    "description": "一块不起眼的石碑，半藏在枯草后。苔痕掩去了大半，凑近才能辨认字迹。只有一句话，字体苍劲，是一个习惯独自承担事情的人写出来的字。",
+    "actions": [
+      {
+        "id": "copy_inscription",
+        "label": "拓印碑文",
+        "requires": { "flags_absent": ["leyou_inscription_obtained"] },
+        "result": "「吾辈所护，非权非财，乃不该死之人。」你将这句话拓印下来，收好。站在高地上，长安城在眼前展开，你第一次感到自己看见了这件事的全貌——不是一桩命案，是一代人的选择。",
+        "grants": {
+          "flags": ["leyou_inscription_obtained"],
+          "items": ["leyou_inscription"],
+          "clues": ["leyou_inscription"],
+          "wisdom": 1,
+          "storyText": "〖站在高处，你第一次看见了这件事的全貌——不是一桩命案，是一代人的选择。〗"
+        }
+      },
+      {
+        "id": "qi_observation",
+        "label": "以望气之法感应高地气场",
+        "requires": { "talent": "望气观相" },
+        "result": "你以道家望气之法俯瞰长安，感知到城中气机的流动。绝大部分是日常生息之气，但有一处异常——廷尉府方向有一团沉厚的观察者气机，像是有什么事长期被人压着，无法散去。",
+        "grants": {
+          "items": ["leyou_vista_note"],
+          "clues": ["leyou_vista_note"],
+          "flags": ["leyou_qi_observed"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "evt_leyou_overlook",
+    "title": "俯瞰长安",
+    "description": "从乐游原高地向下望去，长安城的格局清晰可辨：朱雀大街笔直延伸，坊市整齐，皇城居北。一切都显得有条不紊，但你知道，那些街道之下，藏着多少无人知晓的事。",
+    "actions": [
+      {
+        "id": "observe_city",
+        "label": "静静俯瞰",
+        "requires": null,
+        "result": "你在高地上站了很久，什么也没做，只是看。有些事情，需要这样的距离才能看清楚。",
+        "grants": { "flags": ["leyou_overlooked"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_censorate_outer_approach",
+    "title": "廷尉府外院",
+    "description": "廷尉府外院，比第二章见过的外街更深入一些。守卫有序，气氛肃穆。你到这里是来提交证据的——这一步走出去，就再也退不回来了。",
+    "actions": [
+      {
+        "id": "prepare_submission",
+        "label": "整理手中证据，准备提交",
+        "requires": { "has": ["tianji_founding_scroll"] },
+        "result": "你将天机创立卷和手中所有相关证据整理好。这一份证据，足以让二十年前的旧案重见天日。提交之后，名单上的人不必再躲了——但你也会进入廷尉府的视野。",
+        "grants": { "flags": ["ready_to_submit"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_censorate_ambush",
+    "title": "廷尉府附近遭遇跟踪",
+    "description": "离开廷尉府时，你察觉到有人跟在身后。脚步轻，跟得稳，是受过训练的人。",
+    "actions": [
+      {
+        "id": "evade_tail",
+        "label": "甩脱跟踪",
+        "requires": { "constitution": 7 },
+        "result": "你察觉到那双眼睛的瞬间，身体已经先于思维做出了反应。几个转角之后，身后没有了动静。你全身而退，没有留下任何破绽。",
+        "grants": {
+          "flags": ["tail_evaded"],
+          "constitution": 1,
+          "storyText": "〖你察觉到那双眼睛的瞬间，身体已经先于思维做出了反应。〗"
+        }
+      },
+      {
+        "id": "evade_agile",
+        "label": "以敏捷身法甩脱",
+        "requires": { "agility": 7 },
+        "result": "你以灵活的步法在人流中穿行，那个跟踪者找不到你的踪迹，只能放弃。你全身而退。",
+        "grants": {
+          "flags": ["tail_evaded"],
+          "constitution": 1,
+          "storyText": "〖你察觉到那双眼睛的瞬间，身体已经先于思维做出了反应。〗"
+        }
+      },
+      {
+        "id": "detour",
+        "label": "迂回绕路，耗掉对方",
+        "requires": null,
+        "result": "你在长安城里走了一个大圈，对方虽然没有放弃，但最终失去了耐心。你全身而退，但付出了时间代价——有些事，可能因此比预期晚了一步。",
+        "grants": { "flags": ["tail_noticed", "tail_evaded_slow"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_fei_ye_letter_found",
+    "title": "书桌底部的信",
+    "description": "旧宅书桌的最底层抽屉，有一个被压在最底下的纸封。封口的蜡已经干裂，但信纸保存完好。收信人的名字，是「韩朔」——无迹和尚从前的名字。",
+    "actions": [
+      {
+        "id": "read_letter",
+        "label": "取出阅读",
+        "requires": { "flags_absent": ["fei_ye_letter_ch3_found"] },
+        "result": "「若你看到此信，说明我已不在，名单交予来人。」只有这一句话。你站在旧宅的寂静中，忽然明白了飞爷为什么二十年来从不解释任何事——他从一开始就知道，解释的机会不一定会来。他只是把事情安排好，然后等待。\n\n二十年。他一直在等一个足够聪明的人，走到这里来。",
+        "grants": {
+          "flags": ["fei_ye_letter_ch3_found"],
+          "items": ["fei_ye_letter_ch3"],
+          "clues": ["fei_ye_letter_ch3"],
+          "wisdom": 1,
+          "storyText": "〖二十年。他一直在等一个足够聪明的人，走到这里来。〗"
+        }
+      },
+      {
+        "id": "qi_read_ruins",
+        "label": "以望气之法感知旧宅气场",
+        "requires": { "talent": "望气观相" },
+        "result": "你以望气之法静立，感知旧宅留存的气机。砖缝之间，有一种二十年前聚集的决定之气——不是危险，是一群人在这里做了某件事，带着沉重与坚定。他们知道自己在做什么，也知道可能的代价。",
+        "grants": {
+          "items": ["old_mansion_revisit_clue"],
+          "clues": ["old_mansion_revisit_clue"],
+          "flags": ["ruins_qi_read"]
+        }
+      }
+    ]
+  },
+  {
+    "id": "evt_ruins_atmosphere",
+    "title": "废弃宅院·故地",
+    "description": "你上一次来这里，还不知道「鸢」是谁，不知道天机阁的全貌，不知道飞爷的名字。如今再看这幅景象——荒草、朱漆大门、那块匾额——一切都带上了不同的分量。",
+    "actions": [
+      {
+        "id": "stand_quietly",
+        "label": "在此默立片刻",
+        "requires": null,
+        "result": "你站在院子中间，什么也不做。有些时候，安静本身就是最好的回答。",
+        "grants": { "flags": ["ruins_stood_quietly"] }
+      }
+    ]
   }
 ]

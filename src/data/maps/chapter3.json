@@ -38,7 +38,7 @@
         "name": "天机安宅",
         "description": "长安城一条不显眼的巷子深处，门面是寻常茶水铺。推开后门，里面却是另一番光景——墙上挂着长安城的堪舆图，密密麻麻标注着数十个点位。一个面容模糊的人坐在图前，听到你进来，缓缓转过身。",
         "interactables": ["evt_mission_orders", "evt_safehouse_wall", "npc_tianji_contact", "evt_ch3_wisdom_growth"],
-        "exits": ["feiyes_manor"],
+        "exits": ["feiyes_manor", "censorate_outer"],
         "requires": null,
         "talentViews": [
           {
@@ -68,7 +68,7 @@
         "name": "飞爷故居",
         "description": "院落年久失修，砖缝间长着枯草。正门虽关，却未上锁。屋内陈设简朴，灰尘积了薄薄一层，但有些东西被人动过——桌上的茶杯，书架上的空格，像是有人不久前来过，又刻意抹去了痕迹。",
         "interactables": ["evt_abandoned_room", "evt_portrait_wall", "npc_wujue", "evt_hidden_letter"],
-        "exits": ["dayan_pagoda", "tianji_safehouse", "qujiang_pavilion"],
+        "exits": ["dayan_pagoda", "tianji_safehouse", "qujiang_pavilion", "leyou_plain", "tianji_ruins_ch3"],
         "requires": null,
         "talentViews": [
           {
@@ -120,6 +120,85 @@
             "requires": { "flags": ["fei_ye_identity_confirmed"], "flags_absent": ["rev_qujiang_stillness_shown"] },
             "text": "〔曲江池的水还在，亭中的人还在等——他知道你还没做最终的决定。风从水面吹过来，有一种奇异的平静，像是所有的追查、所有的谎言，在这里都停住了，等着最后一句话落地。〕",
             "grants": { "flags": ["rev_qujiang_stillness_shown"] }
+          }
+        ]
+      },
+      {
+        "id": "leyou_plain",
+        "name": "乐游原",
+        "description": "长安城东南的高地，视野开阔，可俯瞰全城。春秋时节常有文人登临，如今却少有人来。高地一角，有一块被枯草半掩的石碑，若不是刻意走近，很难发现。",
+        "interactables": ["evt_stone_inscription", "evt_leyou_overlook", "npc_leyou_wanderer"],
+        "exits": ["feiyes_manor"],
+        "requires": null,
+        "talentViews": [
+          {
+            "talent": "望气观相",
+            "text": "〔望气感知：乐游原的气场轻盈，是一种历经沉淀的静气。这里曾有人在此久坐，带着一种「已经放下了一切」的气质。他来这里，是来告别的。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_leyou_after_truth",
+            "requires": {
+              "flags": ["wujue_accident_truth_known"],
+              "flags_absent": ["rev_leyou_after_truth_shown"]
+            },
+            "text": "〔再来高地，风依然，碑依然。你想起无迹说的那句话：「那个人，至今还在长安。」碑文和这句话叠在一起，有一种令人不安的清晰。〕",
+            "grants": { "flags": ["rev_leyou_after_truth_shown"] }
+          }
+        ]
+      },
+      {
+        "id": "censorate_outer",
+        "name": "廷尉府外院",
+        "description": "廷尉府的外院，比外街更深入，更安静，空气里有一种肃穆的压迫感。这里每天走进来的人，都带着某种必须解决的问题。你今天来的理由，比大多数人的都更沉重。",
+        "interactables": ["evt_censorate_outer_approach", "evt_censorate_ambush", "npc_censorate_senior"],
+        "exits": ["tianji_safehouse"],
+        "requires": { "flags": ["chapter3_truth_path"] },
+        "talentViews": [
+          {
+            "talent": "官威",
+            "text": "〔公务直觉：廷尉主事是个老狐狸，但不是坏人。他知道有些事被压了多年，只是一直在等一个足够有分量的人来推它一把。今天，那个人是你。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_censorate_outer_after",
+            "requires": {
+              "flags": ["case_officially_reopened"],
+              "flags_absent": ["rev_censorate_outer_after_shown"]
+            },
+            "text": "〔再来廷尉府外院，守卫的眼神变了——他们认出你了。案子进了官方程序，这意味着你在某些人的名单上，也会变得更显眼。〕",
+            "grants": { "flags": ["rev_censorate_outer_after_shown"] }
+          }
+        ]
+      },
+      {
+        "id": "tianji_ruins_ch3",
+        "name": "天机旧宅·故地",
+        "description": "你第一次来这里时，这里是一条线索的终点。如今再来，带着三章以来所有的答案，这里变成了另一种东西——一个人的心愿的落脚处。荒草依然，青砖依然，「天机阁」三字依然在尘埃下若隐若现。",
+        "interactables": ["evt_fei_ye_letter_found", "evt_ruins_atmosphere"],
+        "exits": ["feiyes_manor"],
+        "requires": { "flags": ["fei_ye_identity_confirmed"] },
+        "talentViews": [
+          {
+            "talent": "望气观相",
+            "text": "〔望气感知：旧宅的气场与二十年前有人在此做重大决定时留下的印记高度吻合。这里不只是一座废弃的建筑，它是一个承诺的物质外壳。那个承诺，至今未散。〕"
+          },
+          {
+            "talent": "耳报神",
+            "text": "〔往昔回响：这种地方，说书人最懂——每一块砖都记着事，只要你懂得听。你在这里感到一种奇特的安静，像是所有该说的话，都已经说完了。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_ruins_after_ending",
+            "requires": {
+              "flags": ["fei_ye_letter_ch3_found", "fei_ye_upper_truth_known"],
+              "flags_absent": ["rev_ruins_full_circle_shown"]
+            },
+            "text": "〔带着飞爷信件和他最后的秘密，再次站在这里，你感到某种完整——不是答案都有了，而是该知道的事你已经知道了，该做的事你正在做。那种感觉，叫做「够了」。〕",
+            "grants": { "flags": ["rev_ruins_full_circle_shown"] }
           }
         ]
       }

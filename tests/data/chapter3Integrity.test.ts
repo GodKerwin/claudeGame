@@ -6,9 +6,9 @@ describe('chapter3 map and item integrity', () => {
   const allRoomIds = new Set(ch3Map?.rooms.map((r) => r.id) ?? []);
   const allItemIds = new Set(ITEMS.map((i) => i.id));
 
-  it('chapter3 map exists with 4 rooms', () => {
+  it('chapter3 map exists with 7 rooms', () => {
     expect(ch3Map, 'chapter3 map missing').toBeDefined();
-    expect(ch3Map?.rooms.length).toBe(4);
+    expect(ch3Map?.rooms.length).toBe(7);
   });
 
   it('all 4 chapter3 rooms exist', () => {
@@ -306,5 +306,74 @@ describe('chapter3 npc integrity', () => {
       e.actions.some((a) => a.grants?.flags?.includes('chapter3_truth_path'))
     );
     expect(truthPathEvent, 'no event grants chapter3_truth_path flag').toBeDefined();
+  });
+
+  it('leyou_plain room exists with correct exits', () => {
+    const ch3Map = MAPS.find((m) => m.id === 'chapter3');
+    const room = ch3Map?.rooms.find((r) => r.id === 'leyou_plain');
+    expect(room, 'leyou_plain missing').toBeDefined();
+    expect(room?.exits).toContain('feiyes_manor');
+  });
+
+  it('leyou_plain items exist', () => {
+    const ids = ['leyou_inscription', 'leyou_vista_note'];
+    for (const id of ids) {
+      expect(allItemIds.has(id), `missing item: ${id}`).toBe(true);
+    }
+  });
+
+  it('leyou_plain has wisdom growth action', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_stone_inscription');
+    expect(evt, 'evt_stone_inscription missing').toBeDefined();
+    const growthAction = evt?.actions.find((a) => a.grants?.wisdom === 1);
+    expect(growthAction, 'wisdom growth action missing in leyou').toBeDefined();
+  });
+
+  it('feiyes_manor exits include leyou_plain and tianji_ruins_ch3', () => {
+    const ch3Map = MAPS.find((m) => m.id === 'chapter3');
+    const room = ch3Map?.rooms.find((r) => r.id === 'feiyes_manor');
+    expect(room?.exits).toContain('leyou_plain');
+    expect(room?.exits).toContain('tianji_ruins_ch3');
+  });
+
+  it('censorate_outer room exists behind truth_path flag', () => {
+    const ch3Map = MAPS.find((m) => m.id === 'chapter3');
+    const room = ch3Map?.rooms.find((r) => r.id === 'censorate_outer');
+    expect(room, 'censorate_outer missing').toBeDefined();
+    expect(room?.requires?.flags).toContain('chapter3_truth_path');
+    expect(room?.exits).toContain('tianji_safehouse');
+  });
+
+  it('censorate_outer items exist', () => {
+    expect(allItemIds.has('case_reopened_receipt')).toBe(true);
+  });
+
+  it('censorate_outer has constitution growth action', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_censorate_ambush');
+    expect(evt, 'evt_censorate_ambush missing').toBeDefined();
+    const growthAction = evt?.actions.find((a) => a.grants?.constitution === 1);
+    expect(growthAction, 'constitution growth action missing').toBeDefined();
+  });
+
+  it('tianji_ruins_ch3 room exists behind identity_confirmed flag', () => {
+    const ch3Map = MAPS.find((m) => m.id === 'chapter3');
+    const room = ch3Map?.rooms.find((r) => r.id === 'tianji_ruins_ch3');
+    expect(room, 'tianji_ruins_ch3 missing').toBeDefined();
+    expect(room?.requires?.flags).toContain('fei_ye_identity_confirmed');
+    expect(room?.exits).toContain('feiyes_manor');
+  });
+
+  it('tianji_ruins_ch3 items exist', () => {
+    const ids = ['fei_ye_letter_ch3', 'old_mansion_revisit_clue'];
+    for (const id of ids) {
+      expect(allItemIds.has(id), `missing item: ${id}`).toBe(true);
+    }
+  });
+
+  it('tianji_ruins_ch3 has wisdom growth event', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_fei_ye_letter_found');
+    expect(evt, 'evt_fei_ye_letter_found missing').toBeDefined();
+    const growthAction = evt?.actions.find((a) => a.grants?.wisdom === 1);
+    expect(growthAction, 'wisdom growth action missing in ruins').toBeDefined();
   });
 });
