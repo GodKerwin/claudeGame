@@ -129,6 +129,20 @@ export function LeftPanel({ onNavigate }: Props) {
             viewBox={`0 0 156 ${viewBoxHeight}`}
             style={{ overflow: 'visible' }}
           >
+            {/* ClipPaths for node labels */}
+            <defs>
+              {nodes.map((node) => (
+                <clipPath key={`clip-${node.id}`} id={`clip-${node.id}`}>
+                  <rect
+                    x={node.cx - NW / 2 + 2}
+                    y={node.cy - NH / 2 + 1}
+                    width={NW - 4}
+                    height={NH - 2}
+                  />
+                </clipPath>
+              ))}
+            </defs>
+
             {/* Edges */}
             {edges.map((e) => {
               const fromNode = nodes.find((n) => n.id === e.from);
@@ -207,17 +221,19 @@ export function LeftPanel({ onNavigate }: Props) {
                       strokeWidth="0.5"
                     />
                   )}
-                  <text
-                    x={node.cx}
-                    y={node.cy}
-                    textAnchor="middle"
-                    dominantBaseline="central"
-                    fill={textFill}
-                    fontSize="8.5"
-                    fontFamily="serif"
-                  >
-                    {isCurrent ? `● ${node.label}` : isVisited ? `${node.label} ·` : node.label}
-                  </text>
+                  <g clipPath={`url(#clip-${node.id})`}>
+                    <text
+                      x={node.cx}
+                      y={node.cy}
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fill={textFill}
+                      fontSize="8.5"
+                      fontFamily="serif"
+                    >
+                      {isCurrent ? `● ${node.label}` : isVisited ? `${node.label} ·` : node.label}
+                    </text>
+                  </g>
                 </g>
               );
             })}
