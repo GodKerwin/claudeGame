@@ -8,9 +8,9 @@ import { evaluate } from '../../engine/conditionEvaluator';
 import { CHAPTER_LAYOUTS, LOCK_MESSAGES } from '../../data/mapLayouts';
 import type { EvalContext } from '../../engine/conditionEvaluator';
 
-// NODE dimensions (viewBox units)
-const NW = 72; // node width
-const NH = 20; // node height
+// NODE dimensions (viewBox units) — viewBox width = 220
+const NW = 68;
+const NH = 24;
 
 interface Props {
   onNavigate: (roomId: string) => void;
@@ -126,7 +126,7 @@ export function LeftPanel({ onNavigate }: Props) {
         <div className="relative">
           <svg
             width="100%"
-            viewBox={`0 0 156 ${viewBoxHeight}`}
+            viewBox={`0 0 220 ${viewBoxHeight}`}
             style={{ overflow: 'visible' }}
           >
             {/* ClipPaths for node labels */}
@@ -228,7 +228,7 @@ export function LeftPanel({ onNavigate }: Props) {
                       textAnchor="middle"
                       dominantBaseline="central"
                       fill={textFill}
-                      fontSize="8.5"
+                      fontSize="9"
                       fontFamily="serif"
                     >
                       {isCurrent ? `● ${node.label}` : isVisited ? `${node.label} ·` : node.label}
@@ -243,7 +243,7 @@ export function LeftPanel({ onNavigate }: Props) {
           {lockMsg && (() => {
             const node = nodes.find((n) => n.id === lockMsg.id);
             if (!node) return null;
-            const pctX = (node.cx / 156) * 100;
+            const pctX = (node.cx / 220) * 100;
             const pctY = Math.min(((node.cy + NH / 2 + 4) / viewBoxHeight) * 100, 85);
             return (
               <div

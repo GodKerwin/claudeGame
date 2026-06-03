@@ -28,25 +28,25 @@ export function GameLayout({ left, center, right }: Props) {
       <div className="hidden lg:flex w-full h-full">
         <nav
           aria-label="地图导航"
-          className={`shrink-0 border-r border-gold/15 flex flex-col overflow-hidden transition-all duration-300 ${leftCollapsed ? 'w-9' : 'w-64'}`}
+          className={`shrink-0 border-r border-gold/15 flex flex-col overflow-hidden transition-all duration-300 ${leftCollapsed ? 'w-9' : 'w-72'}`}
         >
           {leftCollapsed ? (
-            <div className="flex flex-col items-center justify-center h-full gap-3">
-              <button
-                onClick={() => setLeftCollapsed(false)}
-                title="展开地图"
-                className="flex flex-col items-center gap-1 text-gold/30 hover:text-gold/70 transition-colors cursor-pointer py-2"
-              >
-                <span className="text-[10px]" style={{ writingMode: 'vertical-rl', letterSpacing: '0.3em' }}>地图</span>
-                <span className="text-[14px]">›</span>
-              </button>
-            </div>
+            <button
+              onClick={() => setLeftCollapsed(false)}
+              title="展开地图"
+              className="flex flex-col items-center justify-center h-full w-full gap-3 text-gold/45 hover:text-gold/75 hover:bg-gold/5 transition-all cursor-pointer group"
+            >
+              <span className="text-[9px] tracking-[0.4em]" style={{ writingMode: 'vertical-rl' }}>地图</span>
+              <div className="w-3 h-px bg-gold/30 group-hover:bg-gold/55 transition-colors" />
+              <span className="text-[16px] leading-none">›</span>
+            </button>
           ) : (
             <CornerFrame size="sm" className="flex flex-col overflow-hidden h-full panel relative">
               <button
                 onClick={() => setLeftCollapsed(true)}
-                title="收起地图"
-                className="absolute top-2 right-2 z-10 text-gold/25 hover:text-gold/60 transition-colors cursor-pointer text-[12px] leading-none"
+                title="收起"
+                className="absolute top-2 right-2 z-10 w-5 h-5 flex items-center justify-center border border-gold/30 text-gold/55 hover:border-gold/65 hover:text-gold/90 transition-colors cursor-pointer"
+                style={{ fontSize: '12px', lineHeight: 1 }}
               >
                 ‹
               </button>
