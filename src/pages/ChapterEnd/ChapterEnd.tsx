@@ -43,6 +43,12 @@ const ENDING_STYLES: Record<string, EndingStyle> = {
   chapter3_join_ending:    { sealChar: '同', sealColor: 'rgba(58,122,90,0.90)',   atmosphereColor: 'rgba(58,122,90,0.08)',   label: '同行' },
 };
 
+const CHAPTER_CLOSE_CAPTIONS: Record<string, string> = {
+  '1': '——线索已握，长安还在等你。',
+  '2': '——黑幕初破，名单仍藏深处。',
+  '3': '——真相既出，万事终有归处。',
+};
+
 function EndingSeal({ char, color, label, visible }: { char: string; color: string; label: string; visible: boolean }) {
   return (
     <div
@@ -241,11 +247,21 @@ export default function ChapterEnd() {
         <div
           className={`mt-16 text-center transition-all duration-700 ${showButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
         >
-          <div className="flex items-center justify-center gap-3 mb-6">
+          <div className="flex items-center justify-center gap-3 mb-3">
             <div className="w-8 h-px bg-gold/20" />
             <div className="w-[5px] h-[5px] bg-gold/30" style={{ transform: 'rotate(45deg)' }} />
             <div className="w-8 h-px bg-gold/20" />
           </div>
+          {(() => {
+            const chNum = isChapter3 ? '3' : isChapter2 ? '2' : '1';
+            const caption = CHAPTER_CLOSE_CAPTIONS[chNum];
+            return caption ? (
+              <p className="text-ink/22 text-[11px] tracking-[0.2em] italic mb-3 text-center">{caption}</p>
+            ) : null;
+          })()}
+          {!isChapter3 && (
+            <p className="text-ink/18 text-[10px] tracking-[0.15em] mb-4 text-center">建议在继续前保存游戏</p>
+          )}
           <button
             onClick={handleContinue}
             className="btn-jianghu border border-gold/40 text-gold/75 px-12 py-2.5 text-sm tracking-[0.3em] hover:border-gold hover:text-gold transition-all cursor-pointer"
