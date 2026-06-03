@@ -36,7 +36,15 @@ type Grants = {
 };
 
 type StatKey = 'strength' | 'agility' | 'wisdom' | 'constitution';
-interface SceneOps { addFlag: (f: string) => void; addClue: (c: string) => void; addQuest: (q: string) => void; }
+
+const QUEST_NOTIFICATION: Record<string, string> = {
+  quest_main_murder: '调查客栈命案',
+  quest_dafei_gang:  '大飞帮隐藏线索',
+  quest_li_mao_case: '追查李邈',
+  quest_find_kite:   '追寻「鸢」的身份',
+};
+
+interface SceneOps { addFlag: (f: string) => void; addClue: (c: string) => void; addQuest: (q: string) => void; addStoryText: (text: string) => void; questLog: string[]; }
 interface PlayerOps { incrementStat: (stat: StatKey, val: number) => void; }
 
 function applyGrants(
@@ -51,7 +59,14 @@ function applyGrants(
   grants.clues?.forEach((c) => scene.addClue(c));
   grants.items?.forEach((i) => addItem(i));
   grants.remove_items?.forEach((i) => removeItem(i));
-  grants.quests?.forEach((q) => scene.addQuest(q));
+  grants.quests?.forEach((q) => {
+    if (!scene.questLog.includes(q)) {
+      const name = QUEST_NOTIFICATION[q] ?? q;
+      scene.addStoryText(`（新任务已开启：【${name}】）`);
+      audioEngine.playSFX('discover');
+    }
+    scene.addQuest(q);
+  });
   if (grants.strength != null) player.incrementStat('strength', grants.strength);
   if (grants.agility != null) player.incrementStat('agility', grants.agility);
   if (grants.wisdom != null) player.incrementStat('wisdom', grants.wisdom);
