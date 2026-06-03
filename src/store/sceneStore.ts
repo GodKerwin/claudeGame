@@ -17,9 +17,11 @@ interface SceneState {
   clearStoryText: () => void;
   markDialogueSeen: (key: string) => void;
   addFoundSynthesisId: (id: string) => void;
+  interrogationLevels: Record<string, number>;
+  setInterrogationLevel: (npcId: string, level: number) => void;
   loadState: (state: Partial<Pick<SceneState,
     'currentRoomId' | 'flags' | 'clues' | 'questLog' | 'storyText' |
-    'seenDialogues' | 'visitedRooms' | 'foundSynthesisIds'>>) => void;
+    'seenDialogues' | 'visitedRooms' | 'foundSynthesisIds' | 'interrogationLevels'>>) => void;
   reset: () => void;
 }
 
@@ -32,6 +34,7 @@ const defaultState = {
   seenDialogues: [] as string[],
   visitedRooms: ['room_203'] as string[],
   foundSynthesisIds: [] as string[],
+  interrogationLevels: {} as Record<string, number>,
 };
 
 export const useSceneStore = create<SceneState>((set) => ({
@@ -65,6 +68,10 @@ export const useSceneStore = create<SceneState>((set) => ({
   addFoundSynthesisId: (id) =>
     set((s) => ({
       foundSynthesisIds: s.foundSynthesisIds.includes(id) ? s.foundSynthesisIds : [...s.foundSynthesisIds, id],
+    })),
+  setInterrogationLevel: (npcId, level) =>
+    set((s) => ({
+      interrogationLevels: { ...s.interrogationLevels, [npcId]: level },
     })),
   loadState: (state) => set(state),
   reset: () => set(defaultState),

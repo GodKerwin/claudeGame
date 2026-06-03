@@ -73,11 +73,27 @@ export interface DialogueLine {
   };
 }
 
+export interface InterrogationLevelData {
+  level: 0 | 1 | 2;
+  moodHint: string;
+  text: string;
+  indirectText?: string;
+  pushEvidence?: string[];
+  grants?: ActionGrant;
+}
+
+export interface NPCInterrogation {
+  enabled: boolean;
+  triggerFlag?: string;
+  levels: InterrogationLevelData[];
+}
+
 export interface NPC {
   id: string;
   name: string;
   description: string;
   dialogues: DialogueLine[];
+  interrogation?: NPCInterrogation;
 }
 
 export interface RoomRevisitEvent {
