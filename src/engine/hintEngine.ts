@@ -171,6 +171,17 @@ const CHAPTER1_RULES: HintRule[] = [
 ];
 
 const CHAPTER2_RULES: HintRule[] = [
+  // ── 章节起始：无ch2进展时给出明确的章节引导 ──
+  {
+    when: (ctx) =>
+      has(ctx, 'chapter2_started') &&
+      !has(ctx, 'langpeng_discovered') &&
+      !has(ctx, 'wujue_met') &&
+      !hasItem(ctx, 'poison_residue_sample') &&
+      !hasItem(ctx, 'monk_identity_scroll') &&
+      !hasItem(ctx, 'langpeng_dispatch_order'),
+    hint: '第二章伊始，案情延至长安。从东市入口探查起——悬赏告示上有线索，回春堂药铺的无迹和尚也值得拜访。两条线可并行推进。',
+  },
   {
     when: (ctx) =>
       hasItem(ctx, 'poison_residue_sample') &&
@@ -247,6 +258,17 @@ const CHAPTER2_RULES: HintRule[] = [
 ];
 
 const CHAPTER3_RULES: HintRule[] = [
+  // ── 章节起始：无ch3进展时给出明确的章节引导 ──
+  {
+    when: (ctx) =>
+      has(ctx, 'chapter3_started') &&
+      !has(ctx, 'tianji_contact_met') &&
+      !has(ctx, 'stele_decoded') &&
+      !has(ctx, 'tianji_mission_started') &&
+      !has(ctx, 'fei_ye_identity_confirmed') &&
+      !hasItem(ctx, 'tianji_founding_scroll'),
+    hint: '第三章伊始，天机阁来令追查旧主。两处起点：天机安宅（接令了解目标）或大雁塔下（无名碑藏有线索）。任选其一皆可展开。',
+  },
   {
     when: (ctx) =>
       hasItem(ctx, 'tianji_founding_scroll') &&
@@ -333,7 +355,7 @@ const CHAPTER3_RULES: HintRule[] = [
   },
   {
     when: (ctx) => !has(ctx, 'stele_decoded') && !hasItem(ctx, 'tianji_founding_scroll'),
-    hint: '从大雁塔下的无名碑入手（从曲江池可前往），碑文藏着天机阁创始者的信息。',
+    hint: '从大雁塔下的无名碑入手，碑文藏着天机阁创始者的信息。',
   },
   {
     when: (ctx) =>

@@ -127,3 +127,32 @@ describe('hintEngine – Chapter 3', () => {
     expect(hint).toMatch(/深处|威胁|无迹|名单.*倒戈|上游/);
   });
 });
+
+describe('hintEngine – Chapter 2 intro', () => {
+  it('returns chapter-intro hint when chapter2_started but no ch2 flags', () => {
+    const hint = getHint(base({
+      chapter: 2,
+      flags: ['chapter2_started'],
+    }));
+    expect(hint).toContain('第二章');
+  });
+});
+
+describe('hintEngine – Chapter 3 intro', () => {
+  it('returns chapter-intro hint when chapter3_started but no ch3 progress', () => {
+    const hint = getHint(base({
+      chapter: 3,
+      flags: ['chapter3_started'],
+    }));
+    expect(hint).toContain('第三章');
+  });
+
+  it('ch3 hint for stele_seen does not reference wrong navigation', () => {
+    const hint = getHint(base({
+      chapter: 3,
+      flags: ['chapter3_started', 'stele_seen'],
+      items: [],
+    }));
+    expect(hint).not.toContain('曲江池可前往');
+  });
+});
