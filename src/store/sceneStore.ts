@@ -53,7 +53,9 @@ export const useSceneStore = create<SceneState>((set) => ({
   addStoryText: (text) =>
     set((s) => {
       const next = [...s.storyText, text];
-      return { storyText: next.length > 50 ? next.slice(-50) : next };
+      let trimmed = next.length > 50 ? next.slice(-50) : next;
+      while (trimmed.length > 0 && trimmed[0] === '---SEPARATOR---') trimmed = trimmed.slice(1);
+      return { storyText: trimmed };
     }),
   clearStoryText: () => set({ storyText: [] }),
   markDialogueSeen: (key) =>
