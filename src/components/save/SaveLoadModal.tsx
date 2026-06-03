@@ -21,6 +21,7 @@ const CORNERS = [
 export function SaveLoadModal({ mode, onClose }: Props) {
   const { slots, setSlots, updateSlot } = useSaveStore();
   const [statusMsg, setStatusMsg] = useState<string>('');
+  const [confirmOverwrite, setConfirmOverwrite] = useState<number | null>(null);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
@@ -34,6 +35,12 @@ export function SaveLoadModal({ mode, onClose }: Props) {
 
   const handleSave = (slotId: number) => {
     if (slotId === 0) return;
+    const slot = slots.find((s) => s.id === slotId);
+    if (slot?.data && confirmOverwrite !== slotId) {
+      setConfirmOverwrite(slotId);
+      return;
+    }
+    setConfirmOverwrite(null);
     const data: SaveData = {
       player: {
         name: player.name,
@@ -133,7 +140,7 @@ export function SaveLoadModal({ mode, onClose }: Props) {
                       <span className={`text-[11px] flex-1 min-w-0 truncate ${disabled ? 'text-ink/20' : 'text-ink/50'}`}>
                         {slot.data.player.name}
                         <span className={`ml-1.5 text-[10px] ${disabled ? 'text-ink/15' : 'text-ink/30'}`}>
-                          {new Date(slot.timestamp).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                          {new Date(slot.timestamp).toLocaleDateString('zh-CN', { year: '2-digit', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                         </span>
                       </span>
                     ) : (
@@ -144,6 +151,29 @@ export function SaveLoadModal({ mode, onClose }: Props) {
               );
             })}
           </div>
+
+          {/* 覆盖确认 */}
+          {mode === 'save' && confirmOverwrite !== null && (
+            <div className="mb-4 px-1 py-2 border border-blood/30 bg-blood/5">
+              <p className="text-[11px] text-ink/60 text-center mb-2 leading-snug">
+                此槽已有存档，确认覆盖？
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleSave(confirmOverwrite)}
+                  className="flex-1 py-1.5 text-xs text-blood/70 border border-blood/25 hover:border-blood/55 hover:bg-blood/8 transition-colors cursor-pointer"
+                >
+                  覆盖
+                </button>
+                <button
+                  onClick={() => setConfirmOverwrite(null)}
+                  className="flex-1 py-1.5 text-xs text-ink/40 border border-gold/15 hover:border-gold/35 transition-colors cursor-pointer"
+                >
+                  取消
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* 状态消息 */}
           {statusMsg && (
