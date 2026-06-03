@@ -4,7 +4,7 @@
     "itemA": "arsenic_evidence",
     "itemB": "blood_pattern_sketch",
     "result": "砒霜的分量足够致死，但地板血迹说明死者先倒在地上——凶手没有单靠砒霜杀人，只是用它击昏，再动手勒毙。这是双重作案手法：一毒，一缢，缺一不可。",
-    "hint": "毒药 + 血迹分布",
+    "hint": "毒药砒霜 × 血迹分布",
     "grants": { "flags": ["synth_double_kill"] },
     "pivotal": true,
     "chapter": 1
@@ -14,7 +14,7 @@
     "itemA": "cloth_fiber_clue",
     "itemB": "door_lock_scraping",
     "result": "死者手中的布料纤维，和门锁内侧的铁丝划痕，来自同一次进门——凶手用工具拨开门闩时，宋怀义当时还醒着，与凶手有过近距离的最后接触。他抓住了对方的衣物，用尽了最后的力气。",
-    "hint": "布料纤维 + 门锁痕迹",
+    "hint": "布料纤维 × 门锁划痕",
     "grants": { "flags": ["synth_struggle_confirmed"] }
   },
   {
@@ -22,7 +22,7 @@
     "itemA": "blood_letter",
     "itemB": "tianji_roster",
     "result": "令牌上的「天机」与名册中「线人·叛」并列——宋怀义曾是天机阁的线人，后来叛变，带走了某样重要的东西。这次死亡不是劫财，是一场等了十年的追杀，终于在往事客栈画上了句点。",
-    "hint": "染血令牌 + 天机阁名录",
+    "hint": "染血令牌 × 天机阁名录",
     "grants": { "flags": ["synth_tianji_motive"] },
     "pivotal": true,
     "chapter": 1
@@ -32,7 +32,7 @@
     "itemA": "secret_tunnel_map",
     "itemB": "rope_burn_cloth",
     "result": "密道连通后厨与外部，窗台绳痕说明凶手从窗口降至地面——凶手进来走密道，离开走窗口。两条不同路线，是刻意规避被目击的设计，说明凶手对客栈内部了如指掌。",
-    "hint": "密道地图 + 窗台绳痕",
+    "hint": "密道地图 × 窗台绳痕",
     "grants": { "flags": ["synth_entry_exit_route"] }
   },
   {
@@ -40,7 +40,7 @@
     "itemA": "suspicious_guest_entry",
     "itemB": "copper_bell_fragment",
     "result": "「周文远」提前两时辰入住，天亮前撤离；后巷铜铃是浪鹏帮帮徽——这个自称布商的人是浪鹏帮派来监视宋怀义的眼线。他目睹了整件事，但全程没有动手：他只是来确认宋怀义的身份。",
-    "hint": "可疑住客记录 + 铜铃残片",
+    "hint": "可疑住客记录 × 铜铃残片",
     "grants": { "flags": ["synth_spy_role"] }
   },
   {
@@ -48,7 +48,7 @@
     "itemA": "partial_letter",
     "itemB": "tianji_jade_token",
     "result": "密信要求「三日内将《残卷》第五页带至」，玉令是天机阁接头凭证——宋怀义此行不是做生意，是奉命完成一次情报交接，将残卷的某一部分转交给长安的同僚。他死在交接之前，任务永远未能完成。",
-    "hint": "半截密信 + 天机玉令",
+    "hint": "半截密信 × 天机玉令",
     "grants": { "flags": ["synth_scroll_mission"] }
   },
   {
@@ -56,7 +56,7 @@
     "itemA": "kite_letter",
     "itemB": "ear_room_ledger",
     "result": "密信落款「鸢」，耳室档案证实鸢组是天机阁的最终收尾力量——「残卷已取，人已除」这句话说明案子分了两步：先取走残卷，再杀人灭口。凶手不是冲着宋怀义本人来的，是冲着他手中的东西来的。",
-    "hint": "鸢字密信 + 鸢组旧档",
+    "hint": "鸢字密信 × 鸢组旧档",
     "grants": { "flags": ["synth_kite_two_steps"] }
   },
   {
@@ -64,7 +64,7 @@
     "itemA": "account_book",
     "itemB": "innkeeper_jade",
     "result": "账本末页暗指东市回春堂，掌柜的驿字玉牌说明他是天机阁的情报中转人——掌柜清楚宋怀义的真实身份，也知道他此行目的地。他一直在等待接头消息。那壶茶，他全程都知道意味着什么。",
-    "hint": "宋怀义的账本 + 驿字玉牌",
+    "hint": "宋怀义账本 × 驿字玉牌",
     "grants": { "flags": ["synth_innkeeper_role"] }
   },
   {
@@ -72,7 +72,7 @@
     "itemA": "merchant_manifest",
     "itemB": "alley_rubbing",
     "result": "货单背面是一份人名抄录，后巷刻记是浪鹏帮暗记——两件物证证明浪鹏帮来往事客栈不是为了劫货，而是在核查一份名单上的特定人物。他们追的，和天机阁保护的，可能是同一批人。",
-    "hint": "药商货单 + 巷中拓印",
+    "hint": "药商货单 × 巷中拓印",
     "grants": { "flags": ["synth_langpeng_hunt"] }
   },
   {
@@ -80,7 +80,7 @@
     "itemA": "premade_tea_testimony",
     "itemB": "arsenic_evidence",
     "result": "茶是提前备好放在柜台的，砒霜是高纯度的专业配方——这不是即兴犯罪，是提前数小时精密部署的计划。动手的人知道宋怀义几时回房、什么时候会喝茶，对他的行程了如指掌。",
-    "hint": "预制毒茶证词 + 砒霜证据",
+    "hint": "预制毒茶证词 × 砒霜证据",
     "grants": { "flags": ["synth_premeditated"] }
   }
 ]
