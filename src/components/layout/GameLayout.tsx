@@ -23,8 +23,8 @@ export function GameLayout({ left, center, right }: Props) {
 
   return (
     <div className="flex h-screen w-screen bg-paper text-ink font-serif overflow-hidden select-none">
-      {/* Desktop: 三栏布局 (≥768px) */}
-      <div className="hidden md:flex w-full h-full">
+      {/* Desktop: 三栏布局 (≥1024px) */}
+      <div className="hidden lg:flex w-full h-full">
         <CornerFrame size="sm" className="w-44 shrink-0 panel border-r border-gold/15 flex flex-col overflow-hidden">
           {left}
         </CornerFrame>
@@ -36,8 +36,8 @@ export function GameLayout({ left, center, right }: Props) {
         </CornerFrame>
       </div>
 
-      {/* Mobile: 单栏 + 底部标签栏 (<768px) */}
-      <div className="flex md:hidden flex-col w-full h-full">
+      {/* Mobile: 单栏 + 底部标签栏 (<1024px) */}
+      <div className="flex lg:hidden flex-col w-full h-full">
         <div className="flex-1 overflow-hidden">
           <AnimatePresence mode="wait">
             <motion.div
