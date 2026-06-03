@@ -71,6 +71,15 @@ interface Props {
   onToggleHint?: () => void;
   showHint?: boolean;
   pendingInterrogation?: InterrogationProps | null;
+  interrogation?: {
+    npcName: string;
+    currentLevel: 0 | 1 | 2;
+    pushEvidence: string[];
+    isComplete: boolean;
+  } | null;
+  onInterrogationAction?: (action: 'pressure' | 'indirect' | 'evidence', evidenceId?: string) => void;
+  onInterrogationDismiss?: () => void;
+  interrogationItems?: { id: string; name: string; isClue: boolean }[];
 }
 
 export function CenterPanel({
@@ -85,11 +94,16 @@ export function CenterPanel({
   onToggleHint,
   showHint,
   pendingInterrogation,
+  interrogation,
+  onInterrogationAction,
+  onInterrogationDismiss,
+  interrogationItems = [],
 }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [interrogationFocusIdx, setInterrogationFocusIdx] = useState(0);
+  const [evidenceOpen, setEvidenceOpen] = useState(false);
 
   const scrollToBottom = useCallback(() => {
     if (rafRef.current !== null) return;
@@ -164,6 +178,7 @@ export function CenterPanel({
   }, [npcActions, eventGroups, choiceActions, pendingChoices]);
 
   useEffect(() => { scrollToBottom(); }, [storyTexts, scrollToBottom]);
+  useEffect(() => { setEvidenceOpen(false); }, [interrogation?.npcName, interrogation?.currentLevel]);
 
   // Reset focus when interrogation changes
   useEffect(() => {
@@ -290,6 +305,75 @@ export function CenterPanel({
           `,
         }}
       >
+        {/* ── 深层审讯状态机 ── */}
+        {interrogation && !pendingInterrogation && (
+          <div className="flex flex-col h-full">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-px bg-blood/35" />
+                <p className="text-blood/55 text-[10px] tracking-[0.3em]">审讯·{interrogation.npcName}</p>
+                <div className="w-2 h-px bg-blood/35" />
+              </div>
+              <div className="flex items-center gap-1">
+                {([0, 1, 2] as const).map((i) => (
+                  <span key={i} className="text-[10px]" style={{ color: i <= interrogation.currentLevel ? 'rgba(201,168,76,0.75)' : 'rgba(201,168,76,0.2)' }}>●</span>
+                ))}
+              </div>
+            </div>
+            {interrogation.isComplete ? (
+              <p className="text-ink/38 text-[11px] italic px-1 mb-3">〔审讯已完成。〕</p>
+            ) : (
+              <>
+                <div className="flex flex-col gap-1.5 mb-2">
+                  <button
+                    onClick={() => onInterrogationAction?.('pressure')}
+                    className="w-full text-left px-3 py-2 border border-blood/25 text-ink/70 hover:border-blood/55 hover:text-ink/90 text-[13px] transition-colors cursor-pointer tracking-wide"
+                  >
+                    施压
+                  </button>
+                  <button
+                    onClick={() => onInterrogationAction?.('indirect')}
+                    className="w-full text-left px-3 py-2 border border-gold/18 text-ink/55 hover:border-gold/38 hover:text-ink/75 text-[13px] transition-colors cursor-pointer tracking-wide"
+                  >
+                    迂回试探
+                  </button>
+                  <button
+                    onClick={() => setEvidenceOpen((v) => !v)}
+                    className={`w-full text-left px-3 py-2 border text-[13px] transition-colors cursor-pointer tracking-wide ${evidenceOpen ? 'border-gold/45 text-gold/75 bg-gold/5' : 'border-gold/18 text-ink/55 hover:border-gold/38 hover:text-ink/75'}`}
+                  >
+                    出示证据 {evidenceOpen ? '▴' : '▾'}
+                  </button>
+                </div>
+                {evidenceOpen && (
+                  <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin space-y-0.5 mb-2 border-t border-gold/10 pt-2">
+                    {interrogationItems.length === 0 ? (
+                      <p className="text-ink/25 text-xs italic px-1">暂无相关证物可出示</p>
+                    ) : (
+                      interrogationItems.map((item) => (
+                        <button
+                          key={item.id}
+                          onClick={() => { onInterrogationAction?.('evidence', item.id); setEvidenceOpen(false); }}
+                          className="w-full text-left flex items-center gap-2 px-2 py-1.5 border-l-2 border-gold/22 text-ink/65 hover:text-gold hover:border-gold/55 transition-colors cursor-pointer"
+                        >
+                          <span className="text-[9px] shrink-0 text-gold/45">{item.isClue ? '◈' : '◇'}</span>
+                          <span className="text-[13px] flex-1">{item.name}</span>
+                          <span className="text-[9px] text-gold/35 shrink-0">出示</span>
+                        </button>
+                      ))
+                    )}
+                  </div>
+                )}
+              </>
+            )}
+            <button
+              onClick={() => { onInterrogationDismiss?.(); setEvidenceOpen(false); }}
+              className="mt-auto w-full text-center text-[11px] text-ink/25 hover:text-ink/45 py-1 tracking-widest cursor-pointer transition-colors border-t border-gold/8 pt-2"
+            >
+              暂时先问到这里
+            </button>
+          </div>
+        )}
+
         {/* ── 审讯博弈模式 ── */}
         {pendingInterrogation ? (
           <div className="flex flex-col h-full">

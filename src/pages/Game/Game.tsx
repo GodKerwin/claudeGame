@@ -111,12 +111,22 @@ export default function Game() {
   );
   const [pendingInterrogation, setPendingInterrogation] = useState<PendingInterrogation | null>(null);
   const [endingPending, setEndingPending] = useState(false);
+  const [activeInterrogation, setActiveInterrogation] = useState<{
+    npcId: string;
+    npcName: string;
+    currentLevel: number;
+  } | null>(null);
   const processingRef = useRef(false);
   const prevRoomRef = useRef<string | null>(null);
   const shownTalentViewsRef = useRef<Set<string>>(new Set());
 
   useAutoSave();
   const { increaseFontSize, decreaseFontSize } = useSettings();
+  const { setInterrogationLevel } = useSceneStore();
+
+  useEffect(() => {
+    setActiveInterrogation(null);
+  }, [scene.currentRoomId]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -335,6 +345,23 @@ export default function Game() {
     } else if (entityId.startsWith('npc_')) {
       const npc = getNPC(entityId);
       if (!npc) return;
+
+      // 深层审讯系统拦截
+      if (npc.interrogation?.enabled) {
+        const { triggerFlag } = npc.interrogation;
+        if (!triggerFlag || scene.flags.includes(triggerFlag)) {
+          const currentLevel = scene.interrogationLevels[entityId] ?? 0;
+          setActiveInterrogation({ npcId: entityId, npcName: npc.name, currentLevel });
+          const levelData = npc.interrogation.levels[currentLevel];
+          if (levelData) {
+            audioEngine.playSFX('dialogue');
+            scene.addStoryText(levelData.moodHint);
+            scene.addStoryText(`【${npc.name}】${levelData.text}`);
+          }
+          return;
+        }
+      }
+
       const dialogues = getAvailableDialogues(npc, ctx);
       if (dialogues.length === 0) return;
       const nextUnseen = dialogues.find((d) => !scene.seenDialogues.includes(`ch${chapter}:${entityId}:${d.id}`));
@@ -381,6 +408,67 @@ export default function Game() {
     scene.setRoom(roomId);
   }, [scene]);
 
+  const handleInterrogationAction = useCallback((
+    action: 'pressure' | 'indirect' | 'evidence',
+    evidenceId?: string,
+  ) => {
+    if (!activeInterrogation) return;
+    const { npcId } = activeInterrogation;
+    const npc = getNPC(npcId);
+    if (!npc?.interrogation) return;
+
+    const currentLevel = scene.interrogationLevels[npcId] ?? 0;
+    const levelData = npc.interrogation.levels[currentLevel];
+    if (!levelData) return;
+
+    scene.addStoryText('---SEPARATOR---');
+
+    if (action === 'indirect') {
+      audioEngine.playSFX('dialogue');
+      scene.addStoryText(levelData.indirectText ?? `（${npc.name}没有正面回答。）`);
+      return;
+    }
+
+    const relevantEvidence = levelData.pushEvidence ?? [];
+    const allPlayerItems = [...scene.clues, ...items];
+    const hasEvidence =
+      action === 'evidence'
+        ? evidenceId != null && relevantEvidence.includes(evidenceId)
+        : relevantEvidence.some((e) => allPlayerItems.includes(e));
+
+    if (hasEvidence) {
+      const newLevel = Math.min(currentLevel + 1, 2) as 0 | 1 | 2;
+      setInterrogationLevel(npcId, newLevel);
+      audioEngine.playSFX('discover');
+      scene.addStoryText('〖他沉默了片刻，表情松动了一丝。〗');
+      const nextData = npc.interrogation.levels[newLevel];
+      if (nextData) {
+        scene.addStoryText(nextData.moodHint);
+        scene.addStoryText(`【${npc.name}】${nextData.text}`);
+        setActiveInterrogation((prev) => prev ? { ...prev, currentLevel: newLevel } : null);
+        if (newLevel === 2 && nextData.grants) {
+          if (nextData.grants.clues?.length || nextData.grants.items?.length) audioEngine.playSFX('discover');
+          applyGrants(nextData.grants, scene, addItem, removeItem, player);
+        }
+      }
+    } else {
+      const newLevel = Math.max(currentLevel - 1, 0) as 0 | 1 | 2;
+      if (newLevel < currentLevel) {
+        setInterrogationLevel(npcId, newLevel);
+        audioEngine.playSFX('click');
+        scene.addStoryText('〔他的神情骤然收紧，不再看你。〕');
+        const prevData = npc.interrogation.levels[newLevel];
+        if (prevData) {
+          scene.addStoryText(`【${npc.name}】${prevData.text}`);
+          setActiveInterrogation((prev) => prev ? { ...prev, currentLevel: newLevel } : null);
+        }
+      } else {
+        audioEngine.playSFX('click');
+        scene.addStoryText('〔他摆了摆手，没有接你的话。〕');
+      }
+    }
+  }, [activeInterrogation, scene, items, addItem, removeItem, player, setInterrogationLevel]);
+
   const handlePresentEvidence = useCallback((itemId: string) => {
     if (!pendingInterrogation) return;
     const { npcId, npcName, dialogueId, accepts, successResponse, failResponse, grants } = pendingInterrogation;
@@ -416,6 +504,35 @@ export default function Game() {
   const currentHint = showHint
     ? getHint({ flags: scene.flags, items, chapter, strength: player.strength, agility: player.agility, wisdom: player.wisdom, constitution: player.constitution, talent: player.talent })
     : null;
+
+  const interrogationPanelProps = useMemo(() => {
+    if (!activeInterrogation) return null;
+    const npc = getNPC(activeInterrogation.npcId);
+    if (!npc?.interrogation) return null;
+    const { currentLevel } = activeInterrogation;
+    const levelData = npc.interrogation.levels[currentLevel];
+    return {
+      npcName: activeInterrogation.npcName,
+      currentLevel: currentLevel as 0 | 1 | 2,
+      pushEvidence: levelData?.pushEvidence ?? [],
+      isComplete: currentLevel === 2,
+    };
+  }, [activeInterrogation]);
+
+  const interrogationItems = useMemo(() => {
+    if (!interrogationPanelProps) return [];
+    const push = interrogationPanelProps.pushEvidence;
+    return [
+      ...scene.clues
+        .filter((id) => push.includes(id))
+        .map((id) => { const it = getItem(id); return it ? { id: it.id, name: it.name, isClue: true } : null; })
+        .filter(Boolean) as { id: string; name: string; isClue: boolean }[],
+      ...items
+        .filter((id) => push.includes(id))
+        .map((id) => { const it = getItem(id); return it ? { id: it.id, name: it.name, isClue: false } : null; })
+        .filter(Boolean) as { id: string; name: string; isClue: boolean }[],
+    ];
+  }, [interrogationPanelProps, scene.clues, items]);
 
   const interrogationAllItems = pendingInterrogation
     ? [
@@ -453,6 +570,10 @@ export default function Game() {
               onPresent: handlePresentEvidence,
               onCancel: () => setPendingInterrogation(null),
             } : null}
+            interrogation={interrogationPanelProps}
+            onInterrogationAction={handleInterrogationAction}
+            onInterrogationDismiss={() => setActiveInterrogation(null)}
+            interrogationItems={interrogationItems}
           />
         }
         right={<RightPanel onSettings={() => setModal('settings')} />}
