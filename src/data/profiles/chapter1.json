@@ -62,5 +62,40 @@
       { "flag": "fei_ye_kite_hint", "text": "重要线索：鸢组当年只有一个执行者，是个女人。飞爷年轻时见过一次。", "type": "known" },
       { "flag": "fei_ye_secret_told", "text": "坦白：大飞帮的真正目的是重建天机阁情报网络，等待网络再次被人认领。", "type": "known" }
     ]
+  },
+  {
+    "npcId": "npc_paper_seller",
+    "name": "卖符老人",
+    "role": "符牌摊主，大飞帮外线",
+    "suspicion": "中间人——知情不语",
+    "facts": [
+      { "flag": "dafei_contact_made", "text": "以暗语「云散见青天」相认——是大飞帮在往事客栈附近的接头人之一。", "type": "known" },
+      { "flag": "dafei_address_obtained", "text": "提供了大飞帮据点的具体方向，叮嘱你不要声张。", "type": "known" },
+      { "flag": "gang_culture_known", "text": "对帮派暗语了如指掌，在这条街摆摊已逾十年，见多识广。", "type": "known" },
+      { "flag": "chapter2_started", "text": "二三十年的江湖历练让他保持沉默——这张普通的脸藏着不普通的见识。", "type": "known" }
+    ]
+  },
+  {
+    "npcId": "npc_old_beggar",
+    "name": "后巷老乞丐",
+    "role": "后巷流浪者，旧时帮派眼线",
+    "suspicion": "边缘目击者——知情",
+    "facts": [
+      { "flag": "beggar_first_talked", "text": "目光锐利，对往来行人观察入微，绝非普通乞丐。", "type": "known" },
+      { "flag": "beggar_told_langpeng", "text": "目击昨夜二更浪鹏帮探子在后巷守候整夜，是案发当晚的关键目击者。", "type": "known" },
+      { "flag": "langpeng_discovered", "text": "二十年前曾做过浪鹏帮眼线，因出了人命事件后脱离，流落长安至今。", "type": "known" },
+      { "flag": "beggar_thief_talked", "text": "以行里暗语相认后，主动补充了浪鹏帮探子的更多行动细节。", "type": "known" }
+    ]
+  },
+  {
+    "npcId": "npc_merchant_zhou",
+    "name": "周药商",
+    "role": "东市行商，货物被劫受害者",
+    "suspicion": "无辜受害者——意外牵连",
+    "facts": [
+      { "flag": "merchant_zhou_first_met", "text": "货车昨夜在后巷被劫，三车药材尽失，正焦急寻求帮助。", "type": "known" },
+      { "flag": "merchant_zhou_talked", "text": "认出后巷刻记为浪鹏帮暗记，主动提供了货单——是卷入此案的无辜受害者。", "type": "known" },
+      { "flag": "langpeng_discovered", "text": "货单背面藏有要紧线索：浪鹏帮此行并非劫货，而是在追查某个特定人物。", "type": "known" }
+    ]
   }
 ]

@@ -22,4 +22,11 @@ describe('SuspectProfile data integrity', () => {
     expect(ids).toContain('npc_li_mao');            // ch2
     expect(ids).toContain('npc_tianji_contact');    // ch3
   });
+
+  it('chapter 1 includes profiles for npc_paper_seller, npc_old_beggar, npc_merchant_zhou', () => {
+    const ids = SUSPECT_PROFILES.map((p) => p.npcId);
+    expect(ids).toContain('npc_paper_seller');
+    expect(ids).toContain('npc_old_beggar');
+    expect(ids).toContain('npc_merchant_zhou');
+  });
 });
