@@ -380,7 +380,7 @@
       {
         "id": "arrest_ending",
         "label": "「证据确凿，你走不了。」（出示铁证）",
-        "requires": { "has": ["poison_residue_sample", "monk_identity_scroll", "langpeng_dispatch_order"], "flags": ["synth_ch2_li_mao_commands_langpeng", "synth_ch2_wujue_complicit"] },
+        "requires": { "has": ["poison_residue_sample", "monk_identity_scroll", "langpeng_dispatch_order"], "flags": ["synth_ch2_li_mao_commands_langpeng", "synth_ch2_wujue_complicit", "wujue_tianji_revealed", "ch2_clues_sufficient"] },
         "result": "你将三件证物逐一推到桌上。\n\n毒药残样——证明宋怀义的死与回春堂有关。僧籍密卷——证明无迹和尚是天机阁旧部，受人指使。浪鹏调令——上面写着李邈的名字，写着对宋怀义的监视令。\n\n李邈盯着那三件东西，沉默了很久，最后开口：「证据确凿——但你知道你拿到的，只是一条鱼，不是整张网。」他将三件证物重新推向你这边，「把这些还给我，我告诉你鸢的真实身份。」\n\n你没有动。\n\n他笑了笑，收回了手：「你比我预料的聪明，也比我预料的固执。」\n\n门外脚步声响起。你提前联络的衙门捕快踹开了门。\n\n李邈站起来，整了整衣袍，没有逃跑，只是看了你最后一眼：「天机阁不会因为我一个人倒下的。」\n\n他被带走了。长安的风吹过茶馆，带来一丝说不清道不明的凉意。宋怀义的案子，算是有了一个答案。但那个叫「鸢」的人，还在某个你看不见的地方，等待着下一步棋。",
         "grants": { "flags": ["chapter2_arrest_ending"] }
       },

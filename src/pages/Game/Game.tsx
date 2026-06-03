@@ -138,6 +138,17 @@ export default function Game() {
     }
   }, [scene.flags]);
 
+  // 线索数量门槛：达到后自动打 flag，供结局 requires 检查
+  useEffect(() => {
+    const count = scene.clues.length;
+    if (chapter === 1 && count >= 9 && !scene.flags.includes('ch1_clues_sufficient'))
+      scene.addFlag('ch1_clues_sufficient');
+    else if (chapter === 2 && count >= 6 && !scene.flags.includes('ch2_clues_sufficient'))
+      scene.addFlag('ch2_clues_sufficient');
+    else if (chapter === 3 && count >= 5 && !scene.flags.includes('ch3_clues_sufficient'))
+      scene.addFlag('ch3_clues_sufficient');
+  }, [scene.clues.length, chapter]); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (!player.name) {
       navigate('/');
@@ -452,12 +463,26 @@ export default function Game() {
 
       {endingPending && (
         <div
-          className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-2 cursor-pointer select-none"
+          className="fixed inset-0 z-[60] flex flex-col items-center justify-center cursor-pointer select-none panel-fade-in"
+          style={{ background: 'rgba(10,6,2,0.92)', backdropFilter: 'blur(4px)' }}
           onClick={() => navigate('/chapter-end')}
         >
-          <div className="w-16 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.4), transparent)' }} />
-          <p className="text-gold/70 text-[13px] tracking-[0.35em]">查看结局</p>
-          <p className="text-ink/28 text-[10px] tracking-[0.2em]">点击或按任意键继续</p>
+          <div className="flex flex-col items-center gap-5">
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-px" style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.45))' }} />
+              <span className="text-gold/38 text-[9px] tracking-[0.55em]">章节终结</span>
+              <div className="w-14 h-px" style={{ background: 'linear-gradient(to left, transparent, rgba(201,168,76,0.45))' }} />
+            </div>
+            <p className="text-gold/90 text-[26px] tracking-[0.45em]">
+              {chapter === 3 ? '第三章·完' : chapter === 2 ? '第二章·完' : '第一章·完'}
+            </p>
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-px bg-gold/25" />
+              <div className="w-[5px] h-[5px] bg-gold/35" style={{ transform: 'rotate(45deg)' }} />
+              <div className="w-8 h-px bg-gold/25" />
+            </div>
+            <p className="text-ink/32 text-[11px] tracking-[0.3em] mt-3">点击任意处继续</p>
+          </div>
         </div>
       )}
 
