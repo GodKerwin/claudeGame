@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSceneStore } from '../../store/sceneStore';
-import { useInventoryStore } from '../../store/inventoryStore';
 import { getItem } from '../../data/loader';
 import { addSeenEnding } from '../../engine/endingRecord';
 import { CornerFrame } from '../../components/ui/CornerFrame';
@@ -77,7 +76,6 @@ function EndingSeal({ char, color, label, visible }: { char: string; color: stri
 export default function ChapterEnd() {
   const navigate = useNavigate();
   const scene = useSceneStore();
-  const { items } = useInventoryStore();
   const { clues, visitedRooms, foundSynthesisIds } = useSceneStore();
   const [visibleCount, setVisibleCount] = useState(0);
   const [showButton, setShowButton] = useState(false);
