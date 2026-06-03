@@ -69,6 +69,28 @@ describe('chapter2 map and item integrity', () => {
       expect(item?.isClue, `${id} should be a clue`).toBe(true);
     }
   });
+
+  it('east_market_entrance has at least 1 revisitEvent with sentinel flag', () => {
+    const room = ch2Map?.rooms.find((r) => r.id === 'east_market_entrance');
+    expect(room?.revisitEvents?.length).toBeGreaterThanOrEqual(1);
+    const rev = room?.revisitEvents?.[0];
+    expect(rev?.grants?.flags).toBeDefined();
+    expect(rev?.requires?.flags_absent).toBeDefined();
+  });
+
+  it('antique_shop has at least 1 revisitEvent with sentinel flag', () => {
+    const room = ch2Map?.rooms.find((r) => r.id === 'antique_shop');
+    expect(room?.revisitEvents?.length).toBeGreaterThanOrEqual(1);
+    const rev = room?.revisitEvents?.[0];
+    expect(rev?.grants?.flags).toBeDefined();
+  });
+
+  it('imperial_teahouse has at least 1 revisitEvent with sentinel flag', () => {
+    const room = ch2Map?.rooms.find((r) => r.id === 'imperial_teahouse');
+    expect(room?.revisitEvents?.length).toBeGreaterThanOrEqual(1);
+    const rev = room?.revisitEvents?.[0];
+    expect(rev?.grants?.flags).toBeDefined();
+  });
 });
 
 describe('chapter2 event integrity', () => {

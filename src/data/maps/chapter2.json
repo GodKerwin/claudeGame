@@ -23,6 +23,14 @@
             "talent": "三教九流",
             "text": "〔江湖本能：货摊的摆放方式和人流走向有微妙偏移——有人将两个监视点设在了东市出口的最佳位置。你被人盯着了，而且对方不止一个。〕"
           }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_east_market_crowd",
+            "requires": { "flags": ["langpeng_discovered"], "flags_absent": ["rev_east_market_crowd_shown"] },
+            "text": "〔悬赏令还贴在坊墙上，但你已不再是初来乍到的过客——再看这条街，摊贩的站位微妙，几个人的目光拐弯抹角地跟着你。消息已经散出去了。〕",
+            "grants": { "flags": ["rev_east_market_crowd_shown"] }
+          }
         ]
       },
       {
@@ -70,6 +78,14 @@
           {
             "talent": "官威",
             "text": "〔公务直觉：这家铺子的房契和营业文书一定不在本人名下——情报中转站的第一原则就是无迹可查。真正的掌柜，另有其人。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_antique_broker_sense",
+            "requires": { "flags": ["hideout_trust_gained"], "flags_absent": ["rev_antique_broker_sense_shown"] },
+            "text": "〔据点里那些藏匿的往来账目……再看这间铺子，掌柜的见什么人说什么话、不先亮底牌的规矩，和平康坊里的人如出一辙。这间铺子，懂得沉默的价值。〕",
+            "grants": { "flags": ["rev_antique_broker_sense_shown"] }
           }
         ]
       },
@@ -154,6 +170,14 @@
           {
             "talent": "耳报神",
             "text": "〔江湖消息：茶馆里其他客人的眼神都不对——有两三个人从你进门就没放松过视线，却又刻意装作在喝茶。李邈带了人来。今天这场谈话，不会只有你们两个人听到。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_teahouse_watchers",
+            "requires": { "flags": ["langpeng_trail"], "flags_absent": ["rev_teahouse_watchers_shown"] },
+            "text": "〔茶馆里的茶客换了几张脸，但那种不动声色的观察没有换——李邈的人，还在。他知道你来了，也知道你带着什么来的。这一趟不是谈判，是一场两边都在等的棋局终盘。〕",
+            "grants": { "flags": ["rev_teahouse_watchers_shown"] }
           }
         ]
       }
