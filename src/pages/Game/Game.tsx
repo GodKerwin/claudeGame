@@ -116,17 +116,22 @@ export default function Game() {
   const shownTalentViewsRef = useRef<Set<string>>(new Set());
 
   useAutoSave();
-  useSettings();
-
+  const { increaseFontSize, decreaseFontSize } = useSettings();
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (endingPending) { navigate('/chapter-end'); return; }
+      if ((e.ctrlKey || e.metaKey) && (e.key === '=' || e.key === '+')) {
+        e.preventDefault(); increaseFontSize(); return;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key === '-') {
+        e.preventDefault(); decreaseFontSize(); return;
+      }
       if (e.key === 'Escape' && modal === null) setModal('settings');
     };
     document.addEventListener('keydown', handler);
     return () => document.removeEventListener('keydown', handler);
-  }, [modal, endingPending, navigate]);
+  }, [modal, endingPending, navigate, increaseFontSize, decreaseFontSize]);
 
   useEffect(() => {
     const inChapter3 = scene.flags.includes('chapter3_started');
@@ -463,6 +468,25 @@ export default function Game() {
       {(modal === 'save' || modal === 'load') && (
         <SaveLoadModal mode={modal} onClose={() => setModal(null)} />
       )}
+
+      {/* 悬浮字体调节 */}
+      <div className="fixed bottom-4 right-4 z-40 flex items-center gap-0.5 opacity-30 hover:opacity-75 transition-opacity select-none">
+        <button
+          onClick={decreaseFontSize}
+          title="缩小字体 (Ctrl −)"
+          className="px-1.5 py-1 text-ink/60 hover:text-gold/80 transition-colors cursor-pointer"
+        >
+          <span style={{ fontSize: '11px', fontFamily: 'serif' }}>文</span>
+        </button>
+        <div className="w-px h-3 bg-gold/20" />
+        <button
+          onClick={increaseFontSize}
+          title="放大字体 (Ctrl +)"
+          className="px-1.5 py-1 text-ink/60 hover:text-gold/80 transition-colors cursor-pointer"
+        >
+          <span style={{ fontSize: '15px', fontFamily: 'serif' }}>文</span>
+        </button>
+      </div>
 
       {endingPending && (
         <div

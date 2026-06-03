@@ -1,13 +1,18 @@
 import { useState, useEffect } from 'react';
 
 const STORAGE_KEY = 'tianji_font_size';
-const DEFAULT_SIZE = 16;
-const MIN_SIZE = 12;
-const MAX_SIZE = 22;
+
+export const FONT_PRESETS = [
+  { label: '小', size: 13 },
+  { label: '标准', size: 16 },
+  { label: '大', size: 19 },
+  { label: '特大', size: 22 },
+] as const;
+
+export const DEFAULT_SIZE = 16;
 
 function applyFontSize(size: number) {
   document.documentElement.style.fontSize = `${size}px`;
-  // zoom scales all px-based values uniformly (rem already scaled via root font-size)
   (document.body.style as Record<string, string>).zoom = String(size / 16);
 }
 
@@ -22,9 +27,21 @@ export function useSettings() {
     localStorage.setItem(STORAGE_KEY, String(fontSize));
   }, [fontSize]);
 
-  const increaseFontSize = () => setFontSize((s) => Math.min(s + 1, MAX_SIZE));
-  const decreaseFontSize = () => setFontSize((s) => Math.max(s - 1, MIN_SIZE));
-  const resetFontSize = () => setFontSize(DEFAULT_SIZE);
+  const increaseFontSize = () => {
+    setFontSize((s) => {
+      const next = FONT_PRESETS.find((p) => p.size > s);
+      return next ? next.size : s;
+    });
+  };
 
-  return { fontSize, increaseFontSize, decreaseFontSize, resetFontSize, MIN_SIZE, MAX_SIZE };
+  const decreaseFontSize = () => {
+    setFontSize((s) => {
+      const prev = [...FONT_PRESETS].reverse().find((p) => p.size < s);
+      return prev ? prev.size : s;
+    });
+  };
+
+  const setFontSizePreset = (size: number) => setFontSize(size);
+
+  return { fontSize, increaseFontSize, decreaseFontSize, setFontSizePreset };
 }

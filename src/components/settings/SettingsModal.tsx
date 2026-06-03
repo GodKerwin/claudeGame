@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSettings } from '../../hooks/useSettings';
+import { useSettings, FONT_PRESETS } from '../../hooks/useSettings';
 import { audioEngine } from '../../engine/audioEngine';
 
 interface Props {
@@ -16,7 +16,7 @@ const CORNERS = [
 ];
 
 export function SettingsModal({ onClose, onSave, onLoad }: Props) {
-  const { fontSize, increaseFontSize, decreaseFontSize, resetFontSize, MIN_SIZE, MAX_SIZE } = useSettings();
+  const { fontSize, setFontSizePreset } = useSettings();
   const [bgmVol, setBgmVol] = useState(audioEngine.bgmVolume);
   const [sfxVol, setSfxVol] = useState(audioEngine.sfxVolume);
   const [muted,  setMuted]  = useState(audioEngine.muted);
@@ -58,31 +58,25 @@ export function SettingsModal({ onClose, onSave, onLoad }: Props) {
 
           {/* 字体大小 */}
           <div>
-            <p className="text-gold/35 text-[10px] tracking-[0.3em] mb-3">字体大小</p>
-            <div className="flex items-center gap-3">
-              <button
-                onClick={decreaseFontSize}
-                disabled={fontSize <= MIN_SIZE}
-                className="w-8 h-8 border border-gold/25 text-gold/70 hover:border-gold hover:text-gold disabled:opacity-25 disabled:cursor-not-allowed cursor-pointer transition-colors text-base flex items-center justify-center"
-              >
-                −
-              </button>
-              <span className="text-gold/80 text-sm w-12 text-center tabular-nums">{fontSize}px</span>
-              <button
-                onClick={increaseFontSize}
-                disabled={fontSize >= MAX_SIZE}
-                className="w-8 h-8 border border-gold/25 text-gold/70 hover:border-gold hover:text-gold disabled:opacity-25 disabled:cursor-not-allowed cursor-pointer transition-colors text-base flex items-center justify-center"
-              >
-                ＋
-              </button>
-              <button
-                onClick={resetFontSize}
-                className="text-[11px] text-ink/30 hover:text-ink/55 cursor-pointer ml-1 tracking-widest transition-colors"
-              >
-                重置
-              </button>
+            <p className="text-gold/35 text-[10px] tracking-[0.3em] mb-2.5">字体大小</p>
+            <div className="grid grid-cols-4 gap-1.5 mb-2.5">
+              {FONT_PRESETS.map(({ label, size }) => (
+                <button
+                  key={size}
+                  onClick={() => setFontSizePreset(size)}
+                  className={`py-1.5 border text-xs tracking-widest transition-all cursor-pointer ${
+                    fontSize === size
+                      ? 'border-gold/60 text-gold/90 bg-gold/10'
+                      : 'border-gold/18 text-ink/45 hover:border-gold/38 hover:text-ink/70'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
-            <p className="text-ink/25 text-xs mt-2 pl-1">预览：这是一行示例文字</p>
+            <p className="text-ink/25 text-[11px] pl-1 leading-relaxed" style={{ fontSize: `${fontSize}px` }}>
+              预览：此处文字随设置变化
+            </p>
           </div>
 
           {/* 音频 */}
