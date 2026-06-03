@@ -18,6 +18,7 @@ const MOBILE_TABS: { key: MobilePanel; label: string }[] = [
 
 export function GameLayout({ left, center, right }: Props) {
   const [mobilePanel, setMobilePanel] = useState<MobilePanel>('center');
+  const [leftCollapsed, setLeftCollapsed] = useState(false);
 
   const panelContent: Record<MobilePanel, React.ReactNode> = { left, center, right };
 
@@ -25,15 +26,38 @@ export function GameLayout({ left, center, right }: Props) {
     <div className="flex h-screen w-screen bg-paper text-ink font-serif overflow-hidden select-none">
       {/* Desktop: 三栏布局 (≥1024px) */}
       <div className="hidden lg:flex w-full h-full">
-        <nav aria-label="地图导航" className="w-56 shrink-0 border-r border-gold/15 flex flex-col overflow-hidden">
-          <CornerFrame size="sm" className="flex flex-col overflow-hidden h-full panel">
-            {left}
-          </CornerFrame>
+        <nav
+          aria-label="地图导航"
+          className={`shrink-0 border-r border-gold/15 flex flex-col overflow-hidden transition-all duration-300 ${leftCollapsed ? 'w-9' : 'w-64'}`}
+        >
+          {leftCollapsed ? (
+            <div className="flex flex-col items-center justify-center h-full gap-3">
+              <button
+                onClick={() => setLeftCollapsed(false)}
+                title="展开地图"
+                className="flex flex-col items-center gap-1 text-gold/30 hover:text-gold/70 transition-colors cursor-pointer py-2"
+              >
+                <span className="text-[10px]" style={{ writingMode: 'vertical-rl', letterSpacing: '0.3em' }}>地图</span>
+                <span className="text-[14px]">›</span>
+              </button>
+            </div>
+          ) : (
+            <CornerFrame size="sm" className="flex flex-col overflow-hidden h-full panel relative">
+              <button
+                onClick={() => setLeftCollapsed(true)}
+                title="收起地图"
+                className="absolute top-2 right-2 z-10 text-gold/25 hover:text-gold/60 transition-colors cursor-pointer text-[12px] leading-none"
+              >
+                ‹
+              </button>
+              {left}
+            </CornerFrame>
+          )}
         </nav>
         <main className="flex-1 flex flex-col overflow-hidden border-r border-gold/10" aria-label="故事主区">
           {center}
         </main>
-        <aside aria-label="角色状态" className="shrink-0 flex flex-col overflow-hidden" style={{ width: '210px' }}>
+        <aside aria-label="角色状态" className="shrink-0 flex flex-col overflow-hidden" style={{ width: '240px' }}>
           <CornerFrame size="sm" className="flex flex-col overflow-hidden h-full panel">
             {right}
           </CornerFrame>

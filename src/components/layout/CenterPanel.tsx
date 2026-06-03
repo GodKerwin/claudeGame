@@ -21,6 +21,12 @@ const ROOM_ATMOSPHERE: Record<string, { glyph: string; color: string; label: str
   tianji_safehouse:   { glyph: '▲', color: 'rgba(201,168,76,0.30)', label: '安宅·室内' },
   feiyes_manor:       { glyph: '◌', color: 'rgba(201,168,76,0.25)', label: '旧居·午后' },
   qujiang_pavilion:   { glyph: '◌', color: 'rgba(58,122,90,0.45)', label: '曲江·傍晚' },
+  yongning_nightmarket:{ glyph: '◌', color: 'rgba(139,26,26,0.35)', label: '夜市·暗' },
+  censorate_street:   { glyph: '▲', color: 'rgba(201,168,76,0.30)', label: '官署·外街' },
+  zhuque_teahouse_st: { glyph: '▲', color: 'rgba(201,168,76,0.40)', label: '朱雀·茶肆' },
+  leyou_plain:        { glyph: '◌', color: 'rgba(58,122,90,0.40)', label: '乐游原·高地' },
+  censorate_outer:    { glyph: '▲', color: 'rgba(201,168,76,0.25)', label: '廷尉·外院' },
+  tianji_ruins_ch3:   { glyph: '◌', color: 'rgba(201,168,76,0.20)', label: '旧宅·故地' },
 };
 
 interface ActionItem {
@@ -204,6 +210,7 @@ export function CenterPanel({
 
   return (
     <div className="flex flex-col h-full">
+      <div className="w-full max-w-3xl mx-auto flex flex-col h-full">
       {/* 房间标题 */}
       <div className="px-5 py-3 border-b border-gold/10 flex flex-col items-center gap-1">
         <div className="w-full flex items-center gap-2">
@@ -492,6 +499,7 @@ export function CenterPanel({
         </div>
           </>
         )}
+      </div>
       </div>
     </div>
   );
