@@ -249,7 +249,7 @@ const CHAPTER2_RULES: HintRule[] = [
   },
   {
     when: (ctx) => !has(ctx, 'langpeng_discovered'),
-    hint: '在东市探查浪鹏帮踪迹。公告板上有线索，东市深处的醉汉也可能知道内情。',
+    hint: '在东市探查浪鹏帮踪迹。公告板上的悬赏告示有线索，浪鹏帮据点藏在平康坊方向——深入探查即可找到。',
   },
   {
     when: () => true,
