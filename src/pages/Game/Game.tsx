@@ -141,13 +141,16 @@ export default function Game() {
   // 线索数量门槛：达到后自动打 flag，供结局 requires 检查
   useEffect(() => {
     const count = scene.clues.length;
-    if (chapter === 1 && count >= 9 && !scene.flags.includes('ch1_clues_sufficient'))
+    const inCh3 = scene.flags.includes('chapter3_started');
+    const inCh2 = scene.flags.includes('chapter2_started');
+    const ch = inCh3 ? 3 : inCh2 ? 2 : 1;
+    if (ch === 1 && count >= 9 && !scene.flags.includes('ch1_clues_sufficient'))
       scene.addFlag('ch1_clues_sufficient');
-    else if (chapter === 2 && count >= 6 && !scene.flags.includes('ch2_clues_sufficient'))
+    else if (ch === 2 && count >= 6 && !scene.flags.includes('ch2_clues_sufficient'))
       scene.addFlag('ch2_clues_sufficient');
-    else if (chapter === 3 && count >= 5 && !scene.flags.includes('ch3_clues_sufficient'))
+    else if (ch === 3 && count >= 5 && !scene.flags.includes('ch3_clues_sufficient'))
       scene.addFlag('ch3_clues_sufficient');
-  }, [scene.clues.length, chapter]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [scene.clues.length, scene.flags]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!player.name) {
