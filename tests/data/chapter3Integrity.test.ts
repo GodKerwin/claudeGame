@@ -65,6 +65,30 @@ describe('chapter3 map and item integrity', () => {
       expect(item?.isClue, `${id} should be a clue`).toBe(true);
     }
   });
+
+  it('dayan_pagoda has at least 1 revisitEvent with sentinel flag', () => {
+    const room = ch3Map?.rooms.find((r) => r.id === 'dayan_pagoda');
+    expect(room?.revisitEvents?.length).toBeGreaterThanOrEqual(1);
+    expect(room?.revisitEvents?.[0]?.grants?.flags).toBeDefined();
+  });
+
+  it('tianji_safehouse has at least 1 revisitEvent with sentinel flag', () => {
+    const room = ch3Map?.rooms.find((r) => r.id === 'tianji_safehouse');
+    expect(room?.revisitEvents?.length).toBeGreaterThanOrEqual(1);
+    expect(room?.revisitEvents?.[0]?.grants?.flags).toBeDefined();
+  });
+
+  it('feiyes_manor has at least 1 revisitEvent with sentinel flag', () => {
+    const room = ch3Map?.rooms.find((r) => r.id === 'feiyes_manor');
+    expect(room?.revisitEvents?.length).toBeGreaterThanOrEqual(1);
+    expect(room?.revisitEvents?.[0]?.grants?.flags).toBeDefined();
+  });
+
+  it('qujiang_pavilion has at least 1 revisitEvent with sentinel flag', () => {
+    const room = ch3Map?.rooms.find((r) => r.id === 'qujiang_pavilion');
+    expect(room?.revisitEvents?.length).toBeGreaterThanOrEqual(1);
+    expect(room?.revisitEvents?.[0]?.grants?.flags).toBeDefined();
+  });
 });
 
 describe('chapter3 event integrity', () => {

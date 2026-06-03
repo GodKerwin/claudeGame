@@ -23,6 +23,14 @@
             "talent": "耳报神",
             "text": "〔江湖消息：无迹和尚对碑文的反应比我预想的慢了一拍——他不是第一次看见它，他只是在决定要不要装作陌生。这位和尚，知道的比他承认的多得多。〕"
           }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_dayan_after_decode",
+            "requires": { "flags": ["stele_decoded"], "flags_absent": ["rev_dayan_after_decode_shown"] },
+            "text": "〔碑文已经读懂，但再看这块石头，它依然一动不动地立在这里——二十年的风雨，所有守候和恐惧，都被压进这几行字里。立碑的人，当时是什么心情。〕",
+            "grants": { "flags": ["rev_dayan_after_decode_shown"] }
+          }
         ]
       },
       {
@@ -44,6 +52,14 @@
           {
             "talent": "三教九流",
             "text": "〔江湖本能：安全屋的隔墙比外侧厚了整整两寸——夹墙里有东西。不是机关，是文书。天机阁的档案，从没有全部拿出来过。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_safehouse_map_read",
+            "requires": { "flags": ["tianji_trust_gained"], "flags_absent": ["rev_safehouse_map_read_shown"] },
+            "text": "〔堪舆图上的红点又多了几个——联络人没有说，但你注意到了。有些暴露的节点不像是意外，更像是主动让人找到的诱饵。有人在这张网之外，比所有人都清醒。〕",
+            "grants": { "flags": ["rev_safehouse_map_read_shown"] }
           }
         ]
       },
@@ -67,6 +83,14 @@
             "talent": "耳报神",
             "text": "〔江湖消息：空屋里有三样东西被有意留下：一个茶杯、一本残缺的名录、一枚磨光的铜钱。这不是遗忘，是路标。他在告诉后来者：我在这里住过，我有意让你知道。〕"
           }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_manor_echo",
+            "requires": { "flags": ["feiyes_manor_searched"], "flags_absent": ["rev_manor_echo_shown"] },
+            "text": "〔画像壁上的人你已经认出——再扫一眼这间屋子，那些故意留下的物件、干涸的茶、空着的书架，都像是写给来者的一封信。他在等的，原来就是你这样的人。〕",
+            "grants": { "flags": ["rev_manor_echo_shown"] }
+          }
         ]
       },
       {
@@ -88,6 +112,14 @@
           {
             "talent": "耳报神",
             "text": "〔江湖消息：他说「等你好久了」，但落水声盖住了那一瞬的呼吸——他在刻意控制语气。那句话，他说给自己听的成分，不比说给我听的少。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_qujiang_stillness",
+            "requires": { "flags": ["fei_ye_identity_confirmed"], "flags_absent": ["rev_qujiang_stillness_shown"] },
+            "text": "〔曲江池的水还在，亭中的人还在等——他知道你还没做最终的决定。风从水面吹过来，有一种奇异的平静，像是所有的追查、所有的谎言，在这里都停住了，等着最后一句话落地。〕",
+            "grants": { "flags": ["rev_qujiang_stillness_shown"] }
           }
         ]
       }
