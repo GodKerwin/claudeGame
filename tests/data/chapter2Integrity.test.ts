@@ -50,6 +50,27 @@ describe('chapter2 map and item integrity', () => {
     expect(room?.exits).toContain('censorate_street');
   });
 
+  it('zhuque_teahouse_st room exists with no prerequisite', () => {
+    const room = ch2Map?.rooms.find((r) => r.id === 'zhuque_teahouse_st');
+    expect(room, 'zhuque_teahouse_st missing').toBeDefined();
+    expect(room?.requires == null || Object.keys(room.requires).length === 0).toBe(true);
+    expect(room?.exits).toContain('east_market_entrance');
+  });
+
+  it('zhuque teahouse items exist', () => {
+    const ids = ['li_mao_rumor_record', 'missing_persons_notice'];
+    for (const id of ids) {
+      expect(allItemIds.has(id), `missing item: ${id}`).toBe(true);
+    }
+  });
+
+  it('ch2 wisdom growth synthesis event exists', () => {
+    const evt = EVENTS.find((e) => e.id === 'evt_zhuque_synthesis');
+    expect(evt, 'evt_zhuque_synthesis missing').toBeDefined();
+    const growthAction = evt?.actions.find((a) => a.grants?.wisdom === 1);
+    expect(growthAction, 'wisdom growth action missing').toBeDefined();
+  });
+
   it('all 6 chapter2 rooms exist', () => {
     const expected = [
       'east_market_entrance',

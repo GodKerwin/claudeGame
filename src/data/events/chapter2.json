@@ -516,6 +516,38 @@
     ]
   },
   {
+    "id": "evt_zhuque_atmosphere",
+    "title": "朱雀大街茶肆",
+    "description": "大街边的普通茶肆，人来人往，消息最是灵通。墙角贴着数张告示，其中几张是手写的失踪启事，字迹歪斜，一看就是家属自己写的。",
+    "actions": [
+      {
+        "id": "read_notices",
+        "label": "细看墙角告示",
+        "requires": null,
+        "result": "失踪启事上描述的人：中年男性，行事低调，有些是游方医，有些是说书人，有些职业不详。你将特征默记，感到这批失踪者之间有某种说不清的相似之处。",
+        "grants": { "flags": ["missing_pattern_noticed"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_zhuque_synthesis",
+    "title": "线索拼合",
+    "description": "你手上同时有李邈风评录和失踪告示。两件事放在一起，隐隐指向同一个结论。",
+    "actions": [
+      {
+        "id": "connect_clues",
+        "label": "将李邈人脉网络与失踪名单对照",
+        "requires": { "has": ["li_mao_rumor_record", "missing_persons_notice"] },
+        "result": "失踪者的特征与天机旧部高度吻合，而李邈最近在城内的动作——联系起来，他在系统性地清除知道某件旧事的人。这张网比你以为的大得多，而你站在它的边缘。",
+        "grants": {
+          "flags": ["li_mao_cleansing_confirmed"],
+          "wisdom": 1,
+          "storyText": "〖碎片开始成形，你看见了那张网更大的轮廓。〗"
+        }
+      }
+    ]
+  },
+  {
     "id": "evt_censorate_exterior",
     "title": "廷尉府外街",
     "description": "廷尉府的外围街道，两侧是低矮的官署附属建筑。行人稀少，偶有小吏匆匆经过。档案外署的牌子挂在一扇半掩的门旁。",

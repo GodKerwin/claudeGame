@@ -174,6 +174,48 @@
     ]
   },
   {
+    "id": "npc_street_storyteller",
+    "name": "街头说书人",
+    "description": "一个嗓音洪亮的中年男子，围着一圈闲散茶客说书。停顿之间，他的眼神扫过在场每一个人，那是江湖老手特有的习惯。",
+    "dialogues": [
+      {
+        "id": "storyteller_first_meet",
+        "condition": null,
+        "text": "「客官，听书就坐，不听书也可以喝茶。」他冲你一点头，「您是外地来的？长安最近不太平，多个耳朵多条路，这话不是白说的。」"
+      },
+      {
+        "id": "storyteller_peer",
+        "condition": { "talent": "耳报神" },
+        "text": "他看见你的某个不经意的手势，眼神一亮。「同行？」他压低声音，「行，说个真事儿给你听。那个李邈，最近在城里清人——专找那些老面孔，一个一个地「请」走。为什么清，我猜是怕他们开口说某些旧事。」",
+        "grants": {
+          "flags": ["li_mao_cleansing_intel"],
+          "items": ["li_mao_rumor_record"],
+          "clues": ["li_mao_rumor_record"]
+        }
+      },
+      {
+        "id": "storyteller_drunk_ref",
+        "condition": { "has": ["drunk_testimony"] },
+        "text": "你提起往事客栈的醉汉，说书人眼中闪过一丝认出的神情。「那个张三啊，老熟人了。他在往事客栈喝了多少年酒，我都数不清了。」他顿了顿，「他说的话，你不能全信，但也不能不信——他在那里见过的人，比你以为的多得多。」",
+        "grants": { "flags": ["drunk_testimony_verified"] }
+      },
+      {
+        "id": "storyteller_missing",
+        "condition": null,
+        "text": "「最近有几个人不见了，」他漫不经心地说，「你知道长安城多大，少几个人本来不稀奇。但这几个人……都是老人了，在各处低调地活着，突然就没了消息。有人在清扫某种痕迹。」",
+        "grants": {
+          "items": ["missing_persons_notice"],
+          "clues": ["missing_persons_notice"]
+        }
+      },
+      {
+        "id": "storyteller_synthesis",
+        "condition": { "has": ["li_mao_rumor_record", "missing_persons_notice"] },
+        "text": "你将两件事一对照，说书人看着你点点头。「你看出来了——失踪的那几个，跟李邈清的名单，是同一批人。他在把知道旧事的人一个个从长安除掉。为什么，你想清楚了吗？」"
+      }
+    ]
+  },
+  {
     "id": "npc_archive_clerk",
     "name": "档案小吏",
     "description": "廷尉府外街上的一个小吏，年约三十，面容普通，穿着整洁但不起眼。神情习惯性地警觉，见陌生人走近会微微侧身。",

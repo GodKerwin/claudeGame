@@ -8,7 +8,7 @@
         "name": "东市入口",
         "description": "晨雾未散，东市外的长街已经嘈杂起来。货车辚辚，叫卖声此起彼伏，却有一种与往常不同的紧张气息在人群中流淌。官府的悬赏令贴在坊墙上，白纸黑字，触目惊心。",
         "interactables": ["evt_market_notice", "evt_merchant_gossip", "evt_bounty_investigation"],
-        "exits": ["huichuntang", "antique_shop", "cien_temple", "yongning_nightmarket"],
+        "exits": ["huichuntang", "antique_shop", "cien_temple", "yongning_nightmarket", "zhuque_teahouse_st"],
         "requires": null,
         "talentViews": [
           {
@@ -232,6 +232,31 @@
             },
             "text": "〔再次经过廷尉府外街，你注意到档案室的门被关紧了，窗帘也拉上了——有人知道你来过。〕",
             "grants": { "flags": ["rev_censorate_after_shown", "censorate_aware_of_you"] }
+          }
+        ]
+      },
+      {
+        "id": "zhuque_teahouse_st",
+        "name": "朱雀大街茶肆",
+        "description": "朱雀大街旁一家普通茶肆，人来人往，嘈杂而生机勃勃。角落里有一个说书人正在讲什么，茶客们听得似乎入神，又似乎各有心事。",
+        "interactables": ["evt_zhuque_atmosphere", "evt_zhuque_synthesis", "npc_street_storyteller"],
+        "exits": ["east_market_entrance"],
+        "requires": null,
+        "talentViews": [
+          {
+            "talent": "耳报神",
+            "text": "〔同行所感：那个说书人的停顿位置不对——他不只是在讲故事，他在观察听众的反应。这是用来收集情报的说书，你以前也做过一样的事。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_zhuque_after_limao",
+            "requires": {
+              "flags": ["li_mao_cleansing_confirmed"],
+              "flags_absent": ["rev_zhuque_limao_shown"]
+            },
+            "text": "〔再来茶肆，说书人正在讲一个关于「长安城里消失的人」的故事，茶客们听得入神。他的眼神扫过来，微微点了一下头。〕",
+            "grants": { "flags": ["rev_zhuque_limao_shown"] }
           }
         ]
       }
