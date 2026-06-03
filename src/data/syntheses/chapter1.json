@@ -82,5 +82,35 @@
     "result": "茶是提前备好放在柜台的，砒霜是高纯度的专业配方——这不是即兴犯罪，是提前数小时精密部署的计划。动手的人知道宋怀义几时回房、什么时候会喝茶，对他的行程了如指掌。",
     "hint": "预制毒茶证词 × 砒霜证据",
     "grants": { "flags": ["synth_premeditated"] }
+  },
+  {
+    "id": "synth_scroll_fragments",
+    "itemA": "cellar_fragment",
+    "itemB": "forest_fragment",
+    "result": "地窖与树林的残卷碎片拼合，还原宋怀义此行携带的完整情报——他带来的不止名单，还有天机阁建阁档案节选。这份内容，正是「鸢」此行真正要销毁的东西。宋怀义的死，从一开始就有双重目标：取走档案，灭口知情人。",
+    "hint": "密室碎片 × 树林碎片",
+    "grants": { "flags": ["synth_scroll_fragments"] },
+    "pivotal": false,
+    "chapter": 1
+  },
+  {
+    "id": "synth_crime_scene_full",
+    "itemA": "footprint_clue",
+    "itemB": "blood_pattern_sketch",
+    "result": "脚印走向与血迹分布完整重建凶案动线：凶手从门口进入，宋怀义先向后退跌倒，随后被制住。整个过程不超过一刻钟。与双重作案手法互补，这是完整的现场还原：先毒倒，后跌倒，最后勒毙。",
+    "hint": "脚印分析 × 血迹手绘",
+    "grants": { "flags": ["synth_crime_scene_full"] },
+    "pivotal": false,
+    "chapter": 1
+  },
+  {
+    "id": "synth_medical_premeditation",
+    "itemA": "medical_report",
+    "itemB": "fiber_match_evidence",
+    "result": "验尸报告与纤维比对交叉印证：宋怀义挣扎时间极短，凶手体型壮硕且受过专业训练，不是普通帮派打手。结合浪鹏帮探子的胆怯表现——真正动手的那个人，来自比浪鹏帮更深处的地方。",
+    "hint": "验尸报告 × 纤维比对",
+    "grants": { "flags": ["synth_medical_premeditation"] },
+    "pivotal": false,
+    "chapter": 1
   }
 ]

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { MAPS, EVENTS, NPCS, ITEMS } from '../../src/data/loader';
+import { MAPS, EVENTS, NPCS, ITEMS, SYNTHESES } from '../../src/data/loader';
 
 describe('chapter1 data integrity', () => {
   const allEventIds = new Set(EVENTS.map((e) => e.id));
@@ -235,6 +235,35 @@ describe('chapter1 data integrity', () => {
     expect(agiAction).toBeDefined();
     expect(strAction?.grants?.flags).toContain('cloth_fiber_found');
     expect(agiAction?.grants?.flags).toContain('cloth_fiber_found');
+  });
+
+  it('deleted orphan items no longer exist', () => {
+    const deleted = ['wine_jar_iron_plate', 'forest_direction_mark', 'killer_footprint_analysis'];
+    for (const id of deleted) {
+      expect(allItemIds.has(id), `${id} should be deleted`).toBe(false);
+    }
+  });
+
+  it('3 new chapter1 syntheses exist', () => {
+    const newSynthIds = ['synth_scroll_fragments', 'synth_crime_scene_full', 'synth_medical_premeditation'];
+    const synthIds = new Set(SYNTHESES.map((s) => s.id));
+    for (const id of newSynthIds) {
+      expect(synthIds.has(id), `missing synthesis: ${id}`).toBe(true);
+    }
+  });
+
+  it('synth_scroll_fragments uses existing items', () => {
+    const s = SYNTHESES.find((s) => s.id === 'synth_scroll_fragments');
+    expect(s).toBeDefined();
+    expect(allItemIds.has(s!.itemA)).toBe(true);
+    expect(allItemIds.has(s!.itemB)).toBe(true);
+  });
+
+  it('martial arts books trigger growth events', () => {
+    const wuhen = EVENTS.find((e) => e.id === 'evt_read_wuhen_bu');
+    const guiBu = EVENTS.find((e) => e.id === 'evt_read_gui_bu');
+    expect(wuhen, 'evt_read_wuhen_bu missing').toBeDefined();
+    expect(guiBu, 'evt_read_gui_bu missing').toBeDefined();
   });
 
   it('all templates can reach at least one ending with default stats', () => {

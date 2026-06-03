@@ -90,6 +90,16 @@
             "requires": { "flags": ["langpeng_spy_identified", "drunk_talked"], "flags_absent": ["drunk_bell_confirmed", "rev_lobby_bell_shown"] },
             "text": "〔那截铜铃残件……张三说那人腰里挂着铜铃。他认不认识这个？〕",
             "grants": { "flags": ["rev_lobby_bell_shown"] }
+          },
+          {
+            "id": "rev_lobby_wisdom_double_kill",
+            "requires": { "flags": ["synth_double_kill"], "flags_absent": ["rev_lobby_wisdom_shown"] },
+            "text": "再次站在大堂，你脑海中忽然清晰起来——那双重作案手法，不只是一次犯罪的细节，而是一个习惯的印记。死亡的真相往往藏在两件事的交叠处。你开始习惯这种目光。",
+            "grants": {
+              "flags": ["rev_lobby_wisdom_shown"],
+              "wisdom": 1,
+              "storyText": "〖死亡的真相往往藏在两件事的交叠处。你开始习惯这种目光。〗"
+            }
           }
         ]
       },
@@ -135,7 +145,7 @@
         "id": "forest",
         "name": "城郊树林",
         "description": "天色将暮，林间树影婆娑，偶有鸦啼。你循着大堂地面上的模糊脚印一路追来，树林深处忽有人影一闪而过。枯树旁，一名白衣人背对着你站立，衣袂随风轻扬；树林边缘的空地上，一个须发皆白的老头正摆摊卖符纸。",
-        "interactables": ["npc_white_stranger", "npc_paper_seller", "evt_forest_tracks"],
+        "interactables": ["npc_white_stranger", "npc_paper_seller", "evt_forest_tracks", "evt_read_wuhen_bu"],
         "exits": ["lobby", "back_alley"],
         "requires": { "flags": ["found_escape_clue"] }
       },
@@ -143,11 +153,23 @@
         "id": "old_mansion",
         "name": "废弃宅院",
         "description": "朱漆大门半开，院内荒草及膝，青砖缝隙间生满苔藓。正堂横梁上悬着一块匾额，\"天机阁\"三字在尘埃下若隐若现，笔力遒劲，想来曾是何等气象。院子东侧，一口干枯的古井静静矗立，井壁上刻满了看不懂的符文。",
-        "interactables": ["evt_tianji_records", "evt_mansion_ear_room", "evt_final_confrontation", "evt_dry_well", "npc_fei_ye"],
+        "interactables": ["evt_tianji_records", "evt_mansion_ear_room", "evt_final_confrontation", "evt_dry_well", "npc_fei_ye", "evt_read_gui_bu"],
         "exits": ["lobby"],
         "requires": {
           "flags": ["clue_blood_letter_found", "clue_arsenic_found", "cellar_fragment_obtained"]
-        }
+        },
+        "revisitEvents": [
+          {
+            "id": "rev_mansion_wisdom_tianji",
+            "requires": { "flags": ["synth_tianji_motive"], "flags_absent": ["rev_mansion_wisdom_shown"] },
+            "text": "再次站在天机阁旧址，那块匾额的字迹忽然多了一层意味。十年前的棋局，今日才露出轮廓。你意识到，这种看见旧事深处的目光，将在日后派上用场。",
+            "grants": {
+              "flags": ["rev_mansion_wisdom_shown"],
+              "wisdom": 1,
+              "storyText": "〖十年前的棋局，今日才露出轮廓。这种感知，将在日后派上用场。〗"
+            }
+          }
+        ]
       },
       {
         "id": "back_alley",

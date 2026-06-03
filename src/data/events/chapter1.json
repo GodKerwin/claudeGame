@@ -786,5 +786,41 @@
         "grants": { "flags": ["ch1_strength_grown"], "strength": 1 }
       }
     ]
+  },
+  {
+    "id": "evt_read_wuhen_bu",
+    "title": "《无痕步》残本",
+    "description": "一本残破的武学手册，封皮已脱落，内页却字迹清晰。步法图示精妙，以「无」字为诀，讲究先消形再消声。",
+    "actions": [
+      {
+        "id": "read_wuhen",
+        "label": "细读步法图示",
+        "requires": { "has": ["wuxue_wuhen_bu"], "flags_absent": ["wuhen_bu_read"] },
+        "result": "你将书中的步法反复揣摩，在脑海中走了一遍又一遍。步法无痕，在于心先于足——这句话，你将记在身体里。",
+        "grants": {
+          "flags": ["wuhen_bu_read"],
+          "agility": 1,
+          "storyText": "〖步法无痕，在于心先于足。你感到脚步比昨日更轻了一分。〗"
+        }
+      }
+    ]
+  },
+  {
+    "id": "evt_read_gui_bu",
+    "title": "《鬼步连环》秘籍",
+    "description": "秘籍以连环桩步为核心，图示繁复，却有一种奇异的节律感。每一步都借力于前一步，周而复始，以不动应万动。",
+    "actions": [
+      {
+        "id": "read_gui_bu",
+        "label": "研习连环桩步",
+        "requires": { "has": ["wuxue_gui_bu_lianhuan"], "flags_absent": ["gui_bu_read"] },
+        "result": "你按图示站了几遍桩步，感到骨骼与呼吸之间多了一分从容。连环之势，以不动应万动——这句话，你将记在骨骼里。",
+        "grants": {
+          "flags": ["gui_bu_read"],
+          "constitution": 1,
+          "storyText": "〖连环之势，以不动应万动。你感到身体多了一分承受的从容。〗"
+        }
+      }
+    ]
   }
 ]
