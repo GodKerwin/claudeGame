@@ -127,7 +127,33 @@
         "condition": { "flags": ["innkeeper_met"] },
         "text": "客官，实不相瞒，昨夜小店后厨也有些异动，不过……那是内部之事，还请见谅。"
       }
-    ]
+    ],
+    "interrogation": {
+      "enabled": true,
+      "triggerFlag": "innkeeper_met",
+      "levels": [
+        {
+          "level": 0,
+          "moodHint": "〔他擦着柜台，眼神没有停在你身上。〕",
+          "text": "不知道，我只是个开店的，什么都不清楚。有什么事问衙门去。",
+          "indirectText": "你随口问了几句食宿的事，他答得滴水不漏，不咸不淡。",
+          "pushEvidence": ["blood_letter"]
+        },
+        {
+          "level": 1,
+          "moodHint": "〔他的手微微一顿，重新低头擦起柜台。〕",
+          "text": "那块令牌……我见过类似的东西，但那是很久以前的事了，跟我无关。",
+          "indirectText": "他看了看你手里的东西，把视线移开了，动作比刚才慢了一些。",
+          "pushEvidence": ["innkeeper_jade", "tianji_roster"]
+        },
+        {
+          "level": 2,
+          "moodHint": "〔他放下了抹布，长叹一口气，像是放下了什么重担。〕",
+          "text": "好，我说。这块玉牌是天机阁的信物，我认得。宋怀义来这里，是来交接一件东西的，我是中转人——已经十年了。他出事，我早就知道是迟早的事。那个人，左手有一道旧疤。",
+          "grants": { "flags": ["innkeeper_secret_revealed", "left_hand_scar_known"] }
+        }
+      ]
+    }
   },
   {
     "id": "npc_drunk_zhang_san",
@@ -195,7 +221,32 @@
         "text": "张三猛地直起腰，酒意散了一半，压低声音：「你……是行里人？」他扫了眼四周，凑近，「我认出你了。昨夜那个蓝衫的，腰间铜铃是浪鹏帮外围的记号。他们在盯这客栈不是一天了。你要查？去后巷问老乞丐，他以前给浪鹏帮跑过腿。」",
         "grants": { "flags": ["drunk_thief_talked", "drunk_talked", "found_escape_clue", "langpeng_discovered"] }
       }
-    ]
+    ],
+    "interrogation": {
+      "enabled": true,
+      "levels": [
+        {
+          "level": 0,
+          "moodHint": "〔他摇摇晃晃，连看你的目光都是散的。〕",
+          "text": "嗝……什么事啊……我没看见什么，我当时睡着了……",
+          "indirectText": "他含糊地哼了一声，喝了口酒，眼神涣散地看着别处。",
+          "pushEvidence": ["tavern_wine"]
+        },
+        {
+          "level": 1,
+          "moodHint": "〔酒喝下去，他的眼神清醒了一点，开始打量你。〕",
+          "text": "我那晚……是没睡着，嗯。我看见一个穿黑的，腰间别着什么，往二楼去了，很快就下来了。",
+          "indirectText": "他摇摇手，「那不是我该说的事……」嘴里咕哝着什么，重新低下头去。",
+          "pushEvidence": ["copper_bell_fragment", "cloth_fiber_clue"]
+        },
+        {
+          "level": 2,
+          "moodHint": "〔他放低了声音，靠近你说话。〕",
+          "text": "那个人，腰上别的那个铜铃，跟浪鹏帮帮徽一样的纹路——我在码头见过。他走的时候走的后院，我看见他翻墙出去了。左手……左手好像有什么，袖子遮着，走路姿势是个惯走江湖的人。",
+          "grants": { "flags": ["drunk_full_testimony", "langpeng_discovered", "found_escape_clue"] }
+        }
+      ]
+    }
   },
   {
     "id": "npc_cook_wang",
@@ -271,7 +322,33 @@
         "text": "你注意到王氏右手微颤、嘴唇发白——轻度吸入了药粉。你为她把了脉，从药囊取出安神散递过去：「服下，一柱香内缓解。」\n\n王氏接过，眼眶红了：「谢谢您，您是第一个问我怎么了的人。」她小声说，「那人昨夜在灶台里放了什么……我瞧见了——她把砒霜溶进温酒里，搅匀了，拿出去了。是用来毒人的，不是用来撒的。」",
         "grants": { "flags": ["cook_treated", "cook_poison_wine_revealed"], "clues": ["poison_wine_method"] }
       }
-    ]
+    ],
+    "interrogation": {
+      "enabled": true,
+      "triggerFlag": "cook_talked",
+      "levels": [
+        {
+          "level": 0,
+          "moodHint": "〔她两手缠着围裙，不停地往门口看。〕",
+          "text": "那壶茶不是我泡的，我只是端过去的。我什么都不知道。",
+          "indirectText": "她低着头，灶台前的活儿做得比平时快了一倍，像是在逃避什么。",
+          "pushEvidence": ["arsenic_evidence"]
+        },
+        {
+          "level": 1,
+          "moodHint": "〔她的眼圈红了，声音压得很低。〕",
+          "text": "那个人……我没看清楚脸。但他在茶里放了什么，我闻到了不对劲的味道，我不敢说……",
+          "indirectText": "她抬头看了你一眼，嘴唇动了动，又迅速低下头去。",
+          "pushEvidence": ["arsenic_evidence", "premade_tea_testimony"]
+        },
+        {
+          "level": 2,
+          "moodHint": "〔她终于把抹布放下，用袖子擦了擦眼角。〕",
+          "text": "是有人提前备好了那壶茶，放在灶台边，说让我端过去就行。我闻到了苦味，但我怕得不敢说。那个人，我只记得他戴着帽子，左手有一道旧疤，烫的那种。",
+          "grants": { "flags": ["cook_full_testimony", "left_hand_scar_known"] }
+        }
+      ]
+    }
   },
   {
     "id": "npc_white_stranger",
