@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { StatBar } from '../ui/StatBar';
 import { Tooltip } from '../ui/Tooltip';
 import { DiamondDivider } from '../ui/DiamondDivider';
@@ -190,7 +190,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
       )
     : new Set<string>();
 
-  const handleSelectItem = (itemId: string) => {
+  const handleSelectItem = useCallback((itemId: string) => {
     setHintPair(null);
     if (selectedA === itemId) {
       setSelectedA(null);
@@ -234,7 +234,7 @@ export function RightPanel({ onSettings }: RightPanelProps) {
       setSelectedB(null);
       setSynthResult(null);
     }
-  };
+  }, [selectedA, selectedB, foundSynthesisIds, addFoundSynthesisId, addFlag, addItem]);
 
   const resetSynthesis = () => {
     setSelectedA(null);
