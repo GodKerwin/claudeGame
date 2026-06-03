@@ -468,11 +468,11 @@ export function CenterPanel({
                               ) : (
                                 <div
                                   key={a.id}
-                                  className="pl-2 pr-1 py-1.5 border-l border-gold/12 ml-px select-none"
+                                  className="pl-2 pr-1 py-1.5 border-l-2 border-gold/18 ml-px select-none"
                                 >
-                                  <p className="text-[13px] text-ink/28 leading-snug">{a.label}</p>
+                                  <p className="text-[13px] text-ink/32 leading-snug">{a.label}</p>
                                   {a.hint && (
-                                    <p className="text-[11px] text-gold/30 mt-0.5 tracking-wide leading-snug">{a.hint}</p>
+                                    <p className="text-[11px] text-gold/42 mt-0.5 tracking-wide leading-snug">〔{a.hint}〕</p>
                                   )}
                                 </div>
                               )
