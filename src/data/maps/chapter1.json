@@ -7,9 +7,17 @@
         "id": "room_203",
         "name": "二楼客房（二〇三号）",
         "description": "你从沉睡中惊醒，窗外天光微亮。隔壁传来急促的敲门声与压低的哭声。你推开房门，走廊尽头，客栈伙计跌跌撞撞地奔来——隔壁二〇二号房的商人宋怀义，死了。他那房间的门半开着，一股血腥气顺着走廊飘来。",
-        "interactables": ["evt_window_look", "evt_ch1_wisdom_growth"],
+        "interactables": ["evt_window_look", "evt_wall_sounds", "evt_corridor_traces", "evt_ch1_wisdom_growth"],
         "exits": ["lobby", "room_202"],
-        "requires": null
+        "requires": null,
+        "revisitEvents": [
+          {
+            "id": "rev_room203_cloth_fiber",
+            "requires": { "flags": ["cloth_fiber_found", "corridor_checked"], "flags_absent": ["corridor_cloth_corroborated"] },
+            "text": "〔你想起刚才在走廊发现的踩痕——那人从这里经过。门框的木纹里……果然，同样的黑色纤维，极细，嵌在木刺里。凶手的衣物在经过这里时也留下了痕迹。〕",
+            "grants": { "flags": ["corridor_cloth_corroborated"] }
+          }
+        ]
       },
       {
         "id": "room_202",

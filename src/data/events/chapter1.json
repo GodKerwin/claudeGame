@@ -125,6 +125,50 @@
     ]
   },
   {
+    "id": "evt_wall_sounds",
+    "title": "回想昨夜动静",
+    "description": "薄薄的一道墙，隔着另一个人的死亡。你仔细回想昨夜听到过什么。",
+    "requires": null,
+    "actions": [
+      {
+        "id": "recall_night_sounds",
+        "label": "仔细回想昨夜的动静",
+        "requires": { "flags_absent": ["heard_sounds_203"] },
+        "result": "你闭目回想。三更前后，隔壁传来一阵低沉的拖拽声，很短暂，接着是一段沉寂。你当时以为是邻人翻身，没有在意——现在想来，那声音太重，不像人在翻身，像是有什么沉重的东西被移动了。",
+        "grants": { "flags": ["heard_sounds_203"] }
+      },
+      {
+        "id": "recall_precise_timing",
+        "label": "「以耳力细辨声音的节奏与时序」",
+        "requires": { "talent": "耳报神", "flags": ["heard_sounds_203"], "flags_absent": ["death_time_estimated"] },
+        "result": "你的耳力向来过人。三更过了约一刻——你记得钟楼刚响过三下，你刚刚翻了个身。\n\n拖拽声之后有踩踏声，有人在隔壁走动；再之后是窗棂轻响，开合各一次。前后加起来，不超过一炷香。\n\n「凶手在那段时间里完成了全部动作。」【推断：案发时辰确认】",
+        "grants": { "flags": ["death_time_estimated", "death_time_203_confirmed"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_corridor_traces",
+    "title": "察看走廊地板",
+    "description": "命案就发生在这道走廊的另一头。昨夜那人，一定从这里经过。",
+    "requires": null,
+    "actions": [
+      {
+        "id": "check_corridor_floor",
+        "label": "蹲下细察走廊地板",
+        "requires": { "flags_absent": ["corridor_checked"] },
+        "result": "木板地上有几道浅浅的压痕，步伐均匀，直指二〇二号房方向——不是普通住客随意走动的路线，而是有明确目的地前进。其中一道痕迹靠着墙边，内侧轻、外侧重，像是惯于贴着暗处走的人留下的习惯。",
+        "grants": { "flags": ["corridor_checked"] }
+      },
+      {
+        "id": "read_tracks_thief",
+        "label": "「以江湖眼力辨认步法特征」",
+        "requires": { "talent": "三教九流", "flags": ["corridor_checked"], "flags_absent": ["intruder_skilled_confirmed"] },
+        "result": "你蹲下，用手指比划了一下那道压痕的角度。\n\n靠墙走、内侧轻——这是翻墙入室的人留下的肌肉记忆，脚掌养成了贴壁减重的习惯。那绳降的窗台、铁丝划的锁芯……再加上这个步法，你可以确认：这人是个走惯了夜路的熟手，不是临时起意。",
+        "grants": { "flags": ["intruder_skilled_confirmed", "intruder_thief_method_confirmed"] }
+      }
+    ]
+  },
+  {
     "id": "evt_notice_board",
     "title": "查看公告板",
     "description": "公告板上贴着七八张告示，大多是寻人启事和商铺广告，但最右下角有一张笔墨尚新的\"失物招领\"，内容措辞有些奇怪。",
