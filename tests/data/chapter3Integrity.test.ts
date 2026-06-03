@@ -264,4 +264,23 @@ describe('chapter3 npc integrity', () => {
     expect((d?.condition as Record<string, unknown>)?.agility).toBeUndefined();
     expect((d?.condition as Record<string, unknown>)?.wisdom).toBeUndefined();
   });
+
+  it('npc_temple_novice has at least 6 dialogues', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_temple_novice');
+    expect(npc?.dialogues.length).toBeGreaterThanOrEqual(6);
+  });
+
+  it('npc_temple_novice has novice_kite_seen dialogue gated on fei_ye_identity_confirmed', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_temple_novice');
+    const d = npc?.dialogues.find((d) => d.id === 'novice_kite_seen');
+    expect(d, 'novice_kite_seen dialogue missing').toBeDefined();
+    expect(d?.condition?.flags).toContain('fei_ye_identity_confirmed');
+  });
+
+  it('npc_temple_novice has novice_scroll_wonder dialogue requiring tianji_founding_scroll', () => {
+    const npc = NPCS.find((n) => n.id === 'npc_temple_novice');
+    const d = npc?.dialogues.find((d) => d.id === 'novice_scroll_wonder');
+    expect(d, 'novice_scroll_wonder dialogue missing').toBeDefined();
+    expect(d?.condition?.has).toContain('tianji_founding_scroll');
+  });
 });

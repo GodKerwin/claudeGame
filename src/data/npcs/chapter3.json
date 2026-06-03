@@ -206,6 +206,24 @@
         "condition": { "flags": ["wujue_guilt_revealed"], "flags_absent": ["novice_wujue_words"] },
         "text": "「无迹大师……」小僧的表情变得认真，「他前两日跟我说了一句话，说得很奇怪，我一直记着。」\n\n「他说：「有些罪，念多少经都还不清楚，只有说出来，才能真正还。」」\n\n小僧低头，「我不懂他说的是什么，但他说完就轻松了一些，好像放下了什么东西。」",
         "grants": { "flags": ["novice_wujue_words"] }
+      },
+      {
+        "id": "novice_kite_seen",
+        "condition": { "flags": ["fei_ye_identity_confirmed", "novice_met"], "flags_absent": ["novice_kite_seen_shown"] },
+        "text": "「那位白衣施主……」小僧放低声音，「前几日他在大门外站了很久，没有进来。离开时，我听见他说了一句——」\n\n小僧皱眉，努力回忆，「『等得够久了』。说完就往曲江池方向走了。」\n\n他困惑地看着你：「施主认识他吗？」",
+        "grants": { "flags": ["novice_kite_seen_shown"] }
+      },
+      {
+        "id": "novice_shadow_watching",
+        "condition": { "flags": ["deeper_threat_revealed", "novice_met"], "flags_absent": ["novice_shadow_watching_shown"] },
+        "text": "「无迹大师刚才叫我来找施主。」小僧认真地看着你，「他说：『有人跟着他』。」\n\n小僧往廊道那边瞥了一眼，「大师从窗口看了好一阵，才叫我来的。施主要小心。」",
+        "grants": { "flags": ["novice_shadow_watching_shown"] }
+      },
+      {
+        "id": "novice_scroll_wonder",
+        "condition": { "has": ["tianji_founding_scroll"], "flags_absent": ["novice_scroll_wonder_shown"] },
+        "text": "小僧扫地时停下来，好奇地看向你手中的卷轴。\n\n「那个……是碑文上抄录下来的吗？」他凑近了一点，「无迹大师每次从碑边回来，都会在禅房里待很久，一声不响。」\n\n他若有所思，「也许他守着那块碑，就是在等有一天会有人把它带走。」",
+        "grants": { "flags": ["novice_scroll_wonder_shown"] }
       }
     ]
   }
