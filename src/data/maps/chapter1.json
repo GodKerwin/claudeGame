@@ -7,7 +7,7 @@
         "id": "room_203",
         "name": "二楼客房（二〇三号）",
         "description": "你从沉睡中惊醒，窗外天光微亮。隔壁传来急促的敲门声与压低的哭声。你推开房门，走廊尽头，客栈伙计跌跌撞撞地奔来——隔壁二〇二号房的商人宋怀义，死了。他那房间的门半开着，一股血腥气顺着走廊飘来。",
-        "interactables": ["evt_body_examine", "evt_room_search", "evt_window_look", "evt_ch1_wisdom_growth"],
+        "interactables": ["evt_room_search", "evt_window_look", "evt_ch1_wisdom_growth"],
         "exits": ["lobby", "room_202"],
         "requires": null
       },
@@ -15,7 +15,7 @@
         "id": "room_202",
         "name": "二楼客房（二〇二号·凶案现场）",
         "description": "这就是宋怀义遇难的地方。房间陈设简单，一张架子床、一只木箱、一张小桌。床铺凌乱，枕侧有深褐色血迹已干涸发黑——奇怪的是，地板中央还有另一处污迹，与床头位置相距三步。窗棂虚掩，寒风从缝隙钻入，带起床角的布帘。门边地板上有几道细微的划痕，像是重物被拖拽过的痕迹。",
-        "interactables": ["evt_crime_scene_202", "evt_locked_room_mystery", "evt_victim_hidden_items"],
+        "interactables": ["evt_body_examine", "evt_crime_scene_202", "evt_locked_room_mystery", "evt_victim_hidden_items"],
         "exits": ["room_203"],
         "requires": null,
         "talentViews": [

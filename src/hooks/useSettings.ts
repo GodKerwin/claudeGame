@@ -7,6 +7,8 @@ const MAX_SIZE = 22;
 
 function applyFontSize(size: number) {
   document.documentElement.style.fontSize = `${size}px`;
+  // zoom scales all px-based values uniformly (rem already scaled via root font-size)
+  (document.body.style as Record<string, string>).zoom = String(size / 16);
 }
 
 export function useSettings() {

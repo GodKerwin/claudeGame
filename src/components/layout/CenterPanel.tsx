@@ -365,7 +365,9 @@ export function CenterPanel({
           </div>
         )}
 
-        {/* ── 人物区块（NPC，直接点击对话）── */}
+        {/* ── 人物 + 探索：统一滚动容器 ── */}
+        <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin">
+
         {entities.filter((e) => e.type === 'npc').length > 0 && !pendingChoices && (
           <div className="mb-2">
             <div className="flex items-center gap-1.5 mb-1.5 px-1">
@@ -404,7 +406,7 @@ export function CenterPanel({
         )}
 
         {/* ── 探索区块（事件、选项，可折叠）── */}
-        <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin">
+        <div>
           {allExplored && (
             <p className="text-ink/18 text-[11px] px-2 py-3 italic text-center leading-relaxed">
               此处探查已尽<br />
@@ -497,6 +499,7 @@ export function CenterPanel({
             </>
           )}
         </div>
+        </div>{/* end 统一滚动容器 */}
           </>
         )}
       </div>
