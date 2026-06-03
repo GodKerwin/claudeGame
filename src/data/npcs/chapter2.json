@@ -62,7 +62,33 @@
         "text": "你将调令递到他面前，他一眼认出，喃喃：「这是李爷的字……他亲笔写的。我见过他下令的样子，就坐在据点正堂，笔划得快，旁边两个护卫站着。那不是临时起意，是早就计划好的。」\n\n他抬头看你：「你有这个，李爷就赖不掉了。」",
         "grants": { "flags": ["langpeng_dispatch_confirmed"] }
       }
-    ]
+    ],
+    "interrogation": {
+      "enabled": true,
+      "triggerFlag": "langpeng_discovered",
+      "levels": [
+        {
+          "level": 0,
+          "moodHint": "〔他把手搭在腰间，眼神危险地扫了你一眼。〕",
+          "text": "我不认识你。滚开。",
+          "indirectText": "你试着和他搭话，他只是斜眼看你，没有接话。",
+          "pushEvidence": ["extortion_note", "copper_bell_fragment"]
+        },
+        {
+          "level": 1,
+          "moodHint": "〔他往后退了一步，眼神里有了慌乱。〕",
+          "text": "你……你知道什么！那个据点，我只是个跑腿的，什么都不知道！",
+          "indirectText": "他沉默地看着你，下颌有些紧绷，手指无意识地抓着衣角。",
+          "pushEvidence": ["langpeng_hideout_intel", "extortion_note"]
+        },
+        {
+          "level": 2,
+          "moodHint": "〔他四周看了看，压低声音。〕",
+          "text": "李爷让我们盯着宋怀义那家客栈，还有回春堂的和尚。调令在据点正堂灶台后面，李爷亲笔写的。我看见那个人了——戴着斗笠，左手有疤，进去了，不到一个时辰就出来了。",
+          "grants": { "flags": ["langpeng_full_confession", "langpeng_trail", "langpeng_scared"] }
+        }
+      ]
+    }
   },
   {
     "id": "npc_buyer_contact",
@@ -146,7 +172,33 @@
         "text": "「天机阁的东西你已经找到了，」李邈扫了一眼你手边，「那我不妨多说一点。天机阁在长安的最后一个据点，在城东一条不起眼的巷子里。门面是茶水铺。」\n\n「去那里，说「归鸟问津」。他们会接你。去了，你才能知道这件事有多深——以及，你有没有力气走完最后一段路。」",
         "grants": { "flags": ["ch3_intel_from_li_mao", "tianji_safehouse_location_known"] }
       }
-    ]
+    ],
+    "interrogation": {
+      "enabled": true,
+      "triggerFlag": "langpeng_trail",
+      "levels": [
+        {
+          "level": 0,
+          "moodHint": "〔他端着茶杯，似乎对你毫无兴趣。〕",
+          "text": "有意思。你认为你查到了什么？",
+          "indirectText": "他悠悠地喝了口茶，用一种漫不经心的眼神看着你——这人见过比你厉害的多。",
+          "pushEvidence": ["langpeng_dispatch_order"]
+        },
+        {
+          "level": 1,
+          "moodHint": "〔他放下茶杯，手指在桌面轻敲了两下。〕",
+          "text": "……你比我预计的查得深。这说明有人在帮你，或者你运气极好。",
+          "indirectText": "他重新端起茶杯，但没有再喝，像是在斟酌什么。",
+          "pushEvidence": ["monk_identity_scroll", "langpeng_dispatch_order"]
+        },
+        {
+          "level": 2,
+          "moodHint": "〔他向后靠在椅背上，换了一种语气。〕",
+          "text": "好。我告诉你一件事：宋怀义带走的名单，不只有天机阁的成员。那份名单上还有另一批人，「鸢」真正要的，是找到这批人的下落。我可以合作，但你要给我一个保证。",
+          "grants": { "flags": ["li_mao_exposed", "li_mao_deal_offered", "tianji_deeper_intel"] }
+        }
+      ]
+    }
   },
   {
     "id": "npc_huichuntang_owner",

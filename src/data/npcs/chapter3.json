@@ -122,7 +122,33 @@
         "text": "无迹看了你很久，才开口：「二十年前那次事故……不是事故。」他的声音很平静，「那批货在路上出了问题，不是因为疏失，是因为有人故意安排的。那个人知道那批货的内容，知道运送的时间，知道每一个经手人的名字。」\n\n他停顿了一下：「那个人，至今还在长安。」",
         "grants": { "flags": ["wujue_accident_truth_known"] }
       }
-    ]
+    ],
+    "interrogation": {
+      "enabled": true,
+      "triggerFlag": "chapter3_started",
+      "levels": [
+        {
+          "level": 0,
+          "moodHint": "〔他比上次见面时苍老了许多，但眼神更平静了。〕",
+          "text": "你又来了。这次，你想知道什么？",
+          "indirectText": "他没有催你，只是静静地等着，佛珠一颗一颗地拨过。",
+          "pushEvidence": ["tianji_founding_scroll", "monk_identity_scroll"]
+        },
+        {
+          "level": 1,
+          "moodHint": "〔他看了那件东西很久，然后抬起头。〕",
+          "text": "这个……你找到了。那我没有什么可以继续瞒着你的了。",
+          "indirectText": "他沉默了很长时间，「有些事，不是时候说。」",
+          "pushEvidence": ["tianji_founding_scroll", "leyou_inscription"]
+        },
+        {
+          "level": 2,
+          "moodHint": "〔他站起来，走到窗边，背对着你说话。〕",
+          "text": "二十年前那次事故，不是事故。那批货在路上出了问题，是因为有人故意安排的。那个人知道每一个经手人的名字，知道运送时间，知道内容。他至今还在长安。我保护了他这么久，因为他也在保护某些人——但那些人，已经死的差不多了。",
+          "grants": { "flags": ["wujue_accident_truth_known", "wujue_ch3_full_confession"] }
+        }
+      ]
+    }
   },
   {
     "id": "npc_tianji_contact",
@@ -188,7 +214,33 @@
         "condition": { "flags": ["fei_ye_identity_confirmed"] },
         "text": "联络人沉默了一会儿。\n\n「你已经走到这里了。」他看着你，「接下来的那步，只有你能走，我给不了你指引。」\n\n「去找他。」"
       }
-    ]
+    ],
+    "interrogation": {
+      "enabled": true,
+      "triggerFlag": "tianji_safehouse_location_known",
+      "levels": [
+        {
+          "level": 0,
+          "moodHint": "〔他看着墙上的地图，没有立刻转身。〕",
+          "text": "你来了。名单的事，我已经听说了。但你拿什么证明你值得信任？",
+          "indirectText": "他缓缓转过身，用一种评估的眼神看着你，没有说话。",
+          "pushEvidence": ["tianji_founding_scroll", "dafei_inner_token"]
+        },
+        {
+          "level": 1,
+          "moodHint": "〔他的表情松动了一点，但仍然戒备。〕",
+          "text": "你知道的比我以为的多。那份名单——飞爷带着它，但他身边有人在监视他，我们联系不上。",
+          "indirectText": "他背过身去，重新看那张地图，「有些事，我不能说。」",
+          "pushEvidence": ["tianji_founding_scroll", "leyou_inscription"]
+        },
+        {
+          "level": 2,
+          "moodHint": "〔他在地图上标了一个点，转过身来。〕",
+          "text": "好。飞爷现在在曲江亭，每天傍晚。他一直在等一个能把这件事收尾的人。那个监视他的人，是廷尉府的线人——但廷尉主事本人不知道这件事。",
+          "grants": { "flags": ["tianji_trust_gained", "fei_ye_location_known"] }
+        }
+      ]
+    }
   },
   {
     "id": "npc_temple_novice",

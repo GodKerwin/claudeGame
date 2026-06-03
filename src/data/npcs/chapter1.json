@@ -616,7 +616,33 @@
         "text": "飞爷看见你手中的石刻拓印，沉默了一会儿。\n\n「那块碑是他立的，」他说，声音里第一次多了一种不同的东西，「那个「更上层的人」——我知道他是谁。」\n\n他抬起头，用一种奇怪的平静看着你：「我选择不说出来，不是因为怕，是因为他也在保护一些人。那些人，和名单上的人，是同一批人。」\n\n「有些秘密，说出来会死更多人。」",
         "grants": { "flags": ["fei_ye_upper_truth_known"] }
       }
-    ]
+    ],
+    "interrogation": {
+      "enabled": true,
+      "triggerFlag": "fei_ye_identity_confirmed",
+      "levels": [
+        {
+          "level": 0,
+          "moodHint": "〔他靠着亭柱，看着池水，没有看你。〕",
+          "text": "你来了。二十年——我以为不会有人能走到这里来。",
+          "indirectText": "他沉默了很久，风吹过池面，他才开口：「有些话，要等时机。」",
+          "pushEvidence": ["tianji_founding_scroll", "leyou_inscription"]
+        },
+        {
+          "level": 1,
+          "moodHint": "〔他终于转过头，正视着你。〕",
+          "text": "名单——你要名单，是为了救那些人，还是另有用途？",
+          "indirectText": "他重新看向池水，「这个问题，你不用回答我。但你要想清楚。」",
+          "pushEvidence": ["tianji_founding_scroll", "case_reopened_receipt", "leyou_inscription"]
+        },
+        {
+          "level": 2,
+          "moodHint": "〔他从怀中取出一个册子，放在亭中石桌上。〕",
+          "text": "这是完整的名单。廷尉府当年追杀的那些人，活下来的，都在这里。还有一件事——那个二十年前出卖我们的人，我知道他是谁。他现在仍然活着，仍然在长安，仍然在某个人的庇护之下。我选择了这么多年不说，因为说出来会死更多人。但你来了，这件事，由你来决定怎么处置。",
+          "grants": { "flags": ["fei_ye_name_list_given", "fei_ye_final_secret_known"] }
+        }
+      ]
+    }
   },
   {
     "id": "npc_old_beggar",
