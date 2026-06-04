@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { loadAllSlots, saveToSlot, loadFromSlot, initDefaultSlots, migrateSeenDialogues } from '../../src/engine/saveEngine';
+import { loadAllSlots, saveToSlot, loadFromSlot, initDefaultSlots, migrateSeenDialogues, deleteSlot } from '../../src/engine/saveEngine';
 import type { SaveData } from '../../src/types/game';
 
 const mockSaveData: SaveData = {
@@ -85,5 +85,98 @@ describe('migrateSeenDialogues', () => {
 
   it('handles empty array', () => {
     expect(migrateSeenDialogues([])).toEqual([]);
+  });
+});
+
+describe('deleteSlot', () => {
+  it('clears data and resets timestamp to 0', () => {
+    const mockData: SaveData = {
+      player: { name: '侠客', template: '游侠', strength: 8, agility: 7, wisdom: 5, constitution: 4, talent: '天生神力' },
+      currentRoomId: 'lobby', inventory: [], clues: [], flags: [], questLog: [], storyText: [],
+      seenDialogues: [], visitedRooms: ['lobby'], foundSynthesisIds: [],
+    };
+    saveToSlot(1, mockData);
+    deleteSlot(1);
+    expect(loadFromSlot(1)).toBeNull();
+    const slots = loadAllSlots();
+    expect(slots[1].timestamp).toBe(0);
+  });
+
+  it('does nothing for non-existent slot id', () => {
+    // Should not throw
+    expect(() => deleteSlot(99)).not.toThrow();
+  });
+
+  it('preserves other slots when one is deleted', () => {
+    const mockData: SaveData = {
+      player: { name: '侠客', template: '游侠', strength: 8, agility: 7, wisdom: 5, constitution: 4, talent: '天生神力' },
+      currentRoomId: 'lobby', inventory: [], clues: [], flags: [], questLog: [], storyText: [],
+      seenDialogues: [], visitedRooms: ['lobby'], foundSynthesisIds: [],
+    };
+    saveToSlot(1, mockData);
+    saveToSlot(2, { ...mockData, currentRoomId: 'cellar' });
+    deleteSlot(1);
+    expect(loadFromSlot(1)).toBeNull();
+    expect(loadFromSlot(2)?.currentRoomId).toBe('cellar');
+  });
+
+  it('can delete auto-save slot 0', () => {
+    const mockData: SaveData = {
+      player: { name: '侠客', template: '游侠', strength: 8, agility: 7, wisdom: 5, constitution: 4, talent: '天生神力' },
+      currentRoomId: 'lobby', inventory: [], clues: [], flags: [], questLog: [], storyText: [],
+      seenDialogues: [], visitedRooms: ['lobby'], foundSynthesisIds: [],
+    };
+    saveToSlot(0, mockData);
+    deleteSlot(0);
+    expect(loadFromSlot(0)).toBeNull();
+  });
+});
+
+describe('saveToSlot — edge cases', () => {
+  it('throws when slot id does not exist', () => {
+    const mockData: SaveData = {
+      player: { name: '侠客', template: '游侠', strength: 8, agility: 7, wisdom: 5, constitution: 4, talent: '天生神力' },
+      currentRoomId: 'lobby', inventory: [], clues: [], flags: [], questLog: [], storyText: [],
+      seenDialogues: [], visitedRooms: ['lobby'], foundSynthesisIds: [],
+    };
+    expect(() => saveToSlot(99, mockData)).toThrow();
+  });
+
+  it('uses custom label when provided', () => {
+    const mockData: SaveData = {
+      player: { name: '侠客', template: '游侠', strength: 8, agility: 7, wisdom: 5, constitution: 4, talent: '天生神力' },
+      currentRoomId: 'lobby', inventory: [], clues: [], flags: [], questLog: [], storyText: [],
+      seenDialogues: [], visitedRooms: ['lobby'], foundSynthesisIds: [],
+    };
+    const saved = saveToSlot(1, mockData, '自定义存档');
+    expect(saved.label).toBe('自定义存档');
+    const slots = loadAllSlots();
+    expect(slots[1].label).toBe('自定义存档');
+  });
+
+  it('keeps existing label when no custom label given', () => {
+    const mockData: SaveData = {
+      player: { name: '侠客', template: '游侠', strength: 8, agility: 7, wisdom: 5, constitution: 4, talent: '天生神力' },
+      currentRoomId: 'lobby', inventory: [], clues: [], flags: [], questLog: [], storyText: [],
+      seenDialogues: [], visitedRooms: ['lobby'], foundSynthesisIds: [],
+    };
+    const saved = saveToSlot(1, mockData);
+    expect(saved.label).toBe('存档槽一');
+  });
+});
+
+describe('loadAllSlots — edge cases', () => {
+  it('returns defaults when localStorage has corrupted JSON', () => {
+    localStorage.setItem('tianji_saves', 'INVALID_JSON{{{');
+    const slots = loadAllSlots();
+    expect(slots).toHaveLength(4);
+    expect(slots[0].data).toBeNull();
+  });
+
+  it('returns defaults when localStorage has wrong array length', () => {
+    localStorage.setItem('tianji_saves', JSON.stringify([{ id: 0 }, { id: 1 }]));
+    const slots = loadAllSlots();
+    expect(slots).toHaveLength(4);
+    expect(slots[0].type).toBe('auto');
   });
 });
