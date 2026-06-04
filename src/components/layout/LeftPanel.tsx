@@ -15,6 +15,7 @@ const NH = 24;
 
 interface Props {
   onNavigate: (roomId: string) => void;
+  onSettings?: () => void;
 }
 
 const TIME_LABELS: Record<TimeOfDay, string> = {
@@ -26,7 +27,7 @@ const TIME_LABELS: Record<TimeOfDay, string> = {
   night: '亥时·夜深',
 };
 
-export function LeftPanel({ onNavigate }: Props) {
+export function LeftPanel({ onNavigate, onSettings }: Props) {
   const { currentRoomId, flags, visitedRooms, timeOfDay } = useSceneStore();
   const player = usePlayerStore();
   const { items } = useInventoryStore();
@@ -313,6 +314,18 @@ export function LeftPanel({ onNavigate }: Props) {
 
       {/* 底部装饰线 */}
       <div className="h-px mx-3 mb-3" style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.12), transparent)' }} />
+
+      {onSettings && (
+        <div className="shrink-0 border-t border-gold/10 px-3 py-2 flex justify-end">
+          <button
+            onClick={onSettings}
+            title="设置 (Esc)"
+            className="text-ink/22 hover:text-gold/60 transition-colors cursor-pointer text-[13px] leading-none"
+          >
+            ⚙
+          </button>
+        </div>
+      )}
     </div>
   );
 }

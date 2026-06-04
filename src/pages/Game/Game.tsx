@@ -647,7 +647,7 @@ export default function Game() {
   return (
     <>
       <GameLayout
-        left={<LeftPanel onNavigate={handleNavigate} />}
+        left={<LeftPanel onNavigate={handleNavigate} onSettings={() => setModal('settings')} />}
         center={
           <CenterPanel
             roomName={room.name}
