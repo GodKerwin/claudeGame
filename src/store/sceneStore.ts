@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import type { TimeOfDay } from '../types/game';
 
 interface SceneState {
   currentRoomId: string;
@@ -19,9 +20,11 @@ interface SceneState {
   addFoundSynthesisId: (id: string) => void;
   interrogationLevels: Record<string, number>;
   setInterrogationLevel: (npcId: string, level: number) => void;
+  timeOfDay: TimeOfDay;
+  advanceTime: (steps?: number) => void;
   loadState: (state: Partial<Pick<SceneState,
     'currentRoomId' | 'flags' | 'clues' | 'questLog' | 'storyText' |
-    'seenDialogues' | 'visitedRooms' | 'foundSynthesisIds' | 'interrogationLevels'>>) => void;
+    'seenDialogues' | 'visitedRooms' | 'foundSynthesisIds' | 'interrogationLevels' | 'timeOfDay'>>) => void;
   reset: () => void;
 }
 
@@ -35,6 +38,7 @@ const defaultState = {
   visitedRooms: ['room_203'] as string[],
   foundSynthesisIds: [] as string[],
   interrogationLevels: {} as Record<string, number>,
+  timeOfDay: 'morning' as TimeOfDay,
 };
 
 export const useSceneStore = create<SceneState>((set) => ({
@@ -48,7 +52,14 @@ export const useSceneStore = create<SceneState>((set) => ({
       return { currentRoomId: roomId, storyText: [], visitedRooms };
     }),
   addFlag: (flag) =>
-    set((s) => ({ flags: s.flags.includes(flag) ? s.flags : [...s.flags, flag] })),
+    set((s) => {
+      if (s.flags.includes(flag)) return s;
+      const isChapterStart = flag === 'chapter2_started' || flag === 'chapter3_started';
+      return {
+        flags: [...s.flags, flag],
+        ...(isChapterStart ? { timeOfDay: 'morning' as TimeOfDay } : {}),
+      };
+    }),
   addClue: (clueId) =>
     set((s) => ({ clues: s.clues.includes(clueId) ? s.clues : [...s.clues, clueId] })),
   addQuest: (questId) =>
@@ -73,6 +84,12 @@ export const useSceneStore = create<SceneState>((set) => ({
     set((s) => ({
       interrogationLevels: { ...s.interrogationLevels, [npcId]: level },
     })),
+  advanceTime: (steps = 1) =>
+    set((s) => {
+      const ORDER: TimeOfDay[] = ['dawn', 'morning', 'noon', 'afternoon', 'dusk', 'night'];
+      const idx = ORDER.indexOf(s.timeOfDay);
+      return { timeOfDay: ORDER[(idx + steps) % ORDER.length] };
+    }),
   loadState: (state) => set(state),
   reset: () => set(defaultState),
 }));
