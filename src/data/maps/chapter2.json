@@ -137,7 +137,7 @@
         "description": "平康坊深处一栋不起眼的院落，白日里大门紧闭，偶有人影出入，神情警惕。墙角的青苔上有一行新踩的脚印，还未干透。院内隐约可闻压低的交谈声。",
         "interactables": ["evt_hideout_search", "evt_captive_note", "npc_langpeng_scout", "evt_ch2_agility_growth", "evt_ch2_blackmarket_intel", "evt_prisoner_testimony"],
         "exits": ["cien_temple", "imperial_teahouse"],
-        "requires": null,
+        "requires": { "flags": ["langpeng_trail"], "timeOfDay": ["night", "dawn"] },
         "talentViews": [
           {
             "talent": "三教九流",
@@ -199,7 +199,7 @@
         "description": "坊间深处一条灯火昏黄的窄巷，夜色遮住了货物的真实面目。销赃、换信、买消息——这里的交易没有白纸黑字，只有眼神和分寸。",
         "interactables": ["evt_nightmarket_tail", "evt_nightmarket_goods", "npc_nightmarket_fence"],
         "exits": ["east_market_entrance"],
-        "requires": { "flags": ["langpeng_discovered"] },
+        "requires": { "flags": ["langpeng_discovered"], "timeOfDay": ["dusk", "night", "dawn"] },
         "talentViews": [
           {
             "talent": "三教九流",

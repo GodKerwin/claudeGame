@@ -147,7 +147,19 @@
         "description": "青石台阶向下延伸，空气阴冷潮湿，带着陈年酒气。角落堆着十数只酒坛，最里头的石墙上有一道隐约可见的细缝，寒气从中渗出。这道缝隙后面，一定藏着什么。",
         "interactables": ["evt_cellar_mechanism", "evt_cellar_fragment", "evt_wine_jars"],
         "exits": ["lobby"],
-        "requires": { "flags": ["innkeeper_trusted"] }
+        "requires": { "flags": ["innkeeper_trusted"] },
+        "revisitEvents": [
+          {
+            "id": "rev_cellar_night_bloodstain",
+            "requires": {
+              "flags": ["innkeeper_trusted"],
+              "flags_absent": ["cellar_night_seen"],
+              "timeOfDay": ["night"]
+            },
+            "text": "〔烛光在地窖角落打出低斜的影——你这才看见，石缝里有一道细长的暗红。不是霉斑，是血，已经干透了，藏在白日的阴影里。〕",
+            "grants": { "flags": ["cellar_night_seen"] }
+          }
+        ]
       },
       {
         "id": "forest",
@@ -185,7 +197,7 @@
         "description": "客栈背后延伸出去的一条窄巷，青砖墙壁上留着各色痕迹。白日里少有人走动，只有偶尔路过的乞丐和来往的货商。转角处，一段墙壁上的刻痕引人注目。",
         "interactables": ["npc_old_beggar", "npc_merchant_zhou", "evt_alley_marks", "evt_cargo_remnants", "evt_blue_shirt_trace"],
         "exits": ["forest"],
-        "requires": { "flags": ["found_escape_clue"] }
+        "requires": { "flags": ["found_escape_clue"], "timeOfDay": ["night", "dawn"] }
       }
     ]
   }

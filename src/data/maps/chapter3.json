@@ -129,7 +129,7 @@
         "description": "长安城东南的高地，视野开阔，可俯瞰全城。春秋时节常有文人登临，如今却少有人来。高地一角，有一块被枯草半掩的石碑，若不是刻意走近，很难发现。",
         "interactables": ["evt_stone_inscription", "evt_leyou_overlook", "npc_leyou_wanderer"],
         "exits": ["feiyes_manor"],
-        "requires": null,
+        "requires": { "timeOfDay": ["dawn", "dusk"] },
         "talentViews": [
           {
             "talent": "望气观相",
@@ -211,6 +211,16 @@
             },
             "text": "〔带着飞爷信件和他最后的秘密，再次站在这里，你感到某种完整——不是答案都有了，而是该知道的事你已经知道了，该做的事你正在做。那种感觉，叫做「够了」。〕",
             "grants": { "flags": ["rev_ruins_full_circle_shown"] }
+          },
+          {
+            "id": "rev_ruins_dawn_mark",
+            "requires": {
+              "flags": ["fei_ye_identity_confirmed"],
+              "flags_absent": ["ruins_dawn_seen"],
+              "timeOfDay": ["dawn"]
+            },
+            "text": "〔晨雾未散，残墙上有一道刻痕在斜光里浮现——三道竖线，一个缺角的方框。天机的旧印记。〕",
+            "grants": { "flags": ["ruins_dawn_seen"] }
           }
         ]
       }
