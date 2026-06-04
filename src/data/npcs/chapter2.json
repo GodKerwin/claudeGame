@@ -61,6 +61,24 @@
         "condition": { "has": ["langpeng_dispatch_order"], "flags_absent": ["langpeng_dispatch_confirmed"] },
         "text": "你将调令递到他面前，他一眼认出，喃喃：「这是李爷的字……他亲笔写的。我见过他下令的样子，就坐在据点正堂，笔划得快，旁边两个护卫站着。那不是临时起意，是早就计划好的。」\n\n他抬头看你：「你有这个，李爷就赖不掉了。」",
         "grants": { "flags": ["langpeng_dispatch_confirmed"] }
+      },
+      {
+        "id": "langpeng_blocked_by_force",
+        "condition": {
+          "flags": ["chapter1_force_ending"],
+          "flags_absent": ["langpeng_blocked_shown"]
+        },
+        "text": "郎鹏看你一眼，眼神收紧。「我听说过你的手段。」他不再开口，往后退了半步，一句话也不肯多说。",
+        "choices": [
+          {
+            "id": "choice_back_off",
+            "label": "他不肯开口",
+            "condition": { "flags": ["__never__"] },
+            "result": "此路不通。",
+            "grants": null
+          }
+        ],
+        "grants": { "flags": ["langpeng_blocked_shown"] }
       }
     ],
     "interrogation": {
@@ -126,6 +144,16 @@
     "name": "李邈",
     "description": "一个约莫四十岁的白衣男人，气质清冷，举止从容。你在往事客栈见过他，那时他叫自己「白衣人」。",
     "dialogues": [
+      {
+        "id": "li_mao_taunt_hermit",
+        "condition": {
+          "flags": ["chapter1_hermit_ending"],
+          "flags_absent": ["li_mao_hermit_taunt_shown"]
+        },
+        "text": "李邈斜眼看你，嘴角微扬：「听说上一桩案子，你本想置身事外？」他没有等你回答，转过身去。「可你还是来了。」",
+        "choices": [],
+        "grants": { "flags": ["li_mao_hermit_taunt_shown"] }
+      },
       {
         "id": "li_mao_ch1_memory",
         "condition": { "flags": ["chapter1_truth_ending", "entered_teahouse"] },
