@@ -32,6 +32,32 @@ export interface ActionGrant {
   storyText?: string;
 }
 
+export interface EvidenceGate {
+  prompt: string;
+  accepts: string[];
+  failText: string;
+}
+
+export interface VerdictOption {
+  id: string;
+  text: string;
+}
+
+export interface VerdictQuestion {
+  id: string;
+  text: string;
+  options: VerdictOption[];
+  correctId: string;
+}
+
+export interface ChapterVerdict {
+  chapterId: number;
+  eventId: string;
+  grantFlag: string;
+  failText: string;
+  questions: VerdictQuestion[];
+}
+
 export interface EventAction {
   id: string;
   label: string;
@@ -39,6 +65,7 @@ export interface EventAction {
   result: string;
   hint?: string;
   grants?: ActionGrant;
+  evidenceGate?: EvidenceGate;
 }
 
 export interface GameEvent {
