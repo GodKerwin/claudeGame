@@ -30,6 +30,18 @@
             "requires": { "flags": ["langpeng_discovered"], "flags_absent": ["rev_east_market_crowd_shown"] },
             "text": "〔悬赏令还贴在坊墙上，但你已不再是初来乍到的过客——再看这条街，摊贩的站位微妙，几个人的目光拐弯抹角地跟着你。消息已经散出去了。〕",
             "grants": { "flags": ["rev_east_market_crowd_shown"] }
+          },
+          {
+            "id": "rev_east_market_official_tip",
+            "requires": {
+              "flags": ["chapter1_truth_ending", "chapter2_started"],
+              "flags_absent": ["li_mao_official_tip_received"]
+            },
+            "text": "〔一个穿公服的书吏走近你，压低声音：「你就是破了客栈案子的那位？李参军与郎鹏之间，有一份调令，你若能找到……」他把一张折叠的纸塞进你手里，转身消失在人群中。〕",
+            "grants": {
+              "clues": ["clue_li_mao_official_tip"],
+              "flags": ["li_mao_official_tip_received"]
+            }
           }
         ]
       },
