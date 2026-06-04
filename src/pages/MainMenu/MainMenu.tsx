@@ -108,6 +108,7 @@ export default function MainMenu() {
       storyText: (data.storyText ?? []).slice(-20),
       seenDialogues: data.seenDialogues ?? [],
       visitedRooms: data.visitedRooms ?? [data.currentRoomId],
+      timeOfDay: data.timeOfDay ?? 'morning',
     });
     loadItems(data.inventory);
     setSlots(loadAllSlots());

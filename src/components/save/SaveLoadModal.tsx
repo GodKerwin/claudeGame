@@ -60,6 +60,7 @@ export function SaveLoadModal({ mode, onClose }: Props) {
       seenDialogues: scene.seenDialogues,
       visitedRooms: scene.visitedRooms,
       foundSynthesisIds: scene.foundSynthesisIds,
+      timeOfDay: scene.timeOfDay,
     };
     const saved = saveToSlot(slotId, data);
     updateSlot(saved);
@@ -80,6 +81,7 @@ export function SaveLoadModal({ mode, onClose }: Props) {
       seenDialogues: data.seenDialogues ?? [],
       visitedRooms: data.visitedRooms ?? [data.currentRoomId],
       foundSynthesisIds: data.foundSynthesisIds ?? [],
+      timeOfDay: data.timeOfDay ?? 'morning',
     });
     loadItems(data.inventory);
     setSlots(loadAllSlots());
