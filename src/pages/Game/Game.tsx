@@ -19,7 +19,7 @@ import { evaluate } from '../../engine/conditionEvaluator';
 import { getHint } from '../../engine/hintEngine';
 import { audioEngine } from '../../engine/audioEngine';
 import type { EvalContext } from '../../engine/conditionEvaluator';
-import type { ActionGrant, DialogueChoice, ChapterVerdict, EvidenceGate } from '../../types/game';
+import type { ActionGrant, DialogueChoice, ChapterVerdict } from '../../types/game';
 
 type ModalType = 'save' | 'load' | 'settings' | null;
 
