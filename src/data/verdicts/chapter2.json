@@ -1,0 +1,38 @@
+{
+  "chapterId": 2,
+  "eventId": "evt_li_mao_encounter",
+  "grantFlag": "deduction_verified_ch2",
+  "failText": "〔你的推断还不够完整。回头再整理一遍线索。〕",
+  "questions": [
+    {
+      "id": "q_commander",
+      "text": "浪鹏帮在长安行动的幕后指挥是？",
+      "options": [
+        { "id": "a", "text": "李邈——浪鹏帮是他手中的工具" },
+        { "id": "b", "text": "浪鹏帮帮主，与李邈无关" },
+        { "id": "c", "text": "无迹和尚，暗中操控全局" }
+      ],
+      "correctId": "a"
+    },
+    {
+      "id": "q_wujue_role",
+      "text": "无迹和尚在此案中的角色是？",
+      "options": [
+        { "id": "a", "text": "天机阁旧部，毒剂配方来源，被人利用而非主谋" },
+        { "id": "b", "text": "主谋之一，主动参与了谋杀" },
+        { "id": "c", "text": "与此案无关的普通僧人" }
+      ],
+      "correctId": "a"
+    },
+    {
+      "id": "q_purpose",
+      "text": "宋怀义来长安的真正目的是？",
+      "options": [
+        { "id": "a", "text": "交接天机阁名单，完成情报传递" },
+        { "id": "b", "text": "来长安经商，只是偶然卷入此事" },
+        { "id": "c", "text": "向官府自首，出卖天机阁情报" }
+      ],
+      "correctId": "a"
+    }
+  ]
+}

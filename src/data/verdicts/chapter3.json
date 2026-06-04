@@ -1,0 +1,38 @@
+{
+  "chapterId": 3,
+  "eventId": "evt_fei_ye_confrontation",
+  "grantFlag": "deduction_verified_ch3",
+  "failText": "〔真相还有一层未曾揭开。再想一想。〕",
+  "questions": [
+    {
+      "id": "q_identity",
+      "text": "飞爷的真实身份是？",
+      "options": [
+        { "id": "a", "text": "天机阁创立者，代号「鸢」" },
+        { "id": "b", "text": "廷尉府派来卧底天机阁的密探" },
+        { "id": "c", "text": "宋怀义的旧日同僚，寻仇而来" }
+      ],
+      "correctId": "a"
+    },
+    {
+      "id": "q_threat",
+      "text": "真正威胁天机阁遗留成员的势力是？",
+      "options": [
+        { "id": "a", "text": "廷尉府某一层级，追杀名单上的人" },
+        { "id": "b", "text": "李邈的余党，借机扩大势力" },
+        { "id": "c", "text": "浪鹏帮，为了夺取名单" }
+      ],
+      "correctId": "a"
+    },
+    {
+      "id": "q_intent",
+      "text": "飞爷为何主动安排了这次相遇？",
+      "options": [
+        { "id": "a", "text": "需要一个可信任的人来帮他收尾这件旧案" },
+        { "id": "b", "text": "想借助官府力量逮捕追杀者" },
+        { "id": "c", "text": "准备投降，以换取朝廷豁免" }
+      ],
+      "correctId": "a"
+    }
+  ]
+}

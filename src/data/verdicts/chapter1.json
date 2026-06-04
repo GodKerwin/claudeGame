@@ -1,0 +1,38 @@
+{
+  "chapterId": 1,
+  "eventId": "evt_final_confrontation",
+  "grantFlag": "deduction_verified_ch1",
+  "failText": "〔你心中还有疑点未解。在开口之前，先把线索再理一遍。〕",
+  "questions": [
+    {
+      "id": "q_murder_method",
+      "text": "宋怀义遇害的方式是？",
+      "options": [
+        { "id": "a", "text": "毒茶先致昏，再遭勒毙——双重手法" },
+        { "id": "b", "text": "直接被勒死，砒霜只是伪造痕迹" },
+        { "id": "c", "text": "砒霜直接毒杀，勒痕是死后伪造" }
+      ],
+      "correctId": "a"
+    },
+    {
+      "id": "q_motive",
+      "text": "凶手的根本作案动机是？",
+      "options": [
+        { "id": "a", "text": "夺回天机阁名单，灭口知情人" },
+        { "id": "b", "text": "劫取宋怀义随身财物" },
+        { "id": "c", "text": "私人仇怨，借机报复" }
+      ],
+      "correctId": "a"
+    },
+    {
+      "id": "q_entry_exit",
+      "text": "凶手如何进出案发现场？",
+      "options": [
+        { "id": "a", "text": "密道入室，翻窗越墙而出" },
+        { "id": "b", "text": "从正门进出，趁混乱离开" },
+        { "id": "c", "text": "翻窗入室，再从密道离开" }
+      ],
+      "correctId": "a"
+    }
+  ]
+}
