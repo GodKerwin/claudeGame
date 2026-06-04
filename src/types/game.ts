@@ -51,7 +51,7 @@ export interface VerdictQuestion {
 }
 
 export interface ChapterVerdict {
-  chapterId: number;
+  chapterId: 1 | 2 | 3;
   eventId: string;
   grantFlag: string;
   failText: string;
