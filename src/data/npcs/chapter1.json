@@ -615,6 +615,40 @@
         "condition": { "wisdom": 8, "has": ["leyou_inscription"] },
         "text": "飞爷看见你手中的石刻拓印，沉默了一会儿。\n\n「那块碑是他立的，」他说，声音里第一次多了一种不同的东西，「那个「更上层的人」——我知道他是谁。」\n\n他抬起头，用一种奇怪的平静看着你：「我选择不说出来，不是因为怕，是因为他也在保护一些人。那些人，和名单上的人，是同一批人。」\n\n「有些秘密，说出来会死更多人。」",
         "grants": { "flags": ["fei_ye_upper_truth_known"] }
+      },
+      {
+        "id": "fei_ye_li_mao_arrested",
+        "condition": {
+          "flags": ["chapter2_arrest_ending", "chapter3_started"],
+          "flags_absent": ["fei_ye_arrest_reaction_shown"]
+        },
+        "text": "飞爷没有立刻说话。停了片刻，他才道：「李邈进了廷尉府……」他没说完，但眼神里有某种东西一闪而过。「他不该走那条路的。」",
+        "choices": [
+          {
+            "id": "choice_ask_why",
+            "label": "他们是什么关系？",
+            "condition": null,
+            "result": "飞爷摇摇头。「你破了案，该知道的你都知道了。」",
+            "grants": { "flags": ["fei_ye_arrest_reaction_shown"] }
+          }
+        ]
+      },
+      {
+        "id": "fei_ye_insider",
+        "condition": {
+          "flags": ["chapter2_join_ending", "chapter3_started"],
+          "flags_absent": ["fei_ye_insider_shown"]
+        },
+        "text": "飞爷看你一眼，语气比往常少了几分锋芒：「你算是自己人……但自己人也不能什么都知道。」",
+        "choices": [
+          {
+            "id": "choice_insider_ask",
+            "label": "那名单上的人，你都认识？",
+            "condition": null,
+            "result": "「认识的。」他停顿了一下，「所以才难办。」",
+            "grants": { "flags": ["fei_ye_insider_shown"] }
+          }
+        ]
       }
     ],
     "interrogation": {
