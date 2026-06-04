@@ -220,7 +220,8 @@ export default function Game() {
     },
     inventory: items,
     flags: scene.flags,
-  }), [player, items, scene.flags]);
+    timeOfDay: scene.timeOfDay,
+  }), [player, items, scene.flags, scene.timeOfDay]);
 
   // 重访触发：必须放在 ctx 声明之后，避免 TDZ
   useEffect(() => {
@@ -387,6 +388,7 @@ export default function Game() {
       scene.addStoryText(talentPrefix ? `${talentPrefix}\n${action.result}` : action.result);
       if (action.hint) { scene.addStoryText(action.hint); audioEngine.playSFX('hint'); }
       applyGrants(action.grants, scene, addItem, removeItem, player);
+      scene.advanceTime(action.timeCost ?? 1);
     } else if (entityId.startsWith('npc_')) {
       const npc = getNPC(entityId);
       if (!npc) return;
