@@ -20,6 +20,9 @@ import chapter3SynthesesRaw from './syntheses/chapter3.json';
 import chapter1ProfilesRaw from './profiles/chapter1.json';
 import chapter2ProfilesRaw from './profiles/chapter2.json';
 import chapter3ProfilesRaw from './profiles/chapter3.json';
+import chapter1VerdictRaw from './verdicts/chapter1.json';
+import chapter2VerdictRaw from './verdicts/chapter2.json';
+import chapter3VerdictRaw from './verdicts/chapter3.json';
 
 export const MAPS: GameMap[] = [...chapter1MapsRaw, ...chapter2MapsRaw, ...chapter3MapsRaw] as GameMap[];
 export const EVENTS: GameEvent[] = [...chapter1EventsRaw, ...chapter2EventsRaw, ...chapter3EventsRaw] as GameEvent[];
@@ -64,4 +67,16 @@ export function getSynthesisResult(itemA: string, itemB: string): Synthesis | un
 
 export function getProfile(npcId: string): SuspectProfile | undefined {
   return SUSPECT_PROFILES.find((p) => p.npcId === npcId);
+}
+
+import type { ChapterVerdict } from '../types/game';
+
+const VERDICTS: ChapterVerdict[] = [
+  chapter1VerdictRaw as ChapterVerdict,
+  chapter2VerdictRaw as ChapterVerdict,
+  chapter3VerdictRaw as ChapterVerdict,
+];
+
+export function getVerdict(chapterId: 1 | 2 | 3): ChapterVerdict | undefined {
+  return VERDICTS.find((v) => v.chapterId === chapterId);
 }
