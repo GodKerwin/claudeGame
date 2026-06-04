@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { StatBar } from '../ui/StatBar';
 import { Tooltip } from '../ui/Tooltip';
 import { DiamondDivider } from '../ui/DiamondDivider';
@@ -180,6 +180,27 @@ export function RightPanel({ onSettings }: RightPanelProps) {
     ...clues.map((id) => getItem(id)).filter(Boolean).map((it) => ({ ...it!, isClue: true })),
     ...items.map((id) => getItem(id)).filter((it) => it && !it.isClue).map((it) => ({ ...it!, isClue: false })),
   ];
+
+  // 所有当前持有物品 ID（线索 + 道具）
+  const allHeldIds = new Set([...clues, ...items]);
+
+  // 对每个物品，预计算它是否与持有的其他物品有合成配方（且该合成尚未发现）
+  const synthHintMap = useMemo((): Map<string, string> => {
+    const map = new Map<string, string>();
+    for (const heldId of allHeldIds) {
+      for (const synth of SYNTHESES) {
+        if (foundSynthesisIds.includes(synth.id)) continue; // 已发现，跳过
+        let partnerId: string | null = null;
+        if (synth.itemA === heldId && allHeldIds.has(synth.itemB)) partnerId = synth.itemB;
+        if (synth.itemB === heldId && allHeldIds.has(synth.itemA)) partnerId = synth.itemA;
+        if (partnerId && synth.hint) {
+          map.set(heldId, synth.hint);
+          map.set(partnerId, synth.hint);
+        }
+      }
+    }
+    return map;
+  }, [clues, items, foundSynthesisIds]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // When selectedA is set, pre-compute which items have a synthesis recipe with it
   const compatibleWithA = selectedA
@@ -403,10 +424,21 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                       >
                         <span className="text-gold/30 mt-0.5 shrink-0 group-hover:text-gold/50 transition-colors">◇</span>
                         <span className="flex-1">{item.name}</span>
+                        {synthHintMap.has(item.id) && (
+                          <span className="text-[9px] text-gold/50 shrink-0 mr-0.5" title="可与持有物合成">◉</span>
+                        )}
                         <span className="text-[9px] text-ink/18 shrink-0 mt-0.5">{expandedItemId === item.id ? '▴' : '▾'}</span>
                       </button>
                       {expandedItemId === item.id && (
-                        <p className="text-[11px] text-ink/38 leading-relaxed pl-4 pr-1 pb-1 border-l border-gold/12 ml-1.5">{item.description}</p>
+                        <div className="pl-4 pr-1 pb-1 border-l border-gold/12 ml-1.5">
+                          <p className="text-[11px] text-ink/38 leading-relaxed">{item.description}</p>
+                          {synthHintMap.has(item.id) && (
+                            <p className="text-[10px] text-gold/45 leading-relaxed mt-1 flex items-center gap-1">
+                              <span className="text-gold/55">◉</span>
+                              <span>可合成：{synthHintMap.get(item.id)}</span>
+                            </p>
+                          )}
+                        </div>
                       )}
                     </li>
                   ))}
@@ -427,10 +459,21 @@ export function RightPanel({ onSettings }: RightPanelProps) {
                       >
                         <span className="text-gold/35 mt-0.5 shrink-0 group-hover:text-gold/55 transition-colors">◈</span>
                         <span className="flex-1">{item.name}</span>
+                        {synthHintMap.has(item.id) && (
+                          <span className="text-[9px] text-gold/50 shrink-0 mr-0.5" title="可与持有物合成">◉</span>
+                        )}
                         <span className="text-[9px] text-ink/18 shrink-0 mt-0.5">{expandedItemId === item.id ? '▴' : '▾'}</span>
                       </button>
                       {expandedItemId === item.id && (
-                        <p className="text-[11px] text-ink/38 leading-relaxed pl-4 pr-1 pb-1 border-l border-gold/12 ml-1.5">{item.description}</p>
+                        <div className="pl-4 pr-1 pb-1 border-l border-gold/12 ml-1.5">
+                          <p className="text-[11px] text-ink/38 leading-relaxed">{item.description}</p>
+                          {synthHintMap.has(item.id) && (
+                            <p className="text-[10px] text-gold/45 leading-relaxed mt-1 flex items-center gap-1">
+                              <span className="text-gold/55">◉</span>
+                              <span>可合成：{synthHintMap.get(item.id)}</span>
+                            </p>
+                          )}
+                        </div>
                       )}
                     </li>
                   ))}
