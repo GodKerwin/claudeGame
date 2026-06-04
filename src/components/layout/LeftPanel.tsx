@@ -7,6 +7,7 @@ import { useInventoryStore } from '../../store/inventoryStore';
 import { evaluate } from '../../engine/conditionEvaluator';
 import { CHAPTER_LAYOUTS, LOCK_MESSAGES } from '../../data/mapLayouts';
 import type { EvalContext } from '../../engine/conditionEvaluator';
+import type { TimeOfDay } from '../../types/game';
 
 // NODE dimensions (viewBox units) — viewBox width = 220
 const NW = 68;
@@ -16,8 +17,17 @@ interface Props {
   onNavigate: (roomId: string) => void;
 }
 
+const TIME_LABELS: Record<TimeOfDay, string> = {
+  dawn: '寅时·将明',
+  morning: '辰时·晨光',
+  noon: '午时·日正',
+  afternoon: '申时·斜阳',
+  dusk: '酉时·暮色',
+  night: '亥时·夜深',
+};
+
 export function LeftPanel({ onNavigate }: Props) {
-  const { currentRoomId, flags, visitedRooms } = useSceneStore();
+  const { currentRoomId, flags, visitedRooms, timeOfDay } = useSceneStore();
   const player = usePlayerStore();
   const { items } = useInventoryStore();
   const [lockMsg, setLockMsg] = useState<{ id: string; msg: string } | null>(null);
@@ -44,8 +54,9 @@ export function LeftPanel({ onNavigate }: Props) {
     },
     inventory: items,
     flags,
+    timeOfDay,
   }), [player.name, player.template, player.strength, player.agility,
-      player.wisdom, player.constitution, player.talent, items, flags]);
+      player.wisdom, player.constitution, player.talent, items, flags, timeOfDay]);
 
   // Find current chapter layout
   const currentMap = useMemo(
@@ -119,6 +130,11 @@ export function LeftPanel({ onNavigate }: Props) {
       <div className="h-px mx-3 mt-3" style={{ background: 'linear-gradient(to right, transparent, rgba(201,168,76,0.2), transparent)' }} />
 
       <div className="flex flex-col h-full p-3 gap-3 overflow-y-auto scrollbar-thin">
+        {/* 时段 */}
+        <p className="text-gold/40 text-[10px] tracking-[0.3em] text-center">
+          {TIME_LABELS[timeOfDay]}
+        </p>
+
         {/* 章节名 */}
         <p className="text-gold/30 text-[9px] tracking-[0.35em] px-1">
           {currentMap.name}
