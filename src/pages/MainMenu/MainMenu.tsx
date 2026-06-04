@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
@@ -88,6 +88,7 @@ export default function MainMenu() {
   const autoSave = slots.find((s) => s.id === 0);
   const hasContinue = !!autoSave?.data;
   const hasAnyEnding = getSeenEndings().length > 0;
+  const [chapterSelectOpen, setChapterSelectOpen] = useState(false);
 
   const saveSubtitle = (() => {
     const f: string[] = autoSave?.data?.flags ?? [];
@@ -113,6 +114,11 @@ export default function MainMenu() {
     loadItems(data.inventory);
     setSlots(loadAllSlots());
     navigate('/game');
+  };
+
+  const handleChapterSelect = (chapter: '1' | '2' | '3') => {
+    sessionStorage.setItem('tianji-chapter-select', chapter);
+    navigate('/create');
   };
 
   return (
@@ -218,26 +224,71 @@ export default function MainMenu() {
           </button>
 
           {/* 次级菜单 */}
-          <div className="flex items-center gap-4">
-            {hasAnyEnding && (
-              <>
-                <button onClick={() => navigate('/endings')}
-                  className="text-[11px] tracking-[0.38em] cursor-pointer transition-colors duration-200"
-                  style={{ color: 'rgba(232,213,163,0.20)' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.46)')}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.20)')}>
-                  天机图录
-                </button>
-                <span style={{ color: 'rgba(201,168,76,0.14)', fontSize: '7px' }}>·</span>
-              </>
+          <div className="flex flex-col items-center gap-3">
+            <div className="flex items-center gap-4">
+              {hasAnyEnding && (
+                <>
+                  <button onClick={() => navigate('/endings')}
+                    className="text-[11px] tracking-[0.38em] cursor-pointer transition-colors duration-200"
+                    style={{ color: 'rgba(232,213,163,0.20)' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.46)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.20)')}>
+                    天机图录
+                  </button>
+                  <span style={{ color: 'rgba(201,168,76,0.14)', fontSize: '7px' }}>·</span>
+                  <button
+                    onClick={() => setChapterSelectOpen((o) => !o)}
+                    className="text-[11px] tracking-[0.38em] cursor-pointer transition-colors duration-200"
+                    style={{ color: chapterSelectOpen ? 'rgba(232,213,163,0.46)' : 'rgba(232,213,163,0.20)' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.46)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = chapterSelectOpen ? 'rgba(232,213,163,0.46)' : 'rgba(232,213,163,0.20)')}>
+                    选章重玩
+                  </button>
+                  <span style={{ color: 'rgba(201,168,76,0.14)', fontSize: '7px' }}>·</span>
+                </>
+              )}
+              <button onClick={() => navigate('/credits')}
+                className="text-[11px] tracking-[0.38em] cursor-pointer transition-colors duration-200"
+                style={{ color: 'rgba(232,213,163,0.20)' }}
+                onMouseEnter={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.46)')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.20)')}>
+                题记
+              </button>
+            </div>
+
+            {/* 章节选择展开区 */}
+            {hasAnyEnding && chapterSelectOpen && (
+              <div className="flex items-center gap-3 mt-1" style={{ animation: 'fade-up 0.25s ease-out both' }}>
+                {([
+                  { ch: '1', label: '第一章·往事' },
+                  { ch: '2', label: '第二章·东市' },
+                  { ch: '3', label: '第三章·鸢归' },
+                ] as const).map(({ ch, label }, i) => (
+                  <button
+                    key={ch}
+                    onClick={() => handleChapterSelect(ch)}
+                    className="cursor-pointer transition-colors duration-200"
+                    style={{
+                      color: 'rgba(232,213,163,0.28)',
+                      fontSize: '10px',
+                      letterSpacing: '0.22em',
+                      border: '1px solid rgba(201,168,76,0.14)',
+                      padding: '3px 8px',
+                    }}
+                    onMouseEnter={e => {
+                      (e.currentTarget as HTMLElement).style.color = 'rgba(201,168,76,0.85)';
+                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,76,0.40)';
+                    }}
+                    onMouseLeave={e => {
+                      (e.currentTarget as HTMLElement).style.color = 'rgba(232,213,163,0.28)';
+                      (e.currentTarget as HTMLElement).style.borderColor = 'rgba(201,168,76,0.14)';
+                    }}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
             )}
-            <button onClick={() => navigate('/credits')}
-              className="text-[11px] tracking-[0.38em] cursor-pointer transition-colors duration-200"
-              style={{ color: 'rgba(232,213,163,0.20)' }}
-              onMouseEnter={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.46)')}
-              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(232,213,163,0.20)')}>
-              题记
-            </button>
           </div>
 
         </div>

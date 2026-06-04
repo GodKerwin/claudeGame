@@ -45,7 +45,7 @@ function StatMarks({ value, max = 10 }: { value: number; max?: number }) {
 export default function CharacterCreate() {
   const navigate = useNavigate();
   const setPlayer = usePlayerStore((s) => s.setPlayer);
-  const resetScene = useSceneStore((s) => s.reset);
+  const { reset: resetScene, setRoom, addFlag, addQuest } = useSceneStore();
   const resetInventory = useInventoryStore((s) => s.reset);
 
   const [name, setName] = useState('');
@@ -53,6 +53,9 @@ export default function CharacterCreate() {
 
   const handleStart = () => {
     if (!name.trim()) return;
+    const chapterChoice = sessionStorage.getItem('tianji-chapter-select') ?? '1';
+    sessionStorage.removeItem('tianji-chapter-select');
+
     resetScene();
     resetInventory();
     setPlayer({
@@ -64,7 +67,20 @@ export default function CharacterCreate() {
       constitution: selectedTemplate.stats.constitution,
       talent: selectedTemplate.talent,
     });
-    navigate('/prologue');
+
+    if (chapterChoice === '2') {
+      setRoom('east_market_entrance');
+      addFlag('chapter2_started');
+      addQuest('quest_li_mao_case');
+      navigate('/game');
+    } else if (chapterChoice === '3') {
+      setRoom('dayan_pagoda');
+      addFlag('chapter3_started');
+      addQuest('quest_find_kite');
+      navigate('/game');
+    } else {
+      navigate('/prologue');
+    }
   };
 
   const talent = TALENTS.find((t) => t.id === selectedTemplate.talent);
