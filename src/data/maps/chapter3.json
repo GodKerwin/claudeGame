@@ -145,6 +145,18 @@
             },
             "text": "〔再来高地，风依然，碑依然。你想起无迹说的那句话：「那个人，至今还在长安。」碑文和这句话叠在一起，有一种令人不安的清晰。〕",
             "grants": { "flags": ["rev_leyou_after_truth_shown"] }
+          },
+          {
+            "id": "rev_leyou_kite_message",
+            "requires": {
+              "flags": ["chapter2_release_ending", "chapter3_started"],
+              "flags_absent": ["kite_message_received"]
+            },
+            "text": "〔高地的石缝里压着一个布包。没有署名。里面是一张薄纸，上面只有一行字——「鸢，非一人。」〕",
+            "grants": {
+              "clues": ["clue_kite_true_identity"],
+              "flags": ["kite_message_received"]
+            }
           }
         ]
       },
