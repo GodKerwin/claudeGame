@@ -1,3 +1,5 @@
+export type TimeOfDay = 'dawn' | 'morning' | 'noon' | 'afternoon' | 'dusk' | 'night';
+
 export interface PlayerStats {
   name: string;
   template: string;
@@ -17,6 +19,7 @@ export interface Condition {
   has?: string[];
   flags?: string[];
   flags_absent?: string[];
+  timeOfDay?: TimeOfDay[];
 }
 
 export interface ActionGrant {
@@ -66,6 +69,7 @@ export interface EventAction {
   hint?: string;
   grants?: ActionGrant;
   evidenceGate?: EvidenceGate;
+  timeCost?: 1 | 2;
 }
 
 export interface GameEvent {
@@ -212,6 +216,7 @@ export interface SaveData {
   seenDialogues: string[];
   visitedRooms: string[];
   foundSynthesisIds?: string[];
+  timeOfDay?: TimeOfDay;
 }
 
 export interface SaveSlot {
