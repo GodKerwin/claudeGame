@@ -255,14 +255,14 @@
       {
         "id": "demand_answers",
         "label": "「说清楚，然后我们谈。」",
-        "requires": { "flags": ["fei_ye_identity_confirmed"] },
+        "requires": { "flags": ["fei_ye_identity_confirmed", "synth_ch3_fei_ye_confirmed"] },
         "result": "你坐下，没有立刻出手。\n\n飞爷把一切说了——天机阁的起源，名单的意义，廷尉府追杀那批人的旧案，以及宋怀义出走的真正原因。\n\n你没有足够的物证，他也知道。两个人在曲江亭坐到夜深，最后他站起来：「名单，我不会给你。但我告诉你，它安全。」\n\n他走了。你手里是半段真相，另一半还在他身上。",
         "grants": { "flags": ["chapter3_standoff_ending"] }
       },
       {
         "id": "join_forces",
         "label": "「追查令，我烧了。你打算怎么做？」",
-        "requires": { "flags": ["chapter2_join_ending", "tianji_trust_gained"] },
+        "requires": { "flags": ["chapter2_join_ending", "tianji_trust_gained", "synth_ch3_fei_ye_confirmed"] },
         "result": "你从怀里取出任务令，在茶碗旁的烛火上点燃，看它烧完。\n\n飞爷盯着那一小簇火焰，停了很久才开口：「你不是来执行任务的。」\n\n「不是。」\n\n他从袖中取出一张折叠的纸，推过来：「名单现在藏在这里。廷尉府的人很快就会找过来。你若愿意，我们一起守住它，等新的机会。」\n\n窗外，曲江池的水在月光里静静流淌。这局棋，还没有下完。",
         "grants": { "flags": ["chapter3_join_ending"] }
       },

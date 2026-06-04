@@ -387,14 +387,14 @@
       {
         "id": "release_ending",
         "label": "「说清楚你知道的，然后滚。」（逼问情报）",
-        "requires": { "flags": ["langpeng_trail"], "has": ["langpeng_dispatch_order"] },
+        "requires": { "flags": ["langpeng_trail", "synth_ch2_li_mao_commands_langpeng"], "has": ["langpeng_dispatch_order"] },
         "result": "调令文书摊在桌上，李邈的名字清晰可见。你没有足够的证据将他彻底拿下，但这一张纸，已经足够让他坐下来好好谈一谈。\n\n李邈没有否认浪鹏帮的事。他只是说：「你想要什么？」\n\n你要的是真相。他给了你一部分——宋怀义确实是天机阁的叛逃者，名单上的人命悬一线，而「鸢」只是一个代号，真正的主使另有其人。\n\n作为交换，他从容离开了茶馆。你坐在原地，看着他的背影消失在长安的街道里。\n\n手里多了一枚皇城茶馆的入场牌，和一句话：「若想知道鸢是谁，去找东市回春堂的账目，再去问大雁塔下的无名碑。」",
         "grants": { "flags": ["chapter2_release_ending"], "items": ["teahouse_token"] }
       },
       {
         "id": "join_ending",
         "label": "「天机阁……说来听听。」（考虑招募）",
-        "requires": { "flags": ["tianji_recruit_offered"] },
+        "requires": { "flags": ["tianji_recruit_offered", "synth_ch2_li_mao_commands_langpeng"] },
         "result": "你靠在椅背上，神情懒散，语气漫不经心。\n\n李邈看了你片刻，似乎在衡量什么。然后他开口，将天机阁的真实面目徐徐道来——那不是一个帮派，而是一张网，覆盖长安城三十七处要津，每一处都有人在守。\n\n「宋怀义带走的名单，是这张网上的每一个节点。」他说，「若名单落入错误的人手里，整张网都会被摧毁。」\n\n「而你，」他顿了顿，「有能力帮我找回它。」\n\n你没有立刻答应，但你没有离开。窗外，长安城的灯火一盏一盏亮起来，像一张正在收紧的网。",
         "grants": { "flags": ["chapter2_join_ending"] }
       }

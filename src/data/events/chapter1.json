@@ -457,14 +457,14 @@
       {
         "id": "force_ending",
         "label": "「管他真相，先擒人！」（莽夫路线）",
-        "requires": { "strength": 7 },
+        "requires": { "strength": 7, "flags": ["synth_double_kill"] },
         "result": "你看见后门闪入的人影，凭着力气追上，将其按倒在地。\n\n那人是个年轻的伙计，满身颤抖，招认是受人指使，却说不出幕后主使是谁——真正的幕后人趁乱逃脱了。\n\n你抓了个跑腿的，放走了真凶。\n\n伙计反复说的最后一句话让你记住了：「我只是送信的，信是从东市回春堂来的……」\n\n东市·回春堂。这是一条线索，但今天已经用完了。\n\n你松开了手。伙计跌跌撞撞地逃开，消失在长安的街巷里。\n\n宋怀义的案子，还没有结束。",
         "grants": { "flags": ["chapter1_force_ending"] }
       },
       {
         "id": "hermit_ending",
         "label": "「白衣人说的没错……」（隐士路线）",
-        "requires": { "flags": ["white_stranger_trust", "learned_wuhen_bu"] },
+        "requires": { "flags": ["white_stranger_trust", "learned_wuhen_bu", "synth_double_kill"] },
         "result": "你想起白衣人临别时的话：「真相不总是用来揭露的，有时，它是你活命的筹码。」\n\n你没有正面迎击，而是悄无声息地退出了宅院，带着你已知道的一切。\n\n有些东西，比真相更重。\n\n走出废院的小巷，拐过两条街，你在一处茶摊前坐下，要了一碗热茶，把手中的线索一张张地展开，又一张张地叠好。\n\n你知道发生了什么，知道谁动的手，知道「鸢」这个字背后的轮廓。\n\n但你还不知道：那个人究竟是谁。\n\n茶端上来了，热气袅袅。你握着那枚天机玉令，看着它在掌心慢慢变暖。\n\n长安的街市还在继续，人来人往，没有人知道昨夜发生了什么。\n\n也没有人知道，你手里握着的，是一颗烫手的棋子。",
         "grants": { "flags": ["chapter1_hermit_ending"] }
       }
