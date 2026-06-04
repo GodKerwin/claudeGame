@@ -12,14 +12,14 @@ import { useSettings } from '../../hooks/useSettings';
 import { usePlayerStore } from '../../store/playerStore';
 import { useSceneStore } from '../../store/sceneStore';
 import { useInventoryStore } from '../../store/inventoryStore';
-import { getRoom, getEvent, getNPC, getItem, TALENTS } from '../../data/loader';
+import { getRoom, getEvent, getNPC, getItem, TALENTS, getVerdict } from '../../data/loader';
 import { getActionResults } from '../../engine/eventEngine';
 import { getAvailableDialogues } from '../../engine/storyEngine';
 import { evaluate } from '../../engine/conditionEvaluator';
 import { getHint } from '../../engine/hintEngine';
 import { audioEngine } from '../../engine/audioEngine';
 import type { EvalContext } from '../../engine/conditionEvaluator';
-import type { ActionGrant, DialogueChoice } from '../../types/game';
+import type { ActionGrant, DialogueChoice, ChapterVerdict, EvidenceGate } from '../../types/game';
 
 type ModalType = 'save' | 'load' | 'settings' | null;
 
@@ -92,6 +92,20 @@ interface PendingInterrogation {
   grants?: ActionGrant;
 }
 
+interface PendingVerdict {
+  questions: ChapterVerdict['questions'];
+  grantFlag: string;
+  failText: string;
+}
+
+interface PendingEvidenceGate {
+  prompt: string;
+  accepts: string[];
+  failText: string;
+  successText: string;
+  grants?: ActionGrant;
+}
+
 const CHAPTER1_ENDINGS = ['chapter1_truth_ending', 'chapter1_force_ending', 'chapter1_hermit_ending'];
 const CHAPTER2_ENDINGS = ['chapter2_arrest_ending', 'chapter2_release_ending', 'chapter2_join_ending'];
 const CHAPTER3_ENDINGS = ['chapter3_truth_ending', 'chapter3_standoff_ending', 'chapter3_join_ending'];
@@ -111,6 +125,8 @@ export default function Game() {
     parseInt(sessionStorage.getItem('tianji-intro-shown') ?? '1', 10)
   );
   const [pendingInterrogation, setPendingInterrogation] = useState<PendingInterrogation | null>(null);
+  const [pendingVerdict, setPendingVerdict] = useState<PendingVerdict | null>(null);
+  const [pendingEvidenceGate, setPendingEvidenceGate] = useState<PendingEvidenceGate | null>(null);
   const [endingPending, setEndingPending] = useState(false);
   const [activeInterrogation, setActiveInterrogation] = useState<{
     npcId: string;
@@ -127,6 +143,8 @@ export default function Game() {
 
   useEffect(() => {
     setActiveInterrogation(null);
+    setPendingVerdict(null);
+    setPendingEvidenceGate(null);
   }, [scene.currentRoomId]);
 
   useEffect(() => {
@@ -332,6 +350,32 @@ export default function Game() {
       if (!event) return;
       const action = event.actions.find((a) => a.id === subId);
       if (!action) return;
+
+      // Layer 2：推理裁定拦截
+      const verdictData = getVerdict(chapter);
+      if (verdictData?.eventId === entityId && !scene.flags.includes(verdictData.grantFlag)) {
+        audioEngine.playSFX('click');
+        setPendingVerdict({
+          questions: verdictData.questions,
+          grantFlag: verdictData.grantFlag,
+          failText: verdictData.failText,
+        });
+        return;
+      }
+
+      // Layer 3：证据出示门拦截
+      if (action.evidenceGate && !pendingEvidenceGate) {
+        audioEngine.playSFX('click');
+        setPendingEvidenceGate({
+          prompt: action.evidenceGate.prompt,
+          accepts: action.evidenceGate.accepts,
+          failText: action.evidenceGate.failText,
+          successText: action.result,
+          grants: action.grants,
+        });
+        return;
+      }
+
       // 根据收益选择音效
       const g = action.grants;
       if (g?.clues?.length)        audioEngine.playSFX('discover');
@@ -490,6 +534,38 @@ export default function Game() {
     setPendingInterrogation(null);
   }, [pendingInterrogation, chapter, scene, addItem, removeItem, player]);
 
+  const handleVerdictPass = useCallback(() => {
+    if (!pendingVerdict) return;
+    scene.addStoryText('〔你整理好了心中的推断，准备开口。〕');
+    scene.addFlag(pendingVerdict.grantFlag);
+    audioEngine.playSFX('discover');
+    setPendingVerdict(null);
+  }, [pendingVerdict, scene]);
+
+  const handleVerdictFail = useCallback(() => {
+    if (!pendingVerdict) return;
+    scene.addStoryText(pendingVerdict.failText);
+    audioEngine.playSFX('click');
+  }, [pendingVerdict, scene]);
+
+  const handleEvidenceGatePresent = useCallback((itemId: string) => {
+    if (!pendingEvidenceGate) return;
+    const itemName = getItem(itemId)?.name ?? '此物';
+    scene.addStoryText(`你出示了【${itemName}】。`);
+    if (pendingEvidenceGate.accepts.includes(itemId)) {
+      audioEngine.playSFX('discover');
+      scene.addStoryText(pendingEvidenceGate.successText);
+      if (pendingEvidenceGate.grants?.clues?.length || pendingEvidenceGate.grants?.items?.length) {
+        audioEngine.playSFX('pickup');
+      }
+      applyGrants(pendingEvidenceGate.grants, scene, addItem, removeItem, player);
+      setPendingEvidenceGate(null);
+    } else {
+      audioEngine.playSFX('click');
+      scene.addStoryText(pendingEvidenceGate.failText);
+    }
+  }, [pendingEvidenceGate, scene, addItem, removeItem, player]);
+
   if (!player.name) {
     return null;
   }
@@ -505,6 +581,24 @@ export default function Game() {
   const currentHint = showHint
     ? getHint({ flags: scene.flags, items, chapter, strength: player.strength, agility: player.agility, wisdom: player.wisdom, constitution: player.constitution, talent: player.talent })
     : null;
+
+  const evidenceGateInterrogation = useMemo(() => {
+    if (!pendingEvidenceGate) return null;
+    const allPlayerIds = [...scene.clues, ...items];
+    return {
+      npcName: '出示证据',
+      prompt: pendingEvidenceGate.prompt,
+      allItems: allPlayerIds
+        .filter((id) => pendingEvidenceGate.accepts.includes(id))
+        .map((id) => {
+          const it = getItem(id);
+          return it ? { id: it.id, name: it.name, isClue: scene.clues.includes(id) } : null;
+        })
+        .filter((x): x is { id: string; name: string; isClue: boolean } => x !== null),
+      onPresent: handleEvidenceGatePresent,
+      onCancel: () => setPendingEvidenceGate(null),
+    };
+  }, [pendingEvidenceGate, scene.clues, items, handleEvidenceGatePresent]);
 
   const interrogationPanelProps = useMemo(() => {
     if (!activeInterrogation) return null;
@@ -564,13 +658,18 @@ export default function Game() {
             hint={currentHint}
             onToggleHint={() => setShowHint((v) => !v)}
             showHint={showHint}
-            pendingInterrogation={pendingInterrogation ? {
+            pendingVerdict={pendingVerdict ? {
+              questions: pendingVerdict.questions,
+              onPass: handleVerdictPass,
+              onFail: handleVerdictFail,
+            } : null}
+            pendingInterrogation={pendingEvidenceGate ? evidenceGateInterrogation : (pendingInterrogation ? {
               npcName: pendingInterrogation.npcName,
               prompt: pendingInterrogation.prompt,
               allItems: interrogationAllItems ?? [],
               onPresent: handlePresentEvidence,
               onCancel: () => setPendingInterrogation(null),
-            } : null}
+            } : null)}
             interrogation={interrogationPanelProps}
             onInterrogationAction={handleInterrogationAction}
             onInterrogationDismiss={() => setActiveInterrogation(null)}

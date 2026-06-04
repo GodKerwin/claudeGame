@@ -80,6 +80,16 @@ interface Props {
   onInterrogationAction?: (action: 'pressure' | 'indirect' | 'evidence', evidenceId?: string) => void;
   onInterrogationDismiss?: () => void;
   interrogationItems?: { id: string; name: string; isClue: boolean }[];
+  pendingVerdict?: {
+    questions: Array<{
+      id: string;
+      text: string;
+      options: Array<{ id: string; text: string }>;
+      correctId: string;
+    }>;
+    onPass: () => void;
+    onFail: () => void;
+  } | null;
 }
 
 export function CenterPanel({
@@ -98,12 +108,15 @@ export function CenterPanel({
   onInterrogationAction,
   onInterrogationDismiss,
   interrogationItems = [],
+  pendingVerdict,
 }: Props) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [interrogationFocusIdx, setInterrogationFocusIdx] = useState(0);
   const [evidenceOpen, setEvidenceOpen] = useState(false);
+  const [verdictAnswers, setVerdictAnswers] = useState<Record<string, string>>({});
+  const [verdictWrongIds, setVerdictWrongIds] = useState<string[]>([]);
 
   const scrollToBottom = useCallback(() => {
     if (rafRef.current !== null) return;
@@ -179,6 +192,10 @@ export function CenterPanel({
 
   useEffect(() => { scrollToBottom(); }, [storyTexts, scrollToBottom]);
   useEffect(() => { setEvidenceOpen(false); }, [interrogation?.npcName, interrogation?.currentLevel]);
+  useEffect(() => {
+    setVerdictAnswers({});
+    setVerdictWrongIds([]);
+  }, [pendingVerdict]);
 
   // Reset focus when interrogation changes
   useEffect(() => {
@@ -305,6 +322,63 @@ export function CenterPanel({
           `,
         }}
       >
+        {/* ── 推理裁定面板 ── */}
+        {pendingVerdict && (
+          <div className="flex flex-col h-full">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-3 h-px bg-gold/30" />
+              <p className="text-gold/50 text-[10px] tracking-[0.4em]">推理裁定</p>
+              <div className="w-3 h-px bg-gold/30" />
+            </div>
+            <div className="flex-1 min-h-0 overflow-y-auto scrollbar-thin space-y-4 mb-3">
+              {pendingVerdict.questions.map((q) => {
+                const isWrong = verdictWrongIds.includes(q.id);
+                return (
+                  <div key={q.id} className={`border-l-2 pl-3 ${isWrong ? 'border-blood/55' : 'border-gold/20'}`}>
+                    <p className={`text-[12px] mb-1.5 ${isWrong ? 'text-blood/70' : 'text-ink/70'}`}>{q.text}</p>
+                    <div className="space-y-1">
+                      {q.options.map((opt) => {
+                        const selected = verdictAnswers[q.id] === opt.id;
+                        return (
+                          <button
+                            key={opt.id}
+                            onClick={() => setVerdictAnswers((prev) => ({ ...prev, [q.id]: opt.id }))}
+                            className={`w-full text-left px-2.5 py-1.5 text-[12px] border transition-colors cursor-pointer ${
+                              selected
+                                ? 'border-gold/55 text-gold/80 bg-gold/5'
+                                : 'border-gold/15 text-ink/50 hover:border-gold/35 hover:text-ink/70'
+                            }`}
+                          >
+                            {opt.text}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <button
+              onClick={() => {
+                const wrong = pendingVerdict.questions
+                  .filter((q) => verdictAnswers[q.id] !== q.correctId)
+                  .map((q) => q.id);
+                if (wrong.length > 0) {
+                  setVerdictWrongIds(wrong);
+                  pendingVerdict.onFail();
+                } else {
+                  setVerdictWrongIds([]);
+                  pendingVerdict.onPass();
+                }
+              }}
+              disabled={pendingVerdict.questions.some((q) => !verdictAnswers[q.id])}
+              className="w-full py-2 border border-gold/35 text-gold/65 text-[12px] tracking-widest hover:border-gold/55 hover:text-gold/85 transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              提交推断
+            </button>
+          </div>
+        )}
+
         {/* ── 深层审讯状态机 ── */}
         {interrogation && !pendingInterrogation && (
           <div className="flex flex-col h-full">
