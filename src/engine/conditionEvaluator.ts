@@ -1,9 +1,10 @@
-import type { Condition, PlayerStats } from '../types/game';
+import type { Condition, PlayerStats, TimeOfDay } from '../types/game';
 
 export interface EvalContext {
   player: PlayerStats;
   inventory: string[];
   flags: string[];
+  timeOfDay: TimeOfDay;
 }
 
 /**
@@ -18,6 +19,7 @@ export function isActionVisible(condition: Condition | null | undefined, ctx: Ev
   if (condition.flags?.some((f) => !ctx.flags.includes(f))) return false;
   if (condition.flags_absent?.some((f) => ctx.flags.includes(f))) return false;
   if (condition.has?.some((i) => !ctx.inventory.includes(i))) return false;
+  if (condition.timeOfDay && !condition.timeOfDay.includes(ctx.timeOfDay)) return false;
   // 只剩属性/天赋未满足 → 置灰显示
   return true;
 }
@@ -56,5 +58,6 @@ export function evaluate(condition: Condition | null | undefined, ctx: EvalConte
       if (flags.includes(flag)) return false;
     }
   }
+  if (condition.timeOfDay && !condition.timeOfDay.includes(ctx.timeOfDay)) return false;
   return true;
 }
