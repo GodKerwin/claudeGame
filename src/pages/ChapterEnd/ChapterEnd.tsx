@@ -104,6 +104,11 @@ export default function ChapterEnd() {
       : CHAPTER1_ENDINGS[endingFlag]
     : '';
 
+  const ch3TruthEcho =
+    endingFlag === 'chapter3_truth_ending' && scene.flags.includes('chapter1_truth_ending')
+      ? '从那家客栈的走廊开始，你就没有回过头。'
+      : null;
+
   const endingStyle = endingFlag ? ENDING_STYLES[endingFlag] : null;
 
   const chapterTitle = isChapter3 ? '第三章·完' : isChapter2 ? '第二章·完' : '第一章·完';
@@ -117,10 +122,11 @@ export default function ChapterEnd() {
       [
         chapterTitle,
         endingText,
+        ...(ch3TruthEcho ? [ch3TruthEcho] : []),
         ...(clueItems.length > 0 ? ['【你所掌握的线索】'] : []),
         ...clueItems.map((item) => `· ${item.name}`),
       ].filter(Boolean),
-    [chapterTitle, endingText, clueItems]
+    [chapterTitle, endingText, ch3TruthEcho, clueItems]
   );
 
   useEffect(() => {
@@ -213,6 +219,7 @@ export default function ChapterEnd() {
           {lines.map((line, i) => {
             const isTitle = i === 0;
             const isClueHeader = line === '【你所掌握的线索】';
+            const isEcho = line === ch3TruthEcho;
             const isClueItem = line.startsWith('· ');
 
             const content = (
@@ -223,6 +230,8 @@ export default function ChapterEnd() {
                 } ${
                   isTitle
                     ? 'text-gold/90 text-xl tracking-[0.3em] text-center'
+                    : isEcho
+                    ? 'text-gold/45 text-[12px] tracking-[0.15em] italic text-center'
                     : isClueHeader
                     ? 'text-gold/50 text-xs tracking-widest text-center'
                     : isClueItem
