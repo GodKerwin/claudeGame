@@ -134,6 +134,11 @@ export interface RoomRevisitEvent {
   grants?: ActionGrant;
 }
 
+export interface AmbientFlagEntry {
+  requires: Condition;
+  text: string;
+}
+
 export interface Room {
   id: string;
   name: string;
@@ -143,6 +148,8 @@ export interface Room {
   requires?: Condition | null;
   revisitEvents?: RoomRevisitEvent[];
   talentViews?: { talent: string; text: string }[];
+  ambientByTime?: Partial<Record<TimeOfDay, string>>;
+  ambientByFlag?: AmbientFlagEntry[];
 }
 
 export interface Synthesis {
