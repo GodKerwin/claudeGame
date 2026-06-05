@@ -19,6 +19,7 @@ import { evaluate } from '../../engine/conditionEvaluator';
 import { getHint } from '../../engine/hintEngine';
 import { audioEngine } from '../../engine/audioEngine';
 import type { EvalContext } from '../../engine/conditionEvaluator';
+import { getAmbientText } from '../../engine/ambientEngine';
 import type { ActionGrant, DialogueChoice, ChapterVerdict } from '../../types/game';
 
 type ModalType = 'save' | 'load' | 'settings' | null;
@@ -222,6 +223,11 @@ export default function Game() {
     flags: scene.flags,
     timeOfDay: scene.timeOfDay,
   }), [player, items, scene.flags, scene.timeOfDay]);
+
+  const ambientText = useMemo(
+    () => (room ? getAmbientText(room, ctx) : ''),
+    [room, ctx]
+  );
 
   // 重访触发：必须放在 ctx 声明之后，避免 TDZ
   useEffect(() => {
@@ -652,7 +658,7 @@ export default function Game() {
           <CenterPanel
             roomName={room.name}
             roomId={room.id}
-            roomDescription={room.description}
+            roomDescription={ambientText}
             storyTexts={scene.storyText}
             actions={actions}
             onAction={handleAction}
