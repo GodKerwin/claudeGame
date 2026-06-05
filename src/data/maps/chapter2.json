@@ -7,8 +7,18 @@
         "id": "east_market_entrance",
         "name": "东市入口",
         "description": "晨雾未散，东市外的长街已经嘈杂起来。货车辚辚，叫卖声此起彼伏，却有一种与往常不同的紧张气息在人群中流淌。官府的悬赏令贴在坊墙上，白纸黑字，触目惊心。",
-        "interactables": ["evt_market_notice", "evt_merchant_gossip", "evt_bounty_investigation"],
-        "exits": ["huichuntang", "antique_shop", "cien_temple", "yongning_nightmarket", "zhuque_teahouse_st"],
+        "interactables": [
+          "evt_market_notice",
+          "evt_merchant_gossip",
+          "evt_bounty_investigation"
+        ],
+        "exits": [
+          "huichuntang",
+          "antique_shop",
+          "cien_temple",
+          "yongning_nightmarket",
+          "zhuque_teahouse_st"
+        ],
         "requires": null,
         "talentViews": [
           {
@@ -27,21 +37,59 @@
         "revisitEvents": [
           {
             "id": "rev_east_market_crowd",
-            "requires": { "flags": ["langpeng_discovered"], "flags_absent": ["rev_east_market_crowd_shown"] },
+            "requires": {
+              "flags": [
+                "langpeng_discovered"
+              ],
+              "flags_absent": [
+                "rev_east_market_crowd_shown"
+              ]
+            },
             "text": "〔悬赏令还贴在坊墙上，但你已不再是初来乍到的过客——再看这条街，摊贩的站位微妙，几个人的目光拐弯抹角地跟着你。消息已经散出去了。〕",
-            "grants": { "flags": ["rev_east_market_crowd_shown"] }
+            "grants": {
+              "flags": [
+                "rev_east_market_crowd_shown"
+              ]
+            }
           },
           {
             "id": "rev_east_market_official_tip",
             "requires": {
-              "flags": ["chapter1_truth_ending", "chapter2_started"],
-              "flags_absent": ["li_mao_official_tip_received"]
+              "flags": [
+                "chapter1_truth_ending",
+                "chapter2_started"
+              ],
+              "flags_absent": [
+                "li_mao_official_tip_received"
+              ]
             },
             "text": "〔一个穿公服的书吏走近你，压低声音：「你就是破了客栈案子的那位？李参军与郎鹏之间，有一份调令，你若能找到……」他把一张折叠的纸塞进你手里，转身消失在人群中。〕",
             "grants": {
-              "clues": ["clue_li_mao_official_tip"],
-              "flags": ["li_mao_official_tip_received"]
+              "clues": [
+                "clue_li_mao_official_tip"
+              ],
+              "flags": [
+                "li_mao_official_tip_received"
+              ]
             }
+          }
+        ],
+        "ambientByTime": {
+          "dawn": "晨雾最厚，东市外的街道轮廓模糊。早起的行脚商人推着货车，彼此不多说话，各怀心思。",
+          "morning": "东市渐渐热闹起来，但那股紧张气息没有随着人声散去。你在人群里，人群也在打量你。",
+          "noon": "日头正高，叫卖声把思绪挤得零碎。悬赏令还贴在坊墙上，没有人敢当众指点，但都在偷偷看。",
+          "afternoon": "午后的东市开始往另一个方向走，做买卖的换了批人，眼神也换了种颜色。",
+          "dusk": "收摊的铃声陆续响起，人潮慢慢往坊内退去。暮色里，那张悬赏令的白纸格外显眼。",
+          "night": "东市夜间关门，外街只剩巡逻的兵士和偶尔闪过的人影。你在这里，目标太明显。"
+        },
+        "ambientByFlag": [
+          {
+            "requires": {
+              "flags": [
+                "langpeng_discovered"
+              ]
+            },
+            "text": "你现在知道这条街上藏着什么了。走在这里，每一张随意的脸都值得多看一眼。"
           }
         ]
       },
@@ -49,8 +97,17 @@
         "id": "huichuntang",
         "name": "回春堂药铺",
         "description": "药香弥漫的铺子，架上摆满了各色草药。老板娘在柜台后低头捣药，不多言语。一个身着灰色僧袍的和尚盘坐在角落，神情沉静，手中转着一串佛珠。",
-        "interactables": ["evt_medicine_shelf", "evt_prescription_book", "npc_wujue", "evt_ch2_constitution_growth", "npc_huichuntang_owner"],
-        "exits": ["east_market_entrance", "cien_temple"],
+        "interactables": [
+          "evt_medicine_shelf",
+          "evt_prescription_book",
+          "npc_wujue",
+          "evt_ch2_constitution_growth",
+          "npc_huichuntang_owner"
+        ],
+        "exits": [
+          "east_market_entrance",
+          "cien_temple"
+        ],
         "requires": null,
         "talentViews": [
           {
@@ -69,9 +126,20 @@
         "revisitEvents": [
           {
             "id": "rev_huichuntang_dispatch",
-            "requires": { "has": ["langpeng_dispatch_order"], "flags_absent": ["rev_huichuntang_dispatch_shown"] },
+            "requires": {
+              "has": [
+                "langpeng_dispatch_order"
+              ],
+              "flags_absent": [
+                "rev_huichuntang_dispatch_shown"
+              ]
+            },
             "text": "〔调令上李邈的笔迹……无迹和尚在回春堂坐诊多年，李邈定期造访此处。他见过李邈，或许认得那笔字。〕",
-            "grants": { "flags": ["rev_huichuntang_dispatch_shown"] }
+            "grants": {
+              "flags": [
+                "rev_huichuntang_dispatch_shown"
+              ]
+            }
           }
         ]
       },
@@ -79,8 +147,15 @@
         "id": "antique_shop",
         "name": "西市古玩铺",
         "description": "铺子不大，却摆满了奇珍异玩。掌柜是个面白无须的中年人，眼神灵活，见你进来，微微一笑，不动声色地打量着你。柜台角落摆着一只天青色瓷瓶，底部刻有隐约的纹饰。",
-        "interactables": ["evt_appraise_token", "evt_buyer_ledger", "npc_buyer_contact", "evt_hidden_safe"],
-        "exits": ["east_market_entrance"],
+        "interactables": [
+          "evt_appraise_token",
+          "evt_buyer_ledger",
+          "npc_buyer_contact",
+          "evt_hidden_safe"
+        ],
+        "exits": [
+          "east_market_entrance"
+        ],
         "requires": null,
         "talentViews": [
           {
@@ -95,9 +170,20 @@
         "revisitEvents": [
           {
             "id": "rev_antique_broker_sense",
-            "requires": { "flags": ["hideout_trust_gained"], "flags_absent": ["rev_antique_broker_sense_shown"] },
+            "requires": {
+              "flags": [
+                "hideout_trust_gained"
+              ],
+              "flags_absent": [
+                "rev_antique_broker_sense_shown"
+              ]
+            },
             "text": "〔据点里那些藏匿的往来账目……再看这间铺子，掌柜的见什么人说什么话、不先亮底牌的规矩，和平康坊里的人如出一辙。这间铺子，懂得沉默的价值。〕",
-            "grants": { "flags": ["rev_antique_broker_sense_shown"] }
+            "grants": {
+              "flags": [
+                "rev_antique_broker_sense_shown"
+              ]
+            }
           }
         ]
       },
@@ -105,8 +191,16 @@
         "id": "cien_temple",
         "name": "慈恩寺偏院",
         "description": "大雁塔的影子落在偏院的青砖上，几株老柏遮住了大半天光。院中少有香客，只有鸟鸣和偶尔传来的诵经声。一间僧房的门虚掩着，隐约飘出草药气息。",
-        "interactables": ["evt_monk_cell", "evt_temple_mural", "npc_wujue"],
-        "exits": ["east_market_entrance", "huichuntang", "pingkang_hideout"],
+        "interactables": [
+          "evt_monk_cell",
+          "evt_temple_mural",
+          "npc_wujue"
+        ],
+        "exits": [
+          "east_market_entrance",
+          "huichuntang",
+          "pingkang_hideout"
+        ],
         "requires": null,
         "talentViews": [
           {
@@ -125,19 +219,56 @@
         "revisitEvents": [
           {
             "id": "rev_cien_temple_signal",
-            "requires": { "has": ["tianji_signal_record"], "flags_absent": ["rev_cien_temple_signal_shown"] },
+            "requires": {
+              "has": [
+                "tianji_signal_record"
+              ],
+              "flags_absent": [
+                "rev_cien_temple_signal_shown"
+              ]
+            },
             "text": "〔天机阁的暗号册……整个慈恩寺偏院都是他们用过的地盘。那面壁画，是不是还有什么没发现的角落？〕",
-            "grants": { "flags": ["rev_cien_temple_signal_shown"] }
+            "grants": {
+              "flags": [
+                "rev_cien_temple_signal_shown"
+              ]
+            }
           }
-        ]
+        ],
+        "ambientByTime": {
+          "dawn": "早课的诵经声在大雁塔上方飘散，偏院里只有鸟鸣和松风，安静得像是与长安城不在同一个地方。",
+          "morning": "晨光穿过老柏，在青砖上画出碎影。偶有香客从山门外走过，脚步声很快消失在走廊的尽头。",
+          "noon": "正午的日光把偏院晒得有些白，老柏的树荫是唯一阴凉。蝉声偶发，又忽然停了。",
+          "afternoon": "午后的寺院连风声都小了，那间虚掩的僧房里，草药气息更加明显。",
+          "dusk": "黄昏钟声响起时，大雁塔的影子把偏院切成两半。这个时候的慈恩寺，有一种说不清的肃穆。",
+          "night": "夜里的偏院几乎看不清轮廓，只有塔顶的影子映在夜空里。脚步声在青砖上格外响。"
+        }
       },
       {
         "id": "pingkang_hideout",
         "name": "平康坊据点",
         "description": "平康坊深处一栋不起眼的院落，白日里大门紧闭，偶有人影出入，神情警惕。墙角的青苔上有一行新踩的脚印，还未干透。院内隐约可闻压低的交谈声。",
-        "interactables": ["evt_hideout_search", "evt_captive_note", "npc_langpeng_scout", "evt_ch2_agility_growth", "evt_ch2_blackmarket_intel", "evt_prisoner_testimony"],
-        "exits": ["cien_temple", "imperial_teahouse"],
-        "requires": { "flags": ["langpeng_trail"], "timeOfDay": ["night", "dawn"] },
+        "interactables": [
+          "evt_hideout_search",
+          "evt_captive_note",
+          "npc_langpeng_scout",
+          "evt_ch2_agility_growth",
+          "evt_ch2_blackmarket_intel",
+          "evt_prisoner_testimony"
+        ],
+        "exits": [
+          "cien_temple",
+          "imperial_teahouse"
+        ],
+        "requires": {
+          "flags": [
+            "langpeng_trail"
+          ],
+          "timeOfDay": [
+            "night",
+            "dawn"
+          ]
+        },
         "talentViews": [
           {
             "talent": "三教九流",
@@ -155,20 +286,44 @@
         "revisitEvents": [
           {
             "id": "rev_pingkang_monk_scroll",
-            "requires": { "has": ["monk_identity_scroll"], "flags_absent": ["rev_pingkang_monk_shown"] },
+            "requires": {
+              "has": [
+                "monk_identity_scroll"
+              ],
+              "flags_absent": [
+                "rev_pingkang_monk_shown"
+              ]
+            },
             "text": "〔僧籍密卷证实韩朔在天机阁的身份……浪鹏帮也在监视他。据点的记录里，是不是还有他的名字没来得及查？〕",
-            "grants": { "flags": ["rev_pingkang_monk_shown"] }
+            "grants": {
+              "flags": [
+                "rev_pingkang_monk_shown"
+              ]
+            }
           }
-        ]
+        ],
+        "ambientByTime": {
+          "night": "院门还关着，但你知道里面有人。周围没有别的动静，只有远处偶尔传来更夫的梆子声。",
+          "dawn": "天将亮，据点里的灯火已经熄了。青苔上的脚印还新鲜——有人刚离开，或是刚回来。"
+        }
       },
       {
         "id": "imperial_teahouse",
         "name": "皇城茶馆",
         "description": "皇城外一家看似普通的茶馆，雅间深处灯火昏黄。茶香中隐有肃杀气。那个你一直在追寻的白色身影，正端坐在最里间，等着你。",
-        "interactables": ["evt_teahouse_ambush", "evt_li_mao_encounter", "npc_li_mao"],
-        "exits": ["pingkang_hideout", "censorate_street"],
+        "interactables": [
+          "evt_teahouse_ambush",
+          "evt_li_mao_encounter",
+          "npc_li_mao"
+        ],
+        "exits": [
+          "pingkang_hideout",
+          "censorate_street"
+        ],
         "requires": {
-          "flags": ["langpeng_trail"]
+          "flags": [
+            "langpeng_trail"
+          ]
         },
         "talentViews": [
           {
@@ -187,9 +342,20 @@
         "revisitEvents": [
           {
             "id": "rev_teahouse_watchers",
-            "requires": { "flags": ["langpeng_trail"], "flags_absent": ["rev_teahouse_watchers_shown"] },
+            "requires": {
+              "flags": [
+                "langpeng_trail"
+              ],
+              "flags_absent": [
+                "rev_teahouse_watchers_shown"
+              ]
+            },
             "text": "〔茶馆里的茶客换了几张脸，但那种不动声色的观察没有换——李邈的人，还在。他知道你来了，也知道你带着什么来的。这一趟不是谈判，是一场两边都在等的棋局终盘。〕",
-            "grants": { "flags": ["rev_teahouse_watchers_shown"] }
+            "grants": {
+              "flags": [
+                "rev_teahouse_watchers_shown"
+              ]
+            }
           }
         ]
       },
@@ -197,9 +363,24 @@
         "id": "yongning_nightmarket",
         "name": "永宁坊夜市",
         "description": "坊间深处一条灯火昏黄的窄巷，夜色遮住了货物的真实面目。销赃、换信、买消息——这里的交易没有白纸黑字，只有眼神和分寸。",
-        "interactables": ["evt_nightmarket_tail", "evt_nightmarket_goods", "npc_nightmarket_fence"],
-        "exits": ["east_market_entrance"],
-        "requires": { "flags": ["langpeng_discovered"], "timeOfDay": ["dusk", "night", "dawn"] },
+        "interactables": [
+          "evt_nightmarket_tail",
+          "evt_nightmarket_goods",
+          "npc_nightmarket_fence"
+        ],
+        "exits": [
+          "east_market_entrance"
+        ],
+        "requires": {
+          "flags": [
+            "langpeng_discovered"
+          ],
+          "timeOfDay": [
+            "dusk",
+            "night",
+            "dawn"
+          ]
+        },
         "talentViews": [
           {
             "talent": "三教九流",
@@ -210,11 +391,35 @@
           {
             "id": "rev_nightmarket_langpeng_retreat",
             "requires": {
-              "flags": ["langpeng_trail"],
-              "flags_absent": ["rev_nightmarket_retreat_shown"]
+              "flags": [
+                "langpeng_trail"
+              ],
+              "flags_absent": [
+                "rev_nightmarket_retreat_shown"
+              ]
             },
             "text": "〔再来夜市，气氛变了——货摊减少了一半，几个熟悉的面孔不见了。销赃掌柜收摊的动作比平时快了三倍。浪鹏帮正在撤人。〕",
-            "grants": { "flags": ["rev_nightmarket_retreat_shown", "langpeng_retreating"] }
+            "grants": {
+              "flags": [
+                "rev_nightmarket_retreat_shown",
+                "langpeng_retreating"
+              ]
+            }
+          }
+        ],
+        "ambientByTime": {
+          "dusk": "坊门刚关，夜市的灯火还稀稀落落，货商们压低声音谈着今晚的生意。",
+          "night": "夜市到了最热闹的时候，灯火把人影拉得扭曲变形。这里流通的东西，比明面上的货物真实得多。",
+          "dawn": "快天亮了，夜市正在收摊。有些人赶着消失在夜色的最后一片里，有些人等着看今天的日出。"
+        },
+        "ambientByFlag": [
+          {
+            "requires": {
+              "flags": [
+                "nightmarket_ledger_obtained"
+              ]
+            },
+            "text": "那个消息人的位置你现在记得了。人来人往的夜市里，他依然是最不显眼的那个。"
           }
         ]
       },
@@ -222,9 +427,18 @@
         "id": "censorate_street",
         "name": "廷尉府外街",
         "description": "廷尉府的外围街道，低矮的官署建筑排列两侧，空气中有一股陈年卷宗特有的霉味。档案外署的牌子半遮在枯藤之后，不刻意留心就会错过。",
-        "interactables": ["evt_censorate_exterior", "npc_archive_clerk"],
-        "exits": ["imperial_teahouse"],
-        "requires": { "flags": ["li_mao_background"] },
+        "interactables": [
+          "evt_censorate_exterior",
+          "npc_archive_clerk"
+        ],
+        "exits": [
+          "imperial_teahouse"
+        ],
+        "requires": {
+          "flags": [
+            "li_mao_background"
+          ]
+        },
         "talentViews": [
           {
             "talent": "官威",
@@ -239,11 +453,20 @@
           {
             "id": "rev_censorate_after_access",
             "requires": {
-              "flags": ["full_censorate_file_read"],
-              "flags_absent": ["rev_censorate_after_shown"]
+              "flags": [
+                "full_censorate_file_read"
+              ],
+              "flags_absent": [
+                "rev_censorate_after_shown"
+              ]
             },
             "text": "〔再次经过廷尉府外街，你注意到档案室的门被关紧了，窗帘也拉上了——有人知道你来过。〕",
-            "grants": { "flags": ["rev_censorate_after_shown", "censorate_aware_of_you"] }
+            "grants": {
+              "flags": [
+                "rev_censorate_after_shown",
+                "censorate_aware_of_you"
+              ]
+            }
           }
         ]
       },
@@ -251,8 +474,14 @@
         "id": "zhuque_teahouse_st",
         "name": "朱雀大街茶肆",
         "description": "朱雀大街旁一家普通茶肆，人来人往，嘈杂而生机勃勃。角落里有一个说书人正在讲什么，茶客们听得似乎入神，又似乎各有心事。",
-        "interactables": ["evt_zhuque_atmosphere", "evt_zhuque_synthesis", "npc_street_storyteller"],
-        "exits": ["east_market_entrance"],
+        "interactables": [
+          "evt_zhuque_atmosphere",
+          "evt_zhuque_synthesis",
+          "npc_street_storyteller"
+        ],
+        "exits": [
+          "east_market_entrance"
+        ],
         "requires": null,
         "talentViews": [
           {
@@ -264,11 +493,19 @@
           {
             "id": "rev_zhuque_after_limao",
             "requires": {
-              "flags": ["li_mao_cleansing_confirmed"],
-              "flags_absent": ["rev_zhuque_limao_shown"]
+              "flags": [
+                "li_mao_cleansing_confirmed"
+              ],
+              "flags_absent": [
+                "rev_zhuque_limao_shown"
+              ]
             },
             "text": "〔再来茶肆，说书人正在讲一个关于「长安城里消失的人」的故事，茶客们听得入神。他的眼神扫过来，微微点了一下头。〕",
-            "grants": { "flags": ["rev_zhuque_limao_shown"] }
+            "grants": {
+              "flags": [
+                "rev_zhuque_limao_shown"
+              ]
+            }
           }
         ]
       }
