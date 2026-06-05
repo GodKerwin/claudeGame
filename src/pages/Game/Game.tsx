@@ -772,6 +772,7 @@ export default function Game() {
                 ['右侧', '人物 · 物品 · 推理 · 脉络，四标签切换'],
                 ['推理', '在推理标签中选择两件线索，可推断它们的关联'],
                 ['提示', '卡关时点击行动区右上角「提示」按钮'],
+                ['时段', '左侧显示当前时辰，夜市·密道等地点有时段限制，行动可推进时辰'],
               ].map(([label, desc]) => (
                 <div key={label} className="flex items-start gap-3">
                   <span className="text-gold/50 text-[11px] tracking-widest shrink-0 w-6 text-right mt-0.5">{label}</span>
