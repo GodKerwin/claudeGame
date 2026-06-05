@@ -42,5 +42,29 @@
     "result": "同门异道：道家气感感知的「轻快外来气机」与追查令所描述的体态习惯高度吻合——凶手的行动方式与飞爷的功夫路数来自同一师承，但目的截然相反。追杀者与被追杀者，曾是同门。",
     "hint": "气机踪迹 × 追查令",
     "grants": { "flags": ["synth_ch3_same_lineage"] }
+  },
+  {
+    "id": "synth_ch3_fei_ye_anticipated_end",
+    "itemA": "unsent_letter",
+    "itemB": "deeper_threat_evidence",
+    "result": "飞爷早已预见：未寄出的信中，他早做好了「自己不在」的准备——收信人韩朔，遗命清晰；上游密函却是更近、更急的催逼。两者对照，飞爷不是在仓皇应对，而是在等待一个他早已预料的结局，只是没料到会来得这么快。",
+    "hint": "未寄出的信 × 上游密函",
+    "grants": { "flags": ["synth_ch3_fei_ye_anticipated_end"] }
+  },
+  {
+    "id": "synth_ch3_founding_purpose_confirmed",
+    "itemA": "leyou_inscription",
+    "itemB": "name_list_fragment",
+    "result": "立阁初心印证：乐游原碑文刻着「吾辈所护，乃不该死之人」；名单残页列着那些被庇护者的姓名与代号。天机阁从来不是情报组织，它本质上是一张庇护网。而正在被猎杀的，正是这张网上的每一个人。",
+    "hint": "乐游石刻拓印 × 名单残页",
+    "grants": { "flags": ["synth_ch3_founding_purpose_confirmed"] }
+  },
+  {
+    "id": "synth_ch3_two_guardians",
+    "itemA": "wujue_confession",
+    "itemB": "target_profile",
+    "result": "二十年的两面守候：和尚的告白说他在塔壁里守着名单，不敢出声；追查令描述的飞爷，在外围以身作局，等着一个可信任的人。两个人，用不同的方式守着同一件事，却从未对彼此说过一句话——直到你来了，成为那个中间人。",
+    "hint": "和尚的告白 × 追查令",
+    "grants": { "flags": ["synth_ch3_two_guardians"] }
   }
 ]

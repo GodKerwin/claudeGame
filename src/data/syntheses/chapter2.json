@@ -66,5 +66,21 @@
     "result": "幕后三层：古玩铺往来账记载令牌流向，探子供词交代据点运作方式——两者都指向同一个无名「委托人」，此人与李邈之间隔了整整三层中间人。他才是真正的幕后，比李邈站得更深、更稳。",
     "hint": "买家往来账 × 探子供词",
     "grants": { "flags": ["synth_ch2_true_mastermind_hint"] }
+  },
+  {
+    "id": "synth_ch2_government_collusion",
+    "itemA": "censorate_old_file",
+    "itemB": "imperial_pursuit_order",
+    "result": "廷尉自证：廷尉旧档与追查令副本出自同一套系统——廷尉府不只是追查天机阁的执行者，更是旧案的始作俑者之一。二十年前那场追杀，是廷尉府的主动部署，不是被动应对。如今借李邈之手续写的，正是这场未竟的清洗。",
+    "hint": "廷尉旧档 × 追查令副本",
+    "grants": { "flags": ["synth_ch2_government_collusion"] }
+  },
+  {
+    "id": "synth_ch2_disappearances_pattern",
+    "itemA": "missing_persons_notice",
+    "itemB": "li_mao_rumor_record",
+    "result": "失踪成规律：坊间失踪告示所描述的特征——游方医、说书人、行事低调的中年男性——与李邈风评录中「处理麻烦」的目标高度吻合。失踪不是偶然，是有人在系统性清洗天机旧部，而执行者的背后，是同一只手。",
+    "hint": "失踪告示 × 李邈风评录",
+    "grants": { "flags": ["synth_ch2_disappearances_pattern"] }
   }
 ]

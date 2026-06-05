@@ -92,6 +92,7 @@
   {
     "id": "clue_kite_true_identity",
     "name": "无名纸条",
-    "description": "「鸢，非一人。」——字迹潦草，像是仓皇中留下的。"
+    "description": "「鸢，非一人。」——字迹潦草，像是仓皇中留下的。",
+    "isClue": true
   }
 ]
