@@ -124,6 +124,38 @@ export default function EndingGallery() {
           </span>
         </div>
 
+        {unlockedCount === ENDINGS.length && (
+          <div
+            className="mb-10 px-6 py-5 text-center"
+            style={{
+              border: '1px solid rgba(201,168,76,0.40)',
+              background: 'linear-gradient(135deg, rgba(201,168,76,0.06) 0%, rgba(201,168,76,0.02) 100%)',
+              boxShadow: '0 0 40px rgba(201,168,76,0.08)',
+            }}
+          >
+            {/* 装饰分割线 */}
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <div className="flex-1 h-px bg-gold/25" />
+              <span className="text-gold/55 text-[10px] tracking-[0.5em]">天机既明</span>
+              <div className="flex-1 h-px bg-gold/25" />
+            </div>
+
+            {/* 主文 */}
+            <p className="text-gold/80 text-base tracking-[0.2em] mb-2">三章皆完，真相大白</p>
+            <p className="text-ink/40 text-xs tracking-widest leading-loose">
+              九条结局，九种抉择，同一座长安城。<br />
+              你已走完了所有的路。
+            </p>
+
+            {/* 装饰分割线 */}
+            <div className="flex items-center justify-center gap-3 mt-4">
+              <div className="flex-1 h-px bg-gold/15" />
+              <span className="text-gold/25 text-[9px] tracking-[0.4em]">◈</span>
+              <div className="flex-1 h-px bg-gold/15" />
+            </div>
+          </div>
+        )}
+
         <div className="space-y-10">
           {byChapter.map(({ chapter, title, endings }) => (
             <div key={chapter}>
