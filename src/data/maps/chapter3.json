@@ -7,8 +7,16 @@
         "id": "dayan_pagoda",
         "name": "大雁塔下",
         "description": "大雁塔的钟声刚刚散去，塔下的慈恩寺偏院少有行人。老柏树后藏着一块不起眼的石碑，苔痕掩去了大半，但如果凑近，能看出碑文不是寻常经文。灰袍僧人端坐在矮凳上，像是在等什么人。",
-        "interactables": ["evt_nameless_stele", "evt_pagoda_shadow", "npc_wujue", "evt_ch3_constitution_growth", "npc_temple_novice"],
-        "exits": ["feiyes_manor"],
+        "interactables": [
+          "evt_nameless_stele",
+          "evt_pagoda_shadow",
+          "npc_wujue",
+          "evt_ch3_constitution_growth",
+          "npc_temple_novice"
+        ],
+        "exits": [
+          "feiyes_manor"
+        ],
         "requires": null,
         "talentViews": [
           {
@@ -27,9 +35,20 @@
         "revisitEvents": [
           {
             "id": "rev_dayan_after_decode",
-            "requires": { "flags": ["stele_decoded"], "flags_absent": ["rev_dayan_after_decode_shown"] },
+            "requires": {
+              "flags": [
+                "stele_decoded"
+              ],
+              "flags_absent": [
+                "rev_dayan_after_decode_shown"
+              ]
+            },
             "text": "〔碑文已经读懂，但再看这块石头，它依然一动不动地立在这里——二十年的风雨，所有守候和恐惧，都被压进这几行字里。立碑的人，当时是什么心情。〕",
-            "grants": { "flags": ["rev_dayan_after_decode_shown"] }
+            "grants": {
+              "flags": [
+                "rev_dayan_after_decode_shown"
+              ]
+            }
           }
         ]
       },
@@ -37,8 +56,16 @@
         "id": "tianji_safehouse",
         "name": "天机安宅",
         "description": "长安城一条不显眼的巷子深处，门面是寻常茶水铺。推开后门，里面却是另一番光景——墙上挂着长安城的堪舆图，密密麻麻标注着数十个点位。一个面容模糊的人坐在图前，听到你进来，缓缓转过身。",
-        "interactables": ["evt_mission_orders", "evt_safehouse_wall", "npc_tianji_contact", "evt_ch3_wisdom_growth"],
-        "exits": ["feiyes_manor", "censorate_outer"],
+        "interactables": [
+          "evt_mission_orders",
+          "evt_safehouse_wall",
+          "npc_tianji_contact",
+          "evt_ch3_wisdom_growth"
+        ],
+        "exits": [
+          "feiyes_manor",
+          "censorate_outer"
+        ],
         "requires": null,
         "talentViews": [
           {
@@ -57,9 +84,20 @@
         "revisitEvents": [
           {
             "id": "rev_safehouse_map_read",
-            "requires": { "flags": ["tianji_trust_gained"], "flags_absent": ["rev_safehouse_map_read_shown"] },
+            "requires": {
+              "flags": [
+                "tianji_trust_gained"
+              ],
+              "flags_absent": [
+                "rev_safehouse_map_read_shown"
+              ]
+            },
             "text": "〔堪舆图上的红点又多了几个——联络人没有说，但你注意到了。有些暴露的节点不像是意外，更像是主动让人找到的诱饵。有人在这张网之外，比所有人都清醒。〕",
-            "grants": { "flags": ["rev_safehouse_map_read_shown"] }
+            "grants": {
+              "flags": [
+                "rev_safehouse_map_read_shown"
+              ]
+            }
           }
         ]
       },
@@ -67,8 +105,19 @@
         "id": "feiyes_manor",
         "name": "飞爷故居",
         "description": "院落年久失修，砖缝间长着枯草。正门虽关，却未上锁。屋内陈设简朴，灰尘积了薄薄一层，但有些东西被人动过——桌上的茶杯，书架上的空格，像是有人不久前来过，又刻意抹去了痕迹。",
-        "interactables": ["evt_abandoned_room", "evt_portrait_wall", "npc_wujue", "evt_hidden_letter"],
-        "exits": ["dayan_pagoda", "tianji_safehouse", "qujiang_pavilion", "leyou_plain", "tianji_ruins_ch3"],
+        "interactables": [
+          "evt_abandoned_room",
+          "evt_portrait_wall",
+          "npc_wujue",
+          "evt_hidden_letter"
+        ],
+        "exits": [
+          "dayan_pagoda",
+          "tianji_safehouse",
+          "qujiang_pavilion",
+          "leyou_plain",
+          "tianji_ruins_ch3"
+        ],
         "requires": null,
         "talentViews": [
           {
@@ -87,9 +136,46 @@
         "revisitEvents": [
           {
             "id": "rev_manor_echo",
-            "requires": { "flags": ["feiyes_manor_searched"], "flags_absent": ["rev_manor_echo_shown"] },
+            "requires": {
+              "flags": [
+                "feiyes_manor_searched"
+              ],
+              "flags_absent": [
+                "rev_manor_echo_shown"
+              ]
+            },
             "text": "〔画像壁上的人你已经认出——再扫一眼这间屋子，那些故意留下的物件、干涸的茶、空着的书架，都像是写给来者的一封信。他在等的，原来就是你这样的人。〕",
-            "grants": { "flags": ["rev_manor_echo_shown"] }
+            "grants": {
+              "flags": [
+                "rev_manor_echo_shown"
+              ]
+            }
+          }
+        ],
+        "ambientByTime": {
+          "dawn": "院子里最后的夜色还没散尽，枯草上有细细的露水。飞爷故居在将明未明的光线里，比白天看起来更旧，也更重。",
+          "morning": "晨光打在院墙上，灰缝里的杂草投下细碎的影子。这个地方住过一个人，然后那个人消失了，留下这些东西替他说话。",
+          "noon": "正午的光把院子里的一切都照得清楚，书架上的空格，桌上的茶杯，无一处不是刻意的。",
+          "afternoon": "午后的光线斜进来，灰尘在空气里浮动，懒洋洋的，像是这个院子的时间早就停了。",
+          "dusk": "夕阳把院墙烧成暗橙色，然后慢慢冷却。这个时候站在这里，有种说不清的沉。",
+          "night": "月光落在院子里，四下无声。这个地方白天还能看清，夜里只剩下轮廓和猜测。"
+        },
+        "ambientByFlag": [
+          {
+            "requires": {
+              "flags": [
+                "fei_ye_identity_confirmed"
+              ]
+            },
+            "text": "你知道这里住过谁了。再看这些陈设，每一样都有了具体的重量。"
+          },
+          {
+            "requires": {
+              "flags": [
+                "fei_ye_upper_truth_known"
+              ]
+            },
+            "text": "你在这里见过他，说了那些话。空气里还留着什么，像是对话没有真正结束。"
           }
         ]
       },
@@ -97,9 +183,20 @@
         "id": "qujiang_pavilion",
         "name": "曲江亭",
         "description": "曲江池水面映着落日余晖，亭子里有个人背对着你，看着水面，一动不动。你认出了那件洗旧了的白衫，那个四十出头、在街上绝对不会多看一眼的普通男人。飞爷。他开口，没有回头：「坐，等你好久了。」",
-        "interactables": ["evt_pavilion_approach", "evt_fei_ye_confrontation", "npc_fei_ye", "evt_pavilion_final_choice"],
-        "exits": ["feiyes_manor"],
-        "requires": { "flags": ["fei_ye_identity_confirmed"] },
+        "interactables": [
+          "evt_pavilion_approach",
+          "evt_fei_ye_confrontation",
+          "npc_fei_ye",
+          "evt_pavilion_final_choice"
+        ],
+        "exits": [
+          "feiyes_manor"
+        ],
+        "requires": {
+          "flags": [
+            "fei_ye_identity_confirmed"
+          ]
+        },
         "talentViews": [
           {
             "talent": "官威",
@@ -117,19 +214,49 @@
         "revisitEvents": [
           {
             "id": "rev_qujiang_stillness",
-            "requires": { "flags": ["fei_ye_identity_confirmed"], "flags_absent": ["rev_qujiang_stillness_shown"] },
+            "requires": {
+              "flags": [
+                "fei_ye_identity_confirmed"
+              ],
+              "flags_absent": [
+                "rev_qujiang_stillness_shown"
+              ]
+            },
             "text": "〔曲江池的水还在，亭中的人还在等——他知道你还没做最终的决定。风从水面吹过来，有一种奇异的平静，像是所有的追查、所有的谎言，在这里都停住了，等着最后一句话落地。〕",
-            "grants": { "flags": ["rev_qujiang_stillness_shown"] }
+            "grants": {
+              "flags": [
+                "rev_qujiang_stillness_shown"
+              ]
+            }
           }
-        ]
+        ],
+        "ambientByTime": {
+          "dawn": "曲江池在黎明里平静得像一面镜子，亭子的轮廓映在水里，比实物更清晰。这个时候来，池边几乎没有人。",
+          "morning": "晨光落在水面上，波光碎碎的。池边有几个早起的人，远远的，各有各的心事。",
+          "noon": "正午的曲江池光线刺眼，水面的反光让人难以直视。日头最烈的时候，亭子里反而有一种安静。",
+          "afternoon": "午后的光把亭子的影子拉长，投在水面上晃动。池边的柳条垂下来，风一来，掠过水面。",
+          "dusk": "夕阳在曲江池上燃起来，然后一点一点沉进水里。这个时候的曲江亭，有一种什么都快说完了的感觉。",
+          "night": "夜里的曲江池只有月光。水面安静，偶有涟漪，很快平复。亭子在夜色里就是个黑色的轮廓。"
+        }
       },
       {
         "id": "leyou_plain",
         "name": "乐游原",
         "description": "长安城东南的高地，视野开阔，可俯瞰全城。春秋时节常有文人登临，如今却少有人来。高地一角，有一块被枯草半掩的石碑，若不是刻意走近，很难发现。",
-        "interactables": ["evt_stone_inscription", "evt_leyou_overlook", "npc_leyou_wanderer"],
-        "exits": ["feiyes_manor"],
-        "requires": { "timeOfDay": ["dawn", "dusk"] },
+        "interactables": [
+          "evt_stone_inscription",
+          "evt_leyou_overlook",
+          "npc_leyou_wanderer"
+        ],
+        "exits": [
+          "feiyes_manor"
+        ],
+        "requires": {
+          "timeOfDay": [
+            "dawn",
+            "dusk"
+          ]
+        },
         "talentViews": [
           {
             "talent": "望气观相",
@@ -140,23 +267,54 @@
           {
             "id": "rev_leyou_after_truth",
             "requires": {
-              "flags": ["wujue_accident_truth_known"],
-              "flags_absent": ["rev_leyou_after_truth_shown"]
+              "flags": [
+                "wujue_accident_truth_known"
+              ],
+              "flags_absent": [
+                "rev_leyou_after_truth_shown"
+              ]
             },
             "text": "〔再来高地，风依然，碑依然。你想起无迹说的那句话：「那个人，至今还在长安。」碑文和这句话叠在一起，有一种令人不安的清晰。〕",
-            "grants": { "flags": ["rev_leyou_after_truth_shown"] }
+            "grants": {
+              "flags": [
+                "rev_leyou_after_truth_shown"
+              ]
+            }
           },
           {
             "id": "rev_leyou_kite_message",
             "requires": {
-              "flags": ["chapter2_release_ending", "chapter3_started"],
-              "flags_absent": ["kite_message_received"]
+              "flags": [
+                "chapter2_release_ending",
+                "chapter3_started"
+              ],
+              "flags_absent": [
+                "kite_message_received"
+              ]
             },
             "text": "〔高地的石缝里压着一个布包。没有署名。里面是一张薄纸，上面只有一行字——「鸢，非一人。」〕",
             "grants": {
-              "clues": ["clue_kite_true_identity"],
-              "flags": ["kite_message_received"]
+              "clues": [
+                "clue_kite_true_identity"
+              ],
+              "flags": [
+                "kite_message_received"
+              ]
             }
+          }
+        ],
+        "ambientByTime": {
+          "dawn": "长安城还在黑暗里，但乐游原的高地上天色已经开始变了。城市的轮廓从黑暗中一点点浮现，你站在这里，像是站在时间的前面。",
+          "dusk": "夕阳把整个长安城染成深金色，然后慢慢沉下去。「夕阳无限好，只是近黄昏」——这片高地上，那种感觉是真实的。"
+        },
+        "ambientByFlag": [
+          {
+            "requires": {
+              "flags": [
+                "ruins_dawn_seen"
+              ]
+            },
+            "text": "那块石碑和上面的刻痕，你已经知道意味着什么了。再站在这里，目光会不由自主地落过去。"
           }
         ]
       },
@@ -164,9 +322,19 @@
         "id": "censorate_outer",
         "name": "廷尉府外院",
         "description": "廷尉府的外院，比外街更深入，更安静，空气里有一种肃穆的压迫感。这里每天走进来的人，都带着某种必须解决的问题。你今天来的理由，比大多数人的都更沉重。",
-        "interactables": ["evt_censorate_outer_approach", "evt_censorate_ambush", "npc_censorate_senior"],
-        "exits": ["tianji_safehouse"],
-        "requires": { "flags": ["chapter3_truth_path"] },
+        "interactables": [
+          "evt_censorate_outer_approach",
+          "evt_censorate_ambush",
+          "npc_censorate_senior"
+        ],
+        "exits": [
+          "tianji_safehouse"
+        ],
+        "requires": {
+          "flags": [
+            "chapter3_truth_path"
+          ]
+        },
         "talentViews": [
           {
             "talent": "官威",
@@ -177,11 +345,19 @@
           {
             "id": "rev_censorate_outer_after",
             "requires": {
-              "flags": ["case_officially_reopened"],
-              "flags_absent": ["rev_censorate_outer_after_shown"]
+              "flags": [
+                "case_officially_reopened"
+              ],
+              "flags_absent": [
+                "rev_censorate_outer_after_shown"
+              ]
             },
             "text": "〔再来廷尉府外院，守卫的眼神变了——他们认出你了。案子进了官方程序，这意味着你在某些人的名单上，也会变得更显眼。〕",
-            "grants": { "flags": ["rev_censorate_outer_after_shown"] }
+            "grants": {
+              "flags": [
+                "rev_censorate_outer_after_shown"
+              ]
+            }
           }
         ]
       },
@@ -189,9 +365,18 @@
         "id": "tianji_ruins_ch3",
         "name": "天机旧宅·故地",
         "description": "你第一次来这里时，这里是一条线索的终点。如今再来，带着三章以来所有的答案，这里变成了另一种东西——一个人的心愿的落脚处。荒草依然，青砖依然，「天机阁」三字依然在尘埃下若隐若现。",
-        "interactables": ["evt_fei_ye_letter_found", "evt_ruins_atmosphere"],
-        "exits": ["feiyes_manor"],
-        "requires": { "flags": ["fei_ye_identity_confirmed"] },
+        "interactables": [
+          "evt_fei_ye_letter_found",
+          "evt_ruins_atmosphere"
+        ],
+        "exits": [
+          "feiyes_manor"
+        ],
+        "requires": {
+          "flags": [
+            "fei_ye_identity_confirmed"
+          ]
+        },
         "talentViews": [
           {
             "talent": "望气观相",
@@ -206,21 +391,56 @@
           {
             "id": "rev_ruins_after_ending",
             "requires": {
-              "flags": ["fei_ye_letter_ch3_found", "fei_ye_upper_truth_known"],
-              "flags_absent": ["rev_ruins_full_circle_shown"]
+              "flags": [
+                "fei_ye_letter_ch3_found",
+                "fei_ye_upper_truth_known"
+              ],
+              "flags_absent": [
+                "rev_ruins_full_circle_shown"
+              ]
             },
             "text": "〔带着飞爷信件和他最后的秘密，再次站在这里，你感到某种完整——不是答案都有了，而是该知道的事你已经知道了，该做的事你正在做。那种感觉，叫做「够了」。〕",
-            "grants": { "flags": ["rev_ruins_full_circle_shown"] }
+            "grants": {
+              "flags": [
+                "rev_ruins_full_circle_shown"
+              ]
+            }
           },
           {
             "id": "rev_ruins_dawn_mark",
             "requires": {
-              "flags": ["fei_ye_identity_confirmed"],
-              "flags_absent": ["ruins_dawn_seen"],
-              "timeOfDay": ["dawn"]
+              "flags": [
+                "fei_ye_identity_confirmed"
+              ],
+              "flags_absent": [
+                "ruins_dawn_seen"
+              ],
+              "timeOfDay": [
+                "dawn"
+              ]
             },
             "text": "〔晨雾未散，残墙上有一道刻痕在斜光里浮现——三道竖线，一个缺角的方框。天机的旧印记。〕",
-            "grants": { "flags": ["ruins_dawn_seen"] }
+            "grants": {
+              "flags": [
+                "ruins_dawn_seen"
+              ]
+            }
+          }
+        ],
+        "ambientByTime": {
+          "dawn": "天将亮，「天机阁」三字在尘埃下比白天更难辨认。这个时候站在这里，有一种第一次来和最后一次来之间说不清的叠合感。",
+          "morning": "晨光慢慢把这个院子照亮。荒草、青砖、古井——都是原来的样子，却因为你现在知道的事，变成了另一个样子。",
+          "dusk": "夕阳的最后一线光留在院墙顶上，然后消失。这个地方在暮色里有一种正在结束的感觉。",
+          "night": "夜里的天机旧宅只有轮廓，「天机阁」三字彻底没入黑暗。但你知道它在那里。"
+        },
+        "ambientByFlag": [
+          {
+            "requires": {
+              "flags": [
+                "fei_ye_identity_confirmed"
+              ]
+            },
+            "text": "飞爷的名字和这个地方，你现在都知道了。它们之间的关系在你脑子里慢慢成形，比你第一次来时感受到的更沉。"
           }
         ]
       }
