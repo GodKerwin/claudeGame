@@ -49,6 +49,27 @@ const CHAPTER_CLOSE_CAPTIONS: Record<string, string> = {
   '3': '——真相既出，万事终有归处。',
 };
 
+const CASE_SUMMARIES: Record<string, Array<{ label: string; content: string }>> = {
+  chapter1_truth_ending: [
+    { label: '凶手', content: '浪鹏帮刺客（女性，体态轻盈），由李邈雇佣、天机内鬼配合' },
+    { label: '手法', content: '预制砒霜毒茶致昏，密道入室，绳索勒毙，翻窗出逃' },
+    { label: '动机', content: '截获宋怀义所携天机名单，阻止情报传递' },
+    { label: '幕后', content: '李邈（廷尉府附庸）操控浪鹏帮，名单背后牵涉廷尉府旧案' },
+  ],
+  chapter2_arrest_ending: [
+    { label: '主谋', content: '李邈，廷尉府参军，以浪鹏帮为执行工具' },
+    { label: '关联', content: '无迹和尚（韩朔）提供毒剂配方，被动卷入，以出家二十年偿还' },
+    { label: '目的', content: '夺取天机名单，掌控情报网络，为上游势力服务' },
+    { label: '上游', content: '廷尉府某一层级——李邈不过是中间人，真正的主使尚在更深处' },
+  ],
+  chapter3_truth_ending: [
+    { label: '飞爷', content: '天机阁创立者，代号「鸢」，隐身大飞帮主二十年' },
+    { label: '名单', content: '记录37名被庇护者——天机阁保护的是「不该死之人」，非情报买卖' },
+    { label: '威胁', content: '廷尉府某层级官员主导，系统追杀名单成员，与二十年前旧案一脉相承' },
+    { label: '结局', content: '飞爷被带走，名单由你接管。廷尉府旧案重启，真相公诸于众' },
+  ],
+};
+
 function EndingSeal({ char, color, label, visible }: { char: string; color: string; label: string; visible: boolean }) {
   return (
     <div
@@ -274,6 +295,30 @@ export default function ChapterEnd() {
             </div>
           ))}
         </div>
+
+        {/* ── 案情还原 ── */}
+        {endingFlag && CASE_SUMMARIES[endingFlag] && (
+          <div className="mt-8 mb-2">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex-1 h-px bg-gold/15" />
+              <span className="text-gold/40 text-[10px] tracking-[0.45em]">案情还原</span>
+              <div className="flex-1 h-px bg-gold/15" />
+            </div>
+            <div className="space-y-2.5">
+              {CASE_SUMMARIES[endingFlag].map(({ label, content }) => (
+                <div key={label} className="flex items-start gap-3">
+                  <span className="text-gold/50 text-[10px] tracking-widest shrink-0 w-7 text-right mt-0.5 font-serif">
+                    {label}
+                  </span>
+                  <div className="w-px self-stretch bg-gold/15 shrink-0" />
+                  <span className="text-ink/45 text-[11px] leading-relaxed flex-1">
+                    {content}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div
           className={`mt-16 text-center transition-all duration-700 ${showButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
