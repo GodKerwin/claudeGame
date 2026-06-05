@@ -1,4 +1,4 @@
-import type { GameMap, GameEvent, NPC, Item, Talent, CharacterTemplate, Room, Synthesis, SuspectProfile } from '../types/game';
+import type { GameMap, GameEvent, NPC, Item, Talent, CharacterTemplate, Room, Synthesis, SuspectProfile, ChapterVerdict } from '../types/game';
 
 import chapter1MapsRaw from './maps/chapter1.json';
 import chapter1EventsRaw from './events/chapter1.json';
@@ -68,8 +68,6 @@ export function getSynthesisResult(itemA: string, itemB: string): Synthesis | un
 export function getProfile(npcId: string): SuspectProfile | undefined {
   return SUSPECT_PROFILES.find((p) => p.npcId === npcId);
 }
-
-import type { ChapterVerdict } from '../types/game';
 
 const VERDICTS: ChapterVerdict[] = [
   chapter1VerdictRaw as ChapterVerdict,
