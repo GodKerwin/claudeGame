@@ -261,7 +261,17 @@ export function CenterPanel({
       </div>
 
       {/* 故事文本区（可滚动） */}
-      <div key={roomName} ref={scrollContainerRef} className="flex-[3] min-h-0 overflow-y-auto px-5 py-5 space-y-4 scrollbar-thin panel-fade-in">
+      <div
+        key={roomName}
+        ref={scrollContainerRef}
+        className="flex-[3] min-h-0 overflow-y-auto px-5 py-5 space-y-4 scrollbar-thin panel-fade-in"
+        style={{
+          background: ROOM_ATMOSPHERE[roomId ?? '']
+            ? `linear-gradient(180deg, ${ROOM_ATMOSPHERE[roomId ?? ''].color.replace(/[\d.]+\)$/, '0.07)')} 0%, transparent 35%)`
+            : undefined,
+          transition: 'background 0.4s ease',
+        }}
+      >
         <p className="text-ink/45 leading-[1.9] text-sm border-l-2 border-gold/10 pl-3 italic">{roomDescription}</p>
         {storyTexts.map((text, i) => {
           if (text === '---SEPARATOR---') {
