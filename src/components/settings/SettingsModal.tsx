@@ -165,6 +165,32 @@ export function SettingsModal({ onClose, onSave, onLoad }: Props) {
             </div>
           </div>
 
+          {/* 快捷键 */}
+          <div>
+            <div className="flex items-center gap-2 mb-2.5">
+              <div className="flex-1 h-px bg-gold/10" />
+              <p className="text-gold/35 text-[10px] tracking-[0.3em] shrink-0">快捷键</p>
+              <div className="flex-1 h-px bg-gold/10" />
+            </div>
+            <div className="space-y-1.5">
+              {[
+                ['Esc', '打开设置'],
+                ['1 / 2 / 3 / 4', '切换右侧标签页'],
+                ['Ctrl + / −', '字体放大 / 缩小'],
+              ].map(([key, desc]) => (
+                <div key={key} className="flex items-center justify-between gap-2">
+                  <span className="text-ink/30 text-[10px] tracking-wide">{desc}</span>
+                  <span
+                    className="text-gold/45 text-[10px] tracking-widest shrink-0 px-1.5 py-0.5"
+                    style={{ border: '1px solid rgba(201,168,76,0.22)', background: 'rgba(201,168,76,0.04)' }}
+                  >
+                    {key}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* 关闭 */}
           <button
             onClick={onClose}
