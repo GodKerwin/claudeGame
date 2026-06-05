@@ -177,6 +177,12 @@ export default function ChapterEnd() {
     }
   };
 
+  const handleRetry = () => {
+    const chNum = isChapter3 ? '3' : isChapter2 ? '2' : '1';
+    sessionStorage.setItem('tianji-chapter-select', chNum);
+    navigate('/create');
+  };
+
   return (
     <div className="min-h-screen bg-paper text-ink font-serif flex flex-col items-center justify-center px-8 py-16 relative overflow-hidden">
       <MountainBackground opacity={0.7} />
@@ -292,6 +298,12 @@ export default function ChapterEnd() {
             className="btn-jianghu border border-gold/40 text-gold/75 px-12 py-2.5 text-sm tracking-[0.3em] hover:border-gold hover:text-gold transition-all cursor-pointer"
           >
             {isChapter3 ? '回到主菜单' : '前往下一章'}
+          </button>
+          <button
+            onClick={handleRetry}
+            className="mt-3 block w-full text-ink/28 hover:text-ink/55 text-[11px] tracking-[0.25em] transition-colors cursor-pointer"
+          >
+            再试本章
           </button>
         </div>
       </div>
