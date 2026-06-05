@@ -263,7 +263,7 @@ export default function MainMenu() {
                   { ch: '1', label: '第一章·往事' },
                   { ch: '2', label: '第二章·东市' },
                   { ch: '3', label: '第三章·鸢归' },
-                ] as const).map(({ ch, label }, i) => (
+                ] as const).map(({ ch, label }) => (
                   <button
                     key={ch}
                     onClick={() => handleChapterSelect(ch)}
