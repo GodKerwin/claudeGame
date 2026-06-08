@@ -65,14 +65,14 @@
         "label": "以账本记录比对药架",
         "requires": { "has": ["account_book"] },
         "result": "你翻出账本上的记载，与药架上的药材逐一比对。其中一格放着混合砒霜与他物的特殊配方——账本中记载的正是此毒，与宋怀义的死因吻合。",
-        "grants": { "flags": ["poison_matched"], "items": ["poison_residue_sample"] }
+        "grants": { "flags": ["poison_matched"], "items": ["poison_residue_sample"], "clues": ["poison_residue_sample"] }
       },
       {
         "id": "deep_analysis",
         "label": "凭医理推断毒药来源",
         "requires": { "wisdom": 8 },
         "result": "你以精深的医理辨析药架中的可疑药材，很快锁定其中一格：砒霜与曼陀罗花合制，能令人先昏迷再窒息，恰与宋怀义的死状相符。",
-        "grants": { "flags": ["poison_matched", "poison_source_known"], "items": ["poison_residue_sample"] }
+        "grants": { "flags": ["poison_matched", "poison_source_known"], "items": ["poison_residue_sample"], "clues": ["poison_residue_sample"] }
       },
       {
         "id": "sense_poison_qi",
@@ -213,14 +213,14 @@
         "label": "细查书箱隔板",
         "requires": { "agility": 7 },
         "result": "你拆开书箱底板，发现一层夹层，内藏一卷密封的卷轴。卷轴上的内容令你屏住了呼吸——那是一份天机阁成员的身份记录，署名处写着：无迹，俗名韩朔，天机阁风字组。",
-        "grants": { "items": ["monk_identity_scroll"] }
+        "grants": { "items": ["monk_identity_scroll"], "clues": ["monk_identity_scroll"] }
       },
       {
         "id": "find_hidden_compartment_wis",
         "label": "以医理推断夹层位置",
         "requires": { "wisdom": 8 },
         "result": "药材存放处必有防潮夹层——你凭这个逻辑，很快在书箱的第三格背板找到了机关。内藏一卷密封的卷轴，载明无迹和尚真实身份。",
-        "grants": { "items": ["monk_identity_scroll"] }
+        "grants": { "items": ["monk_identity_scroll"], "clues": ["monk_identity_scroll"] }
       },
       {
         "id": "force_open",
@@ -241,7 +241,7 @@
         "label": "「大师腕骨的旧伤——我能帮你看看」",
         "requires": { "talent": "望闻断骨", "flags": ["wujue_met"], "flags_absent": ["monk_identity_scroll"] },
         "result": "你注意到和尚持珠时右腕的细微弧度——是陈年骨裂留下的习惯性护持，常年未得根治，应是二十年前的旧伤。\n\n「大师，我是行医的。右腕的骨裂，如今只剩隐痛，但若遇寒便会加重——我有一副方子，三诊可愈。」\n\n和尚低头看着自己的右手，沉默了很长时间。\n\n「施主……愿意替贫僧看诊？」\n\n你为他正骨，推拿，开了方子。临走时，他取出那卷密封的卷轴，放在你的药箱旁：「医者仁心。有些事，贫僧本不想说——但你不一样。」",
-        "grants": { "items": ["monk_identity_scroll"], "flags": ["healer_monk_trust"] }
+        "grants": { "items": ["monk_identity_scroll"], "clues": ["monk_identity_scroll"], "flags": ["healer_monk_trust"] }
       }
     ]
   },
@@ -262,14 +262,14 @@
         "label": "辨析壁画暗语",
         "requires": { "wisdom": 7 },
         "result": "你仔细比对壁画中飞天的姿态——共九种，每种对应天机阁联络系统中的一个方位暗号。你剥开一处修补的灰泥，后面藏着一册薄薄的小册子，正是天机阁的内部暗号记录。",
-        "grants": { "flags": ["mural_seen", "tianji_signal_known"], "items": ["tianji_signal_record"] }
+        "grants": { "flags": ["mural_seen", "tianji_signal_known"], "items": ["tianji_signal_record"], "clues": ["tianji_signal_record"] }
       },
       {
         "id": "decode_pattern_tianji",
         "label": "凭天机线索解读壁画",
         "requires": { "flags": ["wujue_tianji_revealed"] },
         "result": "无迹已告知你天机阁的暗语体系。你对照壁画，很快找到藏于修补处的暗号册，取出后装入怀中。",
-        "grants": { "flags": ["mural_seen", "tianji_signal_known"], "items": ["tianji_signal_record"] }
+        "grants": { "flags": ["mural_seen", "tianji_signal_known"], "items": ["tianji_signal_record"], "clues": ["tianji_signal_record"] }
       },
       {
         "id": "sense_mural_qi",
