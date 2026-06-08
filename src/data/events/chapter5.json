@@ -1,0 +1,137 @@
+[
+  {
+    "id": "evt_ch5_gathering",
+    "title": "四方汇聚",
+    "description": "密室里，所有人都到了。没有人先开口——这种沉默不是尴尬，是因为每个人都知道接下来说的话，份量不轻。",
+    "actions": [
+      {
+        "id": "ask_fei_ye_intention",
+        "label": "问飞爷：你等这一刻，等的是什么？",
+        "requires": null,
+        "result": "飞爷沉默了一下，才说：「把它交给一个我信得过的人。我在这座城里等了二十年，就是为了找到那个人。」他看着你，「你来找我，说明你已经走到了最后。但这一步，我不能替你走。」",
+        "grants": { "flags": ["ch5_gathering_begun", "fei_ye_final_intent_known"] }
+      },
+      {
+        "id": "ask_hanshuo_resolve",
+        "label": "问韩朔（无迹）：你守了二十年，现在怎么想？",
+        "requires": { "flags": ["ch5_gathering_begun"] },
+        "result": "韩朔已经脱下了僧袍，换回了普通人的衣服——不是和尚，是韩朔。他说：「贫僧……韩朔，守了二十年的秘密，终于有人替它开了口。我愿意出面作证，承担当年知情不报的责任。这是还债，不是勇气。」",
+        "grants": { "flags": ["hanshuo_willing_to_testify"] }
+      },
+      {
+        "id": "ask_qingyue_decision",
+        "label": "问宋清月：你想怎么办？",
+        "requires": { "flags": ["ch5_gathering_begun"] },
+        "result": "宋清月想了很久，才说：「我不在乎朝廷怎么处置。我只要父亲的名字，从「叛徒」那一列消失。他本可以跑的。他选择回来，就是知道回来意味着什么。」她停了一下，「所以你现在要怎么用这些证据，我听你的。」",
+        "grants": { "flags": ["qingyue_decision_expressed"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_ch5_positions",
+    "title": "各方立场",
+    "description": "四个人，对同一份证据有四种看法——飞爷想托付，韩朔想赎罪，宋清月想翻案，李邈（若在场）只想离开。你必须决定，这个最终选择由谁来做。",
+    "actions": [
+      {
+        "id": "ask_li_mao_if_present",
+        "label": "问李邈（若他在场）：你呢？",
+        "requires": { "flags": ["chapter2_join_ending"] },
+        "result": "李邈靠着墙，说：「我只想离开这座城市。我做过我做的事，我不后悔，但我也不打算继续了。你们怎么处置那份证据，与我无关——我能做的，是不妨碍你们。」他说这句话时，没有看任何人。",
+        "grants": { "flags": ["li_mao_ch5_position_known"] }
+      },
+      {
+        "id": "think_about_options",
+        "label": "静下来，想清楚四条路",
+        "requires": { "flags": ["ch5_gathering_begun"] },
+        "result": "四条路：第一，把所有证据销毁——薛崇礼安然，宋清月父亲仍是叛徒；第二，秘密递交可信官员——低调处置，宋怀义得以昭雪；第三，以碎片散布坊间——流言弹劾，结果悬而未决；第四，与飞爷一同重建天机阁——证据留作后手，继续保护那些需要保护的人。每一条路，都有代价。",
+        "grants": { "flags": ["final_options_considered"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_lifu_last_secret",
+    "title": "李福说出那句话",
+    "description": "李福把茶盏推到你面前，茶已经凉了。他说：「你等的那件事，我等了十年了。」然后他看着灯，说出了宋怀义临终前找他说的那句话。",
+    "actions": [
+      {
+        "id": "ask_lifu_to_speak",
+        "label": "「说吧，我在听。」",
+        "requires": { "flags": ["ch5_gathering_begun"], "flags_absent": ["lifu_secret_revealed"] },
+        "result": "李福说：「宋怀义临死前找我，说：「名单里多了一个「谢」字开头的人。这个名字不该在里面。谁放进去的，就是那个坏了事的人。你把这话告诉……」他没说完，被人打断了。我保守这句话十年，因为我不知道该告诉谁，也不知道「谢」字是谁。」他停下来看你，「现在你知道了。」",
+        "grants": { "flags": ["lifu_secret_revealed"], "clues": ["clue_lifu_last_words"] }
+      },
+      {
+        "id": "ask_who_interrupted",
+        "label": "问：是谁打断了他？",
+        "requires": { "flags": ["lifu_secret_revealed"] },
+        "result": "「我不知道。那声音从外面来的，很快，我只来得及把宋怀义扶到角落，再转身，已经什么都没了。」李福说这些时，声音很平。「我以为来日方长，能再问他。后来就再没有机会了。」",
+        "grants": { "flags": ["interruption_unknown"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_cellar_final_clue",
+    "title": "地窖里的最后线索",
+    "description": "李福说完那句话之后，从柜台后面取出一个小盒子——不大，上了锁，钥匙他戴在脖子上。",
+    "actions": [
+      {
+        "id": "ask_about_box",
+        "label": "问那个盒子里是什么",
+        "requires": { "flags": ["lifu_secret_revealed"] },
+        "result": "「宋怀义当晚交给我保管的东西。他说：「如果我没能回来，就把这个交给那个来问你的人。你会知道谁是那个人。」」李福打开盒子，里面是一份抄本——是名单的修复版本，宋怀义用他的笔迹，把被篡改的名字都标出来了，用红线划去的，是「谢文」这个名字。",
+        "grants": { "flags": ["final_evidence_assembled"], "clues": ["clue_restored_name_list"], "items": ["item_restored_list"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_xue_final_pressure",
+    "title": "薛崇礼的最后一步",
+    "description": "一个不认识的人把一封信塞进了你手里，然后消失在人群中。信上没有署名，但措辞你认识。",
+    "actions": [
+      {
+        "id": "read_xue_message",
+        "label": "阅读那封信",
+        "requires": null,
+        "result": "「二十年了，你我都知道放开这件事意味着什么。这最后一步，你确定要走？我没有动宋怀义，但我可以动别的东西。想清楚再决定。」没有署名，但落笔的气息，和你在薛府外见到的那个人一样——沉稳，冷静，有一种长期等待的耐心。",
+        "grants": { "flags": ["xue_final_message_received"], "clues": ["clue_xue_last_warning"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_final_choice",
+    "title": "最终抉择",
+    "description": "证据在手，所有人的立场都清楚了。薛崇礼在等，飞爷在等，宋清月在等，韩朔在等。这最后一步，是你的。",
+    "actions": [
+      {
+        "id": "choose_burn",
+        "label": "将所有证据销毁——付诸一炬",
+        "requires": { "flags": ["final_evidence_assembled"] },
+        "result": "你把所有的证据——薛崇礼的把柄、名单的修复版本、见证筒、李福的证词——一件一件扔进了火盆。火烧得很旺，然后熄灭，只剩灰烬。薛崇礼安然活着。宋清月的父亲，仍是「叛徒」。飞爷在曲江亭坐了很久，什么都没说。",
+        "grants": { "flags": ["chapter5_burn_ending"] }
+      },
+      {
+        "id": "choose_entrust",
+        "label": "秘密递交可信官员——托付明人",
+        "requires": { "flags": ["final_evidence_assembled", "ch5_clues_sufficient"] },
+        "result": "你想到那个人——玩家在游戏中与之建立了信任关系的人。你把名单修复版和薛崇礼的罪证，秘密交给了他。薛崇礼被查，案件以「旧事重提」之名低调处置。宋怀义在一份补发的驿站档案里，被更正为「殉职线人」，不再是叛徒。",
+        "grants": { "flags": ["chapter5_entrust_ending"] }
+      },
+      {
+        "id": "choose_reveal",
+        "label": "将真相散布坊间——公之于众",
+        "requires": { "flags": ["final_evidence_assembled", "ch5_clues_sufficient"] },
+        "result": "你没有一次性说出全部，而是以碎片化的方式，把足够让人开始怀疑的线索送入长安的坊间。薛崇礼在流言中被弹劾，最终以「年迈致仕」之名退出朝堂，真相悬而未决。宋清月以「浪王」之名在江湖中流传父亲的故事；飞爷在某一天忽然解散了大飞帮，原因不明。",
+        "grants": { "flags": ["chapter5_reveal_ending"] }
+      },
+      {
+        "id": "choose_rebuild",
+        "label": "与飞爷一同重建天机阁——天机再启（需第三章同行结局）",
+        "requires": {
+          "flags": ["final_evidence_assembled", "chapter3_join_ending", "ch5_clues_sufficient", "fei_ye_final_intent_known", "hanshuo_willing_to_testify"]
+        },
+        "result": "你和飞爷一同，以修复后的名单为基础，重建天机阁——不为任何人效力，只为那些仍然走投无路、无处可去的人。韩朔脱下僧袍，重新用回旧名。宋清月在犹豫之后选择加入。薛崇礼的证据被保存，作为将来的后手——不是要用它，而是不让它消失。",
+        "grants": { "flags": ["chapter5_tianji_ending"] }
+      }
+    ]
+  }
+]
