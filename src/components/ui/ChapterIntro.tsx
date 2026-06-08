@@ -1,14 +1,16 @@
 import { useEffect, useState, useId } from 'react';
 
 interface Props {
-  chapter: 1 | 2 | 3;
+  chapter: 1 | 2 | 3 | 4 | 5;
   onDone: () => void;
 }
 
 const CHAPTER_INFO: Record<number, { num: string; title: string; sub: string }> = {
   1: { num: '壹', title: '往事客栈', sub: '一人死于密室，真相藏于每一道门缝之后' },
   2: { num: '贰', title: '东市追查', sub: '浪鹏帮、天机阁、一张牵动长安的隐秘之网' },
-  3: { num: '鸢归何处', title: '鸢归何处', sub: '名单、旧主与无法忘却的誓言' },
+  3: { num: '叁', title: '鸢归何处', sub: '名单、旧主与无法忘却的誓言' },
+  4: { num: '肆', title: '归鸟问津', sub: '旧道、旧人，一场二十年前未竟的清算' },
+  5: { num: '伍', title: '天机再动', sub: '四条路，四种结局，天机的最后一页' },
 };
 
 export function ChapterIntro({ chapter, onDone }: Props) {
@@ -49,7 +51,7 @@ export function ChapterIntro({ chapter, onDone }: Props) {
               className="text-gold/90 tracking-[0.25em]"
               style={{ fontSize: 'clamp(1.4rem, 4vw, 2rem)', textShadow: '0 0 40px rgba(201,168,76,0.5)' }}
             >
-              {chapter === 3 ? info.title : `往事客栈 · 东市追查 · 鸢归何处`.split(' · ')[chapter - 1]}
+              {info.title}
             </h1>
             <div className="w-12 h-px bg-gold/25" />
           </div>
