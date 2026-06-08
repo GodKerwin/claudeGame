@@ -526,6 +526,18 @@
         "requires": null,
         "result": "你站在院子中间，什么也不做。有些时候，安静本身就是最好的回答。",
         "grants": { "flags": ["ruins_stood_quietly"] }
+      },
+      {
+        "id": "recall_first_chapter",
+        "label": "站在旧院正门，回想第一章调查时看见的一切",
+        "requires": {
+          "flags": ["fei_ye_identity_confirmed", "ruins_stood_quietly"]
+        },
+        "result": "你第一次来这里，只知道这是废弃宅院、「天机阁」的匾额、一个叫飞爷的人在密室现身。\n\n如今你知道了：那个人建了这整张网，二十年来一直在这里藏着，等着一个他信得过的人出现。宋怀义来找他，却死在了见面的前一晚。\n\n那块匾额还在——「天机阁」三个字，你第一次来时以为是旧日组织的遗迹，现在明白，那不只是遗迹，那是一个人二十年的等待。\n\n你将这份沉甸甸的认识，写成了几行字，收入随身的笔记。",
+        "grants": {
+          "flags": ["ruins_full_meaning_realized"],
+          "clues": ["old_mansion_revisit_clue"]
+        }
       }
     ]
   }
