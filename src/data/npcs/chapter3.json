@@ -295,6 +295,40 @@
         "condition": null,
         "text": "老人看了你一眼，轻声说了一句话：「走到这里的人，都是因为看见了什么，又放不下。」他转身离去，很快消失在高地另一侧的林间。此后无论你再来几次，这里都只剩下风声。",
         "grants": { "flags": ["leyou_wanderer_met"] }
+      },
+      {
+        "id": "wanderer_on_stele",
+        "condition": {
+          "flags": ["leyou_inscription_obtained"]
+        },
+        "text": "老人看见你手中的拓印，停下脚步。\n\n「那块碑，」他看着你，「是有人立了给自己看的，不是给别人看的。那种字迹，写的时候心里有一种东西，不是为了让人知道，是为了自己不忘。」\n\n他顿了顿，「你看得出来，说明你已经懂了那个人的一部分。剩下的，不在碑上，在人身上。」",
+        "choices": [],
+        "grants": {
+          "flags": ["wanderer_stele_spoken"]
+        }
+      },
+      {
+        "id": "wanderer_on_truth",
+        "condition": {
+          "flags": ["fei_ye_identity_confirmed"]
+        },
+        "text": "老人回头看了你一眼，像是已经知道你查到了什么。\n\n「知道真相，和能用真相做什么，是两件事。」他的声音不急不缓，「有人用一辈子守住一件事，不说，是因为还没等到值得说的人。你来了，他就等到了。」\n\n「接下来，是你的事了。」\n\n他重新转身走去，很快消失在原野的另一侧。",
+        "choices": [],
+        "grants": {
+          "flags": ["wanderer_truth_spoken"]
+        }
+      },
+      {
+        "id": "wanderer_before_verdict",
+        "condition": {
+          "flags": ["chapter3_started"],
+          "flags_absent": ["fei_ye_identity_confirmed", "wanderer_truth_spoken"]
+        },
+        "text": "老人在你身边停了片刻。\n\n「站在高处，能看见的东西多一些，」他指了指远处长安城的轮廓，「但看见，不代表懂得。懂得，也不代表能做什么。」\n\n「不过，走到这里，说明你已经比大多数人走得更远了。」\n\n他没有再说别的，转身沿着原野小径走远了。",
+        "choices": [],
+        "grants": {
+          "flags": ["wanderer_general_spoken"]
+        }
       }
     ]
   },
