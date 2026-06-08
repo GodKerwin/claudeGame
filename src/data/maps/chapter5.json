@@ -1,0 +1,115 @@
+[
+  {
+    "id": "chapter5",
+    "name": "第五章·天机再动",
+    "rooms": [
+      {
+        "id": "wangshi_secret_room",
+        "name": "往事客栈·密室",
+        "description": "往事客栈地窖深处，一扇从外面看不出来的暗门，推开是一间四四方方的小屋。灰墙，油灯，几把椅子。飞爷已经在这里了。韩朔（无迹和尚）也在。宋清月靠着角落的墙，眼神在你和飞爷之间移动。还缺一个人——李邈，他来或不来，取决于你之前做的那个选择。你坐下，油灯烧着，屋子里没有人先开口。",
+        "interactables": [
+          "evt_ch5_gathering",
+          "npc_fei_ye",
+          "npc_wujue",
+          "npc_song_qingyue",
+          "evt_ch5_positions"
+        ],
+        "exits": [
+          "wangshi_cellar_ch5"
+        ],
+        "requires": null,
+        "talentViews": [
+          {
+            "talent": "官威",
+            "text": "〔公务直觉：这个房间选得有讲究——无法从外面监听，只有一个出口，人员数量受控。飞爷选这里，不是因为方便，是因为安全。他已经预料到这次会面会被人盯上。〕"
+          },
+          {
+            "talent": "望气观相",
+            "text": "〔气机感知：屋子里四个人，四种气场——飞爷的沉静，韩朔的释然，宋清月的悬而未决，还有你自己的。这些气场彼此接触，产生一种奇特的共鸣，像是一件事快要结束时的感觉。〕"
+          },
+          {
+            "talent": "耳报神",
+            "text": "〔江湖消息：往事客栈这个地方，你第一次来是一个人。现在再来，屋子里多了这些人——说书人见过很多故事，知道这种时刻只会有两个走向：要么真相落地，要么什么都不留下。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_secret_room_before_choice",
+            "requires": {
+              "flags": ["ch5_gathering_begun"],
+              "flags_absent": ["final_evidence_assembled", "rev_secret_room_shown"]
+            },
+            "text": "〔每个人都说了自己想说的话，但那个最关键的问题，还在等你。证据就在手里，你只需要决定，怎么用它。〕",
+            "grants": { "flags": ["rev_secret_room_shown"] }
+          }
+        ]
+      },
+      {
+        "id": "wangshi_cellar_ch5",
+        "name": "往事客栈·地窖（再入）",
+        "description": "你上一次来这里，是追查一桩命案。这一次来，李福已经在灯下等着了。他的油灯比上次亮一点，桌上放着一碗茶，是凉的。他看见你进来，把茶推到你面前，说：「你应该来了很久了。我一直在等一个合适的人。」",
+        "interactables": [
+          "npc_lifu",
+          "evt_lifu_last_secret",
+          "evt_cellar_final_clue"
+        ],
+        "exits": [
+          "wangshi_secret_room",
+          "long_an_crossroads"
+        ],
+        "requires": {
+          "flags": ["ch5_gathering_begun"]
+        },
+        "talentViews": [
+          {
+            "talent": "耳报神",
+            "text": "〔江湖消息：李福这个人，你在第一章就见过了。他说的每一句话，你想想看——有几句是真话，有几句是藏着话的真话。他等了十年，不是因为找不到合适的人，是因为他在等那个「不需要他说完」就能明白的人。你是那个人。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_cellar_after_lifu",
+            "requires": {
+              "flags": ["lifu_secret_revealed"],
+              "flags_absent": ["rev_cellar_lifu_shown"]
+            },
+            "text": "〔李福说完了他藏了十年的那句话。地窖里的油灯还在，但这个地方的分量，比你第一次来时重了许多。宋怀义在这里度过了人生最后几个小时，他说了半句话，李福记了十年。〕",
+            "grants": { "flags": ["rev_cellar_lifu_shown"] }
+          }
+        ]
+      },
+      {
+        "id": "long_an_crossroads",
+        "name": "长安城·终章路口",
+        "description": "往事客栈的门外，长安城就在眼前。这一刻你手里同时握着：薛崇礼与北境往来的旧案证据、名单的修复版本、韩朔愿意出面的证词、宋清月关于父亲的证词。四种可能的路，都从这里开始。飞爷站在门口，说了他在第五章里最关键的那句话——「你来找我，说明你已经走到了最后。剩下那一步，是你的，不是我的。」",
+        "interactables": [
+          "npc_fei_ye",
+          "evt_final_choice",
+          "evt_xue_final_pressure"
+        ],
+        "exits": [
+          "wangshi_cellar_ch5"
+        ],
+        "requires": {
+          "flags": ["lifu_secret_revealed"]
+        },
+        "talentViews": [
+          {
+            "talent": "官威",
+            "text": "〔公务直觉：你手里的证据，分量足够。但分量足够和能够推动，是两件事——长安城的权力结构，决定了哪条路会成功，哪条路会消失在档案库里。你必须选对那个人。〕"
+          },
+          {
+            "talent": "望气观相",
+            "text": "〔气机感知：路口的气场是开放的——这个地方没有预设的走向，只有你的选择。飞爷的气机在等，韩朔的气机在准备，宋清月的气机在犹豫。他们都在等你先动。〕"
+          }
+        ],
+        "ambientByTime": {
+          "morning": "长安城的早晨，街上已经有人了。这个城市不知道你手里有什么，也不会停下来等你决定。",
+          "noon": "正午的光把路口照得清楚。每一条路的走向，在这个时候比任何时候都清晰。",
+          "dusk": "夕阳把路口的影子拉长，然后消失。做决定，往往就在这个时候——所有该权衡的事，都已经权衡了，剩下的是那一步。",
+          "night": "夜里的路口，灯火稀少，但不是没有路。有时候，看得清楚，反而是在没有多余光线的时候。"
+        }
+      }
+    ]
+  }
+]
