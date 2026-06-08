@@ -1,0 +1,26 @@
+[
+  {
+    "npcId": "npc_song_qingyue",
+    "name": "宋清月",
+    "role": "宋怀义之女，独立调查者",
+    "suspicion": "受害者家属——与案情无关，提供关键旁证",
+    "facts": [
+      { "flag": "song_qingyue_met", "text": "从南方独自追到长安，追查父亲死前想说的那件事。不知道天机阁，只知道父亲反复提到「鸢」字。", "type": "known" },
+      { "flag": "qingyue_father_context_known", "text": "坚信父亲不是叛徒——宋怀义一生最怕辜负人，他来长安是为了纠正一件错事。", "type": "known" },
+      { "flag": "song_note_seen", "text": "携有父亲临终留下的未完便条，便条在「正是——」后断开，最后半个字是某字的起笔。", "type": "known" },
+      { "flag": "note_character_xie", "text": "认出父亲笔迹特征，确认便条断字是「谢」——她提供了最关键的一块拼图，让内鬼的化名从此落实。", "type": "known" }
+    ]
+  },
+  {
+    "npcId": "npc_xue_chongli",
+    "name": "薛崇礼",
+    "role": "前廷尉令，真正的幕后者",
+    "suspicion": "核心嫌疑人——二十年前的事故主谋，名单篡改的策划者",
+    "facts": [
+      { "flag": "xue_under_watch", "text": "名义上告老在家的前廷尉令，实则仍通过旧部控制廷尉府的特定案档和一张秘密情报网络。", "type": "known" },
+      { "flag": "xue_evidence_collected", "text": "与归鸟问津的天机联络人之间有直接指令往来，是联络人（内鬼）的真正主使者。", "type": "known" },
+      { "flag": "xue_confrontation_done", "text": "正面对质时坦承知情，但否认直接杀人：「那不是我的手，是另一个人为了保护自己。」承认了内鬼有自行决定的空间。", "type": "known" },
+      { "flag": "synth_ch4_xue_insider_axis", "text": "【矛盾】以「告老」为掩护，却维持着一套高度专业的秘密通讯体系——这是一个从未真正放下权力的人，他只是换了一个更安全的位置继续运作。", "type": "contradiction" }
+    ]
+  }
+]

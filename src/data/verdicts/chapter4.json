@@ -1,0 +1,38 @@
+{
+  "chapterId": 4,
+  "eventId": "evt_ch4_final_deduction",
+  "grantFlag": "deduction_verified_ch4",
+  "failText": "〔线索还差一块。再想一想。〕",
+  "questions": [
+    {
+      "id": "q_ch4_insider",
+      "text": "天机阁内部的「内鬼」是谁？",
+      "options": [
+        { "id": "a", "text": "天机联络人——化名「谢」，替薛崇礼销毁证据、封锁情报" },
+        { "id": "b", "text": "掌柜李福——长期潜伏的天机驿站人员" },
+        { "id": "c", "text": "宋清月——追查父亲的真实目的是夺取名单" }
+      ],
+      "correctId": "a"
+    },
+    {
+      "id": "q_ch4_mastermind",
+      "text": "李邈之上、真正的幕后者是谁？",
+      "options": [
+        { "id": "a", "text": "薛崇礼——前廷尉令，以北境旧案为底牌，与飞爷对峙二十年" },
+        { "id": "b", "text": "廷尉府现任主事——接替薛崇礼继续执行清名单行动" },
+        { "id": "c", "text": "无迹和尚韩朔——守碑二十年是为了守住自己的秘密" }
+      ],
+      "correctId": "a"
+    },
+    {
+      "id": "q_ch4_song_purpose",
+      "text": "宋怀义来长安的真实目的是什么？",
+      "options": [
+        { "id": "a", "text": "发现名单被篡改，要亲口告诉飞爷，而不敢走内部渠道——因为内鬼就在里面" },
+        { "id": "b", "text": "带走名单，用它换取自身的安全" },
+        { "id": "c", "text": "受薛崇礼收买，交出天机阁的联络网络" }
+      ],
+      "correctId": "a"
+    }
+  ]
+}
