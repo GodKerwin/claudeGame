@@ -1,0 +1,140 @@
+[
+  {
+    "id": "clue_guinian_network_confirmed",
+    "name": "归鸟问津茶铺确认",
+    "description": "茶罐背面的标签格式，是天机阁特有的地点编码方式。「归鸟问津」不只是个茶铺，而是天机阁在长安最后一个仍在运转的核心节点。",
+    "isClue": true
+  },
+  {
+    "id": "clue_network_silent_nodes",
+    "name": "沉默的联络节点",
+    "description": "茶铺前台的茶罐标签显示，长安城内至少有三个联络节点最近已停止更新。这些节点，在三个月前还是活跃的。",
+    "isClue": true
+  },
+  {
+    "id": "clue_network_compromised",
+    "name": "网络被渗透证据",
+    "description": "茶铺内室堪舆图上新增的红点，标注「已暴露」。天机阁的秘密节点正在被人一个个揭露——知道这些位置的人，在天机阁内部。",
+    "isClue": true
+  },
+  {
+    "id": "clue_archive_wiped_three_months",
+    "name": "三月前档案断档",
+    "description": "茶铺内室的档案册在三个月前突然断档。后续联络没有留下任何记录——要么有人系统性地清除了档案，要么从那时起就有人知道这些档案会被检查。",
+    "isClue": true
+  },
+  {
+    "id": "clue_contact_censor_link",
+    "name": "联络人与廷尉府的关联",
+    "description": "联络人矮桌下的字条，使用的是廷尉府内部文书的编号格式——不是天机阁的体系。联络人与廷尉府有某种直接联系。",
+    "isClue": true
+  },
+  {
+    "id": "clue_song_broken_note",
+    "name": "宋怀义的未完便条",
+    "description": "宋清月父亲留给她的最后字迹：「……我发现名单上有一个名字不该在那里，而那个人，正是——」便条在这里断开。断口处有半个起笔，是某个字的第一划。",
+    "isClue": true
+  },
+  {
+    "id": "clue_song_last_meeting",
+    "name": "宋怀义最后的约定",
+    "description": "宋清月转述：父亲遇害当晚说要去「见一个人」，那个人「你不认识，但见过之后就会明白」。他在往事客栈遇害前，曾试图与某人单独会面。",
+    "isClue": true
+  },
+  {
+    "id": "clue_note_broken_character",
+    "name": "便条断字分析",
+    "description": "便条最后那半个字的起笔，与宋怀义惯用的「谢」字写法高度吻合。九成以上，他没能写完的那个字，是「谢」。",
+    "isClue": true
+  },
+  {
+    "id": "clue_note_character_confirmed",
+    "name": "「谢」字确认",
+    "description": "宋清月认出了父亲的笔迹特征：那半个字，确实是「谢」字的起笔。「谢」——是天机联络人在归鸟问津据点行事时用的化名。两条线，在这里汇合。",
+    "isClue": true
+  },
+  {
+    "id": "clue_route_mark_tampered",
+    "name": "路标石被篡改",
+    "description": "旧货道上最后一块「安全」标记石被人从外部推倒。这说明在押运行动前或途中，有人知道这些标记的含义，并刻意改变了指示方向——只有熟悉天机阁内部规矩的人才能做到。",
+    "isClue": true
+  },
+  {
+    "id": "clue_internal_arson",
+    "name": "内部纵火证据",
+    "description": "旧货道废墙的焦化方向向外，说明火是从内部起燃的。那次押运事故不是外部袭击，引火者就在货物仓房内，知道货物位置，知道何时动手。",
+    "isClue": true
+  },
+  {
+    "id": "clue_contact_old_codename",
+    "name": "联络人旧日代号",
+    "description": "旧货道掩埋铜牌上刻着押运事故的经手人代号，与茶铺内室档案中记录的联络人早年使用的代号一致。联络人，与二十年前那次押运事故有直接关联。",
+    "isClue": true
+  },
+  {
+    "id": "clue_premeditated_destruction",
+    "name": "蓄意销毁证据",
+    "description": "事故遗址地面的陈年焦痕，是有人事先在此烧毁文书的痕迹——先清账，再毁迹，最后引燃货物。这不是意外，是有预谋的行动。",
+    "isClue": true
+  },
+  {
+    "id": "clue_accident_premeditated",
+    "name": "事故有人预谋",
+    "description": "〔望气感知〕遗址上残留的「筹谋气场」落点，在离事故中心三丈外的藏身处——有人提前埋伏，等待押运队到来，在合适时机动手。这是精心安排的伏击，不是偶然。",
+    "isClue": true
+  },
+  {
+    "id": "clue_xie_wen_address",
+    "name": "「谢文」与薛府的联系",
+    "description": "旧道藏点铁匣内的薄纸，写着一个人名「谢文」和一个地址——薛崇礼宅邸的后门。「谢文」，是天机联络人在旧档中使用的另一个化名。联络人受薛崇礼指使。",
+    "isClue": true
+  },
+  {
+    "id": "clue_xue_still_operational",
+    "name": "薛崇礼仍在运作",
+    "description": "薛府守卫配置远超普通告老之人的标准。薛崇礼从未真正退休，他以「告老」为掩护，仍在持续运作着某种不可见的权力网络。",
+    "isClue": true
+  },
+  {
+    "id": "clue_xue_dead_drop_network",
+    "name": "薛府的秘密传递渠道",
+    "description": "薛崇礼管家使用「茶杯底下压字条」的情报传递方式——这是一套专业的秘密通讯网络，说明薛府至今仍在与外部保持联系，传递指令。",
+    "isClue": true
+  },
+  {
+    "id": "clue_xue_tianji_contact_link",
+    "name": "薛崇礼与天机联络人的关系",
+    "description": "薛府老仆透露：深夜来访者中有人携带天机阁的玉牌，而薛崇礼本人收过同款玉牌。天机阁的内部人员与薛崇礼保持着秘密往来。",
+    "isClue": true
+  },
+  {
+    "id": "clue_xue_letter_destroyed",
+    "name": "薛崇礼销毁信件",
+    "description": "三个月前，薛崇礼收到一封无署名的信，阅后即焚，并叮嘱仆人否认知道天机阁——时间节点与茶铺档案断档的时间完全吻合。",
+    "isClue": true
+  },
+  {
+    "id": "clue_xue_controls_contact",
+    "name": "薛崇礼控制天机联络人",
+    "description": "截获的薛府传出信件，使用「谢」的署名，内容是发给归鸟问津联络点的指令。薛崇礼直接指挥着以「谢」为名的天机联络人，是这个内鬼的真正主使者。",
+    "isClue": true
+  },
+  {
+    "id": "clue_xue_partial_admission",
+    "name": "薛崇礼的半段承认",
+    "description": "薛崇礼正面对质时说：「我没有动宋怀义。那不是我的手。那是另一个人的选择，为了保护他自己。」他否认了直接杀人，但承认了知情——内鬼为了保护自身，自行决定灭口。",
+    "isClue": true
+  },
+  {
+    "id": "item_witness_cylinder",
+    "name": "旧道见证筒",
+    "description": "蜡封的小筒，取自旧货道老树树洞。内有韩朔（无迹和尚）当年的目击记录——记述了事故当日他看到的一个不该出现的人的样貌，与天机联络人早年的特征吻合。",
+    "isClue": true
+  },
+  {
+    "id": "bribe_coins",
+    "name": "贿赂用铜钱",
+    "description": "一小袋铜钱，用于打点关系。",
+    "isClue": false
+  }
+]

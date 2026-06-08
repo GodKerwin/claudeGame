@@ -1,0 +1,50 @@
+[
+  {
+    "id": "synth_ch4_note_contact_link",
+    "itemA": "clue_note_character_confirmed",
+    "itemB": "clue_contact_censor_link",
+    "result": "便条与联络人：宋怀义便条的断字「谢」，正是天机联络人在据点的化名；联络人的字条使用廷尉府格式，与薛崇礼的旧部背景吻合。两条线汇于一处：便条里那个没有写完的名字，就是那个坐在归鸟问津内室、给自己取了个「谢」字的人。",
+    "hint": "「谢」字确认 × 联络人与廷尉府的关联",
+    "grants": { "flags": ["synth_ch4_note_contact"] },
+    "pivotal": true,
+    "chapter": 4
+  },
+  {
+    "id": "synth_ch4_twenty_year_chain",
+    "itemA": "clue_internal_arson",
+    "itemB": "clue_contact_old_codename",
+    "result": "二十年一脉：旧货道纵火者是内部人，铜牌上的代号指向联络人的旧日身份——同一个人，二十年前在押运道纵火杀人，二十年后在茶铺内室销毁档案。他一直在。",
+    "hint": "内部纵火证据 × 联络人旧日代号",
+    "grants": { "flags": ["synth_ch4_twenty_year_chain"] },
+    "pivotal": true,
+    "chapter": 4
+  },
+  {
+    "id": "synth_ch4_xue_insider_axis",
+    "itemA": "clue_xue_controls_contact",
+    "itemB": "clue_xie_wen_address",
+    "result": "主使与棋子：薛崇礼发出的指令以「谢」署名，旧道铁匣指向「谢文」与薛府后门——这条线证明，天机联络人不是自行叛变的，他是薛崇礼安插进来的棋子，从一开始就在这里，等候指令。",
+    "hint": "薛崇礼控制天机联络人 × 「谢文」与薛府的联系",
+    "grants": { "flags": ["synth_ch4_xue_insider_axis"] },
+    "pivotal": true,
+    "chapter": 4
+  },
+  {
+    "id": "synth_ch4_song_last_words_purpose",
+    "itemA": "clue_song_broken_note",
+    "itemB": "clue_song_last_meeting",
+    "result": "宋怀义的真实使命：便条说他发现了篡改；最后一晚他去见「你不认识但见过之后会明白」的人——他来长安，不是为了逃，而是为了把名单被篡改的事，亲口告诉飞爷。他知道走内部渠道是危险的，因为内鬼就在里面。",
+    "hint": "宋怀义的未完便条 × 宋怀义最后的约定",
+    "grants": { "flags": ["synth_ch4_song_purpose"] },
+    "pivotal": true,
+    "chapter": 4
+  },
+  {
+    "id": "synth_ch4_network_paralysis_cause",
+    "itemA": "clue_network_compromised",
+    "itemB": "clue_archive_wiped_three_months",
+    "result": "瘫痪的根源：红点增加（节点暴露）与档案断档（三个月前），时间节点完全重合——不是从外部渗入的，而是从内部有人提供情报，再加上系统清档。归鸟问津的瘫痪，是联络人自己造成的。",
+    "hint": "网络被渗透证据 × 三月前档案断档",
+    "grants": { "flags": ["synth_ch4_paralysis_cause"] }
+  }
+]
