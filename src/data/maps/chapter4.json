@@ -1,0 +1,236 @@
+[
+  {
+    "id": "chapter4",
+    "name": "第四章·归鸟问津",
+    "rooms": [
+      {
+        "id": "guinian_teahouse",
+        "name": "归鸟问津茶水铺",
+        "description": "长安城一处不显眼的小巷深处，布幌子上写着「归鸟问津」四字，看起来只是个卖茶的铺子。推开里侧的竹帘，里面却是另一个世界——墙上挂着长安各坊的堪舆图，密密麻麻标着联络暗号。架上的茶叶罐背后贴着手写的字条。角落有几个枯坐的人，眼神警觉。整个地方弥漫着一种「等待指令」的紧张气氛。",
+        "interactables": [
+          "evt_teahouse_front",
+          "evt_teahouse_inner",
+          "npc_tianji_contact",
+          "npc_ch4_teahouse_member",
+          "evt_ch4_wisdom_growth"
+        ],
+        "exits": [
+          "song_qingyue_inn",
+          "old_tunnel_ruin"
+        ],
+        "requires": null,
+        "talentViews": [
+          {
+            "talent": "官威",
+            "text": "〔公务直觉：这个据点的组织方式极其专业——进出记录、联络节点、人员分工都符合情报网络的规范，甚至某些格式与廷尉府的内部文书体系高度相似。这个网络最初的设计者，接触过官府机密。〕"
+          },
+          {
+            "talent": "耳报神",
+            "text": "〔江湖消息：据点里的人说话时互相留着三分距离——不是陌生，是提防。这种气氛只有一种来源：内部有人出了问题，但没人知道是谁，所以人人自危。〕"
+          },
+          {
+            "talent": "三教九流",
+            "text": "〔江湖本能：墙上的堪舆图有几个点位最近被人用茶水洇湿过——是有人紧张时杯子打翻的。出问题的节点，就在那几个被抹去的标记附近。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_teahouse_after_contact_exposed",
+            "requires": {
+              "flags": [
+                "contact_is_insider"
+              ],
+              "flags_absent": [
+                "rev_teahouse_insider_shown"
+              ]
+            },
+            "text": "〔再来茶铺，联络人的座位空着——你知道他去了哪里，也知道他在这里坐了多少年，装着什么面孔。那张脸，和你以为的那张，是两回事。〕",
+            "grants": {
+              "flags": [
+                "rev_teahouse_insider_shown"
+              ]
+            }
+          }
+        ],
+        "ambientByTime": {
+          "morning": "晨光从竹帘缝隙渗进来，尘埃在光里浮动。来喝茶的人不多，但每一个都比普通茶客多看你一眼。",
+          "noon": "正午的茶铺最安静，据点成员都散出去了，只留一两个坐镇的。这时候说话，反而清楚。",
+          "dusk": "傍晚是据点最忙的时候，消息汇入，传出，像一张看不见的网在微微收紧。",
+          "night": "夜里茶铺关了门，但竹帘后面有灯光。里面的人等着什么，你并不完全知道。"
+        }
+      },
+      {
+        "id": "song_qingyue_inn",
+        "name": "宋清月落脚处",
+        "description": "城南一处四方小客栈，没有招牌，只挂一块「食宿」的旧木牌。宋清月在二楼租了间最小的房，行李不多——一个包袱，一本翻烂了的手稿，还有一张她随时折叠随时展开的地图。她坐在窗边，眼神落在街上，实际上什么都没看。",
+        "interactables": [
+          "npc_song_qingyue",
+          "evt_song_note_study",
+          "evt_qingyue_side_inquiry"
+        ],
+        "exits": [
+          "guinian_teahouse"
+        ],
+        "requires": null,
+        "talentViews": [
+          {
+            "talent": "望闻断骨",
+            "text": "〔医者直觉：宋清月眼下有长期失眠的青色，手背有风霜磨出的粗茧——从南方走了很久。她的呼吸轻浅，是压抑情绪的习惯。这个人把所有的悲伤都吃了进去，没有让它出来。〕"
+          },
+          {
+            "talent": "望气观相",
+            "text": "〔气机感知：她身上有一股「未竟之事」的郁结气场，不是仇恨，是一个问题没有答案。那个问题，大概就是她千里追来长安的原因。〕"
+          },
+          {
+            "talent": "耳报神",
+            "text": "〔江湖消息：她说话时有南方口音的底色，但刻意压平了。她走过很多地方——旅人磨出来的那种平静，在某个瞬间会被真实的情绪刺穿。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_qingyue_after_note",
+            "requires": {
+              "flags": [
+                "song_note_seen"
+              ],
+              "flags_absent": [
+                "rev_qingyue_note_shown"
+              ]
+            },
+            "text": "〔便条的字迹在你脑海里还没散。再来这里，你看宋清月的眼神不一样了——她带着这张没有结尾的信，从南走到北，什么都找不到，什么都不放弃。〕",
+            "grants": {
+              "flags": [
+                "rev_qingyue_note_shown"
+              ]
+            }
+          },
+          {
+            "id": "rev_qingyue_after_reveal",
+            "requires": {
+              "flags": [
+                "note_character_xie",
+                "contact_is_insider"
+              ],
+              "flags_absent": [
+                "rev_qingyue_final_shown"
+              ]
+            },
+            "text": "〔你知道了「谢」是谁，她也知道了。这间小房里，两个人都沉默了很久——不是没话说，是那些话太重，需要先把它放下来，才能开口。〕",
+            "grants": {
+              "flags": [
+                "rev_qingyue_final_shown"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "id": "old_tunnel_ruin",
+        "name": "旧货道遗址",
+        "description": "长安城外圈废弃的押运道，二十年前用于天机阁货物中转。如今荒草没膝，路面压出的深辙痕迹还在，但已被枯叶覆盖大半。道旁的几块标记石倒在草丛里，如果认识老规矩，能看出这是天机阁特定的路标格式。再往里走，有一段塌陷的墙，是当年事故留下的。",
+        "interactables": [
+          "evt_tunnel_search",
+          "evt_accident_site",
+          "evt_hidden_cache"
+        ],
+        "exits": [
+          "guinian_teahouse",
+          "xue_mansion_exterior"
+        ],
+        "requires": null,
+        "talentViews": [
+          {
+            "talent": "望气观相",
+            "text": "〔气机感知：废道上残留着一股陈年的「戾气积淀」——是当年有人在此处丧命留下的。气场的走向显示，那人不是意外落命，而是在有准备的袭击中死去的。〕"
+          },
+          {
+            "talent": "三教九流",
+            "text": "〔江湖本能：这条道的选线很专业，避开了所有常走的路线，说明当年的押运者懂规矩。但他们还是被截了——截他们的人，得到了内部消息。〕"
+          },
+          {
+            "talent": "望闻断骨",
+            "text": "〔医者直觉：塌陷墙基的焦痕方向显示，火是从内侧向外烧的——货物本身被点燃，不是外部投火。只有熟悉内部结构的人才能这样做。〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_tunnel_after_truth",
+            "requires": {
+              "flags": [
+                "accident_truth_known"
+              ],
+              "flags_absent": [
+                "rev_tunnel_truth_shown"
+              ]
+            },
+            "text": "〔你知道了这里发生的事。再踩着这段路，脚下的草比来时更重——那个在这里死去的人，名字在名单上，被飞爷亲口答应过要保护。但飞爷没有来得及。〕",
+            "grants": {
+              "flags": [
+                "rev_tunnel_truth_shown"
+              ]
+            }
+          }
+        ],
+        "ambientByTime": {
+          "dawn": "废道在黎明里最安静，雾气压低，连远处的城郭都模糊了。这里的旧事，在这种光线下更像是真的。",
+          "noon": "正午的光照着废道，什么都看得清楚——但越清楚，越难回避那些陈年的痕迹。",
+          "dusk": "傍晚的光斜打在塌墙上，焦痕的影子拉长了。这个地方在夕阳里，有一种没有说完的意味。",
+          "night": "夜里废道伸手不见五指，只有星光漏下来一点。你想起无迹说的那句话——「那个人，至今还在长安。」"
+        }
+      },
+      {
+        "id": "xue_mansion_exterior",
+        "name": "薛崇礼宅邸外",
+        "description": "朱雀大街南侧，两棵老槐树夹着一扇厚重的漆门，门楣上「薛」字匾额。门常关，守卫换班有规律，家仆进出低头不语。你站在街对面的茶摊旁，看着那扇门——里面住着的人，让飞爷沉默了二十年，让天机阁的内鬼替他销毁证据，让宋怀义在最后关头没能开口。",
+        "interactables": [
+          "evt_mansion_watch",
+          "evt_servant_inquiry",
+          "npc_xue_chongli",
+          "evt_xue_message_intercept"
+        ],
+        "exits": [
+          "guinian_teahouse",
+          "old_tunnel_ruin"
+        ],
+        "requires": {
+          "flags": [
+            "guinian_inner_accessed"
+          ]
+        },
+        "talentViews": [
+          {
+            "talent": "官威",
+            "text": "〔公务直觉：守卫的配置比一般宅邸多了三成，轮班时间短，换岗口令每日更换——这是长期保持高度警觉的节奏，不是普通富贵人家。薛崇礼从未真正「告老」，他只是换了一个更安静的位置继续运作。〕"
+          },
+          {
+            "talent": "三教九流",
+            "text": "〔江湖本能：进出的家仆有一个规律——每逢单日傍晚，有一个年老的管家独自出门，走固定路线，去城南那家茶铺坐一刻钟。那个茶铺，是个消息集散点。〕"
+          },
+          {
+            "talent": "耳报神",
+            "text": "〔江湖消息：街面上的茶摊老板认识你这种人。你递了点茶钱，他低声说：「薛家宅子最近来了好几批陌生人，都是单独进，不打招呼，然后又单独出。像是在一件事上各自收到了指令。」〕"
+          }
+        ],
+        "revisitEvents": [
+          {
+            "id": "rev_xue_after_evidence",
+            "requires": {
+              "flags": [
+                "xue_evidence_collected"
+              ],
+              "flags_absent": [
+                "rev_xue_evidence_shown"
+              ]
+            },
+            "text": "〔手里有了证据，再看这扇门，感觉不一样了。门还是那扇门，但里面那个人的分量变了——他不再是你不认识的名字，他是那个让这一切运转了二十年的人。〕",
+            "grants": {
+              "flags": [
+                "rev_xue_evidence_shown"
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
