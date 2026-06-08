@@ -563,6 +563,30 @@
         "requires": null,
         "result": "廷尉府外街比你预料的冷清。几名守卫站在不显眼的位置，其中一人的目光不断扫向档案外署的门口——好像在等什么人来取档案。",
         "grants": { "flags": ["censorate_observed"] }
+      },
+      {
+        "id": "find_old_notice",
+        "label": "注意到墙角压着一张半旧的公文抄件",
+        "requires": {
+          "flags": ["censorate_observed"]
+        },
+        "result": "你蹲下来，拾起那张被风压在门角的抄件。纸张泛黄，墨迹仍清晰——这是二十年前廷尉令的一道追查令副本，追查对象是「天机阁相关人员」，批复人落款已被人涂去，只剩下日期和一个空白方框。\n\n追查令本身或许无法入档，但有人把它留在这里，是刻意还是粗心？你将抄件收入袖中。",
+        "grants": {
+          "flags": ["censorate_old_notice_found"],
+          "clues": ["imperial_pursuit_order"]
+        }
+      },
+      {
+        "id": "read_weathered_placard",
+        "label": "辨认门楣上风化的旧牌匾文字",
+        "requires": {
+          "flags": ["censorate_observed"]
+        },
+        "result": "牌匾的底漆已经脱落，但你能辨认出被涂掉的旧字痕迹——这扇档案外署的门，二十年前挂的不是「档案」，而是「追查」。\n\n有些机构不会消失，只是换了名字继续存在。廷尉府的档案室里，藏着那段追查最初的依据——如果你能进去，或许能看见更多。",
+        "grants": {
+          "flags": ["censorate_history_revealed"],
+          "clues": ["censorate_old_file"]
+        }
       }
     ]
   },
