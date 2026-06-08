@@ -613,7 +613,9 @@
       {
         "id": "fei_ye_upper_truth",
         "condition": {
-          "flags": ["fei_ye_identity_confirmed", "leyou_inscription_obtained"]
+          "flags": ["fei_ye_identity_confirmed", "leyou_inscription_obtained"],
+          "wisdom": 8,
+          "has": ["leyou_inscription"]
         },
         "text": "飞爷看见你手中的石刻拓印，沉默了一会儿。\n\n「那块碑是他立的，」他说，声音里第一次多了一种不同的东西，「那个「更上层的人」——我知道他是谁。」\n\n他抬起头，用一种奇怪的平静看着你：「我选择不说出来，不是因为怕，是因为他也在保护一些人。那些人，和名单上的人，是同一批人。」\n\n「有些秘密，说出来会死更多人。」",
         "grants": { "flags": ["fei_ye_upper_truth_known"] }
