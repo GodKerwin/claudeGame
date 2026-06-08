@@ -1,0 +1,14 @@
+[
+  {
+    "npcId": "npc_lifu",
+    "name": "李福",
+    "role": "往事客栈掌柜·天机「驿」，长安最后一枚活棋",
+    "suspicion": "核心见证人——保守宋怀义临终话十年，等待合适的人来问",
+    "facts": [
+      { "flag": "innkeeper_met", "text": "往事客栈掌柜，开店十年。初见时油滑，实则沉稳，是天机阁埋在长安的驿站人员，专职情报中转。", "type": "known" },
+      { "flag": "innkeeper_trusted", "text": "被玩家赢得信任后，提供了地窖密室的钥匙，说「有些事不是不说，是要等合适的人」。", "type": "known" },
+      { "flag": "lifu_secret_revealed", "text": "说出宋怀义临终那句话：「名单里多了一个「谢」字开头的人……谁放进去的，就是那个坏了事的人。」他等了十年，等的就是这个问题。", "type": "known" },
+      { "flag": "final_evidence_assembled", "text": "取出宋怀义托付保管的名单修复版本——这是他保守的最后一个秘密，也是整个案件的核心物证。", "type": "known" }
+    ]
+  }
+]

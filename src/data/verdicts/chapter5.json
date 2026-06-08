@@ -1,0 +1,38 @@
+{
+  "chapterId": 5,
+  "eventId": "evt_final_choice",
+  "grantFlag": "deduction_verified_ch5",
+  "failText": "〔还有一个关键，还没有想清楚。再回想一遍。〕",
+  "questions": [
+    {
+      "id": "q_ch5_song_role",
+      "text": "宋怀义的真实身份与使命是？",
+      "options": [
+        { "id": "a", "text": "吹哨人——发现名单被篡改，带着修复版本来长安，想亲口告诉飞爷" },
+        { "id": "b", "text": "叛徒——带走名单是为了出卖天机阁，换取自身安全" },
+        { "id": "c", "text": "薛崇礼的棋子——被利用来传递错误信息" }
+      ],
+      "correctId": "a"
+    },
+    {
+      "id": "q_ch5_lifu_secret",
+      "text": "李福保守了十年的那句话，说的是？",
+      "options": [
+        { "id": "a", "text": "名单里多了一个「谢」字开头的名字，放进去的人就是坏了事的人" },
+        { "id": "b", "text": "飞爷的真实藏身地址" },
+        { "id": "c", "text": "宋怀义被谁直接下令杀害" }
+      ],
+      "correctId": "a"
+    },
+    {
+      "id": "q_ch5_core_question",
+      "text": "玩家在第五章面对的核心道德困境是？",
+      "options": [
+        { "id": "a", "text": "手握真相，却没有完美的处置方式——每条路都有代价，没有完全正确的答案" },
+        { "id": "b", "text": "是否相信飞爷的真实身份" },
+        { "id": "c", "text": "是否对薛崇礼动用武力" }
+      ],
+      "correctId": "a"
+    }
+  ]
+}

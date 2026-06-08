@@ -1,0 +1,32 @@
+[
+  {
+    "id": "synth_ch5_lifu_note_complete",
+    "itemA": "clue_lifu_last_words",
+    "itemB": "clue_note_character_confirmed",
+    "result": "两条线合为一证：李福转述的临终话说「谢字开头的人」，宋清月便条的断字确认是「谢」——宋怀义在两处分别用不同方式告诉了两个人同一件事。他知道自己可能活不过那一夜，所以留了两条后路。",
+    "hint": "李福守了十年的话 × 「谢」字确认",
+    "grants": { "flags": ["synth_ch5_lifu_note"] },
+    "pivotal": true,
+    "chapter": 5
+  },
+  {
+    "id": "synth_ch5_restored_list_full_truth",
+    "itemA": "clue_restored_name_list",
+    "itemB": "clue_xue_controls_contact",
+    "result": "名单与主使合一：修复版名单上被划去的「谢文」，就是薛崇礼安插进天机阁的内鬼；薛崇礼发给「谢」的指令，和名单篡改的动机，共同证明了这场二十年操控的完整链条。",
+    "hint": "名单修复版本 × 薛崇礼控制天机联络人",
+    "grants": { "flags": ["synth_ch5_full_chain"] },
+    "pivotal": true,
+    "chapter": 5
+  },
+  {
+    "id": "synth_ch5_song_vindicated",
+    "itemA": "clue_song_broken_note",
+    "itemB": "clue_lifu_last_words",
+    "result": "吹哨人的洗清：宋怀义的便条说他发现了篡改；李福的话说他想告诉飞爷；两者共同指向同一个事实——宋怀义不是叛徒，是吹哨人。他带着名单来长安，是为了纠正一件错事，而不是出逃。",
+    "hint": "宋怀义的未完便条 × 李福守了十年的话",
+    "grants": { "flags": ["synth_ch5_song_vindicated"] },
+    "pivotal": true,
+    "chapter": 5
+  }
+]
