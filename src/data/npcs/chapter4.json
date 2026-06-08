@@ -1,0 +1,104 @@
+[
+  {
+    "id": "npc_song_qingyue",
+    "name": "宋清月",
+    "description": "宋怀义之女，从南方独自追到长安。她走的不是天机阁的线，而是父亲最后的行踪。她不认识飞爷，不知道天机阁，只知道父亲临终前反复提到一个字——鸢。",
+    "dialogues": [
+      {
+        "id": "qingyue_first_meet",
+        "condition": {},
+        "speaker": "宋清月",
+        "text": "你是谁？——不，算了，来这里的人都不会说真名。我叫宋清月，宋怀义的女儿。我父亲几个月前死在长安，我来找他。找他死之前想说没来得及说的那件事。",
+        "grants": { "flags": ["song_qingyue_met"] }
+      },
+      {
+        "id": "qingyue_father_question",
+        "condition": { "flags": ["song_qingyue_met"] },
+        "speaker": "宋清月",
+        "text": "他不是叛徒。我知道外面的人怎么说——说他带走了什么重要的东西，说他背叛了谁。但我认识他。他一辈子最怕辜负人。他来长安，是为了纠正一件错事，不是为了逃。",
+        "grants": { "flags": ["qingyue_father_context_known"] }
+      },
+      {
+        "id": "qingyue_show_note",
+        "condition": { "flags": ["qingyue_trust_gained"] },
+        "speaker": "宋清月",
+        "text": "我带了他留下的最后一张字条。他应该是在出事前写的，但没写完。你看——",
+        "grants": { "flags": ["song_note_seen"], "clues": ["clue_song_broken_note"] }
+      },
+      {
+        "id": "qingyue_note_content",
+        "condition": { "flags": ["song_note_seen"] },
+        "speaker": "宋清月",
+        "text": "「吾儿，若你看到此信，说明父亲没能回来。我来长安，不是为了别的。我发现名单上有一个名字不该在那里，而那个人，正是——」就这里，断了。我认识他的字，他是故意停笔的，不是写不下去，是……被打断了。",
+        "grants": { "flags": ["qingyue_note_content_known"] }
+      },
+      {
+        "id": "qingyue_complete_character",
+        "condition": { "flags": ["contact_suspicious"], "flags_absent": ["note_character_xie"] },
+        "speaker": "宋清月",
+        "text": "你说……「谢」？（她拿出便条，对着光，看了很久）……是了。他最后那半个字，是「谢」字的起笔——那个撇，是他习惯的「谢」字写法。我一直以为是个草字，原来是……",
+        "grants": { "flags": ["note_character_xie"], "clues": ["clue_note_character_confirmed"] }
+      },
+      {
+        "id": "qingyue_final_choice",
+        "condition": { "flags": ["contact_is_insider", "note_character_xie"] },
+        "speaker": "宋清月",
+        "text": "所以那个「谢」字，就是那个人。他用那个名字混在这里，替人销毁证据，顺手把我父亲也送走了。（沉默）……我想知道他的真名。我不一定要做什么，我只想知道。"
+      }
+    ]
+  },
+  {
+    "id": "npc_xue_chongli",
+    "name": "薛崇礼",
+    "description": "前廷尉令，现任太子少保，名义上已告老在家。史书评他「治世名臣，执法公允」。真相是：二十年前他与北境势力秘密往来，天机阁掌握了这份罪证。两人二十年的沉默，是一场不说话的对峙。",
+    "dialogues": [
+      {
+        "id": "xue_first_encounter",
+        "condition": { "flags": ["xue_under_watch"] },
+        "speaker": "薛崇礼",
+        "text": "（在宅邸门口，平静地打量你）你是来查案的？长安城里查案的人很多，最后大多数查到一半就不查了。原因各异，结果相同。你是哪一种？",
+        "grants": { "flags": ["xue_chongli_met"] }
+      },
+      {
+        "id": "xue_veiled_warning",
+        "condition": { "flags": ["xue_chongli_met", "xue_evidence_collected"] },
+        "speaker": "薛崇礼",
+        "text": "你手里有什么，我不问。我只告诉你一件事：长安城里没有什么「证据」是单独存在的。每一份证据背后，都有另一份证据压着它。你想掀桌子之前，先想清楚，桌子翻了之后，哪些东西会砸到你自己。",
+        "grants": { "flags": ["xue_threat_received"] }
+      },
+      {
+        "id": "xue_confrontation",
+        "condition": { "flags": ["xue_evidence_collected", "tunnel_fire_proof_found"], "flags_absent": ["xue_confrontation_done"] },
+        "speaker": "薛崇礼",
+        "text": "（长时间的沉默）……你比我以为的走得更远。（他转过身，背对你）二十年前那件事，我不打算解释。解释是给在乎你的人听的。但我可以告诉你一件事：我没有动宋怀义。那不是我的手。那是另一个人的选择，为了保护他自己。",
+        "grants": { "flags": ["xue_confrontation_done"], "clues": ["clue_xue_partial_admission"] }
+      },
+      {
+        "id": "xue_silence_twenty_years",
+        "condition": { "flags": ["xue_confrontation_done"] },
+        "speaker": "薛崇礼",
+        "text": "飞爷为什么不说我？因为我也掌握着他的东西。两个人，各自手里一把刀，谁先出手，谁先死。这就是为什么什么都没发生——二十年，什么都没有发生。直到你来了。"
+      }
+    ]
+  },
+  {
+    "id": "npc_ch4_teahouse_member",
+    "name": "茶铺伙计",
+    "description": "归鸟问津的常驻成员，负责前台接待，实际上是个信息过滤器。",
+    "dialogues": [
+      {
+        "id": "teahouse_member_greeting",
+        "condition": {},
+        "speaker": "茶铺伙计",
+        "text": "（压低声音）你是新来的？联络人在里面。最近气氛不好——据说内部有眼睛，消息传出去了好几条。大家都小心着呢。",
+        "grants": { "flags": ["ch4_atmosphere_known"] }
+      },
+      {
+        "id": "teahouse_member_network_paralyzed",
+        "condition": { "flags": ["ch4_atmosphere_known"] },
+        "speaker": "茶铺伙计",
+        "text": "没有人敢行动了。联络人说等指令，但指令迟迟没来。有几个节点已经断了——不知道是自己撤了，还是被人清了。说不清楚。"
+      }
+    ]
+  }
+]
