@@ -121,6 +121,19 @@
         "condition": { "wisdom": 8 },
         "text": "无迹看了你很久，才开口：「二十年前那次事故……不是事故。」他的声音很平静，「那批货在路上出了问题，不是因为疏失，是因为有人故意安排的。那个人知道那批货的内容，知道运送的时间，知道每一个经手人的名字。」\n\n他停顿了一下：「那个人，至今还在长安。」",
         "grants": { "flags": ["wujue_accident_truth_known"] }
+      },
+      {
+        "id": "wujue_ch5_robe_off",
+        "condition": { "flags": ["chapter5_started"] },
+        "speaker": "韩朔",
+        "text": "（他没有穿僧袍，是普通的布衣）你应该叫我韩朔，不是无迹了。我守了二十年的碑，那碑还在，碑上的名字还在，但我不需要再守了——你已经知道了。",
+        "grants": { "flags": ["wujue_ch5_identity_restored"] }
+      },
+      {
+        "id": "wujue_ch5_testify",
+        "condition": { "flags": ["hanshuo_willing_to_testify"] },
+        "speaker": "韩朔",
+        "text": "我愿意出面。二十年前我没有开口，二十年后的今天，我开口。——贫僧……韩朔，如此而已。"
       }
     ],
     "interrogation": {
@@ -213,6 +226,26 @@
         "id": "ending_reaction",
         "condition": { "flags": ["fei_ye_identity_confirmed"] },
         "text": "联络人沉默了一会儿。\n\n「你已经走到这里了。」他看着你，「接下来的那步，只有你能走，我给不了你指引。」\n\n「去找他。」"
+      },
+      {
+        "id": "contact_ch4_suspicious_behavior",
+        "condition": { "flags": ["chapter4_started", "network_exposure_seen"], "flags_absent": ["contact_suspicious"] },
+        "speaker": "天机联络人",
+        "text": "（停顿了很久才开口）网络出了问题，我知道。有些节点……我已经联系不上了。（他没有看你的眼睛）我在想办法。",
+        "grants": { "flags": ["contact_ch4_denial_noted"] }
+      },
+      {
+        "id": "contact_ch4_insider_revealed",
+        "condition": { "flags": ["note_character_xie", "contact_notes_spotted"], "flags_absent": ["contact_is_insider"] },
+        "speaker": "天机联络人",
+        "text": "（你把那张字条放在他面前，他的脸色变了——不是惊讶，是一种被人认出来的冷静）……你比我以为的，要细心得多。（沉默）好吧。是的，「谢文」，就是我。二十年了。",
+        "grants": { "flags": ["contact_is_insider", "contact_identity_confirmed"] }
+      },
+      {
+        "id": "contact_ch4_why",
+        "condition": { "flags": ["contact_is_insider"] },
+        "speaker": "天机联络人",
+        "text": "为什么？（他苦笑）二十年前，我欠了薛崇礼一条命。他当时救了我，没有问我要什么，但我知道总有一天他会要。果然——要我进天机阁，替他盯着，替他清档。我一直告诉自己，只是看，不动手。但宋怀义那件事……那不是他指示的，是我自己的决定。我怕宋怀义把我说出来。"
       }
     ],
     "interrogation": {

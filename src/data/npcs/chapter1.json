@@ -126,6 +126,19 @@
         "id": "normal_chat",
         "condition": { "flags": ["innkeeper_met"] },
         "text": "客官，实不相瞒，昨夜小店后厨也有些异动，不过……那是内部之事，还请见谅。"
+      },
+      {
+        "id": "lifu_ch5_waiting",
+        "condition": { "flags": ["chapter5_started"], "flags_absent": ["lifu_secret_revealed"] },
+        "speaker": "李福",
+        "text": "（把一碗凉茶推过来）你来了。我等了很久了——不是等你，是等这件事。你去看看地窖那边吧，有些话，还是在那个时机说比较合适。"
+      },
+      {
+        "id": "lifu_ch5_after_reveal",
+        "condition": { "flags": ["lifu_secret_revealed"] },
+        "speaker": "李福",
+        "text": "说完了。这句话我压了十年，说出来之后，感觉轻了很多，也重了很多——轻的是这件事终于可以交出去了，重的是交出去之后，我就不知道它会去哪里了。",
+        "grants": { "flags": ["lifu_ch5_peace"] }
       }
     ],
     "interrogation": {
@@ -653,6 +666,20 @@
             "grants": { "flags": ["fei_ye_insider_shown"] }
           }
         ]
+      },
+      {
+        "id": "fei_ye_ch5_final_words",
+        "condition": { "flags": ["chapter5_started"] },
+        "speaker": "飞爷",
+        "text": "你来找我，说明你已经走到了最后。（他转向你）剩下那一步，是你的，不是我的。二十年前，我做了一个选择——用沉默换了一段平衡。如果你做的选择不一样，我没有立场说什么。只是……不管你怎么选，我都谢谢你，走了这么远，来见我。",
+        "grants": { "flags": ["fei_ye_final_words_spoken"] }
+      },
+      {
+        "id": "fei_ye_ch5_after_choice",
+        "condition": { "flags": ["chapter5_tianji_ending"] },
+        "speaker": "飞爷",
+        "text": "（长时间的沉默）……好。那就再走一次。这一次，我们两个人。",
+        "grants": { "flags": ["fei_ye_ch5_accepted"] }
       }
     ],
     "interrogation": {
