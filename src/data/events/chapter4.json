@@ -1,0 +1,294 @@
+[
+  {
+    "id": "evt_teahouse_front",
+    "title": "茶铺前台",
+    "description": "前台摆着几个茶罐和一只炉子，看起来和普通茶摊没什么区别。但茶罐背面的标签用的是一种特殊格式，不是普通的茶叶产地描述。",
+    "actions": [
+      {
+        "id": "order_tea",
+        "label": "要一碗茶，顺便观察",
+        "requires": null,
+        "result": "茶端来了，伙计把茶罐往旁边推了一下，露出后面的标签——不是普通的产地名，是长安各坊的暗号格式。这个茶铺，确实是归鸟问津的前台。",
+        "grants": { "flags": ["guinian_front_accessed"], "clues": ["clue_guinian_network_confirmed"] }
+      },
+      {
+        "id": "mention_codeword",
+        "label": "低声说出「归鸟问津」暗号",
+        "requires": null,
+        "result": "伙计的动作停了一下，抬眼看你，然后把竹帘撩开了一条缝：「里面有人等着。」",
+        "grants": { "flags": ["guinian_inner_accessed"] }
+      },
+      {
+        "id": "read_jar_labels",
+        "label": "仔细辨认茶罐标签格式（智慧≥6）",
+        "requires": { "wisdom": 6, "flags_absent": ["teahouse_labels_read"] },
+        "result": "你辨认出标签的格式——这是天机阁传统的地点编码方式，用茶叶品种名藏着长安各坊的名称缩写。你把它们默记下来，对照手里的线索，有三个节点最近没有更新过。",
+        "grants": { "flags": ["teahouse_labels_read"], "clues": ["clue_network_silent_nodes"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_teahouse_inner",
+    "title": "茶铺内室",
+    "description": "竹帘后面是另一个空间，墙上挂着长安的堪舆图，几张矮桌上散着文书。一个角落的架子上，分门别类放着厚厚的档案册，大多数看起来很久没有动过了。",
+    "actions": [
+      {
+        "id": "examine_wall_map",
+        "label": "查看堪舆图上的标注",
+        "requires": { "flags": ["guinian_inner_accessed"] },
+        "result": "图上标注着几十个点位。你注意到其中几个用不同颜色标出——红色的点，最近有几个新增。再看标注旁的小字：「已暴露」。网络在收缩，有人知道这些点的位置。",
+        "grants": { "flags": ["network_exposure_seen"], "clues": ["clue_network_compromised"] }
+      },
+      {
+        "id": "check_archive_shelf",
+        "label": "翻看档案架上的文书",
+        "requires": { "flags": ["guinian_inner_accessed"] },
+        "result": "档案册都是旧的——名册、往来记录、联络路线。你随手取了一册，翻到最后几页，发现最近的记录停在三个月前。此后的联络，没有留档。有人把最近的档案清掉了，或者从那时候起就不再记录。",
+        "grants": { "flags": ["archive_gap_found"], "clues": ["clue_archive_wiped_three_months"] }
+      },
+      {
+        "id": "spot_contact_notes",
+        "label": "注意到联络人座位旁的字条（智慧≥7）",
+        "requires": { "wisdom": 7, "flags": ["guinian_inner_accessed"], "flags_absent": ["contact_notes_spotted"] },
+        "result": "联络人的矮桌旁有几张折叠的字条，他起身时随手压在茶碗下。你借个时机扫了一眼——字条上有一列数字，格式很特殊：是廷尉府内部文书的编号格式，不是天机阁自己的体系。你把这个细节压在心里，没有声张。",
+        "grants": { "flags": ["contact_suspicious", "contact_notes_spotted"], "clues": ["clue_contact_censor_link"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_song_note_study",
+    "title": "检视父亲的便条",
+    "description": "宋清月把那张便条展开在桌上——纸张泛黄，折叠多次，字迹工整，到最后一行突然断开，最后半个字的笔画只起了一个头。",
+    "actions": [
+      {
+        "id": "read_note_carefully",
+        "label": "仔细阅读便条全文",
+        "requires": { "flags": ["song_note_seen"], "flags_absent": ["note_full_read"] },
+        "result": "你逐字读完：「吾儿，若你看到此信，说明父亲没能回来。我来长安，不是为了别的。我发现名单上有一个名字不该在那里，而那个人，正是——」便条到这里断了，最后一个字只有半个起笔。那半笔，像是「谢」的撇，又像是别的字。",
+        "grants": { "flags": ["note_full_read"] }
+      },
+      {
+        "id": "analyze_broken_stroke",
+        "label": "辨析最后那半个字的笔迹（智慧≥6）",
+        "requires": { "flags": ["note_full_read"], "wisdom": 6, "flags_absent": ["note_stroke_analyzed"] },
+        "result": "你仔细比对便条上其他字的笔法——宋怀义的字有个特点，撇画起笔时微微向上翘。那半个字的起笔，与他写「谢」字的惯用写法高度吻合。九成以上，断掉的字是「谢」。",
+        "grants": { "flags": ["note_stroke_analyzed"], "clues": ["clue_note_broken_character"] }
+      },
+      {
+        "id": "compare_with_alias",
+        "label": "将半字与「谢」字的含义对照（需已发现联络人可疑）",
+        "requires": { "flags": ["note_stroke_analyzed", "contact_suspicious"], "flags_absent": ["note_character_xie"] },
+        "result": "你想起联络人在归鸟问津据点用的化名——别人称呼他「谢」时，他从不否认。宋清月的父亲便条里那半个字，加上这个化名……你把两件事放在一起，感到一种令人不安的清晰。你让宋清月确认父亲的笔迹习惯。",
+        "grants": { "flags": ["note_character_xie"], "clues": ["clue_note_character_confirmed"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_qingyue_side_inquiry",
+    "title": "追问宋清月的行程",
+    "description": "宋清月手边那本翻烂了的手稿，是她沿路记录的调查笔记——记着父亲最后几个月走过的地方、见过的人、留下的只言片语。",
+    "actions": [
+      {
+        "id": "ask_about_father_route",
+        "label": "问她追查父亲的路线",
+        "requires": { "flags": ["song_qingyue_met"] },
+        "result": "「他从南边来，中途在几个地方停留，都是旧日天机阁的节点——我是后来才知道那些地方有什么意义的。最后一站是长安。他在长安城里待了三天，每天都去一个茶馆——那个茶馆的名字，就叫「归鸟问津」。」",
+        "grants": { "flags": ["qingyue_route_known"] }
+      },
+      {
+        "id": "ask_about_last_night",
+        "label": "问父亲最后一夜的情况",
+        "requires": { "flags": ["qingyue_route_known"] },
+        "result": "「那晚他从茶馆回来，说要去见一个人。我问是谁，他只说「你不认识，但见过之后就会明白」。他没有回来。第二天，掌柜的说有人在客栈里发现了他。」她的眼神落在桌上，过了很久才说：「那个他要去见的人，我一直以为是杀他的人。但也许……不是。」",
+        "grants": { "flags": ["qingyue_trust_gained"], "clues": ["clue_song_last_meeting"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_tunnel_search",
+    "title": "搜查旧货道",
+    "description": "废道的路面留着深辙印，荒草里压着几块标记石。再往里走，有一段塌陷的旧墙，边缘有焦痕，是二十年前的东西。",
+    "actions": [
+      {
+        "id": "examine_route_marks",
+        "label": "辨认路标石的格式",
+        "requires": null,
+        "result": "你认出这些石头的摆法——是天机阁押运线路的标记格式，表示「此路已验，安全通行」。但最后一块标记石翻倒了，倒下的方向和推倒时的用力方式，说明是从外部推倒的——有人在押运前或押运时，悄悄把「安全」标记改成了「危险」。知道这个的人，知道天机阁的内部规矩。",
+        "grants": { "flags": ["tunnel_route_explored"], "clues": ["clue_route_mark_tampered"] }
+      },
+      {
+        "id": "examine_collapsed_wall",
+        "label": "检查塌陷的旧墙",
+        "requires": null,
+        "result": "墙基有明显的火烧痕迹，焦化方向向外——是从内部起火，向外蔓延。二十年前，这里装货物的仓房从里面燃起来了，不是外部投火。这说明引火者在仓房内部，知道货物的位置，也知道何时动手。",
+        "grants": { "flags": ["tunnel_fire_source_found"], "clues": ["clue_internal_arson"] }
+      },
+      {
+        "id": "find_buried_marker",
+        "label": "在草丛里挖找掩埋的东西（力量≥6）",
+        "requires": { "strength": 6, "flags_absent": ["buried_marker_found"] },
+        "result": "你用随身物件翻开路旁积年的泥土——在最深处，挖出一块刻着天机阁旧印的铜牌，背面用极细的刻痕写着一列数字，是天机阁内部的事故编号和经手人代号。其中一个代号，你在茶铺内室的档案里见过——那是联络人的旧代号。",
+        "grants": { "flags": ["buried_marker_found"], "clues": ["clue_contact_old_codename"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_accident_site",
+    "title": "事故遗址",
+    "description": "旧货道最深处，一块矮土坡上长着两棵扭曲的老树，看起来曾经被火燎过，后来又自己长出来的。这里是二十年前那次「事故」真正的发生地点。",
+    "actions": [
+      {
+        "id": "read_scorched_ground",
+        "label": "察看地面的陈年焦痕",
+        "requires": null,
+        "result": "焦痕范围不大，集中在一个点，像是有人在这里烧了一些东西——文书，或者证据。烧完之后，才引燃了货物仓房。这不是简单的「运途失事」，而是有人先清账，再毁迹。",
+        "grants": { "flags": ["accident_site_examined"], "clues": ["clue_premeditated_destruction"] }
+      },
+      {
+        "id": "find_witness_record",
+        "label": "在老树根部找寻藏匿的证据（智慧≥7）",
+        "requires": { "wisdom": 7, "flags_absent": ["tunnel_fire_proof_found"] },
+        "result": "你想起一个旧习惯——当年的天机阁成员在重要事件发生后，往往在附近的固定物里藏一份备份记录，以防主档被毁。你在老树根部的一个天然空洞里，找到一个蜡封的小筒，里面是一份见证记录——见证者：韩朔（当年的无迹和尚）；记录内容：事故经过，以及他看到的那个出现在货道上、不该出现的人的描述。那个人的描述，与联络人早年的样貌高度吻合。",
+        "grants": { "flags": ["tunnel_fire_proof_found"], "items": ["item_witness_cylinder"] }
+      },
+      {
+        "id": "sense_lingering_trace",
+        "label": "以望气之法感应遗址（望气观相）",
+        "requires": { "talent": "望气观相", "flags_absent": ["accident_qi_read"] },
+        "result": "〔气机感知〕你站在遗址中心，缓缓展开感知——这里残留着两种截然不同的气场：一种是仓皇与恐惧的「逃离气场」，另一种是冷静与算计的「筹谋气场」。前者属于被袭击的押运者，后者属于那个事先在这里等候的人。两种气场不在同一个位置——後者的位置，在离遗址三丈之外的一块大石后面。他在那里等，等到合适时机，才动手。",
+        "grants": { "flags": ["accident_qi_read", "accident_truth_known"], "clues": ["clue_accident_premeditated"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_hidden_cache",
+    "title": "旧道隐藏藏点",
+    "description": "按照天机阁的旧惯例，每条押运路线上都有一个隐蔽藏点，用于紧急时期存放备份信息。这条道虽然废弃了，但如果藏点从未被清理……",
+    "actions": [
+      {
+        "id": "find_cache_entrance",
+        "label": "寻找天机阁押运道上的隐藏藏点（天机知识）",
+        "requires": { "flags": ["guinian_inner_accessed"], "flags_absent": ["cache_location_found"] },
+        "result": "你根据茶铺档案里记载的旧格式，在废道第三个路标石旁找到了一块松动的地砖。掀开，下面是一个小型的藏置空间，装着一只防水蜡封的铁匣。",
+        "grants": { "flags": ["cache_location_found"] }
+      },
+      {
+        "id": "open_cache_box",
+        "label": "打开铁匣",
+        "requires": { "flags": ["cache_location_found"], "flags_absent": ["cache_opened"] },
+        "result": "铁匣里有三件东西：一份押运路线的原始手抄本，一枚天机阁的封蜡印章（应该早就该上交），还有一张折叠的薄纸，上面用极小的字写着一个人名和一个地址——那个名字，是「谢文」，那个地址，是薛崇礼宅邸的后门。",
+        "grants": { "flags": ["cache_opened", "xue_under_watch"], "clues": ["clue_xie_wen_address"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_mansion_watch",
+    "title": "监视薛崇礼宅邸",
+    "description": "你在街对面的茶摊坐了很久，观察宅邸的进出规律。守卫换班、家仆进出、偶尔有人单独来访——每一个细节，都说明这不是一个真正「告老」的人的宅邸。",
+    "actions": [
+      {
+        "id": "observe_guard_patterns",
+        "label": "记录守卫换班规律",
+        "requires": { "flags": ["xue_under_watch"], "flags_absent": ["guard_patterns_noted"] },
+        "result": "换班间隔比普通宅邸短，且有备用守卫随时待命——这是长期保持高度警觉的配置，不是普通富贵人家。薛崇礼从未真正卸下他的「工作」，他只是换了个更安静的地方继续。",
+        "grants": { "flags": ["guard_patterns_noted"], "clues": ["clue_xue_still_operational"] }
+      },
+      {
+        "id": "tail_steward",
+        "label": "悄悄跟踪单独外出的管家（敏捷≥7）",
+        "requires": { "agility": 7, "flags": ["xue_under_watch"], "flags_absent": ["steward_tailed"] },
+        "result": "管家走了两条街，进了城南一家茶馆。他坐了一刻钟，没有和任何人正面说话，只是拿起别人留在桌上的茶杯，换了个位置坐——你认出这个动作：这是情报传递的接头方式，茶杯底下压着字条。",
+        "grants": { "flags": ["steward_tailed"], "clues": ["clue_xue_dead_drop_network"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_servant_inquiry",
+    "title": "盘问家仆",
+    "description": "薛府偶有老仆在门口洒扫。这种人通常知道的比他们应该知道的多，也通常什么都不说——但凡事都有例外。",
+    "actions": [
+      {
+        "id": "ask_about_master",
+        "label": "随口问候，顺带打听主人",
+        "requires": { "flags": ["xue_under_watch"] },
+        "result": "老仆把扫帚攥得紧了一点，说：「我家老爷好得很，外面那些胡说的，都是没见识的人传的。」他的语气里有一种过度的笃定，像是在背诵而不是在说话。",
+        "grants": { "flags": ["servant_contacted"] }
+      },
+      {
+        "id": "bribe_servant",
+        "label": "塞给老仆一些铜钱，再问一次（需要贿赂）",
+        "requires": { "flags": ["servant_contacted"], "has": ["bribe_coins"] },
+        "result": "老仆把铜钱攥在手心里，低声说：「最近半年，老爷常常深夜开府，来的人从不走正门。有一次我撞见了，那人穿的不是官服，但腰上有一块天机阁的玉牌——我见过那种玉牌，老爷收过一块，说是旧友相赠。」",
+        "grants": { "flags": ["servant_info_gained"], "clues": ["clue_xue_tianji_contact_link"] }
+      },
+      {
+        "id": "use_official_authority",
+        "label": "出示官凭，要求对方配合问询（官威）",
+        "requires": { "talent": "官威", "flags": ["xue_under_watch"], "flags_absent": ["servant_official_questioned"] },
+        "result": "老仆看了看你的官凭，犹豫了一下，说：「三个月前，老爷收了一封信，没有署名。他看完之后把信烧了，然后把我支出去了很久——那是他几年来头一次这么做。后来有一天他对我说：「如果有人来问，就说我不认识天机阁。」」",
+        "grants": { "flags": ["servant_official_questioned"], "clues": ["clue_xue_letter_destroyed"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_xue_message_intercept",
+    "title": "截获薛府传出的消息",
+    "description": "你注意到薛府有一条消息传出的固定渠道——一个送菜的摊贩，每三天进宅一次，每次出来时手里的包袱总是比进去时重一点。",
+    "actions": [
+      {
+        "id": "intercept_message",
+        "label": "在摊贩出来时设法查看包袱（敏捷≥6）",
+        "requires": { "agility": 6, "flags": ["servant_contacted"], "flags_absent": ["xue_message_intercepted"] },
+        "result": "你在摊贩转角时，快速检查了包袱的夹层——里面有一张折叠的薄纸，上面只有几行字，用了一种简单的替换密码，但你认识这种格式：这是给「归鸟问津」联络点的指令。发指令的人，用的是「谢」的署名。",
+        "grants": { "flags": ["xue_message_intercepted", "xue_evidence_collected"], "clues": ["clue_xue_controls_contact"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_ch4_final_deduction",
+    "title": "第四章终局：归鸟之谜",
+    "description": "归鸟问津的内室，或者你独自静坐之时。线索已经在手——宋清月的便条、旧货道的见证记录、薛府传出的指令、联络人的可疑行为。是时候把它们放在一起，看清这张网的形状。",
+    "actions": [
+      {
+        "id": "name_mastermind_and_insider",
+        "label": "指出幕后者（薛崇礼）和内鬼（天机联络人=谢）",
+        "requires": {
+          "flags": ["xue_evidence_collected", "contact_is_insider", "note_character_xie", "ch4_clues_sufficient"]
+        },
+        "result": "两条线，最终交在一处。薛崇礼——前廷尉令，以「谢」字为化名的内鬼的主使；天机联络人——以「谢」为化名，在归鸟问津里替他销毁证据、清理障碍，是让这张网瘫痪的那双手。宋怀义的便条断在「谢」字，不是巧合——他知道谁是内鬼，他是来告诉飞爷的，但他被杀了，在开口之前。",
+        "grants": { "flags": ["chapter4_expose_ending"] }
+      },
+      {
+        "id": "name_mastermind_only",
+        "label": "只指出薛崇礼，内鬼身份存疑",
+        "requires": {
+          "flags": ["xue_evidence_collected", "tunnel_fire_proof_found", "ch4_clues_sufficient"],
+          "flags_absent": ["contact_is_insider"]
+        },
+        "result": "薛崇礼的轮廓已经清晰——二十年前的事故主谋，名单的篡改者背后的推手。但内鬼的真实身份，还差最后一块拼图。你把已有的证据整理好，等待第五章的机会来补全。",
+        "grants": { "flags": ["chapter4_gather_ending"] }
+      },
+      {
+        "id": "observe_in_silence",
+        "label": "把线索压在手里，暗中观察",
+        "requires": { "flags": ["network_exposure_seen", "ch4_clues_sufficient"] },
+        "result": "真相的形状已经隐约可见，但你选择还不说出来。留着这些，比说出来更安全。等第五章——等所有人都聚到一起的时候，再开口。",
+        "grants": { "flags": ["chapter4_shadow_ending"] }
+      }
+    ]
+  },
+  {
+    "id": "evt_ch4_wisdom_growth",
+    "title": "静思（第四章）",
+    "description": "线索越来越多，这些天收到的信息需要整理。",
+    "actions": [
+      {
+        "id": "ch4_reflect",
+        "label": "静静理清思路",
+        "requires": { "flags": ["chapter4_started"], "flags_absent": ["ch4_wisdom_grown"] },
+        "result": "线索多了，头脑却更清醒了——每一条新证据，都让那张网的形状更清晰一些。",
+        "grants": { "flags": ["ch4_wisdom_grown"], "wisdom": 1 }
+      }
+    ]
+  }
+]
