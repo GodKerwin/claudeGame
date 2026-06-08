@@ -12,22 +12,36 @@ import chapter3MapsRaw from './maps/chapter3.json';
 import chapter3EventsRaw from './events/chapter3.json';
 import chapter3NPCsRaw from './npcs/chapter3.json';
 import chapter3ItemsRaw from './items/chapter3.json';
+import chapter4MapsRaw from './maps/chapter4.json';
+import chapter4EventsRaw from './events/chapter4.json';
+import chapter4NPCsRaw from './npcs/chapter4.json';
+import chapter4ItemsRaw from './items/chapter4.json';
+import chapter5MapsRaw from './maps/chapter5.json';
+import chapter5EventsRaw from './events/chapter5.json';
+import chapter5NPCsRaw from './npcs/chapter5.json';
+import chapter5ItemsRaw from './items/chapter5.json';
 import talentsRaw from './talents.json';
 import templatesRaw from './templates.json';
 import chapter1SynthesesRaw from './syntheses/chapter1.json';
 import chapter2SynthesesRaw from './syntheses/chapter2.json';
 import chapter3SynthesesRaw from './syntheses/chapter3.json';
+import chapter4SynthesesRaw from './syntheses/chapter4.json';
+import chapter5SynthesesRaw from './syntheses/chapter5.json';
 import chapter1ProfilesRaw from './profiles/chapter1.json';
 import chapter2ProfilesRaw from './profiles/chapter2.json';
 import chapter3ProfilesRaw from './profiles/chapter3.json';
+import chapter4ProfilesRaw from './profiles/chapter4.json';
+import chapter5ProfilesRaw from './profiles/chapter5.json';
 import chapter1VerdictRaw from './verdicts/chapter1.json';
 import chapter2VerdictRaw from './verdicts/chapter2.json';
 import chapter3VerdictRaw from './verdicts/chapter3.json';
+import chapter4VerdictRaw from './verdicts/chapter4.json';
+import chapter5VerdictRaw from './verdicts/chapter5.json';
 
-export const MAPS: GameMap[] = [...chapter1MapsRaw, ...chapter2MapsRaw, ...chapter3MapsRaw] as GameMap[];
-export const EVENTS: GameEvent[] = [...chapter1EventsRaw, ...chapter2EventsRaw, ...chapter3EventsRaw] as GameEvent[];
-export const NPCS: NPC[] = [...chapter1NPCsRaw, ...chapter2NPCsRaw, ...chapter3NPCsRaw] as NPC[];
-export const ITEMS: Item[] = [...chapter1ItemsRaw, ...chapter2ItemsRaw, ...chapter3ItemsRaw] as Item[];
+export const MAPS: GameMap[] = [...chapter1MapsRaw, ...chapter2MapsRaw, ...chapter3MapsRaw, ...chapter4MapsRaw, ...chapter5MapsRaw] as GameMap[];
+export const EVENTS: GameEvent[] = [...chapter1EventsRaw, ...chapter2EventsRaw, ...chapter3EventsRaw, ...chapter4EventsRaw, ...chapter5EventsRaw] as GameEvent[];
+export const NPCS: NPC[] = [...chapter1NPCsRaw, ...chapter2NPCsRaw, ...chapter3NPCsRaw, ...chapter4NPCsRaw, ...chapter5NPCsRaw] as NPC[];
+export const ITEMS: Item[] = [...chapter1ItemsRaw, ...chapter2ItemsRaw, ...chapter3ItemsRaw, ...chapter4ItemsRaw, ...chapter5ItemsRaw] as Item[];
 export const TALENTS: Talent[] = talentsRaw as Talent[];
 export const TEMPLATES: CharacterTemplate[] = templatesRaw as CharacterTemplate[];
 
@@ -51,11 +65,15 @@ export const SYNTHESES: Synthesis[] = [
   ...chapter1SynthesesRaw,
   ...chapter2SynthesesRaw,
   ...chapter3SynthesesRaw,
+  ...chapter4SynthesesRaw,
+  ...chapter5SynthesesRaw,
 ] as Synthesis[];
 export const SUSPECT_PROFILES: SuspectProfile[] = [
   ...chapter1ProfilesRaw,
   ...chapter2ProfilesRaw,
   ...chapter3ProfilesRaw,
+  ...chapter4ProfilesRaw,
+  ...chapter5ProfilesRaw,
 ] as SuspectProfile[];
 
 export function getSynthesisResult(itemA: string, itemB: string): Synthesis | undefined {
@@ -73,8 +91,10 @@ const VERDICTS: ChapterVerdict[] = [
   chapter1VerdictRaw as ChapterVerdict,
   chapter2VerdictRaw as ChapterVerdict,
   chapter3VerdictRaw as ChapterVerdict,
+  chapter4VerdictRaw as ChapterVerdict,
+  chapter5VerdictRaw as ChapterVerdict,
 ];
 
-export function getVerdict(chapterId: 1 | 2 | 3): ChapterVerdict | undefined {
+export function getVerdict(chapterId: 1 | 2 | 3 | 4 | 5): ChapterVerdict | undefined {
   return VERDICTS.find((v) => v.chapterId === chapterId);
 }
