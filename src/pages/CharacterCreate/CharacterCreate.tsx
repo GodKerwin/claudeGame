@@ -78,6 +78,19 @@ export default function CharacterCreate() {
       addFlag('chapter3_started');
       addQuest('quest_find_kite');
       navigate('/game');
+    } else if (chapterChoice === '4') {
+      setRoom('guinian_teahouse');
+      addFlag('chapter4_started');
+      addFlag('chapter3_started');
+      addFlag('chapter2_started');
+      navigate('/game');
+    } else if (chapterChoice === '5') {
+      setRoom('wangshi_secret_room');
+      addFlag('chapter5_started');
+      addFlag('chapter4_started');
+      addFlag('chapter3_started');
+      addFlag('chapter2_started');
+      navigate('/game');
     } else {
       navigate('/prologue');
     }

@@ -110,6 +110,8 @@ interface PendingEvidenceGate {
 const CHAPTER1_ENDINGS = ['chapter1_truth_ending', 'chapter1_force_ending', 'chapter1_hermit_ending'];
 const CHAPTER2_ENDINGS = ['chapter2_arrest_ending', 'chapter2_release_ending', 'chapter2_join_ending'];
 const CHAPTER3_ENDINGS = ['chapter3_truth_ending', 'chapter3_standoff_ending', 'chapter3_join_ending'];
+const CHAPTER4_ENDINGS = ['chapter4_expose_ending', 'chapter4_gather_ending', 'chapter4_shadow_ending'];
+const CHAPTER5_ENDINGS = ['chapter5_burn_ending', 'chapter5_entrust_ending', 'chapter5_reveal_ending', 'chapter5_tianji_ending'];
 
 export default function Game() {
   const navigate = useNavigate();
@@ -164,9 +166,11 @@ export default function Game() {
   }, [modal, endingPending, navigate, increaseFontSize, decreaseFontSize]);
 
   useEffect(() => {
+    const inChapter5 = scene.flags.includes('chapter5_started');
+    const inChapter4 = scene.flags.includes('chapter4_started');
     const inChapter3 = scene.flags.includes('chapter3_started');
     const inChapter2 = scene.flags.includes('chapter2_started');
-    const endings = inChapter3 ? CHAPTER3_ENDINGS : inChapter2 ? CHAPTER2_ENDINGS : CHAPTER1_ENDINGS;
+    const endings = inChapter5 ? CHAPTER5_ENDINGS : inChapter4 ? CHAPTER4_ENDINGS : inChapter3 ? CHAPTER3_ENDINGS : inChapter2 ? CHAPTER2_ENDINGS : CHAPTER1_ENDINGS;
     if (endings.some((f) => scene.flags.includes(f))) {
       audioEngine.playSFX('chapter');
       setEndingPending(true);
@@ -176,15 +180,21 @@ export default function Game() {
   // 线索数量门槛：达到后自动打 flag，供结局 requires 检查
   useEffect(() => {
     const count = scene.clues.length;
+    const inCh5 = scene.flags.includes('chapter5_started');
+    const inCh4 = scene.flags.includes('chapter4_started');
     const inCh3 = scene.flags.includes('chapter3_started');
     const inCh2 = scene.flags.includes('chapter2_started');
-    const ch = inCh3 ? 3 : inCh2 ? 2 : 1;
+    const ch = inCh5 ? 5 : inCh4 ? 4 : inCh3 ? 3 : inCh2 ? 2 : 1;
     if (ch === 1 && count >= 9 && !scene.flags.includes('ch1_clues_sufficient'))
       scene.addFlag('ch1_clues_sufficient');
     else if (ch === 2 && count >= 6 && !scene.flags.includes('ch2_clues_sufficient'))
       scene.addFlag('ch2_clues_sufficient');
     else if (ch === 3 && count >= 5 && !scene.flags.includes('ch3_clues_sufficient'))
       scene.addFlag('ch3_clues_sufficient');
+    else if (ch === 4 && count >= 6 && !scene.flags.includes('ch4_clues_sufficient'))
+      scene.addFlag('ch4_clues_sufficient');
+    else if (ch === 5 && count >= 3 && !scene.flags.includes('ch5_clues_sufficient'))
+      scene.addFlag('ch5_clues_sufficient');
   }, [scene.clues.length, scene.flags]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -195,8 +205,10 @@ export default function Game() {
 
   const room = getRoom(scene.currentRoomId);
 
-  const chapter = useMemo<1 | 2 | 3>(() =>
-    scene.flags.includes('chapter3_started') ? 3
+  const chapter = useMemo<1 | 2 | 3 | 4 | 5>(() =>
+    scene.flags.includes('chapter5_started') ? 5
+    : scene.flags.includes('chapter4_started') ? 4
+    : scene.flags.includes('chapter3_started') ? 3
     : scene.flags.includes('chapter2_started') ? 2
     : 1,
   [scene.flags]);

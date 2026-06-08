@@ -92,6 +92,8 @@ export default function MainMenu() {
 
   const saveSubtitle = (() => {
     const f: string[] = autoSave?.data?.flags ?? [];
+    if (f.includes('chapter5_started')) return '第五章·天机再动';
+    if (f.includes('chapter4_started')) return '第四章·归鸟问津';
     if (f.includes('chapter3_started')) return '第三章·鸢归何处';
     if (f.includes('chapter2_started')) return '第二章·东市风云';
     return '第一章·长安往事';
@@ -116,7 +118,7 @@ export default function MainMenu() {
     navigate('/game');
   };
 
-  const handleChapterSelect = (chapter: '1' | '2' | '3') => {
+  const handleChapterSelect = (chapter: '1' | '2' | '3' | '4' | '5') => {
     sessionStorage.setItem('tianji-chapter-select', chapter);
     navigate('/create');
   };
@@ -170,7 +172,7 @@ export default function MainMenu() {
 
         {/* 副题 */}
         <p className="text-ink/28 text-xs tracking-[0.32em] mt-4">
-          往事客栈 · 一夜风雨 · 三章奇局
+          往事客栈 · 一夜风雨 · 五章奇局
         </p>
 
         {/* 推理文字游戏 */}
@@ -263,6 +265,8 @@ export default function MainMenu() {
                   { ch: '1', label: '第一章·往事' },
                   { ch: '2', label: '第二章·东市' },
                   { ch: '3', label: '第三章·鸢归' },
+                  { ch: '4', label: '第四章·归鸟' },
+                  { ch: '5', label: '第五章·天机' },
                 ] as const).map(({ ch, label }) => (
                   <button
                     key={ch}

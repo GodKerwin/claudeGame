@@ -24,6 +24,19 @@ const CHAPTER3_ENDINGS: Record<string, string> = {
   chapter3_join_ending: '你烧了追查令，他告诉了你名单的下落。两个人，一张网，对抗同一个还没有名字的敌人。这局棋，还没有下完。',
 };
 
+const CHAPTER4_ENDINGS: Record<string, string> = {
+  chapter4_expose_ending: '内鬼与幕后者，你一手将他们从阴影里拉出来。二十年的噤声，在这一刻松动了。',
+  chapter4_gather_ending: '证据已齐，真相的形状已经清晰。最后那一步，等到所有人都到场的时候，再说。',
+  chapter4_shadow_ending: '你把所有的线索压在手里，选择暂时沉默。有时候，等待是一种力量。',
+};
+
+const CHAPTER5_ENDINGS: Record<string, string> = {
+  chapter5_burn_ending: '火烧尽了，灰烬里没有声音。这个选择，你一个人知道它意味着什么。',
+  chapter5_entrust_ending: '真相被托付给了一个你信得过的人。宋怀义的名字，终于从「叛徒」那列消失了。',
+  chapter5_reveal_ending: '坊间的流言，比任何一道官文都走得快。真相以碎片的形式，回到了长安城里。',
+  chapter5_tianji_ending: '天机再动。这一次，有两个人，一张更完整的名单，以及一件还没做完的事。',
+};
+
 interface EndingStyle {
   sealChar: string;
   sealColor: string;
@@ -41,12 +54,21 @@ const ENDING_STYLES: Record<string, EndingStyle> = {
   chapter3_truth_ending:   { sealChar: '公', sealColor: 'rgba(201,168,76,0.90)',  atmosphereColor: 'rgba(201,168,76,0.09)',  label: '公诸' },
   chapter3_standoff_ending:{ sealChar: '峙', sealColor: 'rgba(140,130,110,0.75)', atmosphereColor: 'rgba(60,55,45,0.06)',    label: '对峙' },
   chapter3_join_ending:    { sealChar: '同', sealColor: 'rgba(58,122,90,0.90)',   atmosphereColor: 'rgba(58,122,90,0.08)',   label: '同行' },
+  chapter4_expose_ending:  { sealChar: '露', sealColor: 'rgba(201,168,76,0.90)', atmosphereColor: 'rgba(201,168,76,0.09)', label: '揭露' },
+  chapter4_gather_ending:  { sealChar: '备', sealColor: 'rgba(140,130,110,0.75)', atmosphereColor: 'rgba(60,55,45,0.06)',   label: '备证' },
+  chapter4_shadow_ending:  { sealChar: '伺', sealColor: 'rgba(80,100,130,0.75)', atmosphereColor: 'rgba(50,65,90,0.06)',   label: '静观' },
+  chapter5_burn_ending:    { sealChar: '炬', sealColor: 'rgba(139,26,26,0.88)',  atmosphereColor: 'rgba(139,26,26,0.08)',  label: '付炬' },
+  chapter5_entrust_ending: { sealChar: '托', sealColor: 'rgba(201,168,76,0.88)', atmosphereColor: 'rgba(201,168,76,0.07)', label: '托付' },
+  chapter5_reveal_ending:  { sealChar: '布', sealColor: 'rgba(58,122,90,0.88)',  atmosphereColor: 'rgba(58,122,90,0.07)',  label: '公布' },
+  chapter5_tianji_ending:  { sealChar: '启', sealColor: 'rgba(100,160,200,0.90)', atmosphereColor: 'rgba(80,130,170,0.09)', label: '再启' },
 };
 
 const CHAPTER_CLOSE_CAPTIONS: Record<string, string> = {
   '1': '——线索已握，长安还在等你。',
   '2': '——黑幕初破，名单仍藏深处。',
   '3': '——真相既出，万事终有归处。',
+  '4': '——幕后者已现，最终一役，等你来定。',
+  '5': '——万事有始有终，此局，由你落子。',
 };
 
 const CASE_SUMMARIES: Record<string, Array<{ label: string; content: string }>> = {
@@ -67,6 +89,18 @@ const CASE_SUMMARIES: Record<string, Array<{ label: string; content: string }>> 
     { label: '名单', content: '记录37名被庇护者——天机阁保护的是「不该死之人」，非情报买卖' },
     { label: '威胁', content: '廷尉府某层级官员主导，系统追杀名单成员，与二十年前旧案一脉相承' },
     { label: '结局', content: '飞爷被带走，名单由你接管。廷尉府旧案重启，真相公诸于众' },
+  ],
+  chapter4_expose_ending: [
+    { label: '内鬼', content: '天机联络人（化名「谢文」）——薛崇礼安插的棋子，在归鸟问津据点销毁档案、暴露节点，并在宋怀义即将开口时自行决定灭口' },
+    { label: '幕后', content: '薛崇礼——前廷尉令，二十年前以北境秘密往来换取政治保护，天机阁掌握其罪证后进行反向绑架' },
+    { label: '吹哨', content: '宋怀义发现名单被篡改，独自来长安欲告知飞爷，却因内鬼存在而无法走内部渠道，最终被灭口' },
+    { label: '便条', content: '宋怀义临终便条断于「谢」字，李福的临终话也指向同一个「谢」字——两条后路，殊途同归' },
+  ],
+  chapter5_tianji_ending: [
+    { label: '真相', content: '名单=飞爷的庇护承诺；宋怀义=吹哨人；内鬼=天机联络人；幕后=薛崇礼' },
+    { label: '选择', content: '以修复后的名单为基础，与飞爷一同重建天机阁，继续保护那些走投无路的人' },
+    { label: '证据', content: '薛崇礼的把柄被保存，作为将来的后手——不是要用它，而是不让它消失' },
+    { label: '尾声', content: '往事客栈收到一封无名信：「天机再动。」李福把信叠好，放进了贴身的内袋里' },
   ],
 };
 
@@ -108,17 +142,27 @@ export default function ChapterEnd() {
   const [showButton, setShowButton] = useState(false);
   const [sealVisible, setSealVisible] = useState(false);
 
+  const isChapter5 = scene.flags.includes('chapter5_started');
+  const isChapter4 = scene.flags.includes('chapter4_started');
   const isChapter3 = scene.flags.includes('chapter3_started');
   const isChapter2 = scene.flags.includes('chapter2_started');
 
-  const endingFlag = isChapter3
+  const endingFlag = isChapter5
+    ? Object.keys(CHAPTER5_ENDINGS).find((f) => scene.flags.includes(f))
+    : isChapter4
+    ? Object.keys(CHAPTER4_ENDINGS).find((f) => scene.flags.includes(f))
+    : isChapter3
     ? Object.keys(CHAPTER3_ENDINGS).find((f) => scene.flags.includes(f))
     : isChapter2
     ? Object.keys(CHAPTER2_ENDINGS).find((f) => scene.flags.includes(f))
     : Object.keys(CHAPTER1_ENDINGS).find((f) => scene.flags.includes(f));
 
   const endingText = endingFlag
-    ? isChapter3
+    ? isChapter5
+      ? CHAPTER5_ENDINGS[endingFlag]
+      : isChapter4
+      ? CHAPTER4_ENDINGS[endingFlag]
+      : isChapter3
       ? CHAPTER3_ENDINGS[endingFlag]
       : isChapter2
       ? CHAPTER2_ENDINGS[endingFlag]
@@ -132,7 +176,7 @@ export default function ChapterEnd() {
 
   const endingStyle = endingFlag ? ENDING_STYLES[endingFlag] : null;
 
-  const chapterTitle = isChapter3 ? '第三章·完' : isChapter2 ? '第二章·完' : '第一章·完';
+  const chapterTitle = isChapter5 ? '第五章·完' : isChapter4 ? '第四章·完' : isChapter3 ? '第三章·完' : isChapter2 ? '第二章·完' : '第一章·完';
 
   const clueItems = clues
     .map((id) => getItem(id))
@@ -182,8 +226,16 @@ export default function ChapterEnd() {
   }, [lines.length]);
 
   const handleContinue = () => {
-    if (isChapter3) {
+    if (isChapter5) {
       navigate('/');
+    } else if (isChapter4) {
+      scene.addFlag('chapter5_started');
+      scene.setRoom('wangshi_secret_room');
+      navigate('/game');
+    } else if (isChapter3) {
+      scene.addFlag('chapter4_started');
+      scene.setRoom('guinian_teahouse');
+      navigate('/game');
     } else if (isChapter2) {
       scene.addFlag('chapter3_started');
       const startRoom = scene.flags.includes('chapter2_join_ending')
@@ -199,7 +251,7 @@ export default function ChapterEnd() {
   };
 
   const handleRetry = () => {
-    const chNum = isChapter3 ? '3' : isChapter2 ? '2' : '1';
+    const chNum = isChapter5 ? '5' : isChapter4 ? '4' : isChapter3 ? '3' : isChapter2 ? '2' : '1';
     sessionStorage.setItem('tianji-chapter-select', chNum);
     navigate('/create');
   };
@@ -329,20 +381,20 @@ export default function ChapterEnd() {
             <div className="w-8 h-px bg-gold/20" />
           </div>
           {(() => {
-            const chNum = isChapter3 ? '3' : isChapter2 ? '2' : '1';
+            const chNum = isChapter5 ? '5' : isChapter4 ? '4' : isChapter3 ? '3' : isChapter2 ? '2' : '1';
             const caption = CHAPTER_CLOSE_CAPTIONS[chNum];
             return caption ? (
               <p className="text-ink/22 text-[11px] tracking-[0.2em] italic mb-3 text-center">{caption}</p>
             ) : null;
           })()}
-          {!isChapter3 && (
+          {!isChapter5 && (
             <p className="text-ink/18 text-[10px] tracking-[0.15em] mb-4 text-center">建议在继续前保存游戏</p>
           )}
           <button
             onClick={handleContinue}
             className="btn-jianghu border border-gold/40 text-gold/75 px-12 py-2.5 text-sm tracking-[0.3em] hover:border-gold hover:text-gold transition-all cursor-pointer"
           >
-            {isChapter3 ? '回到主菜单' : '前往下一章'}
+            {isChapter5 ? '回到主菜单' : '前往下一章'}
           </button>
           <button
             onClick={handleRetry}

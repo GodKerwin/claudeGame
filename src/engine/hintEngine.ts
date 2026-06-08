@@ -1,7 +1,7 @@
 export interface HintContext {
   flags: string[];
   items: string[];
-  chapter: 1 | 2 | 3;
+  chapter: 1 | 2 | 3 | 4 | 5;
   strength: number;
   agility: number;
   wisdom: number;
@@ -369,9 +369,111 @@ const CHAPTER3_RULES: HintRule[] = [
   },
 ];
 
+const CHAPTER4_RULES: HintRule[] = [
+  {
+    when: (ctx) =>
+      has(ctx, 'chapter4_started') &&
+      !has(ctx, 'guinian_inner_accessed') &&
+      !has(ctx, 'song_qingyue_met'),
+    hint: '第四章伊始。进入「归鸟问津」茶水铺说出暗号，进入内室；或前往宋清月落脚处（她在城南的小客栈）。两条线可并行推进。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'ch4_clues_sufficient') &&
+      has(ctx, 'xue_evidence_collected') &&
+      has(ctx, 'contact_is_insider') &&
+      has(ctx, 'note_character_xie'),
+    hint: '证据已齐——内鬼、幕后者、宋怀义的真实使命，都已拼全。在茶铺内室的「第四章终局」事件中做出最终判断。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'note_stroke_analyzed') &&
+      !has(ctx, 'note_character_xie') &&
+      has(ctx, 'contact_suspicious'),
+    hint: '便条断字已分析出是「谢」的起笔，联络人也已经引起了怀疑。和宋清月交谈，让她确认父亲的笔迹习惯——两条线在这里汇合。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'guinian_inner_accessed') &&
+      !has(ctx, 'contact_suspicious') &&
+      !has(ctx, 'archive_gap_found'),
+    hint: '进了内室，要仔细。查看堪舆图的红点标注，翻档案架（尤其是最后几页），还有——留心联络人桌旁的字条。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'song_qingyue_met') &&
+      !has(ctx, 'qingyue_trust_gained'),
+    hint: '宋清月还没信任你。多问问她父亲的事——她的行程、最后那晚的情况。信任是问出来的。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'qingyue_trust_gained') &&
+      !has(ctx, 'song_note_seen'),
+    hint: '宋清月信任你了。再和她谈一次，她会拿出父亲留下的便条。',
+  },
+  {
+    when: (ctx) =>
+      !has(ctx, 'tunnel_site_explored') &&
+      has(ctx, 'guinian_inner_accessed'),
+    hint: '旧货道遗址（茶铺→旧货道方向）藏着二十年前押运事故的真相，也藏着联络人早年参与的证据。去探查。',
+  },
+  {
+    when: (ctx) =>
+      !has(ctx, 'xue_under_watch') &&
+      has(ctx, 'tunnel_site_explored'),
+    hint: '旧货道旧道藏点的铁匣里有一个地址——薛崇礼宅邸后门。前往宅邸外，开始监视他的行动。',
+  },
+  {
+    when: () => true,
+    hint: '第四章两条主线：调查内鬼（茶铺→联络人→便条→宋清月确认）；调查幕后者（旧货道→薛府外→截获指令）。两条线汇合，才能做最终推断。',
+  },
+];
+
+const CHAPTER5_RULES: HintRule[] = [
+  {
+    when: (ctx) =>
+      has(ctx, 'chapter5_started') &&
+      !has(ctx, 'ch5_gathering_begun'),
+    hint: '第五章，所有人已在往事客栈密室等候。先在密室里与飞爷、韩朔、宋清月交谈，让每个人都说出自己的立场——这是做最终决定的前提。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'ch5_gathering_begun') &&
+      !has(ctx, 'lifu_secret_revealed'),
+    hint: '四方已聚，但还缺一句话——从密室前往地窖，李福一直在等着说出那句藏了十年的话。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'lifu_secret_revealed') &&
+      !has(ctx, 'final_evidence_assembled'),
+    hint: '李福说完了，但还有一件东西——问他那个锁着的小盒子里装的是什么。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'final_evidence_assembled') &&
+      !has(ctx, 'xue_final_message_received'),
+    hint: '证据汇总完毕。在终章路口的事件「薛崇礼的最后一步」里，会收到他最后的施压信——读完，再做决定。',
+  },
+  {
+    when: (ctx) =>
+      has(ctx, 'final_evidence_assembled') &&
+      !has(ctx, 'chapter5_tianji_ending') &&
+      has(ctx, 'chapter3_join_ending'),
+    hint: '你之前选择了同行，飞爷一直在等你。在终章路口选择「天机再启」——这是给那个选择的人的结尾。',
+  },
+  {
+    when: () => true,
+    hint: '四种结局都在终章路口等你。每种选择都有代价，没有完美的答案——飞爷说「这一步是你的，不是我的」，他说的是真的。',
+  },
+];
+
 export function getHint(ctx: HintContext): string {
   const rules =
-    ctx.chapter === 3
+    ctx.chapter === 5
+      ? CHAPTER5_RULES
+      : ctx.chapter === 4
+      ? CHAPTER4_RULES
+      : ctx.chapter === 3
       ? CHAPTER3_RULES
       : ctx.chapter === 2
       ? CHAPTER2_RULES
