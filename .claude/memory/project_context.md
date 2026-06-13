@@ -8,7 +8,7 @@ metadata:
 ---
 
 ## 项目简介
-**天机残卷** — 唐代风格推理文字游戏，共三章，玩家扮演不同职业调查命案。
+**天机残卷** — 唐代风格推理文字游戏，共**五章**（Ch4「归鸟问津」/Ch5「天机再动」已实装），玩家扮演不同职业调查命案。剧情须遵守 [[project-story-directive]]。
 
 ## 技术栈
 - React 19 + TypeScript + Tailwind CSS + Vite
@@ -93,6 +93,14 @@ metadata:
 | 第三章 | 532 | 333 | 8 | 16 |
 
 ## 重要 Bug 修复历史
+
+### 第四/五章审计（2026-06-13）
+- npc ID 不一致：ch5 map/profile 用 `npc_lifu`，实际定义是 `npc_innkeeper_li_fu`（已统一）
+- 重复 item 定义：`qi_trace_clue` 在 ch1+ch3 各定义一次（内容相同）→ 删 ch3 冗余，ch1 为唯一来源（ch1 事件授予，ch3 合成复用）
+- sceneStore: 进入 ch4/ch5 未重置 timeOfDay（原只处理 ch2/ch3）→ 已补
+- eventEngine: `ch4/ch5_clues_sufficient` 缺具体提示文案，回退到通用「条件未满足」→ 已补
+- 新增测试：`crossReferenceIntegrity.test.ts`（全章节通用引用校验）+ endingReachability 补 ch4/ch5 可达性与完成保证。测试 348 用例 / 17 文件全过
+- ⚠️ **未修的设计弱点**：`scene.clues` 跨章累积不清零，Game.tsx 的 `chN_clues_sufficient` 门槛按累计线索数判定，故 ch4(≥6)/ch5(≥3) 进章即满足，门槛形同虚设。不卡关（偏宽松），但若想让后期章节门槛生效需改为「按当前章节新增线索计数」。待用户决定。
 
 ### 本会话完成（2026-06-05）
 - 修复 `clue_kite_true_identity`（无名纸条）缺少 `isClue: true` 字段
