@@ -54,7 +54,11 @@ export const useSceneStore = create<SceneState>((set) => ({
   addFlag: (flag) =>
     set((s) => {
       if (s.flags.includes(flag)) return s;
-      const isChapterStart = flag === 'chapter2_started' || flag === 'chapter3_started';
+      const isChapterStart =
+        flag === 'chapter2_started' ||
+        flag === 'chapter3_started' ||
+        flag === 'chapter4_started' ||
+        flag === 'chapter5_started';
       return {
         flags: [...s.flags, flag],
         ...(isChapterStart ? { timeOfDay: 'morning' as TimeOfDay } : {}),

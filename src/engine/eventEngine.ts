@@ -40,6 +40,8 @@ const SPECIFIC_FLAG_HINTS: Record<string, string> = {
   wujue_tianji_revealed:   '无迹和尚尚未开口——需先以证据当面质问他',
   ch2_clues_sufficient:    '收集的线索还不充分，案情尚不全面',
   ch3_clues_sufficient:    '收集的线索还不充分，真相尚未完整呈现',
+  ch4_clues_sufficient:    '收集的线索还不充分，幕后的轮廓尚未清晰',
+  ch5_clues_sufficient:    '收集的线索还不充分，最后的抉择尚缺依据',
 };
 
 export function getMissingConditionLabel(condition: Condition | null | undefined, ctx: EvalContext): string {
