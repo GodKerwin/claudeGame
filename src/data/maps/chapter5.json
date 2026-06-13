@@ -49,7 +49,7 @@
         "name": "往事客栈·地窖（再入）",
         "description": "你上一次来这里，是追查一桩命案。这一次来，李福已经在灯下等着了。他的油灯比上次亮一点，桌上放着一碗茶，是凉的。他看见你进来，把茶推到你面前，说：「你应该来了很久了。我一直在等一个合适的人。」",
         "interactables": [
-          "npc_lifu",
+          "npc_innkeeper_li_fu",
           "evt_lifu_last_secret",
           "evt_cellar_final_clue"
         ],
